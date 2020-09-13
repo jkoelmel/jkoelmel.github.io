@@ -2,6 +2,10 @@ import React from 'react'
 import {BrowserRouter,Switch,Route} from 'react-router-dom'
 import Landing from './Pages/LandingPage/index'
 import BrookePage from './Pages/BrookePage/brooke.page'
+import MichaelPage from "./Pages/MichaelsPage/michael"
+import ChiuPage from "./Pages/ChiuPage/chiupage"
+import JarettPage from "./Pages/JarettPage/JarettPage"
+import PaulPage from "./Pages/PaulPage/PaulPage"
 //Will handle all page routing
 export const Routes = () => (
     <BrowserRouter>
@@ -10,6 +14,10 @@ export const Routes = () => (
                 <Landing/>
             </Route>
             <Route exact path={'/brooke'} component={BrookePage} title={'Brooke Porter'}/>
+            <Route exact path={'/michael'} component={MichaelPage} title={'Michael Canson'}/>
+            <Route exact path={'/chiu'} component={ChiuPage} title={'Chiu Wong'}/>
+            <Route exact path={'/jarett'} component={JarettPage} title={'Jarett Koelmel'}/>
+            <Route exact path={'/paul'} component={PaulPage} title={'Paul Borst'}/>
         </Switch>
 
     </BrowserRouter>

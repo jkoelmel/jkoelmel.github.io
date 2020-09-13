@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import portrait from '../../Assets/Images/brooke_portrait.jpg'
+import {Button} from "react-bootstrap";
 
 class BrookePage extends Component {
 
@@ -8,6 +9,8 @@ class BrookePage extends Component {
             <div className={'brooke-page'}>
                 <img src={portrait} alt={'Portrait of Brooke Porter'} className={'brooke-image'}/>
                 <div className={'brooke-body'}>
+                    <Button href="/">Back</Button><br/><br/>
+
                     <h1>Brooke Porter</h1>
                     <h2>Team 2: Backend Engineer</h2>
 
