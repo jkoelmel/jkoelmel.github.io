@@ -6,9 +6,9 @@ class BrookePage extends Component {
 
     render() {
         return (
-            <div className={'brooke-page'}>
-                <img src={portrait} alt={'Portrait of Brooke Porter'} className={'brooke-image'}/>
-                <div className={'brooke-body'}>
+            <div className={'page'}>
+                <img src={portrait} alt={'Portrait of Brooke Porter'} className={'image'}/>
+                <div className={'body'}>
                     <Button href="/">Back</Button><br/><br/>
 
                     <h1>Brooke Porter</h1>

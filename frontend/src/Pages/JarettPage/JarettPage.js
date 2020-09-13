@@ -15,9 +15,7 @@ class JarettPage extends Component {
 
                 <p>As team leader, I am responsible for general DevOps and product deployment management.
                     The natural overlap between leading a team and managing communication, morale, and scheduling resulted
-                    in my taking over the position of scrum master as well. This freed up more of my team members to focus
-                    on development tasks and not have to worry about the minutiae of the development process or interfacing
-                    with the client. While the development of tech-based products is new to my repertoire, I have a decade of
+                    in my taking over the position of scrum master as well. While the development of tech-based products is new to my repertoire, I have a decade of
                     experience in naval engineering, product line management, and scheduling of multiple platforms'
                     equipment.</p>
                 </div>

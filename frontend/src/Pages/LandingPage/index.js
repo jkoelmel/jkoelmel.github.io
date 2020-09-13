@@ -6,10 +6,10 @@ import { Button } from "react-bootstrap"
 const Landing = () => {
     return (
         <body>
-        <h1>Software Engineering class SFSU</h1>
+        <h1>CSC648 Software Engineering SFSU</h1>
         <h1>FALL 2020</h1>
         <h1>Section 01</h1>
-        <h1>TEAM 2</h1>
+        <h1>Team 2</h1>
         <p><br/><br/>
             Team member 1 &nbsp;
             <Button href="/jarett">Jarett Koelmel</Button>
@@ -20,7 +20,7 @@ const Landing = () => {
         </p>
         <p>
             Team member 3 &nbsp;
-            <Button href="/">Eric Chen</Button>
+            <Button href="/eric">Eric Chen</Button>
         </p>
         <p>
             Team member 4 &nbsp;

@@ -6,6 +6,7 @@ import MichaelPage from "./Pages/MichaelsPage/michael"
 import ChiuPage from "./Pages/ChiuPage/chiupage"
 import JarettPage from "./Pages/JarettPage/JarettPage"
 import PaulPage from "./Pages/PaulPage/PaulPage"
+import EricPage from "./Pages/EricPage/EricPage"
 //Will handle all page routing
 export const Routes = () => (
     <BrowserRouter>
@@ -18,6 +19,7 @@ export const Routes = () => (
             <Route exact path={'/chiu'} component={ChiuPage} title={'Chiu Wong'}/>
             <Route exact path={'/jarett'} component={JarettPage} title={'Jarett Koelmel'}/>
             <Route exact path={'/paul'} component={PaulPage} title={'Paul Borst'}/>
+            <Route exact path={'/eric'} component={EricPage} title={'Eric Chen'}/>
         </Switch>
 
     </BrowserRouter>
