@@ -7,7 +7,7 @@ const Landing = () => {
     return (
         <body>
         <h1>CSC648 Software Engineering SFSU</h1>
-        <h1>FALL 2020</h1>
+        <h1>Fall 2020</h1>
         <h1>Section 01</h1>
         <h1>Team 2</h1>
         <p><br/><br/>
@@ -32,7 +32,7 @@ const Landing = () => {
         </p>
         <p>
             Team member 6 &nbsp;
-            <Button href="/">Peter Hu</Button>
+            <Button href="/peter">Peter Hu</Button>
         </p>
         <p>
             Team member 7 &nbsp;
