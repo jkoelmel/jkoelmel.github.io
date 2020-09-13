@@ -8,10 +8,13 @@ class PeterPage extends Component {
         return (
             <div>
                 {/*<img src={portrait} alt={'Paul Borst'} className={'image'}/>*/}
-                <div>
+                <div className={'body'}>
                     <Button href="/">Back</Button><br/><br/>
-                    Placeholder for Peter's page.
-
+                        <h1>Peter Hu</h1>
+                        <h2>Team2 Back-end Lead</h2>
+                        <h3>Email: chu3@mail.sfsu.edu</h3>
+                        <p>I like jokes and riddles.</p>>
+                        <p><a href="https://www.linkedin.com/in/peter-hu-0279211a2/">LinkedIn </a></p>
                 </div>
             </div>
         );
