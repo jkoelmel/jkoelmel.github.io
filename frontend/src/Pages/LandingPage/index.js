@@ -1,7 +1,8 @@
 import React from 'react'
 import "./styles.css"
-import { Button } from "react-bootstrap"
-
+// import { Button } from "react-bootstrap"
+import {Link} from "react-router-dom"
+import Button from '@material-ui/core/Button'
 
 const Landing = () => {
     return (
@@ -12,31 +13,35 @@ const Landing = () => {
         <h1>Team 2</h1>
         <p><br/><br/>
             Team member 1 &nbsp;
-            <Button href="/jarett">Jarett Koelmel</Button>
+            <Button variant="contained" href="/jarett">Jarett Koelmel</Button>
         </p>
         <p>
             Team member 2 &nbsp;
-            <Button href="/chiu">Chiu Wong</Button>
+            <Button variant="contained" href="/chiu">Chiu Wong</Button>
         </p>
         <p>
             Team member 3 &nbsp;
-            <Button href="/eric">Eric Chen</Button>
+            <Button variant="contained" href="/eric">Eric Chen</Button>
         </p>
         <p>
             Team member 4 &nbsp;
-            <Button href="/brooke">Brooke Porter</Button>
+            <Button variant="contained" href="/brooke">Brooke Porter</Button>
         </p>
         <p>
             Team member 5 &nbsp;
-            <Button href="/paul">Paul Borst</Button>
+            <Button variant="contained" href="/paul">Paul Borst</Button>
         </p>
         <p>
             Team member 6 &nbsp;
-            <Button href="/peter">Peter Hu</Button>
+            <Button variant="contained" href="/peter">Peter Hu</Button>
         </p>
         <p>
             Team member 7 &nbsp;
-            <Button href="/michael">Michael Canson</Button>
+            {/* <Button href="/michael">Michael Canson</Button> */}
+            {/* <Link to="/michael">Michael Canson</Link> */}
+            <Button variant="contained" href="/michael">
+                Michael Canson
+            </Button>
         </p>
         </body>
     )
