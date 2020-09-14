@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import portrait from '../../Assets/Images/chiu.jpg'
 import "../style.css"
-import {Button} from "react-bootstrap";
+import Button from '@material-ui/core/Button'
 class ChiuPage extends Component {
 
     render() {
@@ -9,7 +9,7 @@ class ChiuPage extends Component {
             <div className={'page'}>
                 <img src={portrait} alt={'Chiu Wong'} className={'image'}/>
                 <div className={'body'}>
-                    <Button href="/">Back</Button><br/><br/>
+                    <Button variant="contained" href="/">Back</Button><br/><br/>
                     <h1>Chiu Yin Wong</h1>
                     <h2>Team2 Front-end Lead</h2>
                     <h3>Email: cwong24@mail.sfsu.edu</h3>

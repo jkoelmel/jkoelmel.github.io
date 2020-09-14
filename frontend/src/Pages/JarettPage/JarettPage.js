@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import portrait from '../../Assets/Images/jarett.jpg'
-import {Button} from "react-bootstrap";
+import Button from '@material-ui/core/Button'
 
 class JarettPage extends Component {
 
@@ -9,7 +9,7 @@ class JarettPage extends Component {
             <div className={'page'}>
                 <img src={portrait} alt={'Jarett Koelmel'} className={'image'}/>
                 <div className={'body'}>
-                    <Button href="/">Back</Button><br/><br/>
+                    <Button variant="contained" href="/">Back</Button><br/><br/>
                     <h1>Jarett Koelmel</h1>
                     <h3>Team Lead/Scrum Master</h3>
                     <h3>jkoelmel1@mail.sfsu.edu</h3>

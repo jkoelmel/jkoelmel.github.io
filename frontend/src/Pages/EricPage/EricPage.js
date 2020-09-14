@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button} from "react-bootstrap"
+import Button from '@material-ui/core/Button'
 
 class EricPage extends Component {
 
@@ -7,7 +7,7 @@ class EricPage extends Component {
         return (
             <div>
                 <div>
-                    <Button href="/">Back</Button><br/><br/>
+                    <Button variant="contained" href="/">Back</Button><br/><br/>
                     <h1>Eric Chen </h1>
                     <h2>Team 2 - Git Master</h2>
                     <h3>Student ID: 918303794</h3>

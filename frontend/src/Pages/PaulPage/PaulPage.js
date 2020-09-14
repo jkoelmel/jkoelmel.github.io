@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import portrait from '../../Assets/Images/Paul.jpg'
-import {Button} from "react-bootstrap";
+import Button from '@material-ui/core/Button'
 
 class PaulPage extends Component {
 
@@ -9,7 +9,7 @@ class PaulPage extends Component {
             <div className={'page'}>
                 <img src={portrait} alt={'Paul Borst'} className={'image'}/>
                 <div className={'body'}>
-                    <Button href="/">Back</Button><br/><br/>
+                    <Button variant="contained" href="/">Back</Button><br/><br/>
                     <h1>Paul James Borst</h1>
                     <h2>Team2 Front-end</h2>
                     <h3>Email: pborst@mail.sfsu.edu</h3>

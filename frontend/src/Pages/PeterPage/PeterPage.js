@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {Button} from "react-bootstrap";
+import Button from '@material-ui/core/Button'
 
 class PeterPage extends Component {
 
     render() {
         return (
             <div>
-                <Button href="/">Back</Button><br/><br/>
+                <Button variant="contained" href="/">Back</Button><br/><br/>
                 <h1>Peter Hu</h1>
                 <h2>Team2 Back-end Lead</h2>
                 <h3>Email: chu3@mail.sfsu.edu</h3>
