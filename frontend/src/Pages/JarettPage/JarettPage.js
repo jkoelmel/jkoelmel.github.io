@@ -10,8 +10,10 @@ class JarettPage extends Component {
                 <img src={portrait} alt={'Jarett Koelmel'} className={'image'}/>
                 <div className={'body'}>
                     <Button href="/">Back</Button><br/><br/>
-                    <h1>Jarett Koelmel</h1><br/>
-                    <h3>Team Lead/Scrum Master</h3><br/>
+                    <h1>Jarett Koelmel</h1>
+                    <h3>Team Lead/Scrum Master</h3>
+                    <h3>jkoelmel1@mail.sfsu.edu</h3>
+                    <h4><a href={"https://github.com/jkoelmel"}>https://github.com/jkoelmel</a></h4>
 
                     <p>As team leader, I am responsible for general DevOps and product deployment management.
                         The natural overlap between leading a team and managing communication, morale, and scheduling
