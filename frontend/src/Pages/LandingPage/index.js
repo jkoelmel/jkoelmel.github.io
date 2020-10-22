@@ -6,6 +6,9 @@ import Paper from '@material-ui/core/Paper';
 
 import PatientList from '../../Components/PatientList/PatientList'
 import SearchPlan from '../../Components/SearchPlan/SearchPlan'
+import SearchReport from '../../Components/SearchReport/SearchReport'
+
+
 
 const Landing = () => {
 
@@ -22,7 +25,13 @@ const Landing = () => {
                     <SearchPlan/>
                 </Paper>
             </Grid>
+            <Grid item xs={3} > 
+                <Paper >
+                    <SearchReport/>
+                </Paper>
+            </Grid>
         </Grid>
+        
         </div>
     )
        
