@@ -25,12 +25,13 @@ const Landing = () => {
                     <SearchPlan/>
                 </Paper>
             </Grid>
-        </Grid>
-        <Grid item xs={3} > 
+            <Grid item xs={3} > 
                 <Paper >
                     <SearchReport/>
                 </Paper>
             </Grid>
+        </Grid>
+        
         </div>
     )
        
