@@ -15,7 +15,7 @@ const SearchReport = () => {
 
 return (
     <div>
-        <div style={{ width: 300 }}>
+        <div style={{ width: "auto" }}>
   <Autocomplete
     searchreport
     id="search-report"
