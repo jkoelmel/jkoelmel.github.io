@@ -1,4 +1,4 @@
-package main.server.user;
+package main.server.User;
 
 public abstract class User {
 	private Integer user_id;
@@ -8,6 +8,8 @@ public abstract class User {
 	private String company;
 	private Integer address;
 	private Boolean admin;
+
+	public User() {}
 
 	public User(String email, String f_name, String l_name, String company) {
 		this.f_name = f_name;

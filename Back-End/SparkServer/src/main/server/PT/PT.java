@@ -1,7 +1,7 @@
 package main.server.PT;
 
 import main.server.Server;
-import main.server.user.User;
+import main.server.User.User;
 
 import java.sql.*;
 
@@ -13,7 +13,6 @@ public class PT extends User {
 		super(email, f_name, l_name, company);
 	}
 
-	// TODO: third party dependency to check for valid email, if we care
 	public void createPT() throws Exception {
 		String userQuery = "INSERT INTO user(user_id, email, f_name, l_name, company) VALUES(NULL, ?, ?, ?, ?);";
 		String ptQuery = "INSERT INTO pt(pt_id, user) VALUES(NULL, LAST_INSERT_ID())";

@@ -2,6 +2,7 @@ package main.server;
 
 import com.google.gson.Gson;
 import main.server.PT.*;
+import main.server.Patient.PatientUtil;
 
 import java.sql.*;
 
@@ -17,10 +18,23 @@ public class Server {
 
 		path("/api", () -> {
 			before("/*", (q, a) -> System.out.println("Received api call"));
+
 			path("/pt", () -> {
 				get("/all", (request, response) -> PTUtil.selectAll(response));
 				post("/register", (request, response) -> {
 					response.status(PTUtil.registerPT(request));
+					return response.status();
+				});
+			});
+
+			path("/patient", () -> {
+				get("/all", (request, response) -> PatientUtil.selectAll(response));
+				post("/register", (request, response) -> {
+					response.status(PatientUtil.registerPatient(request));
+					return response.status();
+				});
+				put("/update-pt", (request, response) -> {
+					response.status(PatientUtil.attachTherapist(request));
 					return response.status();
 				});
 			});

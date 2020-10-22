@@ -38,9 +38,11 @@ public class PTUtil {
 			System.out.println("All PT's have been selected");
 			response.type("application/json");
 			response.status(200);
-		} catch (SQLException ex) {
+		} catch (SQLException sqlEx) {
+			System.err.println(sqlEx.toString());
 			response.status(500);
-		} catch (Exception e) {
+		} catch (Exception ex) {
+			System.err.println(ex.toString());
 			response.status(400);
 		}
 		return toReturn;
@@ -55,8 +57,10 @@ public class PTUtil {
 			pt.createPT();
 			return 200;
 		} catch (SQLException sqlEx) {
+			System.err.println(sqlEx.toString());
 			return 500;
 		} catch (Exception ex) {
+			System.err.println(ex.toString());
 			return 400;
 		}
 	}
