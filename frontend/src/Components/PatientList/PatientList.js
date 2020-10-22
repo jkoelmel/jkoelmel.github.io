@@ -27,12 +27,13 @@ import { ListItem, ListItemText } from '@material-ui/core';
 
     return (
         <div className = 'patientlist-root'>
-            <List component = "nav" aria-label="patient-list"
-            style={{maxHeight: 200, overflow: 'auto'} }
+               <List component = "nav" aria-label="patient-list"
+            style={{maxHeight: 200, overflow: 'scroll'} }
             subheader={
-                <ListSubheader component="div" className="patient-list">
+                <ListSubheader component="div" color="inherit" className="patient-list">
                 Patient List
               </ListSubheader>
+              
             }>
                 <ListItem 
                 button
@@ -48,11 +49,10 @@ import { ListItem, ListItemText } from '@material-ui/core';
                 </ListItem>
                 </List>
 
-                <Divider />
-
                 <List component = "nav" aria-label="patient-list"
+                    style={{maxHeight: 200, overflow: 'scroll'}}
                     subheader={
-                <ListSubheader component="div" id="potential-patient-list">
+                <ListSubheader component="div" color="inherit" id="potential-patient-list">
                 Potential Patient List
               </ListSubheader>
             }>
