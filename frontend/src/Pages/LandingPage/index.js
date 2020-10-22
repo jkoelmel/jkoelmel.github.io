@@ -5,18 +5,23 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
 import PatientList from '../../Components/PatientList/PatientList'
+import SearchPlan from '../../Components/SearchPlan/SearchPlan'
 
 const Landing = () => {
 
     return (
         <div className = 'root'>
-        <Grid container className ='grid-root' spacing={0}>
+        <Grid container className ='grid-root' spacing={5}>
             <Grid item xs={3} > 
-            <Paper >
-                <PatientList/>
+                <Paper >
+                    <PatientList/>
                 </Paper>
             </Grid>
-           
+            <Grid item xs={3} > 
+                <Paper >
+                    <SearchPlan/>
+                </Paper>
+            </Grid>
         </Grid>
         </div>
     )
