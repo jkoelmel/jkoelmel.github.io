@@ -44,7 +44,7 @@ public class Server {
 			});
 
 			path("/company", () -> {
-				// TODO
+				// TODO: filter by company
 			});
 
 			path("/database", () -> get("/version", (request, response) -> databaseVersion()));

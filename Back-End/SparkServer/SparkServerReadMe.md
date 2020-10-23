@@ -11,6 +11,10 @@ To add a PT to the database, the api endpoint to use is `/api/pt/register` with 
 
 To retrieve all users who are PT's, use the endpoint `/api/pt/all`. This should be a GET request.
 
+To retrieve a specific PT, use the endpoint `/api/pt/id` with the query parameter `pt_id`. This should be a GET request.
+
+To retrieve the patients belonging to a specific PT, use the endpoint `api/pt/patients` with the query parameter `pt_id`. This should be a GET request.
+
 #####Sample JSON data
 ```
 [
