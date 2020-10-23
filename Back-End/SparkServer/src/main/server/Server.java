@@ -14,6 +14,7 @@ public class Server {
 	public static final String databasePassword = "Csc648Team2";
 
 	public static void main(String[] args) {
+		System.out.println("Starting server on port 8080");
 		port(8080);
 
 		path("/api", () -> {

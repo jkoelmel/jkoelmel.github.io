@@ -46,8 +46,8 @@ public class Patient extends User {
 	}
 
 	public Patient getPatient() throws Exception {
-		String patientQuery = "SELECT * FROM user INNER JOIN patient ON patient.patient_id = " + this.patient_id;
-//		String patientQuery = "SELECT * FROM patient WHERE patient_id = " + this.patient_id;
+		String patientQuery = "SELECT * FROM user u JOIN patient p " +
+				"ON u.user_id = p.user WHERE p.patient_id = " + this.patient_id;
 
 		try (Connection con = DriverManager.getConnection(
 				Server.databasePath,
@@ -58,10 +58,17 @@ public class Patient extends User {
 
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
+				// Patient data
 				setPatient_id(rs.getInt("patient_id"));
 				setUser(rs.getInt("user"));
 				setPt(rs.getInt("pt"));
 				setProspective_pt(rs.getInt("prospective_pt"));
+
+				// User data
+				setEmail(rs.getString("email"));
+				setF_name(rs.getString("f_name"));
+				setL_name(rs.getString("l_name"));
+				setCompany(rs.getString("company"));
 			}
 		} catch (SQLException ex) {
 			throw new Exception("Error getting patient with id " + this.patient_id + ": " + ex.toString());

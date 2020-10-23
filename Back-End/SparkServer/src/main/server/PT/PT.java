@@ -45,8 +45,8 @@ public class PT extends User {
 
 
 	public PT getPT() throws Exception {
-		 String ptQuery = "SELECT * FROM user INNER JOIN pt ON pt.pt_id = " + this.pt_id;
-//		String ptQuery = "SELECT * FROM pt WHERE pt_id = " + this.pt_id;
+		String ptQuery = "SELECT * FROM user u JOIN pt p " +
+				"ON u.user_id = p.user WHERE p.pt_id = " + this.pt_id;
 
 		try (Connection con = DriverManager.getConnection(
 				Server.databasePath,
@@ -57,8 +57,15 @@ public class PT extends User {
 
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
+				// PT data
 				setPt_id(rs.getInt("pt_id"));
 				setUser(rs.getInt("user"));
+
+				// User data
+				setEmail(rs.getString("email"));
+				setF_name(rs.getString("f_name"));
+				setL_name(rs.getString("l_name"));
+				setCompany(rs.getString("company"));
 			}
 		} catch (SQLException ex) {
 			throw new Exception("Error getting pt with id " + this.pt_id + ": " + ex.toString());
