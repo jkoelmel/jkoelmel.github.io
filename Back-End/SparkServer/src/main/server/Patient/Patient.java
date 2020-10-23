@@ -46,7 +46,8 @@ public class Patient extends User {
 	}
 
 	public Patient getPatient() throws Exception {
-		String patientQuery = "SELECT * FROM patient WHERE patient_id = " + this.patient_id;
+		String patientQuery = "SELECT * FROM user INNER JOIN patient ON patient.patient_id = " + this.patient_id;
+//		String patientQuery = "SELECT * FROM patient WHERE patient_id = " + this.patient_id;
 
 		try (Connection con = DriverManager.getConnection(
 				Server.databasePath,

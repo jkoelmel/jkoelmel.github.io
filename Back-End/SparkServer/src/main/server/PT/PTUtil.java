@@ -10,10 +10,30 @@ import java.util.ArrayList;
 
 public class PTUtil {
 
+	public static String selectSpecific(Request request, Response response) {
+		String toReturn = "";
+		try {
+			PT pt = new PT(Integer.parseInt(request.queryMap().get("pt_id").value()));
+			Gson gson = new Gson();
+			toReturn = gson.toJson(pt.getPT());
+
+			System.out.println("PT has been selected");
+			response.type("application/json");
+			response.status(200);
+		} catch (SQLException sqlEx) {
+			System.err.println(sqlEx.toString());
+			response.status(500);
+		} catch (Exception ex) {
+			System.err.println(ex.toString());
+			response.status(400);
+		}
+		return toReturn;
+	}
+
 	public static String selectAll(Response response) {
 		String toReturn = "";
 		// Select all users from "user" whose user_id matches the user_id from a pt
-		String query = "SELECT * FROM user INNER JOIN pt p on user.user_id = p.user";
+		String query = "SELECT * FROM user INNER JOIN pt ON user.user_id = pt.user";
 
 		try (Connection con = DriverManager.getConnection(
 				Server.databasePath,

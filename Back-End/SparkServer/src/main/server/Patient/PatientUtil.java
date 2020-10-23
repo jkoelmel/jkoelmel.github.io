@@ -10,10 +10,30 @@ import java.util.ArrayList;
 
 public class PatientUtil {
 
+	public static String selectSpecific(Request request, Response response) {
+		String toReturn = "";
+		try {
+			Patient patient = new Patient(Integer.parseInt(request.queryMap().get("patient_id").value()));
+			Gson gson = new Gson();
+			toReturn = gson.toJson(patient.getPatient());
+
+			System.out.println("Patient has been selected");
+			response.type("application/json");
+			response.status(200);
+		} catch (SQLException sqlEx) {
+			System.err.println(sqlEx.toString());
+			response.status(500);
+		} catch (Exception ex) {
+			System.err.println(ex.toString());
+			response.status(400);
+		}
+		return toReturn;
+	}
+
 	public static String selectAll(Response response) {
 		String toReturn = "";
-		// Select all users from "user" whose user_id matches the user_id from a pt
-		String query = "SELECT * FROM user INNER JOIN patient p on user.user_id = p.user";
+		// Select all users from "user" whose user_id matches the user_id from a patient
+		String query = "SELECT * FROM user INNER JOIN patient ON user.user_id = patient.user";
 
 		try (Connection con = DriverManager.getConnection(
 				Server.databasePath,
@@ -40,9 +60,11 @@ public class PatientUtil {
 			System.out.println("All Patients have been selected");
 			response.type("application/json");
 			response.status(200);
-		} catch (SQLException ex) {
+		} catch (SQLException sqlEx) {
+			System.err.println(sqlEx.toString());
 			response.status(500);
-		} catch (Exception e) {
+		} catch (Exception ex) {
+			System.err.println(ex.toString());
 			response.status(400);
 		}
 		return toReturn;

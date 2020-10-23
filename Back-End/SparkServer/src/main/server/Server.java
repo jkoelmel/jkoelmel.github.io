@@ -20,6 +20,7 @@ public class Server {
 			before("/*", (q, a) -> System.out.println("Received api call"));
 
 			path("/pt", () -> {
+				get("/id", PTUtil::selectSpecific);
 				get("/all", (request, response) -> PTUtil.selectAll(response));
 				post("/register", (request, response) -> {
 					response.status(PTUtil.registerPT(request));
@@ -28,6 +29,7 @@ public class Server {
 			});
 
 			path("/patient", () -> {
+				get("/id", PatientUtil::selectSpecific);
 				get("/all", (request, response) -> PatientUtil.selectAll(response));
 				post("/register", (request, response) -> {
 					response.status(PatientUtil.registerPatient(request));
@@ -37,6 +39,10 @@ public class Server {
 					response.status(PatientUtil.attachTherapist(request));
 					return response.status();
 				});
+			});
+
+			path("/company", () -> {
+				// TODO
 			});
 
 			path("/database", () -> get("/version", (request, response) -> databaseVersion()));
@@ -52,6 +58,8 @@ public class Server {
 				Gson gson = new Gson();
 				return gson.toJson(pt);
 			}));
+
+			after("/*", (q, a) -> System.out.println("API call completed"));
 		});
 	}
 

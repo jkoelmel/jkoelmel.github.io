@@ -1,5 +1,6 @@
 package main.server.PT;
 
+import main.server.Patient.Patient;
 import main.server.Server;
 import main.server.User.User;
 
@@ -11,6 +12,10 @@ public class PT extends User {
 
 	public PT(String email, String f_name, String l_name, String company) {
 		super(email, f_name, l_name, company);
+	}
+
+	public PT(Integer pt_id) {
+		this.pt_id = pt_id;
 	}
 
 	public void createPT() throws Exception {
@@ -36,6 +41,30 @@ public class PT extends User {
 		} catch (SQLException ex) {
 			throw new Exception("Error inserting user/pt: " + ex.toString());
 		}
+	}
+
+
+	public PT getPT() throws Exception {
+		 String ptQuery = "SELECT * FROM user INNER JOIN pt ON pt.pt_id = " + this.pt_id;
+//		String ptQuery = "SELECT * FROM pt WHERE pt_id = " + this.pt_id;
+
+		try (Connection con = DriverManager.getConnection(
+				Server.databasePath,
+				Server.databaseUsername,
+				Server.databasePassword);
+			 PreparedStatement pst = con.prepareStatement(ptQuery)) {
+			pst.executeQuery(ptQuery);
+
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				setPt_id(rs.getInt("pt_id"));
+				setUser(rs.getInt("user"));
+			}
+		} catch (SQLException ex) {
+			throw new Exception("Error getting pt with id " + this.pt_id + ": " + ex.toString());
+		}
+
+		return this;
 	}
 
 	public Integer getPt_id() {
