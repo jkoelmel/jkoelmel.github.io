@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import PatientList from '../../Components/PatientList/PatientList'
 import SearchPlan from '../../Components/SearchPlan/SearchPlan'
 import SearchReport from '../../Components/SearchReport/SearchReport'
-import SearchActivities from '.../.../Components/SearchActivities/SearchActivities'
+import SearchActivities from '../../Components/SearchActivities/SearchActivities'
 
 
 

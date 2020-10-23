@@ -8,8 +8,8 @@ const SearchActivities = () => {
     const ActivitiesDetails = [
         {title: 'Respond to questions'},
         {title: 'View Videos'},
-        {title: 'Read profiles'}
-        {title: 'Write notes'}
+        {title: 'Read profiles'},
+        {title: 'Write notes'},
     ];
 
 
