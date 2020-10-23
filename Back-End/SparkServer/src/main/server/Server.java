@@ -10,8 +10,8 @@ import static spark.Spark.*;
 
 public class Server {
 	public static final String databasePath = "jdbc:mysql://portaldb.cciebyoevg9q.us-west-1.rds.amazonaws.com:3306/portalDB";
-	public static final String databaseUsername = System.getenv("PORTALDB_USERNAME");
-	public static final String databasePassword = System.getenv("PORTALDB_PASSWORD");
+	public static final String databaseUsername = "admin";
+	public static final String databasePassword = "Csc648Team2";
 
 	public static void main(String[] args) {
 		port(8080);
