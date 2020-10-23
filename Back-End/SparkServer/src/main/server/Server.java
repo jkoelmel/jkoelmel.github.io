@@ -23,6 +23,7 @@ public class Server {
 			path("/pt", () -> {
 				get("/id", PTUtil::selectSpecific);
 				get("/all", (request, response) -> PTUtil.selectAll(response));
+				get("/patients", PTUtil::selectPatients);
 				post("/register", (request, response) -> {
 					response.status(PTUtil.registerPT(request));
 					return response.status();

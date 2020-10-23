@@ -1,6 +1,7 @@
 package main.server.PT;
 
 import com.google.gson.Gson;
+import main.server.Patient.Patient;
 import main.server.Server;
 import spark.Request;
 import spark.Response;
@@ -18,6 +19,46 @@ public class PTUtil {
 			toReturn = gson.toJson(pt.getPT());
 
 			System.out.println("PT has been selected");
+			response.type("application/json");
+			response.status(200);
+		} catch (SQLException sqlEx) {
+			System.err.println(sqlEx.toString());
+			response.status(500);
+		} catch (Exception ex) {
+			System.err.println(ex.toString());
+			response.status(400);
+		}
+		return toReturn;
+	}
+
+	public static String selectPatients(Request request, Response response) {
+		String query = "SELECT * FROM user u JOIN patient p " +
+				"ON u.user_id = p.user WHERE p.pt = " + request.queryMap().get("pt_id").value();
+		String toReturn = "";
+
+		try (Connection con = DriverManager.getConnection(
+				Server.databasePath,
+				Server.databaseUsername,
+				Server.databasePassword);
+			 PreparedStatement pst = con.prepareStatement(query)) {
+			ResultSet rs = pst.executeQuery();
+
+			ArrayList<Patient> list = new ArrayList<>();
+			while (rs.next()) {
+				Patient patient = new Patient(rs.getString("email"),
+						rs.getString("f_name"),
+						rs.getString("l_name"),
+						rs.getString("company"));
+				patient.setUser(rs.getInt("user_id"));
+				patient.setPatient_id(rs.getInt("patient_id"));
+				patient.setPt(rs.getInt("pt"));
+				patient.setProspective_pt(rs.getInt("prospective_pt"));
+				list.add(patient);
+			}
+			Gson gson = new Gson();
+			toReturn = gson.toJson(list);
+
+			System.out.println("PT's patients have been selected");
 			response.type("application/json");
 			response.status(200);
 		} catch (SQLException sqlEx) {
