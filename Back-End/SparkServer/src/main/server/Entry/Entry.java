@@ -11,9 +11,8 @@ public class Entry {
     private Timestamp created_on;
     private Integer patient;
 
-    public Entry(String entry, Timestamp created_on, Integer patient) {
+    public Entry(String entry, Integer patient) {
         this.entry = entry;
-        this.created_on = created_on;
         this.patient = patient;
     }
 
@@ -22,7 +21,7 @@ public class Entry {
     }
 
     public void createEntry() throws Exception {
-        String entryQuery = "INSERT INTO entry(entry_id, entry, created_on, patient) VALUES(NULL, ?, ?, ?);";
+        String entryQuery = "INSERT INTO entry(entry_id, entry, created_on, patient) VALUES(NULL, ?, NOW(), ?);";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -31,8 +30,7 @@ public class Entry {
              PreparedStatement pst = con.prepareStatement(entryQuery)) {
 
             pst.setString(1, this.entry);
-            pst.setTimestamp(2, this.created_on);
-            pst.setInt(3, this.patient);
+            pst.setInt(2, this.patient);
             pst.executeUpdate();
 
             System.out.println("Entry added to database");

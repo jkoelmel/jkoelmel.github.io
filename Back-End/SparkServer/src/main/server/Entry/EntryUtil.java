@@ -32,7 +32,8 @@ public class EntryUtil {
 
 	public static String selectAll(Request request, Response response) {
 		String toReturn = "";
-		String query = "SELECT * FROM entry WHERE patient = " + Integer.parseInt(request.queryMap().get("patient_id").value());
+		String query = "SELECT * FROM entry WHERE patient = " + Integer.parseInt(request.queryMap().get("patient_id").value()) +
+				" ORDER BY created_on DESC";
 
 		try (Connection con = DriverManager.getConnection(
 				Server.databasePath,
@@ -44,9 +45,9 @@ public class EntryUtil {
 			ArrayList<Entry> list = new ArrayList<>();
 			while (rs.next()) {
 				Entry entry = new Entry(rs.getString("entry"),
-						rs.getTimestamp("created_on"),
 						rs.getInt("patient"));
 				entry.setEntry_id(rs.getInt("entry_id"));
+				entry.setCreated_on(rs.getTimestamp("created_on"));
 				list.add(entry);
 			}
 			Gson gson = new Gson();
@@ -66,10 +67,8 @@ public class EntryUtil {
 	}
 
 	public static Integer registerEntry(Request request) {
-		// TODO: are we using this endpoint to create the "created_on" time?
 		try {
 			Entry entry = new Entry(request.queryMap().get("entry").value(),
-					Timestamp.valueOf(request.queryMap().get("created_on").value()),
 					Integer.parseInt(request.queryMap().get("patient_id").value()));
 			entry.createEntry();
 			return 200;
