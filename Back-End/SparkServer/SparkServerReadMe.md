@@ -42,16 +42,35 @@ Patients can be retrieved by calling a GET request on `api/patient/all` for all 
 #####Sample JSON data
 ```
 [
-   {
-       "patient_id": 1,
-       "user": 14,
-       "pt": 2,
-       "prospective_pt": 2,
-       "user_id": 14,
-       "email": "test@mail.com",
-       "f_name": "jane",
-       "l_name": "doe",
-       "company": "the NY co"
-   }
+    {
+        "patient_id": 1,
+        "user": 14,
+        "pt": 2,
+        "prospective_pt": 2,
+        "user_id": 14,
+        "email": "test@mail.com",
+        "f_name": "jane",
+        "l_name": "doe",
+        "company": "the NY co"
+    }
+]
+```
+
+---
+
+####Entries
+To add a patient entry log, send a POST request to the endpoint `api/patient/entry/register` with the query parameters `entry, created_on, patient_id`.
+
+To retrieve a specific entry, use a GET request at `api/patient/entry/id` with the query parameter `entry_id`. To retrieve all entries by a specific patient, use a GET request at `api/patient/entry/all` with the query parameter `patient_id`.
+
+#####Sample JSON data
+```
+[
+    {
+        "entry_id": 17,
+        "entry": "imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum",
+        "created_on": "May 5, 2020, 4:50:52 AM",
+        "patient": 100
+    }
 ]
 ```

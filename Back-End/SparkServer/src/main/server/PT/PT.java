@@ -1,6 +1,5 @@
 package main.server.PT;
 
-import main.server.Patient.Patient;
 import main.server.Server;
 import main.server.User.User;
 

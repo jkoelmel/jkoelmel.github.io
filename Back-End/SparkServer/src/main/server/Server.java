@@ -1,6 +1,7 @@
 package main.server;
 
 import com.google.gson.Gson;
+import main.server.Entry.EntryUtil;
 import main.server.PT.*;
 import main.server.Patient.PatientUtil;
 
@@ -41,10 +42,15 @@ public class Server {
 					response.status(PatientUtil.attachTherapist(request));
 					return response.status();
 				});
-			});
 
-			path("/company", () -> {
-				// TODO: filter by company
+				path("/entry", () -> {
+					get("/id", EntryUtil::selectSpecific);
+					get("/all", EntryUtil::selectAll);
+					post("/register", (request, response) -> {
+						response.status(EntryUtil.registerEntry(request));
+						return response.status();
+					});
+				});
 			});
 
 			path("/database", () -> get("/version", (request, response) -> databaseVersion()));
