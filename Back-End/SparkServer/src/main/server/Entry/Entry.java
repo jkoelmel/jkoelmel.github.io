@@ -8,7 +8,7 @@ public class Entry {
 
     private Integer entry_id;
     private String entry;
-    private java.sql.Timestamp created_on;
+    private Timestamp created_on;
     private Integer patient;
 
     public Entry(String entry, Timestamp created_on, Integer patient) {
@@ -42,7 +42,7 @@ public class Entry {
     }
 
     public Entry getDBEntry() throws Exception {
-        String entryQuery = "SELECT * FROM entry e WHERE entry_id = " + this.entry_id;
+        String entryQuery = "SELECT * FROM entry WHERE entry_id = " + this.entry_id;
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
