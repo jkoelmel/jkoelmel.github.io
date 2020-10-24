@@ -15,7 +15,7 @@ public class ActivityUtil {
         Integer pt_id = Integer.parseInt(request.queryMap().get("pt").value());
         Integer patient_id = Integer.parseInt(request.queryMap().get("patient").value());
         String toReturn = "";
-        String query = "SELECT * FROM activity WHERE pt=? AND patient=? ORDER BY end_time DESC";
+        String query = "SELECT * FROM activity WHERE pt= " + pt_id + " AND patient= " + patient_id;
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -23,16 +23,12 @@ public class ActivityUtil {
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(query)) {
 
-            pst.setInt(1, pt_id);
-            pst.setInt(2, patient_id);
-
             ResultSet rs = pst.executeQuery();
             ArrayList<Activity> list = new ArrayList<>();
             while (rs.next()) {
-                Activity activity = new Activity();
+                Activity activity = new Activity(rs.getInt("activity_id"));
 
-                activity.setactivity_id(rs.getInt("activity_id"));
-                activity.setactivity_type(rs.getString("activity_type"));
+                activity.settype_activity(rs.getString("type_activity"));
                 activity.setDuration(rs.getInt("duration"));
                 activity.setStart_time(rs.getTimestamp("start_time"));
                 activity.setEnd_time(rs.getTimestamp("end_time"));
@@ -43,7 +39,7 @@ public class ActivityUtil {
             Gson gson = new Gson();
             toReturn = gson.toJson(list);
 
-            System.out.println("All desired activities have been selected");
+            System.out.println("All activities have been selected");
             response.type("application/json");
             response.status(200);
         } catch (SQLException sqlEx) {
@@ -70,9 +66,9 @@ public class ActivityUtil {
 
             ArrayList<Activity> list = new ArrayList<>();
             while (rs.next()) {
-                Activity activity = new Activity();
+                Activity activity = new Activity(rs.getInt("activity_id"));
 
-                activity.setactivity_type(rs.getString("activity_type"));
+                activity.settype_activity(rs.getString("type_activity"));
                 activity.setDuration(rs.getInt("duration"));
                 activity.setStart_time(rs.getTimestamp("start_time"));
                 activity.setEnd_time(rs.getTimestamp("end_time"));
@@ -100,7 +96,7 @@ public class ActivityUtil {
 
     public static Integer registerActivity(Request request) {
         try {
-            Activity activity = new Activity();
+            Activity activity = new Activity(null);
             activity.createActivity(request.queryMap().get("type_activity").value(),
                     Integer.parseInt(request.queryMap().get("duration").value()),
                     Integer.parseInt(request.queryMap().get("pt").value()),

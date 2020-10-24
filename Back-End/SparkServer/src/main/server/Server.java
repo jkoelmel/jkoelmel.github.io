@@ -45,12 +45,13 @@ public class Server {
 					return response.status();
 				});
 
-			path("/entry", () -> {
-				get("/id", EntryUtil::selectSpecific);
-				get("/all", EntryUtil::selectAll);
-				post("/register", (request, response) -> {
-					response.status(EntryUtil.registerEntry(request));
-					return response.status();
+				path("/entry", () -> {
+					get("/id", EntryUtil::selectSpecific);
+					get("/all", EntryUtil::selectAll);
+					post("/register", (request, response) -> {
+						response.status(EntryUtil.registerEntry(request));
+						return response.status();
+					});
 				});
 			});
 
@@ -85,8 +86,7 @@ public class Server {
 			after("/*", (q, a) -> System.out.println("API call completed"));
 
 			});
-		});
-	}
+		}
 
 	private static String databaseVersion() {
 		String query = "SELECT VERSION()";

@@ -14,7 +14,7 @@ public class Assignment {
 
     public Assignment() {this.assignment_id = null;}
 
-    public void createAssignmnet(Integer pt, Integer workout, Integer patient) throws Exception {
+    public void createAssignment(Integer pt, Integer workout, Integer patient) throws Exception {
         String assignmentQuery = "INSERT INTO assignment(assignment_id, pt, workout, patient) VALUES(null, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(
@@ -36,7 +36,8 @@ public class Assignment {
     }
 
     public Assignment getAssignment(Integer patient) throws Exception {
-        String assignmentQuery = "SELECT * FROM assignment WHERE patient= ?";
+        String assignmentQuery = "SELECT * FROM workout w JOIN assignment a AND patient p" +
+                "ON workout_id = a.workout WHERE a.patient = " + patient;
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -47,6 +48,9 @@ public class Assignment {
 
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
+                //Workout data; will update when workout class built
+                //setTitle(rs.getString("title"));
+                //Assignment data
                 setPt(rs.getInt("pt"));
                 setWorkout(rs.getInt("workout"));
                 setPatient(rs.getInt("patient"));
@@ -56,6 +60,23 @@ public class Assignment {
         }
 
         return this;
+    }
+
+    public void updateAssignment(Integer pt, Integer workout, Integer patient) throws Exception {
+        String query = "UPDATE assignment SET pt = " + pt + ", workout = " + workout + ", patient = " + patient +
+                " WHERE assignment_id = " + this.assignment_id + ")";
+
+        try (Connection con = DriverManager.getConnection(
+                Server.databasePath,
+                Server.databaseUsername,
+                Server.databasePassword);
+             PreparedStatement pst = con.prepareStatement(query)) {
+            pst.executeUpdate(query);
+
+            System.out.println("Assignment updated");
+        } catch (Exception ex) {
+            throw new Exception("Error updating assignment: " + ex.toString());
+        }
     }
 
     public Integer getassignment_id() {

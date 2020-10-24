@@ -45,7 +45,7 @@ public class AssignmentUtil {
             ArrayList<Assignment> list = new ArrayList<>();
             while (rs.next()) {
                 Assignment assignment = new Assignment();
-                assignment.createAssignmnet(Integer.parseInt(request.queryMap().get("pt").value()),
+                assignment.createAssignment(Integer.parseInt(request.queryMap().get("pt").value()),
                         Integer.parseInt(request.queryMap().get("workout").value()),
                         Integer.parseInt(request.queryMap().get("patient").value()));
                 list.add(assignment);

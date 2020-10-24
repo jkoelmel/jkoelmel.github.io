@@ -1,23 +1,22 @@
 package main.server.Activity;
 
-import main.server.PT.PT;
 import main.server.Server;
 
 import java.sql.*;
 
 public class Activity {
     private Integer activity_id;
-    private String activity_type;
+    private String type_activity;
     private Integer duration;
     private java.sql.Timestamp start_time;
     private java.sql.Timestamp end_time;
     private Integer pt;
     private Integer patient;
 
-    public Activity() { this.activity_id = null;}
+    public Activity(Integer activity_id) { this.activity_id = activity_id;}
 
     //WIP: syntax error between Workbench between and POST requests
-    public void createActivity(String activity_type, Integer time, Integer pt_ID, Integer patient_ID) throws Exception {
+    public void createActivity(String type_activity, Integer time, Integer pt_ID, Integer patient_ID) throws Exception {
         String activityQuery =
                 "INSERT INTO activity(activity_id, type_activity, duration, start_time, end_time, pt, patient) VALUES(null, ?, ?, (NOW() - INTERVAL ? MINUTE), NOW(), ?, ?)";
 
@@ -28,13 +27,13 @@ public class Activity {
             PreparedStatement pst = con.prepareStatement(activityQuery)) {
 
             //INSERT Activity into activity
-            pst.setString(1, activity_type);
+            pst.setString(1, type_activity);
             pst.setInt(2, time);
             pst.setInt(3, time);
             pst.setInt(4, pt_ID);
             pst.setInt(5, patient_ID);
-
-            pst.executeUpdate(activityQuery);
+            pst.executeUpdate();
+            
             System.out.println("Activity added to database");
         } catch (SQLException ex) {
             throw new Exception("Error inserting activity: " + ex.toString());
@@ -42,7 +41,7 @@ public class Activity {
     }
 
     public Activity getActivity(Integer pt, Integer patient) throws Exception {
-        String activityQuery = "SELECT * FROM activity WHERE pt = ? AND patient = ? VALUES(pt, patient)";
+        String activityQuery = "SELECT * FROM activity WHERE pt = " + pt + " AND patient = " + patient;
 
         try(Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -55,7 +54,7 @@ public class Activity {
             ResultSet rs = pst.executeQuery();
             if(rs.next()) {
                 setactivity_id(rs.getInt("activity_id"));
-                setactivity_type(rs.getString("activity_type"));
+                settype_activity(rs.getString("type_activity"));
                 setDuration(rs.getInt("duration"));
                 setPt(rs.getInt("pt"));
                 setPatient(rs.getInt("patient"));
@@ -73,12 +72,12 @@ public class Activity {
     }
 
 
-    public String getactivity_type() {
-        return activity_type;
+    public String gettype_activity() {
+        return type_activity;
     }
 
-    public void setactivity_type(String activity_type) {
-        this.activity_type = activity_type;
+    public void settype_activity(String type_activity) {
+        this.type_activity = type_activity;
     }
 
     public Integer getDuration() {
