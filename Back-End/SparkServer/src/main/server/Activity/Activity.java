@@ -1,43 +1,85 @@
 package main.server.Activity;
 
-public class Activity {
+import main.server.PT.PT;
+import main.server.Server;
 
-    private Integer activityId;
-    private String activityType;
-    private java.sql.Timestamp timestamp;
+import java.sql.*;
+
+public class Activity {
+    private Integer activity_id;
+    private String activity_type;
     private Integer duration;
+    private java.sql.Timestamp start_time;
+    private java.sql.Timestamp end_time;
     private Integer pt;
     private Integer patient;
 
+    public Activity() { this.activity_id = null;}
 
+    //WIP: syntax error between Workbench between and POST requests
+    public void createActivity(String activity_type, Integer time, Integer pt_ID, Integer patient_ID) throws Exception {
+        String activityQuery =
+                "INSERT INTO activity(activity_id, type_activity, duration, start_time, end_time, pt, patient) VALUES(null, ?, ?, (NOW() - INTERVAL ? MINUTE), NOW(), ?, ?)";
 
+        try (Connection con = DriverManager.getConnection(
+                Server.databasePath,
+                Server.databaseUsername,
+                Server.databasePassword);
+            PreparedStatement pst = con.prepareStatement(activityQuery)) {
 
-    public Integer getActivityId() {
-        return activityId;
+            //INSERT Activity into activity
+            pst.setString(1, activity_type);
+            pst.setInt(2, time);
+            pst.setInt(3, time);
+            pst.setInt(4, pt_ID);
+            pst.setInt(5, patient_ID);
+
+            pst.executeUpdate(activityQuery);
+            System.out.println("Activity added to database");
+        } catch (SQLException ex) {
+            throw new Exception("Error inserting activity: " + ex.toString());
+        }
     }
 
-    public void setActivityId(Integer activityId) {
-        this.activityId = activityId;
+    public Activity getActivity(Integer pt, Integer patient) throws Exception {
+        String activityQuery = "SELECT * FROM activity WHERE pt = ? AND patient = ? VALUES(pt, patient)";
+
+        try(Connection con = DriverManager.getConnection(
+                Server.databasePath,
+                Server.databaseUsername,
+                Server.databasePassword);
+            PreparedStatement pst = con.prepareStatement(activityQuery)) {
+
+            pst.executeQuery(activityQuery);
+
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()) {
+                setactivity_id(rs.getInt("activity_id"));
+                setactivity_type(rs.getString("activity_type"));
+                setDuration(rs.getInt("duration"));
+                setPt(rs.getInt("pt"));
+                setPatient(rs.getInt("patient"));
+            }
+        } catch (SQLException ex) {
+            throw new Exception("Error getting activity with pt_id " + this.pt + "and " +
+                    this.patient + ": " + ex.toString());
+        }
+
+        return this;
+    }
+
+    public void setactivity_id(Integer activity_id) {
+        this.activity_id = activity_id;
     }
 
 
-    public String getActivityType() {
-        return activityType;
+    public String getactivity_type() {
+        return activity_type;
     }
 
-    public void setActivityType(String activityType) {
-        this.activityType = activityType;
+    public void setactivity_type(String activity_type) {
+        this.activity_type = activity_type;
     }
-
-
-    public java.sql.Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(java.sql.Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
-
 
     public Integer getDuration() {
         return duration;
@@ -47,7 +89,21 @@ public class Activity {
         this.duration = duration;
     }
 
+    public void setStart_time(java.sql.Timestamp timestamp) {
+        this.start_time = timestamp;
+    }
 
+    public java.sql.Timestamp getStart_time() {
+        return this.start_time;
+    }
+
+    public void setEnd_time(java.sql.Timestamp timestamp) {
+        this.end_time = timestamp;
+    }
+
+    public java.sql.Timestamp getEnd_time() {
+        return this.end_time;
+    }
     public Integer getPt() {
         return pt;
     }

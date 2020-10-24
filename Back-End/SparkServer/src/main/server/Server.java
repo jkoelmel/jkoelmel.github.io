@@ -1,7 +1,9 @@
 package main.server;
 
 import com.google.gson.Gson;
+
 import main.server.Entry.EntryUtil;
+import main.server.Activity.ActivityUtil;
 import main.server.PT.*;
 import main.server.Patient.PatientUtil;
 
@@ -43,14 +45,27 @@ public class Server {
 					return response.status();
 				});
 
-				path("/entry", () -> {
-					get("/id", EntryUtil::selectSpecific);
-					get("/all", EntryUtil::selectAll);
-					post("/register", (request, response) -> {
-						response.status(EntryUtil.registerEntry(request));
-						return response.status();
-					});
+			path("/entry", () -> {
+				get("/id", EntryUtil::selectSpecific);
+				get("/all", EntryUtil::selectAll);
+				post("/register", (request, response) -> {
+					response.status(EntryUtil.registerEntry(request));
+					return response.status();
 				});
+			});
+
+			path("/activity", () -> {
+				get("/id", ActivityUtil::selectSpecific);
+				get("/all", (request, response) -> ActivityUtil.selectAll(response));
+				post("/register", (request, response) -> {
+					response.status(ActivityUtil.registerActivity(request));
+					return response.status();
+				});
+			});
+
+			path("/company", () -> {
+				// TODO
+
 			});
 
 			path("/database", () -> get("/version", (request, response) -> databaseVersion()));
@@ -68,6 +83,8 @@ public class Server {
 			}));
 
 			after("/*", (q, a) -> System.out.println("API call completed"));
+
+			});
 		});
 	}
 
