@@ -13,19 +13,12 @@ public class Activity {
     private Integer pt;
     private Integer patient;
 
-<<<<<<< HEAD
     public Activity(Integer activity_id) { this.activity_id = activity_id;}
 
     //WIP: syntax error between Workbench between and POST requests
     public void createActivity(String type_activity, Integer time, Integer pt_ID, Integer patient_ID) throws Exception {
         String activityQuery =
                 "INSERT INTO activity(activity_id, type_activity, duration, start_time, end_time, pt, patient) VALUES(null, ?, ?, (NOW() - INTERVAL ? MINUTE), NOW(), ?, ?)";
-=======
-    public Activity() {}
-
-    public void createActivity(String activity_type, Integer time, Integer pt_ID, Integer patient_ID) throws Exception {
-        String activityQuery = "INSERT INTO activity(activity_id, activity_type, duration, start_time, end_time, pt, patient) VALUES(null, ?, ?, (NOW() - INTERVAL ? MINUTE), NOW(), ?, ?)";
->>>>>>> f8d9b0c9447e7fdeb8f388d4fbe6abf422965516
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -58,15 +51,9 @@ public class Activity {
             pst.executeQuery(activityQuery);
 
             ResultSet rs = pst.executeQuery();
-<<<<<<< HEAD
             if(rs.next()) {
-                setactivity_id(rs.getInt("activity_id"));
-                settype_activity(rs.getString("type_activity"));
-=======
-            if (rs.next()) {
                 setActivity_id(rs.getInt("activity_id"));
-                setActivity_type(rs.getString("activity_type"));
->>>>>>> f8d9b0c9447e7fdeb8f388d4fbe6abf422965516
+                setType_activity(rs.getString("type_activity"));
                 setDuration(rs.getInt("duration"));
                 setStart_time(rs.getTimestamp("start_time"));
                 setEnd_time(rs.getTimestamp("end_time"));
@@ -89,21 +76,12 @@ public class Activity {
         this.activity_id = activity_id;
     }
 
-<<<<<<< HEAD
-    public String gettype_activity() {
+    public String getType_activity() {
         return type_activity;
     }
 
-    public void settype_activity(String type_activity) {
+    public void setType_activity(String type_activity) {
         this.type_activity = type_activity;
-=======
-    public String getActivity_type() {
-        return activity_type;
-    }
-
-    public void setActivity_type(String activity_type) {
-        this.activity_type = activity_type;
->>>>>>> f8d9b0c9447e7fdeb8f388d4fbe6abf422965516
     }
 
     public Integer getDuration() {
