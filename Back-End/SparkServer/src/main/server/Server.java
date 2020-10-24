@@ -2,8 +2,8 @@ package main.server;
 
 import com.google.gson.Gson;
 
-import main.server.Entry.EntryUtil;
 import main.server.Activity.ActivityUtil;
+import main.server.Entry.EntryUtil;
 import main.server.PT.*;
 import main.server.Patient.PatientUtil;
 
@@ -61,11 +61,6 @@ public class Server {
 					response.status(ActivityUtil.registerActivity(request));
 					return response.status();
 				});
-			});
-
-			path("/company", () -> {
-				// TODO
-
 			});
 
 			path("/database", () -> get("/version", (request, response) -> databaseVersion()));

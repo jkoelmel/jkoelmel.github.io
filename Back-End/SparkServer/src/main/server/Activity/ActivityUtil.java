@@ -4,8 +4,7 @@ import com.google.gson.Gson;
 import main.server.Server;
 import spark.Request;
 import spark.Response;
-import main.server.Server;
-import main.server.User.User;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -15,29 +14,28 @@ public class ActivityUtil {
         Integer pt_id = Integer.parseInt(request.queryMap().get("pt").value());
         Integer patient_id = Integer.parseInt(request.queryMap().get("patient").value());
         String toReturn = "";
-        String query = "SELECT * FROM activity WHERE pt=? AND patient=? ORDER BY end_time DESC";
+        String query = "SELECT * FROM activity WHERE pt = "+ pt_id + " AND patient = " + patient_id +
+				" ORDER BY end_time DESC";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
                 Server.databaseUsername,
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(query)) {
-
-            pst.setInt(1, pt_id);
-            pst.setInt(2, patient_id);
-
             ResultSet rs = pst.executeQuery();
+
             ArrayList<Activity> list = new ArrayList<>();
             while (rs.next()) {
                 Activity activity = new Activity();
 
-                activity.setactivity_id(rs.getInt("activity_id"));
-                activity.setactivity_type(rs.getString("activity_type"));
+                activity.setActivity_id(rs.getInt("activity_id"));
+                activity.setActivity_type(rs.getString("activity_type"));
                 activity.setDuration(rs.getInt("duration"));
                 activity.setStart_time(rs.getTimestamp("start_time"));
                 activity.setEnd_time(rs.getTimestamp("end_time"));
                 activity.setPt(rs.getInt("pt"));
                 activity.setPatient(rs.getInt("patient"));
+
                 list.add(activity);
             }
             Gson gson = new Gson();
@@ -72,7 +70,8 @@ public class ActivityUtil {
             while (rs.next()) {
                 Activity activity = new Activity();
 
-                activity.setactivity_type(rs.getString("activity_type"));
+                activity.setActivity_id(rs.getInt("activity_id"));
+                activity.setActivity_type(rs.getString("activity_type"));
                 activity.setDuration(rs.getInt("duration"));
                 activity.setStart_time(rs.getTimestamp("start_time"));
                 activity.setEnd_time(rs.getTimestamp("end_time"));
@@ -101,7 +100,7 @@ public class ActivityUtil {
     public static Integer registerActivity(Request request) {
         try {
             Activity activity = new Activity();
-            activity.createActivity(request.queryMap().get("type_activity").value(),
+            activity.createActivity(request.queryMap().get("activity_type").value(),
                     Integer.parseInt(request.queryMap().get("duration").value()),
                     Integer.parseInt(request.queryMap().get("pt").value()),
                     Integer.parseInt(request.queryMap().get("patient").value()));

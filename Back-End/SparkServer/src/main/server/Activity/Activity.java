@@ -1,6 +1,5 @@
 package main.server.Activity;
 
-import main.server.PT.PT;
 import main.server.Server;
 
 import java.sql.*;
@@ -14,12 +13,10 @@ public class Activity {
     private Integer pt;
     private Integer patient;
 
-    public Activity() { this.activity_id = null;}
+    public Activity() {}
 
-    //WIP: syntax error between Workbench between and POST requests
     public void createActivity(String activity_type, Integer time, Integer pt_ID, Integer patient_ID) throws Exception {
-        String activityQuery =
-                "INSERT INTO activity(activity_id, type_activity, duration, start_time, end_time, pt, patient) VALUES(null, ?, ?, (NOW() - INTERVAL ? MINUTE), NOW(), ?, ?)";
+        String activityQuery = "INSERT INTO activity(activity_id, activity_type, duration, start_time, end_time, pt, patient) VALUES(null, ?, ?, (NOW() - INTERVAL ? MINUTE), NOW(), ?, ?)";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -42,42 +39,46 @@ public class Activity {
     }
 
     public Activity getActivity(Integer pt, Integer patient) throws Exception {
-        String activityQuery = "SELECT * FROM activity WHERE pt = ? AND patient = ? VALUES(pt, patient)";
+        String activityQuery = "SELECT * FROM activity WHERE pt = " + pt + " AND patient = " + patient;
 
-        try(Connection con = DriverManager.getConnection(
+        try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
                 Server.databaseUsername,
                 Server.databasePassword);
-            PreparedStatement pst = con.prepareStatement(activityQuery)) {
-
+             PreparedStatement pst = con.prepareStatement(activityQuery)) {
             pst.executeQuery(activityQuery);
 
             ResultSet rs = pst.executeQuery();
-            if(rs.next()) {
-                setactivity_id(rs.getInt("activity_id"));
-                setactivity_type(rs.getString("activity_type"));
+            if (rs.next()) {
+                setActivity_id(rs.getInt("activity_id"));
+                setActivity_type(rs.getString("activity_type"));
                 setDuration(rs.getInt("duration"));
+                setStart_time(rs.getTimestamp("start_time"));
+                setEnd_time(rs.getTimestamp("end_time"));
                 setPt(rs.getInt("pt"));
                 setPatient(rs.getInt("patient"));
             }
         } catch (SQLException ex) {
-            throw new Exception("Error getting activity with pt_id " + this.pt + "and " +
+            throw new Exception("Error getting activity with pt_id " + this.pt + "and patient " +
                     this.patient + ": " + ex.toString());
         }
 
         return this;
     }
 
-    public void setactivity_id(Integer activity_id) {
+    public Integer getActivity_id() {
+        return activity_id;
+    }
+
+    public void setActivity_id(Integer activity_id) {
         this.activity_id = activity_id;
     }
 
-
-    public String getactivity_type() {
+    public String getActivity_type() {
         return activity_type;
     }
 
-    public void setactivity_type(String activity_type) {
+    public void setActivity_type(String activity_type) {
         this.activity_type = activity_type;
     }
 
@@ -89,21 +90,22 @@ public class Activity {
         this.duration = duration;
     }
 
-    public void setStart_time(java.sql.Timestamp timestamp) {
-        this.start_time = timestamp;
+    public Timestamp getStart_time() {
+        return start_time;
     }
 
-    public java.sql.Timestamp getStart_time() {
-        return this.start_time;
+    public void setStart_time(Timestamp start_time) {
+        this.start_time = start_time;
     }
 
-    public void setEnd_time(java.sql.Timestamp timestamp) {
-        this.end_time = timestamp;
+    public Timestamp getEnd_time() {
+        return end_time;
     }
 
-    public java.sql.Timestamp getEnd_time() {
-        return this.end_time;
+    public void setEnd_time(Timestamp end_time) {
+        this.end_time = end_time;
     }
+
     public Integer getPt() {
         return pt;
     }
@@ -112,7 +114,6 @@ public class Activity {
         this.pt = pt;
     }
 
-
     public Integer getPatient() {
         return patient;
     }
@@ -120,5 +121,4 @@ public class Activity {
     public void setPatient(Integer patient) {
         this.patient = patient;
     }
-
 }
