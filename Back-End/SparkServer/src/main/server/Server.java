@@ -1,7 +1,12 @@
 package main.server;
 
 import com.google.gson.Gson;
+import main.server.Activity.ActivityUtil;
+import main.server.Assignment.AssignmentUtil;
+import main.server.Contain.ContainUtil;
+import main.server.Entry.EntryUtil;
 import main.server.PT.*;
+import main.server.Patient.PatientUtil;
 
 import java.sql.*;
 
@@ -9,20 +14,73 @@ import static spark.Spark.*;
 
 public class Server {
 	public static final String databasePath = "jdbc:mysql://portaldb.cciebyoevg9q.us-west-1.rds.amazonaws.com:3306/portalDB";
-	public static final String databaseUsername = System.getenv("PORTALDB_USERNAME");
-	public static final String databasePassword = System.getenv("PORTALDB_PASSWORD");
+
+	public static final String databaseUsername = "admin";
+	public static final String databasePassword = "Csc648Team2";
 
 	public static void main(String[] args) {
+		System.out.println("Starting server on port 8080");
+
 		port(8080);
 
 		path("/api", () -> {
 			before("/*", (q, a) -> System.out.println("Received api call"));
+
 			path("/pt", () -> {
+				get("/id", PTUtil::selectSpecific);
 				get("/all", (request, response) -> PTUtil.selectAll(response));
+				get("/patients", PTUtil::selectPatients);
+
 				post("/register", (request, response) -> {
 					response.status(PTUtil.registerPT(request));
 					return response.status();
 				});
+			});
+
+
+			path("/patient", () -> {
+				get("/id", PatientUtil::selectSpecific);
+				get("/all", (request, response) -> PatientUtil.selectAll(response));
+				post("/register", (request, response) -> {
+					response.status(PatientUtil.registerPatient(request));
+					return response.status();
+				});
+				put("/update-pt", (request, response) -> {
+					response.status(PatientUtil.attachTherapist(request));
+					return response.status();
+				});
+
+				path("/entry", () -> {
+					get("/id", EntryUtil::selectSpecific);
+					get("/all", EntryUtil::selectAll);
+					post("/register", (request, response) -> {
+						response.status(EntryUtil.registerEntry(request));
+						return response.status();
+					});
+				});
+			});
+
+			path("/activity", () -> {
+				//Requires pt and patient query fields to get all activity between the two
+				get("/id", ActivityUtil::selectSpecific);
+				//Literally returns all data, for now
+				get("/all", (request, response) -> ActivityUtil.selectAll(response));
+				post("/register", (request, response) -> {
+					response.status(ActivityUtil.registerActivity(request));
+					return response.status();
+				});
+			});
+
+			path("/assign", () -> {
+				//Requires patient in query to find workout indices
+				get("/id", AssignmentUtil::selectSpecific);
+				//Requires patient in query to find all details, assignment, workout, and exercises
+				get("/all", AssignmentUtil::selectAllData);
+			});
+
+			path("/workout", () -> {
+				//Requires workout_id in query to find exercises
+				get("/id", ContainUtil::selectExercises);
 			});
 
 			path("/database", () -> get("/version", (request, response) -> databaseVersion()));
@@ -38,8 +96,11 @@ public class Server {
 				Gson gson = new Gson();
 				return gson.toJson(pt);
 			}));
-		});
-	}
+
+			after("/*", (q, a) -> System.out.println("API call completed"));
+
+			});
+		}
 
 	private static String databaseVersion() {
 		String query = "SELECT VERSION()";
