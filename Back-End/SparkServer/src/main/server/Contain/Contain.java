@@ -34,15 +34,15 @@ public class Contain {
     }
 
     public Contain getExerciseList() throws Exception {
-        String exerciseQuery = "SELECT * FROM exercise e INNER JOIN contain  c ON e.exercise_id = c.exercise" +
+        String containQuery = "SELECT * FROM exercise e INNER JOIN contain  c ON e.exercise_id = c.exercise" +
                 " WHERE c.workout = " + this.workout;
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
                 Server.databaseUsername,
                 Server.databasePassword);
-             PreparedStatement pst = con.prepareStatement(exerciseQuery)) {
-            pst.executeQuery(exerciseQuery);
+             PreparedStatement pst = con.prepareStatement(containQuery)) {
+            pst.executeQuery(containQuery);
 
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {

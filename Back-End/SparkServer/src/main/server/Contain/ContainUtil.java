@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ContainUtil {
 
-    //TODO needs the workout and exercise classes to finish
+    //TODO needs the workoutUtil definitions to ensure congruency
 
     public static String selectWorkout(Request request, Response response) {
         String toReturn = "";

@@ -27,7 +27,7 @@ public class Assignment {
             pst.setInt(1, pt);
             pst.setInt(2, workout);
             pst.setInt(3, patient);
-            pst.executeUpdate();
+            pst.executeUpdate(assignmentQuery);
 
             System.out.println("Assignment added to database");
         } catch (SQLException sqlEx) {
