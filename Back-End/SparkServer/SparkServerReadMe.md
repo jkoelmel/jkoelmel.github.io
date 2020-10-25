@@ -1,5 +1,4 @@
 ##Backend
-
 Run Server to get started. In a browser, go to http://localhost:8080/api/database/version to test the connection. If you see "MySQL Version 8.0.20" then success!
 
 To see an example user payload, query http://localhost:8080/api/example/user

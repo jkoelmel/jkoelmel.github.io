@@ -35,7 +35,6 @@
             <version>2.4</version>
         </dependency>
     </dependencies>
-
     <build>
         <sourceDirectory>src</sourceDirectory>
         <resources>
@@ -82,5 +81,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
