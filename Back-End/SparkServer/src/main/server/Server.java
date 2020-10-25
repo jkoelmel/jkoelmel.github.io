@@ -3,6 +3,8 @@ package main.server;
 import com.google.gson.Gson;
 
 import main.server.Activity.ActivityUtil;
+import main.server.Assignment.AssignmentUtil;
+import main.server.Contain.ContainUtil;
 import main.server.Entry.EntryUtil;
 import main.server.PT.*;
 import main.server.Patient.PatientUtil;
@@ -56,12 +58,26 @@ public class Server {
 			});
 
 			path("/activity", () -> {
+				//Requires pt and patient query fields to get all activity between the two
 				get("/id", ActivityUtil::selectSpecific);
+				//Literally returns all data, for now
 				get("/all", (request, response) -> ActivityUtil.selectAll(response));
 				post("/register", (request, response) -> {
 					response.status(ActivityUtil.registerActivity(request));
 					return response.status();
 				});
+			});
+
+			path("/assign", () -> {
+				//Requires patient in query to find workout indices
+				get("/id", AssignmentUtil::selectSpecific);
+				//Requires patient in query to find all details, assignment, workout, and exercises
+				get("/all", AssignmentUtil::selectAllData);
+			});
+
+			path("/workout", () -> {
+				//Requires workout_id in query to find exercises
+				get("/id", ContainUtil::selectExercises);
 			});
 
 			path("/database", () -> get("/version", (request, response) -> databaseVersion()));

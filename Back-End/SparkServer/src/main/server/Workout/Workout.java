@@ -1,17 +1,20 @@
 package main.server.Workout;
 
 
+import main.server.Assignment.Assignment;
 import main.server.Server;
 
 import java.sql.*;
 
-public class Workout{
+public class Workout {
 
-    private Integer workout_Id;
+    private Integer workout_id;
     private String title;
     private Integer contain;
 
 
+    public Workout(Integer workout_id) { this.workout_id = workout_id;}
+    
     public void createWorkout() throws Exception{
         String workoutQuery = "INSERT INTO workout(workout_id,title) VALUES (NULL,?)";
 
@@ -21,15 +24,12 @@ public class Workout{
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(workoutQuery)) {
 
-            pst.setInt(1,getWorkoutId());
-            pst.setString(2,getTitle());
+            pst.setString(1, getTitle());
             pst.executeUpdate();
 
             pst.executeUpdate(workoutQuery);
             System.out.println("Workout added to database");
-
-
-        }catch(SQLException ex){
+        } catch(SQLException ex){
             throw new Exception("Error inserting workout: " + ex.toString());
         }
     }
@@ -51,15 +51,15 @@ public class Workout{
 
             }
         } catch (SQLException ex) {
-            throw new Exception("Error getting patient with id " + this.workout_Id + ": " + ex.toString());
+            throw new Exception("Error getting patient with id " + this.workout_id + ": " + ex.toString());
         }
         return this;
     }
 
 
-    public Integer getWorkoutId(){ return workout_Id; }
+    public Integer getWorkoutId(){ return workout_id; }
 
-    public void setWorkoutId(Integer workoutId){ this.workout_Id = workoutId;}
+    public void setWorkoutId(Integer workoutId){ this.workout_id = workoutId;}
 
     public String getTitle(){ return title;}
 

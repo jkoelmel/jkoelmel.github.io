@@ -1,7 +1,6 @@
 package main.server.Contain;
 
 import main.server.Server;
-
 import java.sql.*;
 
 public class Contain {
@@ -35,7 +34,7 @@ public class Contain {
     }
 
     public Contain getExerciseList() throws Exception {
-        String containQuery = "SELECT * FROM exercise e JOIN contain  c ON e.exercise_id = c.exercise" +
+        String containQuery = "SELECT * FROM exercise e INNER JOIN contain  c ON e.exercise_id = c.exercise" +
                 " WHERE c.workout = " + this.workout;
 
         try (Connection con = DriverManager.getConnection(
@@ -50,13 +49,12 @@ public class Contain {
                 //Contain data
                 setcontain_id(rs.getInt("contain_id"));
                 setWorkout(rs.getInt("workout"));
-                setExercise(rs.getInt("exercise"));
-
-                //Exercise data; TODO
+                setExercise(rs.getInt("exercise"));;
             }
-        }
-
-        return this;
+    } catch (SQLException ex) {
+            throw new Exception("Error getting exercise data: " + ex.toString());
+    }
+    return this;
     }
 
     public void updateContain(Integer workout, Integer exercise) throws Exception {
