@@ -1,6 +1,5 @@
 package main.server.Assignment;
 
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import main.server.Server;
 
 import java.sql.*;
@@ -12,10 +11,11 @@ public class Assignment {
     private Integer workout;
     private Integer patient;
 
-    public Assignment() {this.assignment_id = null;}
+    public Assignment(Integer assignment_id) {this.assignment_id = assignment_id;}
 
     public void createAssignment(Integer pt, Integer workout, Integer patient) throws Exception {
-        String assignmentQuery = "INSERT INTO assignment(assignment_id, pt, workout, patient) VALUES(null, ?, ?, ?)";
+        String assignmentQuery =
+                "INSERT INTO assignment( pt, workout, patient) VALUES( ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -36,8 +36,9 @@ public class Assignment {
     }
 
     public Assignment getAssignment(Integer patient) throws Exception {
-        String assignmentQuery = "SELECT * FROM workout w JOIN assignment a AND patient p" +
+        String assignmentQuery = "SELECT * FROM workout w JOIN assignment a " +
                 "ON workout_id = a.workout WHERE a.patient = " + patient;
+
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -47,13 +48,12 @@ public class Assignment {
             pst.executeQuery(assignmentQuery);
 
             ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                //Workout data; will update when workout class built
-                //setTitle(rs.getString("title"));
+            while (rs.next()) {
                 //Assignment data
-                setPt(rs.getInt("pt"));
                 setWorkout(rs.getInt("workout"));
                 setPatient(rs.getInt("patient"));
+                setPt(rs.getInt("pt"));
+
             }
         } catch (SQLException ex) {
             throw new Exception("Error getting assignment: " + ex.toString());
