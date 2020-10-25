@@ -1,10 +1,17 @@
 package main.server.Contain;
 
-public class Contain {
+public abstract class Contain {
 
     private Integer containId;
     private Integer workout;
     private Integer exercise;
+
+    public Contain(){}
+
+    public Contain(Integer exercise, Integer workout) {
+        this.exercise = exercise;
+        this.workout = workout;
+    }
 
 
     public Integer getContainId() {

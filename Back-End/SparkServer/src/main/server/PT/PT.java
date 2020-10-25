@@ -1,6 +1,5 @@
 package main.server.PT;
 
-import main.server.Patient.Patient;
 import main.server.Server;
 import main.server.User.User;
 
@@ -14,9 +13,7 @@ public class PT extends User {
 		super(email, f_name, l_name, company);
 	}
 
-	public PT(Integer pt_id) {
-		this.pt_id = pt_id;
-	}
+	public PT(Integer pt_id){this.pt_id=pt_id;}
 
 	public void createPT() throws Exception {
 		String userQuery = "INSERT INTO user(user_id, email, f_name, l_name, company) VALUES(NULL, ?, ?, ?, ?);";
@@ -90,4 +87,5 @@ public class PT extends User {
 		this.user = user;
 		setUser_id(user);
 	}
+
 }
