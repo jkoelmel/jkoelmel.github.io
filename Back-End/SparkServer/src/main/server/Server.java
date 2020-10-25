@@ -1,6 +1,8 @@
 package main.server;
 
 import com.google.gson.Gson;
+
+import main.server.Activity.ActivityUtil;
 import main.server.Entry.EntryUtil;
 import main.server.PT.*;
 import main.server.Patient.PatientUtil;
@@ -53,6 +55,15 @@ public class Server {
 				});
 			});
 
+			path("/activity", () -> {
+				get("/id", ActivityUtil::selectSpecific);
+				get("/all", (request, response) -> ActivityUtil.selectAll(response));
+				post("/register", (request, response) -> {
+					response.status(ActivityUtil.registerActivity(request));
+					return response.status();
+				});
+			});
+
 			path("/database", () -> get("/version", (request, response) -> databaseVersion()));
 
 			// Example get request and response
@@ -68,8 +79,9 @@ public class Server {
 			}));
 
 			after("/*", (q, a) -> System.out.println("API call completed"));
-		});
-	}
+
+			});
+		}
 
 	private static String databaseVersion() {
 		String query = "SELECT VERSION()";

@@ -59,7 +59,7 @@ Patients can be retrieved by calling a GET request on `api/patient/all` for all 
 ---
 
 ####Entries
-To add a patient entry log, send a POST request to the endpoint `api/patient/entry/register` with the query parameters `entry, created_on, patient_id`.
+To add a patient entry log, send a POST request to the endpoint `api/patient/entry/register` with the query parameters `entry, patient_id`.
 
 To retrieve a specific entry, use a GET request at `api/patient/entry/id` with the query parameter `entry_id`. To retrieve all entries by a specific patient, use a GET request at `api/patient/entry/all` with the query parameter `patient_id`.
 
