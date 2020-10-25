@@ -1,29 +1,23 @@
 package main.server.Workout;
 
 
+import main.server.Assignment.Assignment;
 import main.server.Server;
 
 import java.sql.*;
 
-public class Workout{
+public class Workout {
 
-    private Integer workout_Id;
+    private Integer workout_id;
     private String title;
     private Integer contain;
-
-<<<<<<< HEAD
-    public Workout(Integer workout_id, String title) {
-        this.workout_Id=workout_id;
-        this.title=title;
-    }
 
     public Workout(Integer workout_id) {
         this.workout_Id=workout_id;
     }
 
-=======
->>>>>>> fc03509cd82880d7e32c5e802e8f28e2adbc3175
-
+    public Workout(Integer workout_id) { this.workout_id = workout_id;}
+    
     public void createWorkout() throws Exception{
         String workoutQuery = "INSERT INTO workout(workout_id,title) VALUES (NULL,?)";
 
@@ -33,20 +27,12 @@ public class Workout{
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(workoutQuery)) {
 
-<<<<<<< HEAD
-
             pst.setString(1,getTitle());
-=======
-            pst.setInt(1,getWorkoutId());
-            pst.setString(2,getTitle());
->>>>>>> fc03509cd82880d7e32c5e802e8f28e2adbc3175
             pst.executeUpdate();
 
             pst.executeUpdate(workoutQuery);
             System.out.println("Workout added to database");
-
-
-        }catch(SQLException ex){
+        } catch(SQLException ex){
             throw new Exception("Error inserting workout: " + ex.toString());
         }
     }
@@ -68,16 +54,11 @@ public class Workout{
 
             }
         } catch (SQLException ex) {
-<<<<<<< HEAD
             throw new Exception("Error getting workout with id " + this.workout_Id + ": " + ex.toString());
-=======
-            throw new Exception("Error getting patient with id " + this.workout_Id + ": " + ex.toString());
->>>>>>> fc03509cd82880d7e32c5e802e8f28e2adbc3175
         }
         return this;
     }
 
-<<<<<<< HEAD
     public void updateWorkout(String title) throws Exception{
         String query = "UPDATE workout SET title = " + title + " WHERE workout_id = " + this.workout_Id;
 
@@ -94,12 +75,10 @@ public class Workout{
         }
     }
 
-=======
->>>>>>> fc03509cd82880d7e32c5e802e8f28e2adbc3175
 
-    public Integer getWorkoutId(){ return workout_Id; }
+    public Integer getWorkoutId(){ return workout_id; }
 
-    public void setWorkoutId(Integer workoutId){ this.workout_Id = workoutId;}
+    public void setWorkoutId(Integer workoutId){ this.workout_id = workoutId;}
 
     public String getTitle(){ return title;}
 

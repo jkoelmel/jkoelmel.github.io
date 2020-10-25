@@ -11,6 +11,10 @@ To add a PT to the database, the api endpoint to use is `/api/pt/register` with 
 
 To retrieve all users who are PT's, use the endpoint `/api/pt/all`. This should be a GET request.
 
+To retrieve a specific PT, use the endpoint `/api/pt/id` with the query parameter `pt_id`. This should be a GET request.
+
+To retrieve the patients belonging to a specific PT, use the endpoint `api/pt/patients` with the query parameter `pt_id`. This should be a GET request.
+
 #####Sample JSON data
 ```
 [
@@ -38,16 +42,35 @@ Patients can be retrieved by calling a GET request on `api/patient/all` for all 
 #####Sample JSON data
 ```
 [
-   {
-       "patient_id": 1,
-       "user": 14,
-       "pt": 2,
-       "prospective_pt": 2,
-       "user_id": 14,
-       "email": "test@mail.com",
-       "f_name": "jane",
-       "l_name": "doe",
-       "company": "the NY co"
-   }
+    {
+        "patient_id": 1,
+        "user": 14,
+        "pt": 2,
+        "prospective_pt": 2,
+        "user_id": 14,
+        "email": "test@mail.com",
+        "f_name": "jane",
+        "l_name": "doe",
+        "company": "the NY co"
+    }
+]
+```
+
+---
+
+####Entries
+To add a patient entry log, send a POST request to the endpoint `api/patient/entry/register` with the query parameters `entry, patient_id`.
+
+To retrieve a specific entry, use a GET request at `api/patient/entry/id` with the query parameter `entry_id`. To retrieve all entries by a specific patient, use a GET request at `api/patient/entry/all` with the query parameter `patient_id`.
+
+#####Sample JSON data
+```
+[
+    {
+        "entry_id": 17,
+        "entry": "imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum",
+        "created_on": "May 5, 2020, 4:50:52 AM",
+        "patient": 100
+    }
 ]
 ```
