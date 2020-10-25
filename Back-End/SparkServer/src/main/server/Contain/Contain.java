@@ -9,6 +9,7 @@ public class Contain {
     private Integer workout;
     private Integer exercise;
 
+
     public Contain(Integer contain_id) {
         this.contain_id = contain_id;}
 
@@ -54,7 +55,7 @@ public class Contain {
     } catch (SQLException ex) {
             throw new Exception("Error getting exercise data: " + ex.toString());
     }
-    return this;
+      return this;
     }
 
     public void updateContain(Integer workout, Integer exercise) throws Exception {
