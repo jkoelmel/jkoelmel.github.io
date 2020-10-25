@@ -1,7 +1,7 @@
 package main.server.PT;
 
 import main.server.Server;
-import main.server.user.User;
+import main.server.User.User;
 
 import java.sql.*;
 
@@ -13,7 +13,10 @@ public class PT extends User {
 		super(email, f_name, l_name, company);
 	}
 
-	// TODO: third party dependency to check for valid email, if we care
+	public PT(Integer pt_id) {
+		this.pt_id = pt_id;
+	}
+
 	public void createPT() throws Exception {
 		String userQuery = "INSERT INTO user(user_id, email, f_name, l_name, company) VALUES(NULL, ?, ?, ?, ?);";
 		String ptQuery = "INSERT INTO pt(pt_id, user) VALUES(NULL, LAST_INSERT_ID())";
@@ -37,6 +40,37 @@ public class PT extends User {
 		} catch (SQLException ex) {
 			throw new Exception("Error inserting user/pt: " + ex.toString());
 		}
+	}
+
+
+	public PT getPT() throws Exception {
+		String ptQuery = "SELECT * FROM user u JOIN pt p " +
+				"ON u.user_id = p.user WHERE p.pt_id = " + this.pt_id;
+
+		try (Connection con = DriverManager.getConnection(
+				Server.databasePath,
+				Server.databaseUsername,
+				Server.databasePassword);
+			 PreparedStatement pst = con.prepareStatement(ptQuery)) {
+			pst.executeQuery(ptQuery);
+
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				// PT data
+				setPt_id(rs.getInt("pt_id"));
+				setUser(rs.getInt("user"));
+
+				// User data
+				setEmail(rs.getString("email"));
+				setF_name(rs.getString("f_name"));
+				setL_name(rs.getString("l_name"));
+				setCompany(rs.getString("company"));
+			}
+		} catch (SQLException ex) {
+			throw new Exception("Error getting pt with id " + this.pt_id + ": " + ex.toString());
+		}
+
+		return this;
 	}
 
 	public Integer getPt_id() {

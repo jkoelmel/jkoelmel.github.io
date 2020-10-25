@@ -14,7 +14,7 @@ const SearchPlan = () => {
 
     return (
         <div>
-            <div style={{ width: 300 }}>
+            <div style={{ width: "auto" }}>
       <Autocomplete
         searchplan
         id="search-plan"

@@ -11,7 +11,6 @@ const SearchReport = () => {
         {title: 'Michael Jordan'}
     ];
 
-
     return (
         <div>
             <div style={{ width: 300 }}>

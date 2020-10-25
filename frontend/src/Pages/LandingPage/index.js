@@ -9,10 +9,7 @@ import SearchPlan from '../../Components/SearchPlan/SearchPlan'
 import SearchReport from '../../Components/SearchReport/SearchReport'
 import SearchActivities from '../../Components/SearchActivities/SearchActivities'
 
-
-
 const Landing = () => {
-
     return (
         <div className = 'root'>
             <Grid container className ='grid-root' spacing={5}>
@@ -32,11 +29,11 @@ const Landing = () => {
                     <SearchReport/>
                 </Paper>
             </Grid>
-            <Grid item xs={3} >
+            <Grid item xs={3} > 
                 <Paper >
                     <SearchActivities />
                 </Paper>
-            </Grid>
+            </Grid>        
         </div>
            )    
 }
