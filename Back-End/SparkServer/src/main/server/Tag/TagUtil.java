@@ -1,2 +1,4 @@
-package main.server.tag;public class TagUtil {
+package main.server.Tag;
+
+public class TagUtil {
 }

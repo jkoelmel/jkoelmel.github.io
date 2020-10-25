@@ -11,9 +11,9 @@ public class PT extends User {
 	public PT(String email, String f_name, String l_name, String company) {
 		super(email, f_name, l_name, company);
 	}
-	public PT(Integer pt_id) {
-		this.pt_id = pt_id;
-	}
+
+  public PT(Integer pt_id){this.pt_id=pt_id;}
+
 	public void createPT() throws Exception {
 		String userQuery = "INSERT INTO user(user_id, email, f_name, l_name, company) VALUES(NULL, ?, ?, ?, ?);";
 		String ptQuery = "INSERT INTO pt(pt_id, user) VALUES(NULL, LAST_INSERT_ID())";
@@ -85,4 +85,5 @@ public class PT extends User {
 		this.user = user;
 		setUser_id(user);
 	}
+
 }
