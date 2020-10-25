@@ -11,6 +11,7 @@ public class Workout{
     private String title;
     private Integer contain;
 
+<<<<<<< HEAD
     public Workout(Integer workout_id, String title) {
         this.workout_Id=workout_id;
         this.title=title;
@@ -20,6 +21,8 @@ public class Workout{
         this.workout_Id=workout_id;
     }
 
+=======
+>>>>>>> fc03509cd82880d7e32c5e802e8f28e2adbc3175
 
     public void createWorkout() throws Exception{
         String workoutQuery = "INSERT INTO workout(workout_id,title) VALUES (NULL,?)";
@@ -30,8 +33,13 @@ public class Workout{
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(workoutQuery)) {
 
+<<<<<<< HEAD
 
             pst.setString(1,getTitle());
+=======
+            pst.setInt(1,getWorkoutId());
+            pst.setString(2,getTitle());
+>>>>>>> fc03509cd82880d7e32c5e802e8f28e2adbc3175
             pst.executeUpdate();
 
             pst.executeUpdate(workoutQuery);
@@ -60,11 +68,16 @@ public class Workout{
 
             }
         } catch (SQLException ex) {
+<<<<<<< HEAD
             throw new Exception("Error getting workout with id " + this.workout_Id + ": " + ex.toString());
+=======
+            throw new Exception("Error getting patient with id " + this.workout_Id + ": " + ex.toString());
+>>>>>>> fc03509cd82880d7e32c5e802e8f28e2adbc3175
         }
         return this;
     }
 
+<<<<<<< HEAD
     public void updateWorkout(String title) throws Exception{
         String query = "UPDATE workout SET title = " + title + " WHERE workout_id = " + this.workout_Id;
 
@@ -81,6 +94,8 @@ public class Workout{
         }
     }
 
+=======
+>>>>>>> fc03509cd82880d7e32c5e802e8f28e2adbc3175
 
     public Integer getWorkoutId(){ return workout_Id; }
 
