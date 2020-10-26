@@ -33,7 +33,8 @@ public class PTUtil {
 
 	public static String selectPatients(Request request, Response response) {
 		String query = "SELECT * FROM user u JOIN patient p " +
-				"ON u.user_id = p.user WHERE p.pt = " + request.queryMap().get("pt_id").value();
+				"ON u.user_id = p.user WHERE p.pt = " + request.queryMap().get("pt_id").value() +
+				" OR p.prospective_pt = " + request.queryMap().get("pt_id").value();
 		String toReturn = "";
 
 		try (Connection con = DriverManager.getConnection(
