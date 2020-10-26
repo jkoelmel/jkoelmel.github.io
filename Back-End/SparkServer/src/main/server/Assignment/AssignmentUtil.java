@@ -44,9 +44,8 @@ public class AssignmentUtil {
         String toReturn = "";
         String query = "SELECT * FROM assignment a INNER JOIN workout w  ON a.workout = w.workout_id " +
                 " INNER JOIN contain c ON c.workout = w.workout_id INNER JOIN exercise e ON c.exercise = e.exercise_id" +
-                " WHERE a.patient = " + Integer.parseInt(request.queryMap().get("patient").value()) + " AND a.start_time > \" " +
-                request.queryMap().get("start").value()+ "\" AND a.start_time <  \"" + request.queryMap().get("end").value() + "\" " +
-                "ORDER BY a.start_time DESC";
+                " WHERE a.patient = " + Integer.parseInt(request.queryMap().get("patient").value()) +
+                " ORDER BY a.start_time DESC";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
