@@ -15,9 +15,9 @@ public class Assignment {
 
     public Assignment(Integer assignment_id) {this.assignment_id = assignment_id;}
 
-    public void createAssignment(Date start_time, Date end_time, Integer pt, Integer workout, Integer patient) throws Exception {
+    public void createAssignment(Integer pt, Integer workout, Integer patient) throws Exception {
         String assignmentQuery =
-                "INSERT INTO assignment(start_time, end_time,  pt, workout, patient) VALUES( ?, ?, ?, ?, ?)";
+                "INSERT INTO assignment(assignment_id, start_time, end_time, pt, workout, patient) VALUES(NULL, now(), NULL, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -26,12 +26,10 @@ public class Assignment {
              PreparedStatement pst = con.prepareStatement(assignmentQuery)) {
 
             //INSERT the Assignment into assignment
-            pst.setDate(1, start_time);
-            pst.setDate(2, end_time);
-            pst.setInt(3, pt);
-            pst.setInt(4, workout);
-            pst.setInt(5, patient);
-            pst.executeUpdate(assignmentQuery);
+            pst.setInt(1, pt);
+            pst.setInt(2, workout);
+            pst.setInt(3, patient);
+            pst.executeUpdate();
 
             System.out.println("Assignment added to database");
         } catch (SQLException sqlEx) {
@@ -66,9 +64,8 @@ public class Assignment {
         return this;
     }
 
-    public void updateAssignment(Integer pt, Integer workout, Integer patient) throws Exception {
-        String query = "UPDATE assignment SET pt = " + pt + ", workout = " + workout + ", patient = " + patient +
-                " WHERE assignment_id = " + this.assignment_id + ")";
+    public void updateAssignment() throws Exception {
+        String query = "UPDATE assignment SET end_time = now() WHERE assignment_id = " + assignment_id;
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
