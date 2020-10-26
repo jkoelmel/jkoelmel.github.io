@@ -1,7 +1,5 @@
 package main.server.Workout;
 
-
-import main.server.Assignment.Assignment;
 import main.server.Server;
 
 import java.sql.*;
@@ -12,6 +10,11 @@ public class Workout {
     private String title;
 
     public Workout(Integer workout_id) { this.workout_id = workout_id;}
+
+    public Workout(Integer workout_id, String title) {
+        this.workout_id = workout_id;
+        this.title = title;
+    }
     
     public void createWorkout() throws Exception{
         String workoutQuery = "INSERT INTO workout(workout_id,title) VALUES (NULL,?)";
@@ -70,7 +73,6 @@ public class Workout {
         }
     }
 
-
     public Integer getWorkoutId(){ return workout_id; }
 
     public void setWorkoutId(Integer workoutId){ this.workout_id = workoutId;}
@@ -78,7 +80,4 @@ public class Workout {
     public String getTitle(){ return title;}
 
     public void setTitle(String title){ this.title = title;}
-
-
-
 }
