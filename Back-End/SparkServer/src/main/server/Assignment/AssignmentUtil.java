@@ -3,6 +3,8 @@ package main.server.Assignment;
 import com.google.gson.Gson;
 import main.server.Contain.Contain;
 import main.server.Exercise.Exercise;
+import main.server.PT.PT;
+import main.server.Patient.Patient;
 import main.server.PatientAssignment.PatientAssignment;
 import main.server.Server;
 import main.server.Workout.Workout;
@@ -86,5 +88,28 @@ public class AssignmentUtil {
         }
 
         return toReturn;
+    }
+
+    public static Integer registerAssignment(Request request) {
+        try {
+            //check if assignment_id exists, passed from front-end checks
+            if(Integer.parseInt(request.queryMap().get("assignment_id").value()) >= 1) {
+                Assignment oldAssignment = new Assignment(Integer.parseInt(request.queryMap().get("assignment_id").value()));
+                //sets end_date to now()
+                oldAssignment.updateAssignment();
+            }
+            //create new assignment from input
+            Assignment assignment = new Assignment(null);
+            assignment.createAssignment(Integer.parseInt(request.queryMap().get("pt").value()),
+                    Integer.parseInt(request.queryMap().get("workout").value()),
+                    Integer.parseInt(request.queryMap().get("patient").value()));
+            return 200;
+        } catch (SQLException sqlEx) {
+            System.err.println(sqlEx.toString());
+            return 500;
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+            return 400;
+        }
     }
 }

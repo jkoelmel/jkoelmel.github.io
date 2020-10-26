@@ -76,6 +76,11 @@ public class Server {
 				get("/id", AssignmentUtil::selectSpecific);
 				//Requires patient in query to find all details, assignment, workout, and exercises
 				get("/all", AssignmentUtil::selectAllData);
+				//Requires old assignment_id (0 or -1 if not available), pt, workout, and patient
+				post("/register", (request, response) -> {
+					response.status(AssignmentUtil.registerAssignment(request));
+					return response.status();
+				});
 			});
 
 			path("/workout", () -> {
