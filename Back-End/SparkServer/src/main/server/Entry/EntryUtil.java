@@ -33,7 +33,7 @@ public class EntryUtil {
 	public static String selectAll(Request request, Response response) {
 		String toReturn = "";
 		String query = "SELECT * FROM entry WHERE patient = " + Integer.parseInt(request.queryMap().get("patient_id").value()) +
-				" ORDER BY created_on DESC";
+				" ORDER BY created_on DESC LIMIT 10";
 
 		try (Connection con = DriverManager.getConnection(
 				Server.databasePath,
