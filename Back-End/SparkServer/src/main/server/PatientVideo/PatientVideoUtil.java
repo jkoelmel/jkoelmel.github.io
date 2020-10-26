@@ -1,2 +1,4 @@
-package main.server.PatientVideo;public class PatientVideoUtil {
+package main.server.PatientVideo;
+
+public class PatientVideoUtil {
 }
