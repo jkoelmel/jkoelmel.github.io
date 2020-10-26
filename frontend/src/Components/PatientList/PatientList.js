@@ -5,7 +5,6 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { DataGrid } from '@material-ui/data-grid'; //installed. do not need
 import { makeStyles } from '@material-ui/core/styles';
 
 import axios from "axios"
