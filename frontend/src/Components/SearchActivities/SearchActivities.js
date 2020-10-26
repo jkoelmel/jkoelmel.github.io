@@ -15,7 +15,7 @@ const SearchActivities = () => {
 
     return (
         <div>
-            <div style={{ width: 300 }}>
+            <div style={{ width: "auto" }}>
       <Autocomplete
         searchactivities
         id="search-activities"
