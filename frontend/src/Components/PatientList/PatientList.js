@@ -20,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
       backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
+    //   border: '2px solid #000',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+      outline: 'none'
     },
   }));  
 
@@ -32,6 +33,10 @@ const useStyles = makeStyles((theme) => ({
         const [selectedPatient, setSelectedPatient] = React.useState('');
         const [open, setOpen] = React.useState(false);
         const [firstname, setFirstName] = React.useState('');
+        const [lastname, setLastName] = React.useState('');
+        const [company,setCompany] = React.useState('')
+        const [email,setEmail] = React.useState('')
+
 
         
         //TODO save pt id 
@@ -59,10 +64,20 @@ const useStyles = makeStyles((theme) => ({
         }))
         
         const handlePatientClick = (e,patientId) => {
+            console.log(patientId) //TEST
             setSelectedPatient(patientId);
+            patients.map((p)=> {
+                if(p.patient_id == patientId) {
+                    setFirstName(p.f_name)
+                    setLastName(p.l_name)
+                    setEmail(p.email)
+                    setCompany(p.company)
+                }
+            })
             setOpen(true)
             //TODO return patients info by its ID. 
         }
+        console.log(firstname)
           
         const handleClose = () => {
             setOpen(false);
@@ -104,15 +119,11 @@ const useStyles = makeStyles((theme) => ({
                 Potential Patient List
               </ListSubheader>
             }>
-                 {/* { patients.map((p) => (
+                
                     <ListItem 
-                        key = {p.patient_id}
-                        button
-                        selected= {selectedPatient == p.patient_id}
-                        onClick={(event) => handlePatientClick(event, p.patient_id)}>
-                        <ListItemText primary = {`${p.f_name} ${p.l_name}`}/> 
+                        button>
+                        <ListItemText secondary ='no available potential patients'/> 
                     </ListItem>
-                ))} */}
             </List>
             <Modal
                 aria-labelledby="transition-modal-title"
@@ -130,15 +141,15 @@ const useStyles = makeStyles((theme) => ({
           <div className={classes.paper}>
            <List>
                <ListItem>
-                    <ListItemText primary = {`Full Name:${firstname}`}/> 
+                    <ListItemText primary = {`Full Name`} secondary = {`${firstname} ${lastname}`}/> 
                </ListItem>
                <Divider/>
                <ListItem>
-                    <ListItemText primary = {`Company Name: name here`}/> 
+                    <ListItemText primary = {`Email`} secondary = {`${email}`}/> 
                </ListItem>
                <Divider/>
                <ListItem>
-                    <ListItemText primary = {`Company Name: name here`}/> 
+                    <ListItemText primary = {`Company Name`} secondary = {`${company}`}/> 
                </ListItem>
                <Divider/>
            </List>
