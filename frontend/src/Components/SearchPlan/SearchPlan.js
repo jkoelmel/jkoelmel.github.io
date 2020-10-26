@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const SearchPlan = () => {
-  const [exercisePlan,setExercisePlan] = React.useState([]);
+    const [exercisePlan,setExercisePlan] = React.useState([]);
 
     const ExercisePlan = [
         {title: 'Leg Exercise'},
