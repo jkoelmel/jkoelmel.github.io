@@ -7,15 +7,17 @@ import java.sql.*;
 public class Assignment {
 
     private Integer assignment_id;
+    private Date start_time;
+    private Date end_time;
     private Integer pt;
     private Integer workout;
     private Integer patient;
 
     public Assignment(Integer assignment_id) {this.assignment_id = assignment_id;}
 
-    public void createAssignment(Integer pt, Integer workout, Integer patient) throws Exception {
+    public void createAssignment(Date start_time, Date end_time, Integer pt, Integer workout, Integer patient) throws Exception {
         String assignmentQuery =
-                "INSERT INTO assignment( pt, workout, patient) VALUES( ?, ?, ?)";
+                "INSERT INTO assignment(start_time, end_time,  pt, workout, patient) VALUES( ?, ?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -24,9 +26,11 @@ public class Assignment {
              PreparedStatement pst = con.prepareStatement(assignmentQuery)) {
 
             //INSERT the Assignment into assignment
-            pst.setInt(1, pt);
-            pst.setInt(2, workout);
-            pst.setInt(3, patient);
+            pst.setDate(1, start_time);
+            pst.setDate(2, end_time);
+            pst.setInt(3, pt);
+            pst.setInt(4, workout);
+            pst.setInt(5, patient);
             pst.executeUpdate(assignmentQuery);
 
             System.out.println("Assignment added to database");
@@ -88,6 +92,22 @@ public class Assignment {
     }
 
 
+    public Date getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(Date start_time) {
+        this.start_time = start_time;
+    }
+
+    public Date getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(Date end_time) {
+        this.end_time = end_time;
+    }
+
     public Integer getPt() {
         return pt;
     }
@@ -97,7 +117,7 @@ public class Assignment {
     }
 
 
-    public Integer getWorkout() {
+    public Integer getWorkoutID() {
         return workout;
     }
 

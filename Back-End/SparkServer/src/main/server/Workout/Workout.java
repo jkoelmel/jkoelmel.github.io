@@ -10,11 +10,6 @@ public class Workout {
 
     private Integer workout_id;
     private String title;
-    private Integer contain;
-
-    public Workout(Integer workout_id) {
-        this.workout_Id=workout_id;
-    }
 
     public Workout(Integer workout_id) { this.workout_id = workout_id;}
     
@@ -54,13 +49,13 @@ public class Workout {
 
             }
         } catch (SQLException ex) {
-            throw new Exception("Error getting workout with id " + this.workout_Id + ": " + ex.toString());
+            throw new Exception("Error getting workout with id " + this.workout_id + ": " + ex.toString());
         }
         return this;
     }
 
     public void updateWorkout(String title) throws Exception{
-        String query = "UPDATE workout SET title = " + title + " WHERE workout_id = " + this.workout_Id;
+        String query = "UPDATE workout SET title = " + title + " WHERE workout_id = " + this.workout_id;
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -71,7 +66,7 @@ public class Workout {
 
             System.out.println("Workout updated");
         } catch (Exception ex) {
-            throw new Exception("Error updating workouts for patient with id " + this.workout_Id + ": " + ex.toString());
+            throw new Exception("Error updating workouts for patient with id " + this.workout_id + ": " + ex.toString());
         }
     }
 
@@ -84,9 +79,6 @@ public class Workout {
 
     public void setTitle(String title){ this.title = title;}
 
-    public Integer getContain(){return contain;}
-
-    public void setContain(Integer contain){this.contain = contain;}
 
 
 }
