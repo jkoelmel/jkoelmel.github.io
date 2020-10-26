@@ -8,7 +8,6 @@ public class Workout {
 
     private Integer workout_id;
     private String title;
-    private Integer contain;
 
     public Workout(Integer workout_id) { this.workout_id = workout_id;}
 
@@ -81,8 +80,4 @@ public class Workout {
     public String getTitle(){ return title;}
 
     public void setTitle(String title){ this.title = title;}
-
-    public Integer getContain(){return contain;}
-
-    public void setContain(Integer contain){this.contain = contain;}
 }

@@ -42,7 +42,7 @@ public class WorkoutUtil {
 
             ArrayList<Workout> list = new ArrayList<>();
             while (rs.next()) {
-                Workout workout = new Workout(rs.getInt("workout_id"),rs.getString("title"));
+                Workout workout = new Workout(rs.getInt("workout_id"));
 
                 workout.setWorkoutId(rs.getInt("workout_id"));
                 workout.setTitle(rs.getString("title"));
