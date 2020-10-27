@@ -27,10 +27,10 @@ const useStyles = makeStyles((theme) => ({
     },
   }));  
 
-    const PatientList = () => {
+    const PatientList = ({patients,setPatients,selectedPatient,setSelectedPatient}) => {
         const classes = useStyles();
-        const [patients,setPatients] = React.useState([]);
-        const [selectedPatient, setSelectedPatient] = React.useState('');
+        // const [patients,setPatients] = React.useState([]);
+        // const [selectedPatient, setSelectedPatient] = React.useState(''); //patient id
         const [open, setOpen] = React.useState(false);
         const [firstname, setFirstName] = React.useState('');
         const [lastname, setLastName] = React.useState('');
@@ -49,8 +49,8 @@ const useStyles = makeStyles((theme) => ({
                 }
             })
                 .then( (response) => {
-                    console.log(response);
-                    console.log(response.data[0].f_name);
+                    console.log(response); //TEST
+                    console.log(response.data[0].f_name); //TEST
                     
                     setPatients(response.data.map((p) => {
                         return p
@@ -59,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
                 .catch(console.log)
             
         }
+        //TEST
         console.log(patients.map((patient) => {
             return patient
         }))

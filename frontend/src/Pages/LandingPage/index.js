@@ -11,6 +11,8 @@ import SearchActivities from '../../Components/SearchActivities/SearchActivities
 import axios from 'axios'
 
 const Landing = () => {
+    const [patients,setPatients] = React.useState([]);
+    const [selectedPatient, setSelectedPatient] = React.useState('');
     // axios.get('api/pt/patients',{
     //     params: {
     //         pt_id: 1
@@ -28,12 +30,14 @@ const Landing = () => {
             <Grid container className ='grid-root' spacing={5}>
                 <Grid item xs={3} > 
                     <Paper >
-                        <PatientList/>
+                        <PatientList patients = {patients} setPatients = {setPatients}
+                        selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
                     </Paper>
                 </Grid>
                 <Grid item xs={3} > 
                     <Paper >
-                        <SearchPlan/>
+                        <SearchPlan patients = {patients} setPatients = {setPatients}
+                         selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
                     </Paper>
                 </Grid>
             <Grid item xs={3} > 
