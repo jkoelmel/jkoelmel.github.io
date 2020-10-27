@@ -23,7 +23,7 @@ const SearchPlan = () => {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Search Exercise Plan"
+            label="Search Patient Exercise Plan"
             margin="normal"
             variant="outlined"
             InputProps={{ ...params.InputProps, type: 'search' }}

@@ -11,18 +11,18 @@ import SearchActivities from '../../Components/SearchActivities/SearchActivities
 import axios from 'axios'
 
 const Landing = () => {
-    axios.get('api/pt/patients',{
-        params: {
-            pt_id: 1
-        }
-    })
-        .then(function (response) {
-            console.log(response);
-            console.log(response.data[0].f_name);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+    // axios.get('api/pt/patients',{
+    //     params: {
+    //         pt_id: 1
+    //     }
+    // })
+    //     .then(function (response) {
+    //         console.log(response);
+    //         console.log(response.data[0].f_name);
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //     });
     return (
         <div className = 'root'>
             <Grid container className ='grid-root' spacing={5}>
@@ -36,7 +36,6 @@ const Landing = () => {
                         <SearchPlan/>
                     </Paper>
                 </Grid>
-            </Grid>
             <Grid item xs={3} > 
                 <Paper >
                     <SearchReport/>
@@ -46,7 +45,9 @@ const Landing = () => {
                 <Paper >
                     <SearchActivities />
                 </Paper>
-            </Grid>        
+            </Grid>
+            </Grid>
+                    
         </div>
            )    
 }
