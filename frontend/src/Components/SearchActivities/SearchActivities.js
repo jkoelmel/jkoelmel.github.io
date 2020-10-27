@@ -2,13 +2,14 @@ import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-const SearchPlan = () => {
-    const [exercisePlan,setExercisePlan] = React.useState([]);
+const SearchActivities = () => {
+    const[patientActivities,setPatientActivities] = React.useState([]);
 
-    const ExercisePlan = [
-        {title: 'Leg Exercise'},
-        {title: 'Back Exercise'},
-        {title: 'Acl Rehabilitation'}
+    const ActivitiesDetails = [
+        {title: 'Respond to questions'},
+        {title: 'View Videos'},
+        {title: 'Read profiles'},
+        {title: 'Write notes'},
     ];
 
 
@@ -16,14 +17,14 @@ const SearchPlan = () => {
         <div>
             <div style={{ width: "auto" }}>
       <Autocomplete
-        searchplan
-        id="search-plan"
+        searchactivities
+        id="search-activities"
         disableClearable
-        options={ExercisePlan.map((option) => option.title)}
+        options={ActivitiesDetails.map((option) => option.title)}
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Search Patient Exercise Plan"
+            label="Search PT Activities For Patient"
             margin="normal"
             variant="outlined"
             InputProps={{ ...params.InputProps, type: 'search' }}
@@ -35,4 +36,4 @@ const SearchPlan = () => {
     )
 }
 
-export default SearchPlan
+export default SearchActivities
