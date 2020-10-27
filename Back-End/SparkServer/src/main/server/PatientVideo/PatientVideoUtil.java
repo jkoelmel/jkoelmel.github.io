@@ -1,8 +1,6 @@
 package main.server.PatientVideo;
 
 import com.google.gson.Gson;
-import main.server.Exercise.Exercise;
-import main.server.Patient.Patient;
 import main.server.Server;
 import spark.Request;
 import spark.Response;

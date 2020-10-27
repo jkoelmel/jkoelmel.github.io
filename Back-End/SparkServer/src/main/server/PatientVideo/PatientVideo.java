@@ -1,6 +1,5 @@
 package main.server.PatientVideo;
 
-import main.server.Exercise.Exercise;
 import main.server.Server;
 
 import java.sql.*;
