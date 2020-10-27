@@ -20,7 +20,7 @@ public class TaggedWith {
     }
 
     public void createTaggedWith() throws Exception{
-        String taggedWithQuery = "INSERT INTO tagged_with(tagged_id,exercise) VALUES (?,?)";
+        String taggedWithQuery = "INSERT INTO tagged_with(tagged_id,tag,exercise) VALUES (?,?)";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -29,7 +29,8 @@ public class TaggedWith {
              PreparedStatement pst = con.prepareStatement(taggedWithQuery)) {
 
             pst.setInt(1,getTaggedId());
-            pst.setInt(2,getExercise());
+            pst.setInt(2,getTag());
+            pst.setInt(3,getExercise());
 
             pst.executeUpdate();
 
@@ -54,6 +55,7 @@ public class TaggedWith {
             if (rs.next()) {
 
                 setTaggedId(rs.getInt("tagged_id"));
+                setTag(rs.getInt("tag"));
                 setExercise(rs.getInt("exercise"));
 
             }
