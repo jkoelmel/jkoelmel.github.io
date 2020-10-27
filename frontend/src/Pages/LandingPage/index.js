@@ -10,6 +10,9 @@ import SearchReport from '../../Components/SearchReport/SearchReport'
 import SearchActivities from '../../Components/SearchActivities/SearchActivities'
 import axios from 'axios'
 
+
+
+
 const Landing = () => {
     const [patients,setPatients] = React.useState([]);
     const [selectedPatient, setSelectedPatient] = React.useState('');
@@ -50,8 +53,8 @@ const Landing = () => {
                     <SearchActivities />
                 </Paper>
             </Grid>
-            </Grid>
-                    
+            
+            </Grid>        
         </div>
            )    
 }
