@@ -1,6 +1,5 @@
 package main.server.Message;
 
-import main.server.Exercise.Exercise;
 import main.server.Server;
 
 import java.sql.*;
