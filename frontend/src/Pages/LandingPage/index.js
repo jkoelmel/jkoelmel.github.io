@@ -10,6 +10,9 @@ import SearchReport from '../../Components/SearchReport/SearchReport'
 import SearchActivities from '../../Components/SearchActivities/SearchActivities'
 import axios from 'axios'
 
+
+
+
 const Landing = () => {
     // axios.get('api/pt/patients',{
     //     params: {
@@ -46,8 +49,8 @@ const Landing = () => {
                     <SearchActivities />
                 </Paper>
             </Grid>
-            </Grid>
-                    
+            
+            </Grid>        
         </div>
            )    
 }
