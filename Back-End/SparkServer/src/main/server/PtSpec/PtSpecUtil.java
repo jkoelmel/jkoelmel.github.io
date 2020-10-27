@@ -66,7 +66,7 @@ public class PtSpecUtil {
 
     public static Integer registerExercise(Request request) {
         try {
-            PtSpec ptSpec = new PtSpec(Integer.parseInt(request.queryMap().get("exercise_id").value()));
+            PtSpec ptSpec = new PtSpec(Integer.parseInt(request.queryMap().get("pt_spec_id").value()));
 
             ptSpec.createPTSpec(Integer.parseInt(request.queryMap().get("pt").value()),
                     Integer.parseInt(request.queryMap().get("spec").value()));
