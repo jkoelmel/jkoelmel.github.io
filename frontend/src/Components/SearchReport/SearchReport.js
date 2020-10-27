@@ -3,24 +3,20 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import axios from "axios";
 
-const SearchReport = () => {
+const SearchReport = ({selectedPatient,setSelectedPatient}) => {
     const [patientReport,setPatientReport] = React.useState([]);
     const [patients,setPatients] = React.useState([]);
     const [entry, setEntry] = React.useState('');
     const [createdOn,setCreatedOn] = React.useState('')
-    const PatientReport = [
-        // {title: 'John Smith'},
-        // {title: 'Steph Curry'},
-        // {title: 'Michael Jordan'}
-    ];
+    console.log(`patient id: ${selectedPatient}`)
       const fetchPatientsReport = () => {
         axios.get('api/patient/entry/all',{
           params: {
-            patient_id: 1
+            patient_id: selectedPatient
           } 
         }).then((response) => {
           console.log(response);
-          console.log(response.data[0].patient);
+          console.log(response.data.patient);
 
           setPatientReport(response.data.map((pr) => {
             return pr
@@ -28,14 +24,15 @@ const SearchReport = () => {
       })
       .catch(console.log)
     }
-    console.log(patientReport.map((patientReport) => {
-      return patientReport
+    console.log(patientReport.map((p) => {
+      return p
     }))
 
       React.useEffect(() => {
         //will load patients Report when the page loads
-        fetchPatientsReport();
-    }, []);
+        if(selectedPatient!='')
+          fetchPatientsReport();
+    }, [selectedPatient]);
 
 
     return (
@@ -45,7 +42,7 @@ const SearchReport = () => {
         searchreport
         id="search-report"
         disableClearable
-        options={PatientReport.map((pr) => pr.entry)}
+        options={patientReport.map((pr) => pr.entry)}
         renderInput={(params) => (
           <TextField
             {...params}
