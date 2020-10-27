@@ -1,4 +1,4 @@
-package main.server.Tag;
+package main.server.TaggedWith;
 
 import com.google.gson.Gson;
 import main.server.Server;
@@ -8,16 +8,16 @@ import spark.Response;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class TagUtil{
+public class TaggedWithUtil{
 
     public static String selectSpecific(Request request, Response response) {
         String toReturn = "";
         try {
-            Tag tag = new Tag(Integer.parseInt(request.queryMap().get("tag_id").value()));
+            TaggedWith taggedWith = new TaggedWith(Integer.parseInt(request.queryMap().get("tagged_id").value()));
             Gson gson = new Gson();
-            toReturn = gson.toJson(tag.getTag());
+            toReturn = gson.toJson(taggedWith.getTagged());
 
-            System.out.println("Tag has been selected");
+            System.out.println("Tagged id has been selected");
             response.type("application/json");
             response.status(200);
         } catch (SQLException sqlEx) {
@@ -32,7 +32,7 @@ public class TagUtil{
     public static String selectAll(Response response) {
         String toReturn = "";
 
-        String query = "SELECT * FROM tag";
+        String query = "SELECT * FROM tagged_with";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -41,18 +41,18 @@ public class TagUtil{
              PreparedStatement pst = con.prepareStatement(query)) {
             ResultSet rs = pst.executeQuery();
 
-            ArrayList<Tag> list = new ArrayList<>();
+            ArrayList<TaggedWith> list = new ArrayList<>();
             while (rs.next()) {
-                Tag tag = new Tag(rs.getInt("tag_id"),rs.getString("title"));
+                TaggedWith taggedWith = new TaggedWith(rs.getInt("tagged_id"),rs.getInt("exercise"));
 
-                tag.setTagId(rs.getInt("tag_id"));
-                tag.setTitle(rs.getString("title"));
+                taggedWith.setTaggedId(rs.getInt("tagged_id"));
+                taggedWith.setExercise(rs.getInt("exercise"));
 
             }
             Gson gson = new Gson();
             toReturn = gson.toJson(list);
 
-            System.out.println("All tags have been selected");
+            System.out.println("All taggedWith have been selected");
             response.type("application/json");
             response.status(200);
         } catch (SQLException sqlEx) {
@@ -67,9 +67,9 @@ public class TagUtil{
 
     public static Integer registerTag(Request request) {
         try {
-            Tag tag = new Tag((Integer.parseInt(request.queryMap().get("tag_id").value())),
-                    request.queryMap().get("title").value());
-            tag.createTag();
+            TaggedWith taggedWith = new TaggedWith((Integer.parseInt(request.queryMap().get("tagged_id").value())),
+                    Integer.parseInt(request.queryMap().get("title").value()));
+            taggedWith.createTaggedWith();
             return 200;
         } catch (SQLException sqlEx) {
             System.err.println(sqlEx.toString());
@@ -79,5 +79,4 @@ public class TagUtil{
             return 400;
         }
     }
-
 }
