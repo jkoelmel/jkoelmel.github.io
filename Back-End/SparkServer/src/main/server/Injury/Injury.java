@@ -1,17 +1,68 @@
 package main.server.Injury;
 
+import main.server.Server;
+
+import java.sql.*;
+
 public class Injury {
 
-    private Integer injuryId;
+    private Integer injury_id;
     private String injuryType;
 
+    public Injury(Integer injury_id) { this.injury_id = injury_id;}
 
-    public Integer getInjuryId() {
-        return injuryId;
+    public void createInjury(String injury) throws Exception {
+        String injuryQuery = "INSERT INTO injury(injury_id, injury_type) VALUES(null, ?)";
+
+        try (Connection con = DriverManager.getConnection(
+                Server.databasePath,
+                Server.databaseUsername,
+                Server.databasePassword);
+             PreparedStatement pst = con.prepareStatement(injuryQuery)) {
+
+            //INSERT Injury into injury
+            pst.setString(1, injury);
+            pst.executeUpdate();
+
+            System.out.println("Injury added to database");
+        } catch (SQLException ex) {
+            throw new Exception("Error inserting injury: " + ex.toString());
+        }
     }
 
-    public void setInjuryId(Integer injuryId) {
-        this.injuryId = injuryId;
+    public Injury getInjury() throws Exception {
+        String injuryQuery = "SELECT * FROM injury WHERE injury_id = " + this.injury_id;
+
+        try (Connection con = DriverManager.getConnection(
+                Server.databasePath,
+                Server.databaseUsername,
+                Server.databasePassword);
+             PreparedStatement pst = con.prepareStatement(injuryQuery)) {
+            pst.executeQuery(injuryQuery);
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                setinjury_id(rs.getInt("injury_id"));
+                setInjuryType(rs.getString("injury_type"));
+            }
+
+        } catch (SQLException ex) {
+            throw new Exception("Error getting injury with id: " + ex.toString());
+        }
+
+        return this;
+    }
+
+
+
+
+    public Integer getinjury_id() {
+        return injury_id;
+    }
+
+    public void setinjury_id(Integer injury_id) {
+        this.injury_id = injury_id;
     }
 
 
