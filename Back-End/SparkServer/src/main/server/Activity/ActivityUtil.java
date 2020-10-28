@@ -14,7 +14,8 @@ public class ActivityUtil {
         Integer pt_id = Integer.parseInt(request.queryMap().get("pt").value());
         Integer patient_id = Integer.parseInt(request.queryMap().get("patient").value());
         String toReturn = "";
-        String query = "SELECT * FROM activity WHERE pt= " + pt_id + " AND patient= " + patient_id;
+        String query = "SELECT * FROM activity WHERE pt= " + pt_id + " AND patient= " + patient_id +
+                " ORDER BY start_time DESC LIMIT 10";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
