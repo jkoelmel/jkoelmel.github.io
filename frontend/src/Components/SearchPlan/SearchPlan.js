@@ -233,5 +233,5 @@ React.useEffect(() => {
         </div>
     )
 }
-
+ 
 export default SearchPlan
