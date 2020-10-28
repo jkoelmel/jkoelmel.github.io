@@ -50,7 +50,7 @@ const Landing = () => {
             </Grid>
             <Grid item xs={3} > 
                 <Paper >
-                    <SearchActivities />
+                    <SearchActivities selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
                 </Paper>
             </Grid>
             
