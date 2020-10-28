@@ -120,7 +120,7 @@ React.useEffect(() => {
     return (
         <div>
           <div style={{ width: "auto" }}>
-          <FormControl>
+          {/* <FormControl>
             <InputLabel htmlFor="formatted-text-mask-input">Start Date</InputLabel>
             <Input
               value={values.textmask}
@@ -138,7 +138,7 @@ React.useEffect(() => {
         id="formatted-numberformat-input"
         InputProps={{
         }}
-      />
+      /> */}
             <TextField
             label="Start Year"
             id="outlined-margin-none"
@@ -233,5 +233,6 @@ React.useEffect(() => {
         </div>
     )
 }
+ 
 
 export default SearchPlan
