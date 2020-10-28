@@ -10,6 +10,12 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
 
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import NumberFormat from 'react-number-format';
+
+
 
 
 import axios from 'axios'
@@ -45,6 +51,9 @@ const SearchPlan = ({patients,setPatients,selectedPatient,setSelectedPatient}) =
     const [endDay,setEndDay] = React.useState('')
     const [readySearch,setReadySearch] = React.useState(false)
 
+    const [values, setValues] = React.useState({textmask: '    -   -   '});
+
+
     const fetchWorkouts = () => {
       axios.get('api/assign/all',{
           params: {
@@ -76,6 +85,7 @@ const SearchPlan = ({patients,setPatients,selectedPatient,setSelectedPatient}) =
   console.log(start)
   console.log(end)
   console.log(startYear)
+  console.log(`values: ${values}`)
 
         console.log(exercisePlan.map((exercisePlan) => {
             return exercisePlan
@@ -92,6 +102,14 @@ const SearchPlan = ({patients,setPatients,selectedPatient,setSelectedPatient}) =
       handleSearch()
     }
     console.log(readySearch)
+
+    const handleChange = (event) => {
+      setValues({
+        ...values,
+        [event.target.name]: event.target.value,
+      });
+    };
+
 React.useEffect(() => {
           if(readySearch)
               fetchWorkouts()
@@ -102,6 +120,25 @@ React.useEffect(() => {
     return (
         <div>
           <div style={{ width: "auto" }}>
+          <FormControl>
+            <InputLabel htmlFor="formatted-text-mask-input">Start Date</InputLabel>
+            <Input
+              value={values.textmask}
+              onChange={handleChange}
+              name="textmask"
+              id="formatted-text-mask-input"
+              
+            />
+      </FormControl>
+      <TextField
+        label="YYYY-MM-DD"
+        value={values.numberformat}
+        onChange={handleChange}
+        name="numberformat"
+        id="formatted-numberformat-input"
+        InputProps={{
+        }}
+      />
             <TextField
             label="Start Year"
             id="outlined-margin-none"

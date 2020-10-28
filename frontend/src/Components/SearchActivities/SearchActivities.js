@@ -1,6 +1,4 @@
 import React from 'react'
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -21,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         //   border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-        outline: 'none'
+        outline: 'none',
     },
 }));
 
@@ -29,20 +27,15 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [activities,setActivities] = React.useState([]);
-    const [patient,setPatient] = React.useState([]);
-    const [pt, setPt] = React.useState(1);
-    const [messaging, setMessaging] = React.useState(0);
-    const [feedback, setFeedback] = React.useState(0);
-    const [reading, setReading] = React.useState(0);
-    const [assigning, setAssigning] = React.useState(0);
-    const [readySearch,setReadySearch] = React.useState(false)
+    
+    
     console.log(`patient id: ${selectedPatient}`)
 
     const fetchPatientActivity = () => {
         axios.get('api/activity/id',{
             params: {
                 patient: selectedPatient,
-                pt: pt
+                pt: 1
             }
         }).then((response) => {
             console.log(response);
@@ -56,28 +49,11 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
             .catch(console.log)
     }
 
-   function calculateResults(map) {
-        console.log(map[1][2]);
-        let size = map.size;
-        for(let i = 0; i < size; i++) {
-            if(map[i][1] == "messaging") {
-                setMessaging(messaging + map[i][2]);
-            } else if (map[i][1] == "assessing videos/feedback") {
-                setFeedback(feedback + map[i][2]);
-            } else if (map[i][1] == "reading profile") {
-                setReading(reading + map[i][2]);
-            } else {
-                setAssigning(assigning + map[i][2]);
-            }
-        }
-   }
-
     const handleClose = () => {
         setOpen(false);
     }
 
-    const handleReadySearch = () => {
-        setReadySearch(true)
+    const handleGenerate = () => {
         setOpen(true)
     }
 
@@ -91,8 +67,8 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
     return (
         <div>
             <div style={{ width: "auto" }}>
-                <h3>Report for selected patient: </h3>
-                <Button onClick= {handleReadySearch} color="primary">Generate</Button>
+               
+                <Button onClick= {handleGenerate} color="primary">Generate Patient Report</Button>
             </div>
 
 
@@ -110,29 +86,38 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <List>
-                            <ListSubheader>{`PT activity with current patient`}</ListSubheader>
-                            <Divider/>
-                                <div>
-                                    <ListItem>
-                                        <ListItemText primary = {`Messaging`} secondary = {messaging}/>
+                    <List component = "nav" aria-label="patient-list"
+                        style={{maxHeight: 500, overflow: 'scroll'} }
+                         subheader={
+                    <ListSubheader component="div" color="inherit" classes= {"patient-list"}>
+                           Activity report
+                    </ListSubheader>   
+                     }> 
 
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary = {`Reading`} secondary = {reading}/>
-
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary = {`Assigning Exercises`} secondary = {assigning}/>
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary = {`Assessing Workout/Feedback`} secondary = {feedback}/>
-                                    </ListItem>
-                                    <Divider/>
-
-                                </div>
-                        </List>
+                     { activities.map((a) => (
+                         <div>
+                    <ListItem 
+                        key = {a.activity_id}> 
+                        <ListItemText primary = {`Activity Type`} secondary = {a.type_activity}/> 
+                    </ListItem>
+                    <ListItem 
+                        key = {a.activity_id}> 
+                        <ListItemText primary = {`Duration`} secondary = {a.duration}/> 
+                    </ListItem>
+                    <ListItem 
+                        key = {a.activity_id}> 
+                        <ListItemText primary = {`Start time`} secondary = {a.start_time}/> 
+                    </ListItem>
+                    <ListItem 
+                        key = {a.activity_id}> 
+                        <ListItemText primary = {`End time`} secondary = {a.end_time}/> 
+                    </ListItem>
+                    <Divider/>
                     </div>
+                     ))}
+
+                </List>
+                </div>
                 </Fade>
             </Modal>
         </div>
