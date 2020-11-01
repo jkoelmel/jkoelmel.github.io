@@ -1,7 +1,5 @@
 package main.server.Workout;
 
-
-import main.server.Assignment.Assignment;
 import main.server.Server;
 
 import java.sql.*;
@@ -10,10 +8,13 @@ public class Workout {
 
     private Integer workout_id;
     private String title;
-    private Integer contain;
-
 
     public Workout(Integer workout_id) { this.workout_id = workout_id;}
+
+    public Workout(Integer workout_id, String title) {
+        this.workout_id = workout_id;
+        this.title = title;
+    }
     
     public void createWorkout() throws Exception{
         String workoutQuery = "INSERT INTO workout(workout_id,title) VALUES (NULL,?)";
@@ -24,7 +25,7 @@ public class Workout {
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(workoutQuery)) {
 
-            pst.setString(1, getTitle());
+            pst.setString(1,getTitle());
             pst.executeUpdate();
 
             pst.executeUpdate(workoutQuery);
@@ -51,11 +52,26 @@ public class Workout {
 
             }
         } catch (SQLException ex) {
-            throw new Exception("Error getting patient with id " + this.workout_id + ": " + ex.toString());
+            throw new Exception("Error getting workout with id " + this.workout_id + ": " + ex.toString());
         }
         return this;
     }
 
+    public void updateWorkout(String title) throws Exception{
+        String query = "UPDATE workout SET title = " + title + " WHERE workout_id = " + this.workout_id;
+
+        try (Connection con = DriverManager.getConnection(
+                Server.databasePath,
+                Server.databaseUsername,
+                Server.databasePassword);
+             PreparedStatement pst = con.prepareStatement(query)) {
+            pst.executeUpdate(query);
+
+            System.out.println("Workout updated");
+        } catch (Exception ex) {
+            throw new Exception("Error updating workouts for patient with id " + this.workout_id + ": " + ex.toString());
+        }
+    }
 
     public Integer getWorkoutId(){ return workout_id; }
 
@@ -64,10 +80,4 @@ public class Workout {
     public String getTitle(){ return title;}
 
     public void setTitle(String title){ this.title = title;}
-
-    public Integer getContain(){return contain;}
-
-    public void setContain(Integer contain){this.contain = contain;}
-
-
 }

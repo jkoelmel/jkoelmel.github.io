@@ -1,7 +1,6 @@
 package main.server;
 
 import com.google.gson.Gson;
-
 import main.server.Activity.ActivityUtil;
 import main.server.Assignment.AssignmentUtil;
 import main.server.Contain.ContainUtil;
@@ -15,11 +14,13 @@ import static spark.Spark.*;
 
 public class Server {
 	public static final String databasePath = "jdbc:mysql://portaldb.cciebyoevg9q.us-west-1.rds.amazonaws.com:3306/portalDB";
+
 	public static final String databaseUsername = "admin";
 	public static final String databasePassword = "Csc648Team2";
 
 	public static void main(String[] args) {
 		System.out.println("Starting server on port 8080");
+
 		port(8080);
 
 		path("/api", () -> {
@@ -29,11 +30,13 @@ public class Server {
 				get("/id", PTUtil::selectSpecific);
 				get("/all", (request, response) -> PTUtil.selectAll(response));
 				get("/patients", PTUtil::selectPatients);
+
 				post("/register", (request, response) -> {
 					response.status(PTUtil.registerPT(request));
 					return response.status();
 				});
 			});
+
 
 			path("/patient", () -> {
 				get("/id", PatientUtil::selectSpecific);
@@ -73,6 +76,11 @@ public class Server {
 				get("/id", AssignmentUtil::selectSpecific);
 				//Requires patient in query to find all details, assignment, workout, and exercises
 				get("/all", AssignmentUtil::selectAllData);
+				//Requires old assignment_id (0 or -1 if not available), pt, workout, and patient
+				post("/register", (request, response) -> {
+					response.status(AssignmentUtil.registerAssignment(request));
+					return response.status();
+				});
 			});
 
 			path("/workout", () -> {
