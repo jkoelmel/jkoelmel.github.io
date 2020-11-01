@@ -18,4 +18,5 @@ app.get('/', function (req, res) {
     res.sendFile('C:/Users/jaret/CSC648-Team-2/frontend/build/index.html');
 });
 
+app.get('/api/*', )
 app.listen(process.env.PORT || 3000);

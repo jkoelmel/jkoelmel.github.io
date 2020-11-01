@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
        
         
         const fetchPatients = () => {
-            axios.get('http://localhost:8080/api/pt/patients',{
+            axios.get('http://54.241.109.153:8080/api/pt/patients',{
                 params: {
                     pt_id: 1
                 }

@@ -32,7 +32,7 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
     console.log(`patient id: ${selectedPatient}`)
 
     const fetchPatientActivity = () => {
-        axios.get('http://localhost:8080/api/activity/id',{
+        axios.get('http://54.241.109.153:8080/api/activity/id',{
             params: {
                 patient: selectedPatient,
                 pt: 1
