@@ -206,8 +206,14 @@ React.useEffect(() => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-           <List>
-             <ListSubheader>{`${start} to ${end}`}</ListSubheader>
+              <List component = "nav" aria-label="patient-list"
+                    style={{maxHeight: 500, overflow: 'scroll'} }
+                    subheader={
+                        <ListSubheader component="div" color="inherit" classes= {"patient-list"}>
+                            Patient Workouts
+                        </ListSubheader>
+                    }>
+              <ListSubheader>{`${start} to ${end}`}</ListSubheader>
              <Divider/>
              {exercisePlan.map((e) => (
                <div>
