@@ -9,6 +9,7 @@ import PaulPage from "./Pages/PaulPage/PaulPage"
 import EricPage from "./Pages/EricPage/EricPage"
 import PeterPage from "./Pages/PeterPage/PeterPage"
 //Will handle all page routing
+//TODO ask if we still need to keep about me pages
 export const Routes = () => (
     <BrowserRouter>
         <Switch>
