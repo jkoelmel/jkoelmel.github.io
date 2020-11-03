@@ -43,10 +43,12 @@ const useStyles = makeStyles((theme) => ({
        
         
         const fetchPatients = () => {
-            axios.get('https://api.pthealth.club/api/pt/patients',{
+            axios.get('api/pt/patients',{
+                baseURL: 'https://api.pthealth.club/',
                 params: {
                     pt_id: 1
-                }
+                },
+                withCredentials: true;
             })
                 .then( (response) => {
                     console.log(response); //TEST
