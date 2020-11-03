@@ -11,6 +11,8 @@ const SearchReport = ({selectedPatient,setSelectedPatient}) => {
     console.log(`patient id: ${selectedPatient}`)
       const fetchPatientsReport = () => {
         axios.get('api/patient/entry/all',{
+          baseURL: 'https://api.pthealth.club/',
+          headers: {'Access-Control-Allow-Origin': '*'},
           params: {
             patient_id: selectedPatient
           } 

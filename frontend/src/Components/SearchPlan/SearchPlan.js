@@ -56,6 +56,8 @@ const SearchPlan = ({patients,setPatients,selectedPatient,setSelectedPatient}) =
 
     const fetchWorkouts = () => {
       axios.get( 'api/assign/all',{
+          baseURL: 'https://api.pthealth.club/',
+          headers: {'Access-Control-Allow-Origin': '*'},
           params: {
               patient: selectedPatient,
               start: start,

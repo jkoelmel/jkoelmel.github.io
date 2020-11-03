@@ -33,6 +33,8 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
 
     const fetchPatientActivity = () => {
         axios.get('api/activity/id',{
+            baseURL: 'https://api.pthealth.club/',
+            headers: {'Access-Control-Allow-Origin': '*'},
             params: {
                 patient: selectedPatient,
                 pt: 1
