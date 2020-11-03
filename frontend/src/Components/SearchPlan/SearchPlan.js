@@ -19,7 +19,7 @@ import NumberFormat from 'react-number-format';
 
 
 
-
+import './SearchPlan.css';
 import axios from 'axios'
 import userEvent from "@testing-library/user-event";
 
@@ -64,8 +64,6 @@ const SearchPlan = ({patients,setPatients,selectedPatient,setSelectedPatient}) =
 
     const fetchWorkouts = () => {
       axios.get( 'api/assign/all',{
-          baseURL: 'https://api.pthealth.club/',
-          headers: {'Access-Control-Allow-Origin': '*'},
           params: {
               patient: selectedPatient,
               start: start,
@@ -201,7 +199,7 @@ React.useEffect(() => {
         {/*  variant="outlined"*/}
         {/*  onChange={(e)=>{setEndDay(e.target.value)}}*/}
         {/*/>*/}
-        <p>Start Date</p>
+        <p>Start Date: &nbsp;
         <DatePicker
             onChange={onChange1}
             value={startDate}
@@ -209,8 +207,8 @@ React.useEffect(() => {
             format={"yyyy-MM-dd"}
             showLeadingZeros={true}
         />
-        <br/><br/>
-        <p>End Date</p>
+        </p><br/>
+        <p>End Date: &nbsp;&nbsp;
         <DatePicker
             onChange={onChange2}
             value={endDate}
@@ -219,9 +217,10 @@ React.useEffect(() => {
             minDate={startDate}
             showLeadingZeros={true}
         />
-        <br/>
-       <Button onClick= {handleReadySearch} color="primary">Search</Button>
-      
+        </p><br/>
+        <div class="search">
+        <Button onClick= {handleReadySearch} color="secondary">Search</Button>
+        </div>
     </div>
     <Modal
                 aria-labelledby="transition-modal-title"
@@ -244,6 +243,10 @@ React.useEffect(() => {
              <Divider/>
              {exercisePlan.map((e) => (
                <div>
+                   <ListItem>
+                       <ListItemText primary = {`Assigned On`} secondary = {`${e.start_time}`}/>
+
+                   </ListItem>
                <ListItem>
                     <ListItemText primary = {`Title`} secondary = {`${e.title}`}/>
                        

@@ -32,8 +32,6 @@ const SearchReport = ({selectedPatient,setSelectedPatient}) => {
     console.log(`patient id: ${selectedPatient}`)
       const fetchPatientsReport = () => {
         axios.get('api/patient/entry/all',{
-          baseURL: 'https://api.pthealth.club/',
-          headers: {'Access-Control-Allow-Origin': '*'},
           params: {
             patient_id: selectedPatient
           } 
@@ -66,7 +64,7 @@ const SearchReport = ({selectedPatient,setSelectedPatient}) => {
         id="search-report"
         disableClearable
         options= {
-            patientReport.map((pr) => pr.entry)}
+            patientReport.map((pr) => pr.created_on + " " + pr.entry)}
         renderInput={(params) => (
           <TextField
             {...params}

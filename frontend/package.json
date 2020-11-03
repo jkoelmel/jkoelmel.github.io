@@ -67,6 +67,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@material-ui/icons": "^4.9.1",
     "babel-core": "^6.26.3"
   }
 }

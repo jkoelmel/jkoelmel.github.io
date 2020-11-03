@@ -7,6 +7,7 @@ import List from "@material-ui/core/List";
 import {Divider, ListItem, ListItemText, ListSubheader} from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import {makeStyles} from "@material-ui/core/styles";
+import "./SearchActivities.css";
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -16,15 +17,13 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         backgroundColor: theme.palette.background.paper,
-        //   border: '2px solid #000',
+        border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
         outline: 'none',
     },
     sticky: {
-
         backgroundColor: 'white'
-
     }
 }));
 
@@ -38,8 +37,6 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
 
     const fetchPatientActivity = () => {
         axios.get('api/activity/id',{
-            baseURL: 'https://api.pthealth.club/',
-            headers: {'Access-Control-Allow-Origin': '*'},
             params: {
                 patient: selectedPatient,
                 pt: 1
@@ -73,9 +70,9 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
 
     return (
         <div>
-            <div style={{ width: "auto" }}>
+            <div class="generate" style={{ width: "auto" }}>
 
-                <Button onClick= {handleGenerate} color="primary">Generate Patient Report</Button>
+                <Button onClick= {handleGenerate} color="secondary">Generate Patient Report</Button>
             </div>
 
 

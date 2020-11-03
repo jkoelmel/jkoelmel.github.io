@@ -48,8 +48,6 @@ const useStyles = makeStyles((theme) => ({
         
         const fetchPatients = () => {
             axios.get('api/pt/patients',{
-                baseURL: 'https://api.pthealth.club/',
-                headers: {'Access-Control-Allow-Origin': '*'},
                 params: {
                     pt_id: 1
                 }
@@ -101,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
     return (
         <div className = 'patientlist-root'>
                <List component = "nav" aria-label="patient-list"
-            style={{maxHeight: 200, overflow: 'scroll'} }
+            style={{maxHeight: 400, overflow: 'scroll'} }
             subheader={
                 <ListSubheader component="div" color="inherit" classes ={{sticky: classes.sticky}}>
                 Patient List
@@ -120,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
                 </List>
 
                 <List component = "nav" aria-label="patient-list"
-                    style={{maxHeight: 200, overflow: 'scroll'}}
+                    style={{maxHeight: 300, overflow: 'scroll'}}
                     subheader={
                 <ListSubheader component="div" color="inherit" id="potential-patient-list">
                 Potential Patient List
