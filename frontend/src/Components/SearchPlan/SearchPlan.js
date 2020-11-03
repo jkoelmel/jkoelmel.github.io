@@ -37,10 +37,8 @@ const useStyles = makeStyles((theme) => ({
     outline: 'none'
   },
     sticky: {
-
         backgroundColor: 'white'
-
-    }
+    },
 }));  
 
 
@@ -236,10 +234,12 @@ React.useEffect(() => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-           <List style={{maxHeight: 500, overflow: 'scroll'} }>
+           <List style={{maxHeight: 500, overflow: 'scroll'} }
+                 subheader={ <ListSubheader component="div" color="inherit" classes ={{sticky: classes.sticky}}>
+                     {`${start} to ${end}`}</ListSubheader>
+                 }>
 
-               <ListSubheader component="div" color="inherit" classes ={{sticky: classes.sticky}}>
-                   {`${start} to ${end}`}</ListSubheader>
+
              <Divider/>
              {exercisePlan.map((e) => (
                <div>
