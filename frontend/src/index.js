@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https//:api.pthealth.club';
+axios.defaults.baseURL = 'https://api.pthealth.club';
 
 ReactDOM.render(<App />, document.getElementById('root')
 );
