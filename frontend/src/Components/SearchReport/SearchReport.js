@@ -10,7 +10,7 @@ const SearchReport = ({selectedPatient,setSelectedPatient}) => {
     const [createdOn,setCreatedOn] = React.useState('')
     console.log(`patient id: ${selectedPatient}`)
       const fetchPatientsReport = () => {
-        axios.get('https://api,pthealth.club/api/patient/entry/all',{
+        axios.get('/api/patient/entry/all',{
           params: {
             patient_id: selectedPatient
           } 
