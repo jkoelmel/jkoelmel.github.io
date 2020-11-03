@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
                 params: {
                     pt_id: 1
                 },
-                withCredentials: true;
+                withCredentials: true
             })
                 .then( (response) => {
                     console.log(response); //TEST
