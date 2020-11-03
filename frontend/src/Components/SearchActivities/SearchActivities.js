@@ -32,7 +32,7 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
     console.log(`patient id: ${selectedPatient}`)
 
     const fetchPatientActivity = () => {
-        axios.get('api/activity/id',{
+        axios.get('https://api,pthealth.club/api/activity/id',{
             params: {
                 patient: selectedPatient,
                 pt: 1
