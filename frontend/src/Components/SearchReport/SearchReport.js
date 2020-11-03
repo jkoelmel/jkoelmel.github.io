@@ -2,6 +2,27 @@ import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import axios from "axios";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        //   border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+        outline: 'none',
+    },
+    sticky: {
+
+        backgroundColor: 'white'
+
+    }
+}));
 
 const SearchReport = ({selectedPatient,setSelectedPatient}) => {
     const [patientReport,setPatientReport] = React.useState([]);
@@ -44,7 +65,8 @@ const SearchReport = ({selectedPatient,setSelectedPatient}) => {
         searchreport
         id="search-report"
         disableClearable
-        options={patientReport.map((pr) => pr.entry)}
+        options= {
+            patientReport.map((pr) => pr.entry)}
         renderInput={(params) => (
           <TextField
             {...params}

@@ -21,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
         outline: 'none',
     },
+    sticky: {
+
+        backgroundColor: 'white'
+
+    }
 }));
 
 const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
@@ -69,7 +74,7 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
     return (
         <div>
             <div style={{ width: "auto" }}>
-               
+
                 <Button onClick= {handleGenerate} color="primary">Generate Patient Report</Button>
             </div>
 
@@ -91,7 +96,7 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
                     <List component = "nav" aria-label="patient-list"
                         style={{maxHeight: 500, overflow: 'scroll'} }
                          subheader={
-                    <ListSubheader component="div" color="inherit" classes= {"patient-list"}>
+                             <ListSubheader component="div" color="inherit" classes ={{sticky: classes.sticky}}>
                            Activity report
                     </ListSubheader>   
                      }> 

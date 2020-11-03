@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2, 4, 3),
       outline: 'none'
     },
+    sticky: {
+
+        backgroundColor: 'white'
+    }
   }));  
 
     const PatientList = ({patients,setPatients,selectedPatient,setSelectedPatient}) => {
@@ -99,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
                <List component = "nav" aria-label="patient-list"
             style={{maxHeight: 200, overflow: 'scroll'} }
             subheader={
-                <ListSubheader component="div" color="inherit" classes= {"patient-list"}>
+                <ListSubheader component="div" color="inherit" classes ={{sticky: classes.sticky}}>
                 Patient List
               </ListSubheader>   
             }> 

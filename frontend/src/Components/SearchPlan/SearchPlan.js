@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import { ListItem, ListItemText, ListSubheader } from '@material-ui/core';
@@ -9,7 +9,9 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
+import DatePicker from "react-date-picker";
 
+//Currently Unused imports
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -19,6 +21,7 @@ import NumberFormat from 'react-number-format';
 
 
 import axios from 'axios'
+import userEvent from "@testing-library/user-event";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -33,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     outline: 'none'
   },
+    sticky: {
+
+        backgroundColor: 'white'
+
+    }
 }));  
 
 
@@ -80,8 +88,8 @@ const SearchPlan = ({patients,setPatients,selectedPatient,setSelectedPatient}) =
   }
 
   const handleSearch = () => {
-    setStart(`${startYear}-${startMonth}-${startDay}`)
-    setEnd(`${endYear}-${endMonth}-${endDay}`)
+    setStart(startDate.toISOString().split('T')[0]);
+    setEnd(endDate.toISOString().split('T')[0]);
 
   }
   console.log(start)
@@ -119,9 +127,12 @@ React.useEffect(() => {
           
         }, [selectedPatient,readySearch]);
 
+    const [startDate, onChange1] = useState(new Date());
+    const [endDate,onChange2] = useState(new Date());
     return (
         <div>
           <div style={{ width: "auto" }}>
+              <p>Search Workout Assignments</p>
           {/* <FormControl>
             <InputLabel htmlFor="formatted-text-mask-input">Start Date</InputLabel>
             <Input
@@ -129,7 +140,7 @@ React.useEffect(() => {
               onChange={handleChange}
               name="textmask"
               id="formatted-text-mask-input"
-              
+
             />
       </FormControl>
       <TextField
@@ -141,56 +152,74 @@ React.useEffect(() => {
         InputProps={{
         }}
       /> */}
-            <TextField
-            label="Start Year"
-            id="outlined-margin-none"
-            // defaultValue="Default Value"
-            helperText="YYYY"
-            variant="outlined"
-            onChange={(e)=>{setStartYear(e.target.value)}}
-        />
-         <TextField
-            label="Start Month"
-            id="outlined-margin-none"
-            // defaultValue="Default Value"
-            helperText="MM"
-            variant="outlined"
-            onChange={(e)=>{setStartMonth(e.target.value)}}
-        />
-        <TextField
-          label="Start Day"
-          id="outlined-margin-none"
-          // defaultValue="Default Value"
-          helperText="DD"
-          variant="outlined"
-          onChange={(e)=>{setStartDay(e.target.value)}}
-        />
-          <TextField
-            label="End Year"
-            id="outlined-margin-none"
-            // defaultValue="Default Value"
-            helperText="YYYY"
-            variant="outlined"
-            onChange={(e)=>{setEndYear(e.target.value)}}
-        />
+        {/*    <TextField*/}
+        {/*    label="Start Year"*/}
+        {/*    id="outlined-margin-none"*/}
+        {/*    // defaultValue="Default Value"*/}
+        {/*    helperText="YYYY"*/}
+        {/*    variant="outlined"*/}
+        {/*    onChange={(e)=>{setStartYear(e.target.value)}}*/}
+        {/*/>*/}
+        {/* <TextField*/}
+        {/*    label="Start Month"*/}
+        {/*    id="outlined-margin-none"*/}
+        {/*    // defaultValue="Default Value"*/}
+        {/*    helperText="MM"*/}
+        {/*    variant="outlined"*/}
+        {/*    onChange={(e)=>{setStartMonth(e.target.value)}}*/}
+        {/*/>*/}
+        {/*<TextField*/}
+        {/*  label="Start Day"*/}
+        {/*  id="outlined-margin-none"*/}
+        {/*  // defaultValue="Default Value"*/}
+        {/*  helperText="DD"*/}
+        {/*  variant="outlined"*/}
+        {/*  onChange={(e)=>{setStartDay(e.target.value)}}*/}
+        {/*/>*/}
+        {/*  <TextField*/}
+        {/*    label="End Year"*/}
+        {/*    id="outlined-margin-none"*/}
+        {/*    // defaultValue="Default Value"*/}
+        {/*    helperText="YYYY"*/}
+        {/*    variant="outlined"*/}
+        {/*    onChange={(e)=>{setEndYear(e.target.value)}}*/}
+        {/*/>*/}
 
-         <TextField
-            label="End Month"
-            id="outlined-margin-none"
-            // defaultValue="Default Value"
-            helperText="MM"
-            variant="outlined"
-            onChange={(e)=>{setEndMonth(e.target.value)}}
+        {/* <TextField*/}
+        {/*    label="End Month"*/}
+        {/*    id="outlined-margin-none"*/}
+        {/*    // defaultValue="Default Value"*/}
+        {/*    helperText="MM"*/}
+        {/*    variant="outlined"*/}
+        {/*    onChange={(e)=>{setEndMonth(e.target.value)}}*/}
+        {/*/>*/}
+        {/*<TextField*/}
+        {/*  label="End Day"*/}
+        {/*  id="outlined-margin-none"*/}
+        {/*  // defaultValue="Default Value"*/}
+        {/*  helperText="DD"*/}
+        {/*  variant="outlined"*/}
+        {/*  onChange={(e)=>{setEndDay(e.target.value)}}*/}
+        {/*/>*/}
+        <p>Start Date</p>
+        <DatePicker
+            onChange={onChange1}
+            value={startDate}
+            name={"Start Date"}
+            format={"yyyy-MM-dd"}
+            showLeadingZeros={true}
         />
-        <TextField
-          label="End Day"
-          id="outlined-margin-none"
-          // defaultValue="Default Value"
-          helperText="DD"
-          variant="outlined"
-          onChange={(e)=>{setEndDay(e.target.value)}}
+        <br/><br/>
+        <p>End Date</p>
+        <DatePicker
+            onChange={onChange2}
+            value={endDate}
+            name={"End Date"}
+            format={"yyyy-MM-dd"}
+            minDate={startDate}
+            showLeadingZeros={true}
         />
-        
+        <br/>
        <Button onClick= {handleReadySearch} color="primary">Search</Button>
       
     </div>
@@ -208,8 +237,10 @@ React.useEffect(() => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-           <List>
-             <ListSubheader>{`${start} to ${end}`}</ListSubheader>
+           <List style={{maxHeight: 500, overflow: 'scroll'} }>
+
+               <ListSubheader component="div" color="inherit" classes ={{sticky: classes.sticky}}>
+                   {`${start} to ${end}`}</ListSubheader>
              <Divider/>
              {exercisePlan.map((e) => (
                <div>
