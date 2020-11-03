@@ -47,8 +47,7 @@ const useStyles = makeStyles((theme) => ({
                 baseURL: 'https://api.pthealth.club/',
                 params: {
                     pt_id: 1
-                },
-                withCredentials: true
+                }
             })
                 .then( (response) => {
                     console.log(response); //TEST
