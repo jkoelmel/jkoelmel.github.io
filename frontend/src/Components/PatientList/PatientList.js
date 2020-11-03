@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
         const fetchPatients = () => {
             axios.get('api/pt/patients',{
                 baseURL: 'https://api.pthealth.club/',
+                headers: {'Access-Control-Allow-Origin': '*'},
                 params: {
                     pt_id: 1
                 }
