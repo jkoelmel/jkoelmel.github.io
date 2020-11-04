@@ -12,8 +12,8 @@ public class Patient extends User {
 	private Integer pt;
 	private Integer prospective_pt;
 
-	public Patient(String email, String f_name, String l_name, String company) {
-		super(email, f_name, l_name, company);
+	public Patient(String email, String password,String f_name, String l_name, String company) {
+		super(email, password, f_name, l_name, company);
 	}
 
 	public Patient(Integer patient_id) {
@@ -21,7 +21,7 @@ public class Patient extends User {
 	}
 
 	public void createPatient() throws Exception {
-		String userQuery = "INSERT INTO user(user_id, email, f_name, l_name, company) VALUES(NULL, ?, ?, ?, ?);";
+		String userQuery = "INSERT INTO user(user_id, email, password, f_name, l_name, company) VALUES(NULL, ?, ?, ?, ?, ?);";
 		String patientQuery = "INSERT INTO patient(patient_id, user) VALUES(NULL, LAST_INSERT_ID())";
 
 		try (Connection con = DriverManager.getConnection(
@@ -32,9 +32,10 @@ public class Patient extends User {
 
 			// INSERT the Patient into user
 			pst.setString(1, getEmail());
-			pst.setString(2, getF_name());
-			pst.setString(3, getL_name());
-			pst.setString(4, getCompany());
+			pst.setString(2, getPassword());
+			pst.setString(3, getF_name());
+			pst.setString(4, getL_name());
+			pst.setString(5, getCompany());
 			pst.executeUpdate();
 
 			// INSERT the Patient into patient
