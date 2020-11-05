@@ -1,6 +1,8 @@
 package main.server;
 
 import com.google.gson.Gson;
+import main.server.Message.Message;
+import main.server.Message.MessageUtil;
 import main.server.PT.*;
 import main.server.Activity.*;
 import main.server.Patient.*;
@@ -105,6 +107,16 @@ public class Server {
 				});
 			});
 
+			path("/message", () -> {
+				//Requires pt and patient
+				get("/id", MessageUtil::selectAll);
+				//Requires message, patient, and pt
+				post("/register", (request, response) -> {
+					response.status(MessageUtil.registerMessage(request));
+					return response.status();
+				});
+			});
+
 			path("/workout", () -> {
 				//Requires workout_id in query to find exercises
 				get("/id", ContainUtil::selectExercises);
@@ -116,7 +128,8 @@ public class Server {
 			path("/example", () -> get("/user", (request, response) -> {
 				response.status(200);
 				response.type("application/json");
-				PT pt = new PT("test@mail.com",
+				PT pt = new PT("testmail@mail.com",
+						"testPassword",
 						"john",
 						"doe",
 						"some company inc.");

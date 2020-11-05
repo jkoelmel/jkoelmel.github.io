@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
        
         
         const fetchPatients = () => {
-            axios.get('/api/pt/patients',{
+            axios.get('api/pt/patients',{
                 params: {
                     pt_id: 1
                 }

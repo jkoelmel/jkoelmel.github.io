@@ -71,7 +71,7 @@ const SearchPlan = ({patients,setPatients,selectedPatient,setSelectedPatient}) =
   
 
     const fetchWorkouts = () => {
-      axios.get('/api/assign/all',{
+      axios.get('api/assign/all',{
           params: {
               patient: selectedPatient,
               start: start,

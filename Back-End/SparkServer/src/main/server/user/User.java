@@ -1,4 +1,6 @@
-package main.server.User;
+package main.server.user;
+
+import main.server.AES.AES;
 
 public abstract class User {
     private Integer user_id;
@@ -9,15 +11,16 @@ public abstract class User {
     private String company;
     private Integer address;
     private Boolean admin;
+    private String secret = "passwordEncryption";
 
     public User() {
     }
 
     public User(String email, String password, String f_name, String l_name, String company) {
+        this.email = email;
+        this.password = AES.encrypt(password, secret);
         this.f_name = f_name;
         this.l_name = l_name;
-        this.email = email;
-        this.password = password;
         this.company = company;
     }
 
