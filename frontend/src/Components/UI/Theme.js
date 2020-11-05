@@ -6,8 +6,8 @@ const darkBlue = "#00559A"
 export default createMuiTheme({
     palette: {
         common: {
-            blue: `${darkBlue}`
-
+            blue: `${darkBlue}`,
+          
         },
         primary: {
           // light: will be calculated from palette.primary.main,
@@ -20,6 +20,9 @@ export default createMuiTheme({
           main: `${darkBlue}`,
           // dark: will be calculated from palette.secondary.main,
           contrastText: '#00559A',
+        },
+        background: {
+          default: '#FAFAFA'
         },
         // Used by `getContrastText()` to maximize the contrast between
         // the background and the text.
