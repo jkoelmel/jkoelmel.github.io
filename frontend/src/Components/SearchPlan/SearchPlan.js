@@ -14,8 +14,15 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NumberFormat from 'react-number-format';
+import Grid from '@material-ui/core/Grid';
 
-
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 
 import axios from 'axios'
@@ -35,14 +42,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));  
 
-
+//TODO CLEAN UP FILE AND FIX DATE PICKER
 const SearchPlan = ({patients,setPatients,selectedPatient,setSelectedPatient}) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [exercisePlan,setExercisePlan] = React.useState([]);
     const [workoutbyDate,setWorkoutByDate] = React.useState([]);
-    const [start,setStart] = React.useState('')
-    const [end,setEnd] = React.useState('')
+    const [start,setStart] = React.useState('2020-06-01')
+    const [end,setEnd] = React.useState('2020-06-01')
     const [startYear,setStartYear] = React.useState('')
     const [startMonth,setStartMonth] = React.useState('')
     const [startDay,setStartDay] = React.useState('')
@@ -52,7 +59,16 @@ const SearchPlan = ({patients,setPatients,selectedPatient,setSelectedPatient}) =
     const [readySearch,setReadySearch] = React.useState(false)
 
     const [values, setValues] = React.useState({textmask: '    -   -   '});
+    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
+    const handleStartDateChange = (date) => {
+      setStart(date);
+      console.log("start: ", start)
+    };
+    const handleEndDateChange = (date) => {
+      setEnd(date);
+    };
+  
 
     const fetchWorkouts = () => {
       axios.get('api/assign/all',{
@@ -84,8 +100,7 @@ const SearchPlan = ({patients,setPatients,selectedPatient,setSelectedPatient}) =
   }
   console.log(start)
   console.log(end)
-  console.log(startYear)
-  console.log(`values: ${values}`)
+ 
 
         console.log(exercisePlan.map((exercisePlan) => {
             return exercisePlan
@@ -99,7 +114,9 @@ const SearchPlan = ({patients,setPatients,selectedPatient,setSelectedPatient}) =
     const handleReadySearch = () => {
       setReadySearch(true)
       setOpen(true)
-      handleSearch()
+      // handleSearch()
+      handleStartDateChange()
+      handleEndDateChange()
     }
     console.log(readySearch)
 
@@ -139,7 +156,7 @@ React.useEffect(() => {
         InputProps={{
         }}
       /> */}
-            <TextField
+            {/* <TextField
             label="Start Year"
             id="outlined-margin-none"
             // defaultValue="Default Value"
@@ -190,7 +207,36 @@ React.useEffect(() => {
         />
         
        <Button onClick= {handleReadySearch} color="secondary">Search</Button>
-      
+       */}
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="yyyy/mm/dd"
+          margin="normal"
+          id="date-picker-inline"
+          label="Start Date"
+          value={start}
+          onChange={handleStartDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+         <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="yyyy/mm/dd"
+          margin="normal"
+          id="date-picker-inline"
+          label="End Date"
+          value={end}
+          onChange={handleEndDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+        </MuiPickersUtilsProvider>
+        <Button onClick= {handleReadySearch} color="secondary">Search</Button>
     </div>
     <Modal
                 aria-labelledby="transition-modal-title"
