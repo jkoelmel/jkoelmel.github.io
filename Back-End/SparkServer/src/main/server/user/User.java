@@ -1,4 +1,4 @@
-package main.server.User;
+package main.server.user;
 
 import main.server.AES.AES;
 

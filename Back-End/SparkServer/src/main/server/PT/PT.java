@@ -1,7 +1,7 @@
 package main.server.PT;
 
 import main.server.Server;
-import main.server.User.User;
+import main.server.user.User;
 import java.sql.*;
 
 public class PT extends User {

@@ -22,7 +22,7 @@ public class AES {
             key = myKey.getBytes("UTF-8");
             sha = MessageDigest.getInstance("SHA-512");
             key = sha.digest(key);
-            key = Arrays.copyOf(key, 32);
+            key = Arrays.copyOf(key, 16);
             secretKey = new SecretKeySpec(key, "AES");
 
         } catch (NoSuchAlgorithmException algoEx) {
@@ -58,5 +58,18 @@ public class AES {
             System.out.println("Error while decrypting: " + ex.toString());
         }
         return null;
+    }
+
+    public static void main(String[] args)
+    {
+        final String secretKey = "messageEncryption";
+
+        String originalString = "test";
+        String encryptedString = AES.encrypt(originalString, secretKey) ;
+        String decryptedString = AES.decrypt(encryptedString, secretKey) ;
+
+        System.out.println(originalString);
+        System.out.println(encryptedString);
+        System.out.println(decryptedString);
     }
 }

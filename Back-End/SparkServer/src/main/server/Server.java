@@ -128,7 +128,7 @@ public class Server {
 			path("/example", () -> get("/user", (request, response) -> {
 				response.status(200);
 				response.type("application/json");
-				PT pt = new PT("test@mail.com",
+				PT pt = new PT("testmail@mail.com",
 						"testPassword",
 						"john",
 						"doe",

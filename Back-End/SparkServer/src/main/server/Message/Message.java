@@ -11,7 +11,7 @@ public class Message {
     private String message;
     private Integer patient;
     private Integer pt;
-    private String secret = "messageEncryption";
+    private final String secret = "messageEncryption";
 
     public Message(Integer message_id) { this.message_id = message_id;}
 
@@ -24,11 +24,10 @@ public class Message {
                 Server.databaseUsername,
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(messageQuery)) {
-
-            secret += "-" + patient + "-" + pt;
-            message = AES.encrypt(message, secret);
+            message += "-" + patient + "-" + pt;
+            String contents = AES.encrypt(message, secret);
             //INSERT Activity into activity
-            pst.setString(1, message);
+            pst.setString(1, contents);
             pst.setInt(2, patient);
             pst.setInt(3, pt);
             pst.executeUpdate();
