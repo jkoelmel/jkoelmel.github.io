@@ -40,13 +40,9 @@ public abstract class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() { return password; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public void setPassword(String password) { this.password = password; }
 
     public String getF_name() {
         return f_name;

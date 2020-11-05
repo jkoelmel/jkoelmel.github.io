@@ -32,7 +32,7 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
     console.log(`patient id: ${selectedPatient}`)
 
     const fetchPatientActivity = () => {
-        axios.get('http://54.241.109.153:8080/api/activity/id',{
+        axios.get('api/activity/id',{
             params: {
                 patient: selectedPatient,
                 pt: 1
@@ -68,7 +68,7 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
         <div>
             <div style={{ width: "auto" }}>
                
-                <Button onClick= {handleGenerate} color="primary">Generate Patient Report</Button>
+                <Button onClick= {handleGenerate} color="secondary">Generate Patient Report</Button>
             </div>
 
 

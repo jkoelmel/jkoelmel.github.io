@@ -55,7 +55,7 @@ const SearchPlan = ({patients,setPatients,selectedPatient,setSelectedPatient}) =
 
 
     const fetchWorkouts = () => {
-      axios.get('http://54.241.109.153:8080/api/assign/all',{
+      axios.get('api/assign/all',{
           params: {
               patient: selectedPatient,
               start: start,
@@ -189,7 +189,7 @@ React.useEffect(() => {
           onChange={(e)=>{setEndDay(e.target.value)}}
         />
         
-       <Button onClick= {handleReadySearch} color="primary">Search</Button>
+       <Button onClick= {handleReadySearch} color="secondary">Search</Button>
       
     </div>
     <Modal
@@ -206,8 +206,14 @@ React.useEffect(() => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-           <List>
-             <ListSubheader>{`${start} to ${end}`}</ListSubheader>
+              <List component = "nav" aria-label="patient-list"
+                    style={{maxHeight: 500, overflow: 'scroll'} }
+                    subheader={
+                        <ListSubheader component="div" color="inherit" classes= {"patient-list"}>
+                            Patient Workouts
+                        </ListSubheader>
+                    }>
+              <ListSubheader>{`${start} to ${end}`}</ListSubheader>
              <Divider/>
              {exercisePlan.map((e) => (
                <div>

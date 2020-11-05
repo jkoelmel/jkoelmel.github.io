@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://api.pthealth.club/';
+axios.defaults.headers = {'Access-Control-Allow-Origin': '*'};
 
 ReactDOM.render(<App />, document.getElementById('root')
 );
