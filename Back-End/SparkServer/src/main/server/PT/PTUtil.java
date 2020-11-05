@@ -47,6 +47,7 @@ public class PTUtil {
 			ArrayList<Patient> list = new ArrayList<>();
 			while (rs.next()) {
 				Patient patient = new Patient(rs.getString("email"),
+						rs.getString("password"),
 						rs.getString("f_name"),
 						rs.getString("l_name"),
 						rs.getString("company"));
@@ -87,6 +88,7 @@ public class PTUtil {
 			ArrayList<PT> list = new ArrayList<>();
 			while (rs.next()) {
 				PT pt = new PT(rs.getString("email"),
+						rs.getString("password"),
 						rs.getString("f_name"),
 						rs.getString("l_name"),
 						rs.getString("company"));
@@ -115,6 +117,7 @@ public class PTUtil {
 	public static Integer registerPT(Request request) {
 		try {
 			PT pt = new PT(request.queryMap().get("email").value(),
+					request.queryMap().get("password").value(),
 					request.queryMap().get("f_name").value(),
 					request.queryMap().get("l_name").value(),
 					request.queryMap().get("company").value());
