@@ -1,12 +1,14 @@
 package main.server;
 
 import com.google.gson.Gson;
-import main.server.Activity.ActivityUtil;
-import main.server.Assignment.AssignmentUtil;
-import main.server.Contain.ContainUtil;
-import main.server.Entry.EntryUtil;
+import main.server.Message.Message;
+import main.server.Message.MessageUtil;
 import main.server.PT.*;
-import main.server.Patient.PatientUtil;
+import main.server.Activity.*;
+import main.server.Patient.*;
+import main.server.Entry.*;
+import main.server.Assignment.*;
+import main.server.Contain.*;
 
 import java.sql.*;
 
@@ -19,9 +21,31 @@ public class Server {
 	public static final String databasePassword = "Csc648Team2";
 
 	public static void main(String[] args) {
-		System.out.println("Starting server on port 8080");
 
 		port(8080);
+
+		options("/*",
+				(request, response) -> {
+
+					String accessControlRequestHeaders = request
+							.headers("Access-Control-Request-Headers");
+					if (accessControlRequestHeaders != null) {
+						response.header("Access-Control-Allow-Headers",
+								accessControlRequestHeaders);
+					}
+
+					String accessControlRequestMethod = request
+							.headers("Access-Control-Request-Method");
+					if (accessControlRequestMethod != null) {
+						response.header("Access-Control-Allow-Methods",
+								accessControlRequestMethod);
+					}
+
+					return "OK";
+				});
+
+		before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+		System.out.println("Starting server on port 8080");
 
 		path("/api", () -> {
 			before("/*", (q, a) -> System.out.println("Received api call"));
@@ -83,6 +107,16 @@ public class Server {
 				});
 			});
 
+			path("/message", () -> {
+				//Requires pt and patient
+				get("/id", MessageUtil::selectAll);
+				//Requires message, patient, and pt
+				post("/register", (request, response) -> {
+					response.status(MessageUtil.registerMessage(request));
+					return response.status();
+				});
+			});
+
 			path("/workout", () -> {
 				//Requires workout_id in query to find exercises
 				get("/id", ContainUtil::selectExercises);
@@ -94,7 +128,8 @@ public class Server {
 			path("/example", () -> get("/user", (request, response) -> {
 				response.status(200);
 				response.type("application/json");
-				PT pt = new PT("test@mail.com",
+				PT pt = new PT("testmail@mail.com",
+						"testPassword",
 						"john",
 						"doe",
 						"some company inc.");

@@ -1,6 +1,7 @@
 package main.server.Message;
 
 import com.google.gson.Gson;
+import main.server.AES.AES;
 import main.server.Server;
 import spark.Request;
 import spark.Response;
@@ -10,12 +11,16 @@ import java.util.ArrayList;
 
 public class MessageUtil {
 
+    private final static String secret = "messageEncryption";
+
     public static String selectSpecific(Request request, Response response) {
         String toReturn = "";
 
         try {
             Message message = new Message(Integer.parseInt(request.queryMap().get("message_id").value()));
             Gson gson = new Gson();
+            String mySQLtoSHA = AES.decrypt(message.getMessage(), secret);
+            message.setMessage(AES.decrypt(mySQLtoSHA, secret));
             toReturn = gson.toJson(message.getMessage());
 
             System.out.println("Message has been selected");
@@ -39,11 +44,11 @@ public class MessageUtil {
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(query)) {
             ResultSet rs = pst.executeQuery();
-
             ArrayList<Message> list = new ArrayList<>();
             while (rs.next()) {
                 Message message = new Message(rs.getInt("message_id"));
-                message.setMessage(rs.getString("message"));
+                String contents = AES.decrypt(rs.getString("message"), secret).split("-")[0];
+                message.setMessage(contents);
                 message.setPatient(rs.getInt("patient"));
                 message.setPt(rs.getInt("pt"));
 
@@ -67,7 +72,8 @@ public class MessageUtil {
 
     public static Integer registerMessage(Request request) {
         try {
-            Message message = new Message(Integer.parseInt(request.queryMap().get("message_id").value()));
+            Message message = new Message(null);
+
             message.createMessage(request.queryMap().get("message").value(),
                     Integer.parseInt(request.queryMap().get("patient").value()),
                     Integer.parseInt(request.queryMap().get("pt").value()));

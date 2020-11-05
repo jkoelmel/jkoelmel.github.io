@@ -7,6 +7,7 @@ import List from "@material-ui/core/List";
 import {Divider, ListItem, ListItemText, ListSubheader} from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import {makeStyles} from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography"
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -21,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
         outline: 'none',
     },
+     sticky: {
+        backgroundColor: 'white'
+    }
 }));
 
 const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
@@ -68,7 +72,7 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
         <div>
             <div style={{ width: "auto" }}>
                
-                <Button onClick= {handleGenerate} color="primary">Generate Patient Report</Button>
+                <Button onClick= {handleGenerate} color="secondary">Generate Patient Activities</Button>
             </div>
 
 
@@ -88,8 +92,8 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
                     <div className={classes.paper}>
                     <List component = "nav" aria-label="patient-list"
                         style={{maxHeight: 500, overflow: 'scroll'} }
-                         subheader={
-                    <ListSubheader component="div" color="inherit" classes= {"patient-list"}>
+                         subheader={ selectedPatient == '' ? <Typography>Patient must be picked first.</Typography> :
+                    <ListSubheader component="div" color="inherit" classes= {{sticky: classes.sticky}}>
                            Activity report
                     </ListSubheader>   
                      }> 

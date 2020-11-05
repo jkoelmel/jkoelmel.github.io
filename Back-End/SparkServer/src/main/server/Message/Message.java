@@ -1,5 +1,6 @@
 package main.server.Message;
 
+import main.server.AES.AES;
 import main.server.Server;
 
 import java.sql.*;
@@ -10,11 +11,12 @@ public class Message {
     private String message;
     private Integer patient;
     private Integer pt;
+    private final String secret = "messageEncryption";
 
     public Message(Integer message_id) { this.message_id = message_id;}
 
     public void createMessage(String message, Integer patient, Integer pt) throws Exception {
-        String messageQuery = "INSERT INTO message(message_id, message, patient, pt " +
+        String messageQuery = "INSERT INTO message(message_id, message, patient, pt) " +
                 " VALUES(NULL, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(
@@ -22,9 +24,10 @@ public class Message {
                 Server.databaseUsername,
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(messageQuery)) {
-
+            message += "-" + patient + "-" + pt;
+            String contents = AES.encrypt(message, secret);
             //INSERT Activity into activity
-            pst.setString(1, message);
+            pst.setString(1, contents);
             pst.setInt(2, patient);
             pst.setInt(3, pt);
             pst.executeUpdate();
@@ -35,7 +38,7 @@ public class Message {
         }
     }
 
-    public Message getExercise() throws Exception {
+    public Message getMessageContents() throws Exception {
         String messageQuery = "SELECT * FROM message WHERE message_id = " + this.message_id;
 
         try (Connection con = DriverManager.getConnection(

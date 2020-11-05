@@ -15,7 +15,8 @@ public class PatientVideo {
     private Integer patient;
     
     public PatientVideo(Integer patientVideo_id) { this.patientVideo_id = patientVideo_id ;}
-    
+
+    //TODO add uploaded field to all queries
     public void createPatientVideo(String videoAltText, Integer length, String patient_comment,
                                    String feedback, byte shareable , Integer patient) throws Exception {
         String videoQuery = "INSERT INTO patient_video(patient_video_id, video_alt_text, length, patient_comment, feedback, shareable, patient) " +
@@ -74,7 +75,7 @@ public class PatientVideo {
 
         String query = "UPDATE patient_video SET video_alt_text = " + videoAltText + ", length = " +
                 length + ", patient_comment = " + patient_comment + ", feedback = " + feedback + ", shareable = " +
-                shareable + ", patient = " + patient;
+                shareable + ", patient = " + patient + " WHERE patient_video_id " + this.patientVideo_id;
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,

@@ -16,18 +16,7 @@ import axios from 'axios'
 const Landing = () => {
     const [patients,setPatients] = React.useState([]);
     const [selectedPatient, setSelectedPatient] = React.useState('');
-    // axios.get('api/pt/patients',{
-    //     params: {
-    //         pt_id: 1
-    //     }
-    // })
-    //     .then(function (response) {
-    //         console.log(response);
-    //         console.log(response.data[0].f_name);
-    //     })
-    //     .catch(function (error) {
-    //         console.log(error);
-    //     });
+  
     return (
         <div className = 'root'>
             <Grid container className ='grid-root' spacing={5}>
