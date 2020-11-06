@@ -5,10 +5,16 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
 
+import {Provider} from 'react-redux'
+import store from './Redux/store/store'
 axios.defaults.baseURL = 'https://api.pthealth.club/';
 axios.defaults.headers = {'Access-Control-Allow-Origin': '*'};
-
-ReactDOM.render(<App />, document.getElementById('root')
+//Provider makes the store available to every component under App
+ReactDOM.render(
+<Provider store={store}>
+    <App />
+</Provider>
+    , document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
