@@ -62,7 +62,7 @@ public class AES {
 
     public static void main(String[] args)
     {
-        final String secretKey = "messageEncryption";
+        final String secretKey = "passwordEncryption";
 
         String originalString = "test";
         String encryptedString = AES.encrypt(originalString, secretKey) ;
