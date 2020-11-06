@@ -59,6 +59,10 @@ public class Server {
 					response.status(PTUtil.registerPT(request));
 					return response.status();
 				});
+				post("/login", (request, response) -> {
+					response.status(PTUtil.loginPT(request));
+					return response.status();
+				});
 			});
 
 
