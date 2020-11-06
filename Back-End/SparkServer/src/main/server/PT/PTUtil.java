@@ -1,6 +1,7 @@
 package main.server.PT;
 
 import com.google.gson.Gson;
+import main.server.AES.AES;
 import main.server.Patient.Patient;
 import main.server.Server;
 import spark.Request;
@@ -10,6 +11,8 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class PTUtil {
+
+	private static String secret = "passwordEncryption";
 
 	public static String selectSpecific(Request request, Response response) {
 		String toReturn = "";
@@ -130,5 +133,43 @@ public class PTUtil {
 			System.err.println(ex.toString());
 			return 400;
 		}
+	}
+
+	public static Integer loginPT(Request request) {
+
+		String query = "SELECT * FROM user INNER JOIN pt ON user.user_id = pt.user " +
+				" WHERE user.email = \"" + request.queryMap().get("email").value() + "\"";
+
+		try (Connection con = DriverManager.getConnection(
+				Server.databasePath,
+				Server.databaseUsername,
+				Server.databasePassword);
+			 PreparedStatement pst = con.prepareStatement(query)) {
+			ResultSet rs = pst.executeQuery();
+			//Hash user password input
+			String input = request.queryMap().get("password").value();
+			input = AES.encrypt(input, secret);
+
+			ArrayList<PT> list = new ArrayList<>();
+			while (rs.next()) {
+				if (rs.getString("email") == null) {
+					System.out.println("Email not found");
+					return 400;
+				} else {
+					if (input.equals(rs.getString("password"))) {
+						System.out.println("Login Success");
+						return 200;
+					} else {
+						System.out.println("Wrong password");
+						return 400;
+					}
+				}
+			}
+		} catch (SQLException sqlEx) {
+			System.err.println(sqlEx.toString());
+			return 500;
+		}
+		// default response
+		return 400;
 	}
 }
