@@ -1,14 +1,14 @@
 package main.server;
 
 import com.google.gson.Gson;
-import main.server.Message.Message;
-import main.server.Message.MessageUtil;
+import main.server.PTMessage.PatientMessageUtil;
 import main.server.PT.*;
 import main.server.Activity.*;
 import main.server.Patient.*;
 import main.server.Entry.*;
 import main.server.Assignment.*;
 import main.server.Contain.*;
+import main.server.PatientMessage.PTMessageUtil;
 
 import java.sql.*;
 
@@ -63,6 +63,16 @@ public class Server {
 					response.status(PTUtil.loginPT(request));
 					return response.status();
 				});
+
+				path("/message", () -> {
+					//Requires pt and patient
+					get("/id", PTMessageUtil::selectAll);
+					//Requires message, patient, and pt
+					post("/register", (request, response) -> {
+						response.status(PTMessageUtil.registerMessage(request));
+						return response.status();
+					});
+				});
 			});
 
 
@@ -113,10 +123,10 @@ public class Server {
 
 			path("/message", () -> {
 				//Requires pt and patient
-				get("/id", MessageUtil::selectAll);
+				get("/id", PatientMessageUtil::selectAll);
 				//Requires message, patient, and pt
 				post("/register", (request, response) -> {
-					response.status(MessageUtil.registerMessage(request));
+					response.status(PatientMessageUtil.registerMessage(request));
 					return response.status();
 				});
 			});
