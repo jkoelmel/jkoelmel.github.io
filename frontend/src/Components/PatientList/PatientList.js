@@ -46,11 +46,7 @@ const useStyles = makeStyles((theme) => ({
        
         
         const fetchPatients = () => {
-            axios.get('api/pt/patients',{
-                params: {
-                    pt_id: 1
-                }
-            })
+            axios.get('api/pt/patients')
                 .then( (response) => {
                     console.log(response); //TEST
                     console.log(response.data[0].f_name); //TEST

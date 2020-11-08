@@ -1,14 +1,22 @@
+import {GET_PATIENTS} from '../types/types'
+const initialState = {
+    patients:[],
+    loading: true
+}
+
+
 //this function is used when we add/delete users
-export default function () {
-    return [
-        {
-            "pt_id": 1,
-            "user": 12,
-            "user_id": 12,
-            "email": "bruce.lee@gmail.com",
-            "f_name": "bruce",
-            "l_name": "lee",
-            "company": "awesome fighters inc"
+export default function (state = initialState,action) {
+    switch(action.type){
+
+        case GET_PATIENTS:
+        return {
+            ...state,
+            patients: action.payload,
+            loading: false
+
         }
-    ]
+        default: return state
+    }
+
 }
