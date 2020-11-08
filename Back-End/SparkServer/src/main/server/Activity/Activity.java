@@ -8,8 +8,8 @@ public class Activity {
     private Integer activity_id;
     private String type_activity;
     private Integer duration;
-    private java.sql.Timestamp start_time;
-    private java.sql.Timestamp end_time;
+    private Timestamp start_time;
+    private Timestamp end_time;
     private Integer pt;
     private Integer patient;
 

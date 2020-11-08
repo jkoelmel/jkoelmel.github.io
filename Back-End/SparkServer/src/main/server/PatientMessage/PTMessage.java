@@ -1,23 +1,24 @@
-package main.server.Message;
+package main.server.PatientMessage;
 
 import main.server.AES.AES;
 import main.server.Server;
 
 import java.sql.*;
 
-public class Message {
+public class PTMessage {
 
     private Integer message_id;
     private String message;
+    private Timestamp created_On;
     private Integer patient;
     private Integer pt;
     private final String secret = "messageEncryption";
 
-    public Message(Integer message_id) { this.message_id = message_id;}
+    public PTMessage(Integer message_id) { this.message_id = message_id;}
 
     public void createMessage(String message, Integer patient, Integer pt) throws Exception {
-        String messageQuery = "INSERT INTO message(message_id, message, patient, pt) " +
-                " VALUES(NULL, ?, ?, ?)";
+        String messageQuery = "INSERT INTO pt_message(message_id, message, created_on, patient, pt) " +
+                " VALUES(NULL, ?, now(), ?, ?)";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -38,8 +39,8 @@ public class Message {
         }
     }
 
-    public Message getMessageContents() throws Exception {
-        String messageQuery = "SELECT * FROM message WHERE message_id = " + this.message_id;
+    public PTMessage getMessageContents() throws Exception {
+        String messageQuery = "SELECT * FROM pt_message WHERE message_id = " + this.message_id;
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -56,7 +57,7 @@ public class Message {
                 setPt(rs.getInt("pt"));
             }
         } catch (SQLException ex) {
-            throw new Exception("Error getting exercise with id: " + ex.toString());
+            throw new Exception("Error getting message with id: " + ex.toString());
         }
 
         return this;
@@ -81,6 +82,13 @@ public class Message {
         this.message = message;
     }
 
+    public Timestamp getCreated_On() {
+        return created_On;
+    }
+
+    public void setCreated_On(Timestamp created_On) {
+        this.created_On = created_On;
+    }
 
     public Integer getPatient() {
         return patient;
