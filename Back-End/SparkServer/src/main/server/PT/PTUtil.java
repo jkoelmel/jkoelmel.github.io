@@ -17,7 +17,7 @@ public class PTUtil {
 	public static String selectSpecific(Request request, Response response) {
 		String toReturn = "";
 		try {
-			PT pt = new PT(Integer.parseInt(request.queryMap().get("pt_id").value()));
+			PT pt = new PT(request.queryMap().get("email").value());
 			Gson gson = new Gson();
 			toReturn = gson.toJson(pt.getPT());
 
