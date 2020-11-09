@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -6,8 +6,8 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
-
-import axios from "axios"
+import { connect } from 'react-redux';
+import { fetchPTsPatients } from '../../Redux/actions/actions-pt';
 
 import './PatientList.css'
 import { ListItem, ListItemText } from '@material-ui/core';
@@ -28,19 +28,21 @@ const useStyles = makeStyles((theme) => ({
     sticky: {
         backgroundColor: 'white'
     }
-  }));  
+  }));
 
-    const PatientList = ({patients,setPatients,selectedPatient,setSelectedPatient}) => {
+    const PatientList = (props) => {
         const classes = useStyles();
-        // const [patients,setPatients] = React.useState([]);
-        // const [selectedPatient, setSelectedPatient] = React.useState(''); //patient id
-        const [open, setOpen] = React.useState(false);
-        const [firstname, setFirstName] = React.useState('');
-        const [lastname, setLastName] = React.useState('');
-        const [company,setCompany] = React.useState('')
-        const [email,setEmail] = React.useState('')
+        const [selectedPatient, setSelectedPatient] = useState({}); //patient object
+        const [open, setOpen] = useState(false);
 
+        useEffect(() => {
+            //will load patients when the page loads
+            props.fetchPTsPatients(props.pt.pt_id)
+        }, []);
 
+        //TODO save pt id
+
+<<<<<<< HEAD
         
         //TODO save pt id 
        
@@ -63,33 +65,21 @@ const useStyles = makeStyles((theme) => ({
             return patient
         }))
         
+=======
+>>>>>>> fdeb29855e109ec8163d4b9035d6c5ef2fa9837f
         const handlePatientClick = (e,patientId) => {
-            console.log(patientId) //TEST
-            setSelectedPatient(patientId);
-            patients.map((p)=> {
-                if(p.patient_id == patientId) {
-                    setFirstName(p.f_name)
-                    setLastName(p.l_name)
-                    setEmail(p.email)
-                    setCompany(p.company)
+            props.patients.map((p) => {
+                if(p.patient_id === patientId) {
+                    setSelectedPatient(p)
                 }
             })
             setOpen(true)
             //TODO return patients info by its ID. 
         }
-        console.log(firstname)
-          
+
         const handleClose = () => {
             setOpen(false);
           };
-        
-        console.log(selectedPatient);
-
-        React.useEffect(() => {
-            //will load patients when the page loads
-            fetchPatients();
-        }, []);
-
 
     return (
         <div className = 'patientlist-root'>
@@ -100,11 +90,11 @@ const useStyles = makeStyles((theme) => ({
                 Patient List
               </ListSubheader>   
             }> 
-                { patients.map((p) => (
+                { props.patients.map((p) => (
                     <ListItem 
                         key = {p.patient_id}
                         button
-                        selected= {selectedPatient == p.patient_id}
+                        selected= {selectedPatient === p.patient_id}
                         onClick={(event) => handlePatientClick(event, p.patient_id)}>
                         <ListItemText primary = {`${p.f_name} ${p.l_name}`}/> 
                     </ListItem>
@@ -141,15 +131,15 @@ const useStyles = makeStyles((theme) => ({
           <div className={classes.paper}>
            <List>
                <ListItem>
-                    <ListItemText primary = {`Full Name`} secondary = {`${firstname} ${lastname}`}/> 
+                    <ListItemText primary = {`Full Name`} secondary = {`${selectedPatient.f_name} ${selectedPatient.l_name}`}/>
                </ListItem>
                <Divider/>
                <ListItem>
-                    <ListItemText primary = {`Email`} secondary = {`${email}`}/> 
+                    <ListItemText primary = {`Email`} secondary = {`${selectedPatient.email}`}/>
                </ListItem>
                <Divider/>
                <ListItem>
-                    <ListItemText primary = {`Company Name`} secondary = {`${company}`}/> 
+                    <ListItemText primary = {`Company Name`} secondary = {`${selectedPatient.company}`}/>
                </ListItem>
                <Divider/>
            </List>
@@ -160,7 +150,16 @@ const useStyles = makeStyles((theme) => ({
         </div>
     )
 }
-export default PatientList
+export default connect((state) => ({
+    // The state of the pt, as defined by reducer-pt
+    pt: state.pt,
+    // The state of the pt's patients, defined by reducer-pt
+    patients: state.pt.patients
+}), (dispatch) => ({
+    // The action from actions-pt which will effect reducer-pt
+    fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id))
+})
+)(PatientList);
 
 {/* <List component = "nav" aria-label="patient-list"
 style={{maxHeight: 200, overflow: 'scroll'} }

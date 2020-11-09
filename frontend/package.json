@@ -42,7 +42,11 @@
     "react-text-mask": "^5.4.3",
     "react-window": "^1.8.5",
     "redux": "^4.0.5",
+<<<<<<< HEAD
     "redux-devtools-extension": "^2.13.8",
+=======
+    "redux-actions": "^2.6.5",
+>>>>>>> fdeb29855e109ec8163d4b9035d6c5ef2fa9837f
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
