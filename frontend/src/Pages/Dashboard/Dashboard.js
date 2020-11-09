@@ -55,7 +55,8 @@ const Dashboard = () => {
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
-                    <Paper className={classes.paperPatients} elevation={5}>
+                    <Paper className={classes.paperPatients} style={{overflow: 'auto'}}
+                    elevation={5}>
                         {/* <PatientsList/>  TODO need to handle Axios or hooks
                         in order to use*/}
                             <PatientListRedux/>

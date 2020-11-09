@@ -42,6 +42,31 @@ const useStyles = makeStyles((theme) => ({
 
         //TODO save pt id
 
+<<<<<<< HEAD
+        
+        //TODO save pt id 
+       
+        
+        const fetchPatients = () => {
+            axios.get('api/pt/patients')
+                .then( (response) => {
+                    console.log(response); //TEST
+                    console.log(response.data[0].f_name); //TEST
+                    
+                    setPatients(response.data.map((p) => {
+                        return p
+                    }))
+                })
+                .catch(console.log)
+            
+        }
+        //TEST
+        console.log(patients.map((patient) => {
+            return patient
+        }))
+        
+=======
+>>>>>>> fdeb29855e109ec8163d4b9035d6c5ef2fa9837f
         const handlePatientClick = (e,patientId) => {
             props.patients.map((p) => {
                 if(p.patient_id === patientId) {
