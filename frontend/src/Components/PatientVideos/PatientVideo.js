@@ -48,12 +48,11 @@ const SearchVideos = () => {
         //TODO return patients info by its ID.
     }
 
-
     console.log(`patient id: ${selectedPatient}`)
 
     const fetchPatientVideos = () => {
         //TODO: local testing change later
-        axios.get('http://localhost:8080/api/patient/video/id', {
+        axios.get('api/patient/video/id', {
             params: {
                 patient: selectedPatient
             }
