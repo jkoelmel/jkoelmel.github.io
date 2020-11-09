@@ -9,6 +9,7 @@ import main.server.Entry.*;
 import main.server.Assignment.*;
 import main.server.Contain.*;
 import main.server.PatientMessage.PTMessageUtil;
+import main.server.PatientVideo.PatientVideoUtil;
 
 import java.sql.*;
 
@@ -96,6 +97,15 @@ public class Server {
 						return response.status();
 					});
 				});
+
+				path("/video", () -> {
+					get("/id", PatientVideoUtil::selectAll);
+					post("/register", (request, response) -> {
+						response.status(EntryUtil.registerEntry(request));
+						return response.status();
+					});
+				});
+
 			});
 
 			path("/activity", () -> {
