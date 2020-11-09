@@ -53,7 +53,7 @@ public class Server {
 			before("/*", (q, a) -> System.out.println("Received api call"));
 
 			path("/pt", () -> {
-				get("/id", PTUtil::selectSpecific);
+				get("/email", PTUtil::selectSpecific);
 				get("/all", (request, response) -> PTUtil.selectAll(response));
 				get("/patients", PTUtil::selectPatients);
 

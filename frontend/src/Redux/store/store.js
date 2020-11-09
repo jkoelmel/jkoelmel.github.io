@@ -1,13 +1,12 @@
 import { createStore, applyMiddleware } from "redux";
-import thunk from 'redux-thunk';
 import rootReducer from "../reducer/rootReducer";
 import thunk from 'redux-thunk'
-import {composeWithDevTools} from 'redux-devtools-extension'
+// import {composeWithDevTools} from 'redux-devtools-extension'
 
 const initalState = {
 
 }
-const middleware = [thunk]
+
 
 // redux-thunk middleware is required for actions to work as async
 const middleware = applyMiddleware(
@@ -15,6 +14,6 @@ const middleware = applyMiddleware(
 );
 
 //Where all the data (or states) is gonna be stored
-const store = createStore(rootReducer, middleware);
+const store = createStore(rootReducer, initalState,middleware);
 
 export default store;
