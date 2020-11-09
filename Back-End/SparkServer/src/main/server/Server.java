@@ -1,6 +1,7 @@
 package main.server;
 
 import com.google.gson.Gson;
+import main.server.Exercise.ExerciseUtil;
 import main.server.PTMessage.PatientMessageUtil;
 import main.server.PT.*;
 import main.server.Activity.*;
@@ -144,6 +145,11 @@ public class Server {
 			path("/workout", () -> {
 				//Requires workout_id in query to find exercises
 				get("/id", ContainUtil::selectExercises);
+			});
+
+			path("/exercise", () -> {
+				// No requirements, used for exercise library page
+				get("/all", ExerciseUtil::selectAll);
 			});
 
 			path("/database", () -> get("/version", (request, response) -> databaseVersion()));

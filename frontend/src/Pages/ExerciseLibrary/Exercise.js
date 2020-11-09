@@ -13,6 +13,7 @@ import Fade from "@material-ui/core/Fade";
 import Divider from "@material-ui/core/Divider";
 import SearchReport from "../../Components/SearchReport/SearchReport";
 import PatientInfo from "../../Components/PatientInfo/PatientInfo";
+import Library from "../../Components/ExerciseLibrary/Library";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,61 +22,58 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 24,
         background: theme.palette.background.default
     },
-    paperMessage: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.secondary.main,
-        height: 600,
-        width: 350,
-        marginTop: 10,
-        marginBottom: 139
-    },
-    paperPatients: {
+    paperLibrary: {
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
         height: 750,
         width: 350,
         marginTop: 10,
-        marginBottom: 139
+        marginBottom: 139,
+        marginLeft: 30
     },
-    paperActivities: {
+    paperWorkouts: {
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
         height: 600,
-        width: 600,
+        width: 450,
         marginTop: 10,
         marginBottom: 139
     },
+    paperAssign: {
+        padding: theme.spacing(3),
+        textAlign: 'center',
+        color: theme.palette.secondary.main,
+        height: 600,
+        width: 300,
+        marginTop: 10,
+        marginBottom: 139,
+        marginLeft: 50
+    },
 }));
 
-const Profile = () => {
+const Exercise = () => {
     const classes = useStyles();
-    //TODO change to reflect desired patient
-    const [selectedPatient, setSelectedPatient] = React.useState(1);
-
+    const [selectedExercise, setSelectedExercise] = React.useState([]);
+    
     return (
         <div className={classes.root}>
             <Grid container spacing={5} direction="row">
                 <Grid item md={3}>
-                    <Paper className={classes.paperMessage} elevation={5}>
-                        <Typography>Patient Info</Typography>
-                        <PatientInfo selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
+                    <Paper className={classes.paperLibrary} elevation={5}>
+                        <Typography>Exercise Library</Typography>
+                        <Library/>
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
-                    <Paper className={classes.paperPatients} elevation={5}>
-                        <Typography>Patient Videos</Typography>
-                        <PatientVideo selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
+                    <Paper className={classes.paperWorkouts} elevation={5}>
+                        <Typography>Create Workout</Typography>
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
-                    <Paper className={classes.paperActivities} elevation={5}>
-                        {/* <PatientsList/>  TODO need to handle Axios or hooks
-                        in order to use*/}
-                        <Typography>Progress Log</Typography>
-                        <SearchReport selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
+                    <Paper className={classes.paperAssign} elevation={5}>
+                        <Typography>Saved Workouts</Typography>
                     </Paper>
                 </Grid>
 
@@ -85,4 +83,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default Exercise

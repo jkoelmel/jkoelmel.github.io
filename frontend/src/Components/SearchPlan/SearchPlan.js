@@ -253,7 +253,7 @@ React.useEffect(() => {
         <Fade in={open}>
           <div className={classes.paper}>
               <List component = "nav" aria-label="patient-list"
-                    style={{maxHeight: 500, overflow: 'scroll'} }
+                    style={{maxHeight: 500, overflowY: 'scroll'} }
                     subheader={
                         <ListSubheader component="div" color="inherit" classes= {"patient-list"}>
                             Patient Workouts

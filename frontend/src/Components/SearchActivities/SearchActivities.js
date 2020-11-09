@@ -91,7 +91,7 @@ const SearchActivities = ({selectedPatient,setSelectedPatient}) => {
                 <Fade in={open}>
                     <div className={classes.paper}>
                     <List component = "nav" aria-label="patient-list"
-                        style={{maxHeight: 500, overflow: 'scroll'} }
+                        style={{maxHeight: 500, overflowY: 'scroll'} }
                          subheader={ selectedPatient == '' ? <Typography>Patient must be picked first.</Typography> :
                     <ListSubheader component="div" color="inherit" classes= {{sticky: classes.sticky}}>
                            Activity report

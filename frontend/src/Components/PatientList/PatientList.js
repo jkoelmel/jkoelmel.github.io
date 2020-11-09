@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     return (
         <div className = 'patientlist-root'>
                <List component = "nav" aria-label="patient-list"
-            style={{maxHeight: 200, overflow: 'scroll'} }
+            style={{maxHeight: 200, overflowY: 'scroll'} }
             subheader={
                 <ListSubheader component="div" color="inherit" classes ={{sticky: classes.sticky}}>
                 Patient List
@@ -76,9 +76,9 @@ const useStyles = makeStyles((theme) => ({
                 ))}
 
                 </List>
-
+                <Divider/>
                 <List component = "nav" aria-label="patient-list"
-                    style={{maxHeight: 200, overflow: 'scroll'}}
+                    style={{maxHeight: 300, overflowY: 'scroll'}}
                     subheader={
                 <ListSubheader component="div" color="inherit" id="potential-patient-list">
                 Potential Patient List
