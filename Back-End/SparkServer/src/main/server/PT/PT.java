@@ -14,6 +14,8 @@ public class PT extends User {
 
   public PT(Integer pt_id){this.pt_id=pt_id;}
 
+  public PT(String email){this.setEmail(email);}
+
 	public void createPT() throws Exception {
 		String userQuery = "INSERT INTO user(user_id, email, password, f_name, l_name, company) VALUES(NULL, ?, ?, ?, ?, ?);";
 		String ptQuery = "INSERT INTO pt(pt_id, user) VALUES(NULL, LAST_INSERT_ID())";
@@ -42,14 +44,14 @@ public class PT extends User {
   
 	public PT getPT() throws Exception {
 		String ptQuery = "SELECT * FROM user u JOIN pt p " +
-				"ON u.user_id = p.user WHERE p.pt_id = " + this.pt_id;
+				"ON u.user_id = p.user WHERE u.email = ?";
 
 		try (Connection con = DriverManager.getConnection(
 				Server.databasePath,
 				Server.databaseUsername,
 				Server.databasePassword);
 			 PreparedStatement pst = con.prepareStatement(ptQuery)) {
-			pst.executeQuery(ptQuery);
+			pst.setString(1, this.getEmail());
 
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
@@ -62,9 +64,11 @@ public class PT extends User {
 				setF_name(rs.getString("f_name"));
 				setL_name(rs.getString("l_name"));
 				setCompany(rs.getString("company"));
+			} else {
+				throw new SQLException("A user with that email doesn't exist.");
 			}
 		} catch (SQLException ex) {
-			throw new Exception("Error getting pt with id " + this.pt_id + ": " + ex.toString());
+			throw new SQLException("Error getting pt with email " + this.getEmail() + ": " + ex.toString());
 		}
 
 		return this;
