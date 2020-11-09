@@ -44,7 +44,7 @@ const SearchReport = ({selectedPatient,setSelectedPatient}) => {
         searchreport
         id="search-report"
         disableClearable
-        options={patientReport.map((pr) => pr.entry)}
+        options={patientReport.map((pr) => pr.created_on + " " + pr.entry)}
         renderInput={(params) => (
           <TextField
             {...params}
