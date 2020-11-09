@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import PatientListRedux from '../../Components/PatientList/PatientListRedux'
+import PatientList from '../../Components/PatientList/PatientList'
 
 //TODO Will most likely have to fix paperMessage margins when we implement
 //the actual message board.
@@ -23,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 139
     },
     paperPatients: {
-        padding: theme.spacing(2),
+        // padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
-        height: 500,
+        height: 525,
         width: 350,
         marginTop: 10,
         marginBottom: 139
@@ -59,7 +59,7 @@ const Dashboard = () => {
                     elevation={5}>
                         {/* <PatientsList/>  TODO need to handle Axios or hooks
                         in order to use*/}
-                            <PatientListRedux/>
+                            <PatientList/>
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
