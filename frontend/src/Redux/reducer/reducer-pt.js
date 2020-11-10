@@ -54,6 +54,13 @@ const PTReducer = handleActions({
             user: action.payload.user,
             user_id: action.payload.user_id
         }
+    },
+    [constants.LOGIN_PT] : (state,action) => {
+        const pt = action.payload
+        return {
+            email: pt.email,
+            password: pt.password
+        }
     }
 }, initialPTState)
 
