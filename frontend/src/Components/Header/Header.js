@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   menuButton: {
+    marginLeft: 10,
     marginRight: theme.spacing(2),
   },
   title: {
@@ -30,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
     width: 200
   },
   accountCircle: {
-    marginLeft: 'auto'
+    marginLeft: 'auto',
+    marginRight: 10,
   }
 }));
 

@@ -48,7 +48,7 @@ const LoginForm = props => {
                             error = {emailError}
                             id="outlined-error"
                             label="Email"
-                            defaultValue="sample@mail.com"
+                            placeholder="sample@mail.com"
                             variant="outlined"
                             color= "secondary"
                         />
@@ -59,7 +59,7 @@ const LoginForm = props => {
                             error = {passwordError}
                             id="outlined-error"
                             label="Password"
-                            defaultValue="Password"
+                            placeholder="Password"
                             variant="outlined"
                             color= "secondary"
                             type="password"

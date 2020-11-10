@@ -3,7 +3,7 @@ import "./styles.css"
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { Container, Typography } from '@material-ui/core';
+import {Container, Typography} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 
 import PatientList from '../../Components/PatientList/PatientList'
@@ -15,7 +15,7 @@ import Image from '../../Assets/katee-lue-SxR5wZYaOtg-unsplash.jpg'
 import HouseIcon from '../../Assets/houseIcon.svg'
 import DoctorIcon from '../../Assets/doctorIcon.svg'
 import PhoneIcon from '../../Assets/phoneIcon.svg'
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import LoginForm from '../../Components/LoginForm/LoginForm'
 import RegisterPT from '../../Components/RegisterPT/RegisterPT'
 
@@ -31,7 +31,9 @@ const useStyles = makeStyles((theme) => ({
 
     },
     buttons: {
-        color: theme.palette.secondary.main
+        color: theme.palette.secondary.main,
+        marginTop: 10,
+        marginRight: 45
     },
     LoginModal: {
         display: 'flex',
@@ -45,7 +47,7 @@ const Landing = () => {
     const classes = useStyles();
     const [LoginOpen, setLoginOpen] = React.useState(false);
     const [RegisterNow, setRegisterNow] = React.useState(false);
-    
+
     const handleLoginOpen = () => {
         setLoginOpen(true);
     };
@@ -54,7 +56,7 @@ const Landing = () => {
         setLoginOpen(false);
     };
 
-    
+
     const handleRegisterNow = () => {
         setRegisterNow(true);
     };
@@ -70,7 +72,7 @@ const Landing = () => {
                     <Grid container direction="row">
                         <Grid item>
                             <Typography variant="h2" alignItems="center">
-                                Living Better One day At a Time...</Typography>
+                                Living Better One Day At a Time...</Typography>
                         </Grid>
                         <Grid container>
                         </Grid>
@@ -78,22 +80,22 @@ const Landing = () => {
                 </Grid>
 
                 <Grid item>
-                    <Grid container direction="row" spacing={4} >
+                    <Grid container direction="row" spacing={4}>
                         <Grid item>
                             <Grid container direction="column" alignItems="center">
-                                <img src={DoctorIcon} />
+                                <img src={DoctorIcon}/>
                                 <Typography variant="h5">Get matched with a patient</Typography>
                             </Grid>
                         </Grid>
-                        <Grid item >
+                        <Grid item>
                             <Grid container direction="column" alignItems="center">
-                                <img src={HouseIcon} />
-                                <Typography variant="h5" >Provide care on your own schedule</Typography>
+                                <img src={HouseIcon}/>
+                                <Typography variant="h5">Provide care on your own schedule</Typography>
                             </Grid>
                         </Grid>
                         <Grid item>
                             <Grid container direction="column" alignItems="center">
-                                <img src={PhoneIcon} />
+                                <img src={PhoneIcon}/>
                                 <Typography variant="h5">Heal with professional feedback</Typography>
                             </Grid>
                         </Grid>
@@ -101,19 +103,20 @@ const Landing = () => {
                 </Grid>
                 <Grid container direction="column" alignItems="center">
                     <Grid item>
-                        <Button variant="contained" className={classes.buttons} onClick={handleRegisterNow}>Register Now</Button>
+                        <Button variant="contained" className={classes.buttons} onClick={handleRegisterNow}>Register
+                            Now</Button>
                     </Grid>
                     <Modal
-                open={RegisterNow}
-                onClose={handleRegisterNow}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-                className={classes.LoginModal}>
-                <RegisterPT />
-            </Modal>
+                        open={RegisterNow}
+                        onClose={handleRegisterNow}
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                        className={classes.LoginModal}>
+                        <RegisterPT/>
+                    </Modal>
                     <Grid item>
                         <Button className={classes.buttons}
-                            onClick={handleLoginOpen}>
+                                onClick={handleLoginOpen}>
                             Already registered? Log in
                         </Button>
                     </Grid>
@@ -126,37 +129,37 @@ const Landing = () => {
                 aria-describedby="simple-modal-description"
                 className={classes.LoginModal}>
 
-                <LoginForm />
+                <LoginForm/>
             </Modal>
         </div>
     )
 }
 
 export default Landing
- // <div className = 'root'>
-        //     <Grid container className ='grid-root' spacing={5}>
-        //         <Grid item xs={3} > 
-        //             <Paper >
-        //                 <PatientList patients = {patients} setPatients = {setPatients}
-        //                 selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
-        //             </Paper>
-        //         </Grid>
-        //         <Grid item xs={3} > 
-        //             <Paper >
-        //                 <SearchPlan patients = {patients} setPatients = {setPatients}
-        //                  selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
-        //             </Paper>
-        //         </Grid>
-        //     <Grid item xs={3} > 
-        //         <Paper >
-        //             <SearchReport selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
-        //         </Paper>
-        //     </Grid>
-        //     <Grid item xs={3} > 
-        //         <Paper >
-        //             <SearchActivities selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
-        //         </Paper>
-        //     </Grid>
+// <div className = 'root'>
+//     <Grid container className ='grid-root' spacing={5}>
+//         <Grid item xs={3} >
+//             <Paper >
+//                 <PatientList patients = {patients} setPatients = {setPatients}
+//                 selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
+//             </Paper>
+//         </Grid>
+//         <Grid item xs={3} >
+//             <Paper >
+//                 <SearchPlan patients = {patients} setPatients = {setPatients}
+//                  selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
+//             </Paper>
+//         </Grid>
+//     <Grid item xs={3} >
+//         <Paper >
+//             <SearchReport selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
+//         </Paper>
+//     </Grid>
+//     <Grid item xs={3} >
+//         <Paper >
+//             <SearchActivities selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
+//         </Paper>
+//     </Grid>
 
-        //     </Grid>        
-        // </div>
+//     </Grid>
+// </div>
