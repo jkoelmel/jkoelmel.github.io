@@ -166,6 +166,10 @@ public class Server {
 				Gson gson = new Gson();
 				return gson.toJson(pt);
 			}));
+			path("/heartbeat", () -> get( "/check", (request, response) -> {
+				response.status(heartbeatCheck());
+				return response.status();
+			}));
 
 			after("/*", (q, a) -> System.out.println("API call completed"));
 
@@ -191,5 +195,9 @@ public class Server {
 		}
 
 		return toReturn;
+	}
+
+	private static Integer heartbeatCheck() {
+		return 200;
 	}
 }
