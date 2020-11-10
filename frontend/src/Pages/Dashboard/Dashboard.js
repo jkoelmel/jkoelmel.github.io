@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme) => ({
         // padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
-        height: 525,
-        width: 350,
-        marginTop: 10,
-        marginBottom: 139
+        // height: 525,
+        // width: 350,
+        // marginTop: 10,
+        // marginBottom: 139
     },
     paperActivities: {
         padding: theme.spacing(2),
@@ -48,28 +48,29 @@ const Dashboard = () => {
 
     return (
         <div className={classes.root}>
-            <Grid container spacing={5} direction="row">
-                <Grid item md={3}>
+            <Grid container spacing={3} direction="row">
+                <Grid item >
                     <Paper className={classes.paperMessage} elevation={5}>
                         <Typography>Message Center</Typography>
                     </Paper>
                 </Grid>
-                <Grid item xs={3}>
-                    <Paper className={classes.paperPatients} style={{overflow: 'auto'}}
-                    elevation={5}>
-                        {/* <PatientsList/>  TODO need to handle Axios or hooks
+                <Grid item>
+                <Grid container direction="column">
+                    <Grid item>
+                        <Paper className={classes.paperPatients} style={{ overflow: 'auto' }}
+                            elevation={5}>
+                            <PatientList />
+                        </Paper>
+                    </Grid>
+                    <Grid item >
+                        <Paper className={classes.paperActivities} elevation={5}>
+                            {/* <PatientsList/>  TODO need to handle Axios or hooks
                         in order to use*/}
-                            <PatientList/>
-                    </Paper>
+                            <Typography>Search Activities</Typography>
+                        </Paper>
+                    </Grid>
                 </Grid>
-                <Grid item xs={3}>
-                    <Paper className={classes.paperActivities} elevation={5}>
-                        {/* <PatientsList/>  TODO need to handle Axios or hooks
-                        in order to use*/}
-                        <Typography>Search Activities</Typography>
-                    </Paper>
                 </Grid>
-
             </Grid>
 
         </div>

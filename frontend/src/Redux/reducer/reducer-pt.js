@@ -17,8 +17,8 @@ const initialPTState = {
             prospective_pt: 0,
             user_id: 497,
             email: "jsmith@hotmail.com",
-            f_name: "John",
-            l_name: "Smith",
+            f_name: "Peter",
+            l_name: "Who",
             company: "Lazzy",
             secret: "passwordEncryption"
         }
