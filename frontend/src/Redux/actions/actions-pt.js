@@ -19,6 +19,23 @@ export const createNewPT = (pt) => {
             .catch(err => console.log('Error creating pt:', err))
     }
 }
+//TODO fix postauth
+export const loginPT = (pt) => {
+    const params = new URLSearchParams()
+    params.append("email", pt.email)
+    params.append("password", pt.password)
+
+    return (dispatch) => {
+        postAuth('/api/pt/login',params)
+        .then(() => { 
+            dispatch(getPTByEmail(pt.email))
+
+        })
+        .then(dispatch(getPTByEmail(pt.email)))
+        .catch(err => console.log('error grabbing data from: ', err))
+    }
+
+}
 
 export const createPT = (pt) => {
     return {
