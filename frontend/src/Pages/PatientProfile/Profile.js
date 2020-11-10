@@ -3,14 +3,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import {makeStyles} from '@material-ui/core/styles';
 import {ListItem, ListItemText, Typography} from '@material-ui/core';
-import PatientListRedux from '../../Components/PatientList/PatientListRedux'
-import SearchActivities from "../../Components/SearchActivities/SearchActivities";
 import PatientVideo from "../../Components/PatientVideos/PatientVideo";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Divider from "@material-ui/core/Divider";
+
 import SearchReport from "../../Components/SearchReport/SearchReport";
 import PatientInfo from "../../Components/PatientInfo/PatientInfo";
 
