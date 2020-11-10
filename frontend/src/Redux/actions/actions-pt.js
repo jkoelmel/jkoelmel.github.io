@@ -2,10 +2,20 @@ import * as constants from '../constants/constants-pt'
 import {getAuth, postAuth} from './actions-auth'
 
 export const createNewPT = (pt) => {
-    const data = {email: pt.email, f_name: pt.f_name, l_name: pt.l_name, company: pt.compact}
+    const params = new URLSearchParams()
+    params.append("email", pt.email)
+    params.append("f_name", pt.f_name)
+    params.append("l_name", pt.l_name)
+    params.append("password", pt.password)
+    params.append("company", pt.company)
+
     return (dispatch) => {
-        postAuth('/api/pt/register', data)
-            .then(dispatch(createPT(pt)))
+        postAuth('/api/pt/register', params)
+            .then(() => {
+                dispatch(createPT(pt))
+                dispatch(getPTByEmail(pt.email))
+            })
+            .then(dispatch(getPTByEmail(pt.email)))
             .catch(err => console.log('Error creating pt:', err))
     }
 }
@@ -13,6 +23,24 @@ export const createNewPT = (pt) => {
 export const createPT = (pt) => {
     return {
         type: constants.CREATE_PT,
+        payload: pt
+    }
+}
+
+export const getPTByEmail = (email) => {
+    return (dispatch) => {
+        getAuth('api/pt/email', {email: email})
+            .then((response) => {
+                dispatch(updatePT(response.data))
+                dispatch(fetchPTsPatients(response.data.pt_id))
+            })
+            .catch(err => console.log(`Error fetching PT with email ${email}:`, err))
+    }
+}
+
+export const updatePT = (pt) => {
+    return {
+        type: constants.UPDATE_PT,
         payload: pt
     }
 }
