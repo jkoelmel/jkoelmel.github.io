@@ -7,24 +7,26 @@ import PatientVideo from "../../Components/PatientVideos/PatientVideo";
 
 import SearchReport from "../../Components/SearchReport/SearchReport";
 import PatientInfo from "../../Components/PatientInfo/PatientInfo";
+import ActivitySummary from "../../Components/PatientActivitySummary/ActivitySummary";
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        minHeight: "95vw",
         flexGrow: 1,
-        marginTop: 24,
+        marginTop: 35,
         background: theme.palette.background.default
     },
-    paperMessage: {
-        padding: theme.spacing(2),
+    paperInfo: {
+        padding: theme.spacing(),
         textAlign: 'center',
         color: theme.palette.secondary.main,
         height: 600,
         width: 350,
         marginTop: 10,
-        marginBottom: 139
+        marginLeft: 10
     },
-    paperPatients: {
+    paperVideos: {
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
@@ -33,14 +35,21 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 10,
         marginBottom: 139
     },
-    paperActivities: {
+    paperProgress: {
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
         height: 600,
-        width: 600,
+        width: 400,
         marginTop: 10,
         marginBottom: 139
+    },
+    paperSummary: {
+        padding: 5,
+        marginTop: 10,
+        marginLeft: 10,
+        width: 355,
+        height: 200
     },
 }));
 
@@ -51,23 +60,24 @@ const Profile = () => {
 
     return (
         <div className={classes.root}>
-            <Grid container spacing={5} direction="row">
+            <Grid container spacing={3} direction="row">
                 <Grid item md={3}>
-                    <Paper className={classes.paperMessage} elevation={5}>
+                    <Paper className={classes.paperInfo} elevation={5}>
                         <Typography>Patient Info</Typography>
                         <PatientInfo selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
                     </Paper>
+                    <Paper className={classes.paperSummary} elevation={5}>
+                        <ActivitySummary selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
+                    </Paper>
                 </Grid>
-                <Grid item xs={3}>
-                    <Paper className={classes.paperPatients} elevation={5}>
+                <Grid item md={3}>
+                    <Paper className={classes.paperVideos} elevation={5}>
                         <Typography>Patient Videos</Typography>
                         <PatientVideo selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
                     </Paper>
                 </Grid>
-                <Grid item xs={3}>
-                    <Paper className={classes.paperActivities} elevation={5}>
-                        {/* <PatientsList/>  TODO need to handle Axios or hooks
-                        in order to use*/}
+                <Grid item md={3}>
+                    <Paper className={classes.paperProgress} elevation={5}>
                         <Typography>Progress Log</Typography>
                         <SearchReport selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
                     </Paper>

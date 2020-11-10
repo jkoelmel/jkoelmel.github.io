@@ -71,7 +71,7 @@ public class PatientVideoUtil {
 
     public static Integer registerPatientVideo(Request request) {
         try {
-            PatientVideo pv = new PatientVideo(Integer.parseInt(request.queryMap().get("patient_video_id").value()));
+            PatientVideo pv = new PatientVideo(null);
             pv.createPatientVideo(request.queryMap().get("video_url").value(),
                     request.queryMap().get("feedback").value(),
                     Integer.parseInt(request.queryMap().get("patient").value()));

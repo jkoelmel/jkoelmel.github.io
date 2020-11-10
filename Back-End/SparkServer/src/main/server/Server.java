@@ -56,7 +56,7 @@ public class Server {
 				get("/email", PTUtil::selectSpecific);
 				get("/all", (request, response) -> PTUtil.selectAll(response));
 				get("/patients", PTUtil::selectPatients);
-
+				get("/summary", ActivityUtil::getPatPTSummary);
 				post("/register", (request, response) -> {
 					response.status(PTUtil.registerPT(request));
 					return response.status();

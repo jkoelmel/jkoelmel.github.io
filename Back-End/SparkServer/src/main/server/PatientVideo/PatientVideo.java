@@ -15,9 +15,9 @@ public class PatientVideo {
     public PatientVideo(Integer patientVideo_id) { this.patientVideo_id = patientVideo_id ;}
 
     //TODO add uploaded field to all queries
-    public void createPatientVideo(String video_url, String feedback, Integer patient) throws Exception {
-        String videoQuery = "INSERT INTO patient_video(patient_video_id, video_url, feedback, patient) " +
-                "VALUES(null, ?, ?, now(), ?)";
+    public void createPatientVideo(String video_url, Integer patient) throws Exception {
+        String videoQuery = "INSERT INTO patient_video(video_url, patient) " +
+                "VALUES( ?, ?)";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -27,8 +27,7 @@ public class PatientVideo {
 
             //INSERT Activity into activity
             pst.setString(1, video_url);
-            pst.setString(2, feedback);
-            pst.setInt(3, patient);
+            pst.setInt(2, patient);
             pst.executeUpdate();
 
             System.out.println("Video added to database");
@@ -62,12 +61,9 @@ public class PatientVideo {
         return this;
     }
 
-    public void updatePatientVideo(String videoAltText, Integer length, String patient_comment,
-                                   String feedback, byte shareable , Integer patient) throws Exception{
+    public void updatePatientVideo(String feedback) throws Exception{
 
-        String query = "UPDATE patient_video SET video_alt_text = " + videoAltText + ", length = " +
-                length + ", patient_comment = " + patient_comment + ", feedback = " + feedback + ", shareable = " +
-                shareable + ", patient = " + patient + " WHERE patient_video_id " + this.patientVideo_id;
+        String query = "UPDATE patient_video SET feedback = " + feedback + " WHERE patient_video_id " + this.patientVideo_id;
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,

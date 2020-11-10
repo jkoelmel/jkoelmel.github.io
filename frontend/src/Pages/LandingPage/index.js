@@ -6,10 +6,6 @@ import Paper from '@material-ui/core/Paper';
 import {Container, Typography} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 
-import PatientList from '../../Components/PatientList/PatientList'
-import SearchPlan from '../../Components/SearchPlan/SearchPlan'
-import SearchReport from '../../Components/SearchReport/SearchReport'
-import SearchActivities from '../../Components/SearchActivities/SearchActivities'
 import axios from 'axios'
 import Image from '../../Assets/katee-lue-SxR5wZYaOtg-unsplash.jpg'
 import HouseIcon from '../../Assets/houseIcon.svg'
