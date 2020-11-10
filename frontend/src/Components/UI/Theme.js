@@ -21,6 +21,7 @@ export default createMuiTheme({
           // dark: will be calculated from palette.secondary.main,
           contrastText: '#00559A',
         },
+        
         background: {
           default: '#FAFAFA'
         },
@@ -31,6 +32,20 @@ export default createMuiTheme({
         // two indexes within its tonal palette.
         // E.g., shift from Red 500 to Red 300 or Red 700.
         tonalOffset: 0.2,
+      },
+      typography: {
+        h2: {
+          fontFamily: "Roboto",
+          fontSize: "4.5rem",
+          fontWeight: "700",
+          color: `${darkBlue}`
+        },
+        h5: {
+          fontFamily: "Roboto",
+          fontSize: "1.5rem",
+          fontWeight: "700",
+          color: `${darkBlue}`
+        }
       },
 })
 

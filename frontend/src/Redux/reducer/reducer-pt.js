@@ -17,8 +17,8 @@ const initialPTState = {
             prospective_pt: 0,
             user_id: 497,
             email: "jsmith@hotmail.com",
-            f_name: "John",
-            l_name: "Smith",
+            f_name: "Peter",
+            l_name: "Who",
             company: "Lazzy",
             secret: "passwordEncryption"
         }
@@ -53,6 +53,13 @@ const PTReducer = handleActions({
             pt_id: action.payload.pt_id,
             user: action.payload.user,
             user_id: action.payload.user_id
+        }
+    },
+    [constants.LOGIN_PT] : (state,action) => {
+        const pt = action.payload
+        return {
+            email: pt.email,
+            password: pt.password
         }
     }
 }, initialPTState)
