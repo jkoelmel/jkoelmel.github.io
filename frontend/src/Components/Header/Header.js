@@ -18,6 +18,7 @@ import logo from '../../Assets/Images/logo_with_text.svg'
 //TODO when you click the logo, redirect to dashboard
 const useStyles = makeStyles((theme) => ({
   root: {
+    margin: 3,
     flexGrow: 1,
   },
   menuButton: {

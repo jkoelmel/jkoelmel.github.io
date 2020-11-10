@@ -21,14 +21,16 @@ import RegisterPT from '../../Components/RegisterPT/RegisterPT'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        minHeight: "100vh",
+        minHeight: "90vh",
         backgroundImage: `url(${Image})`,
         backgroundRepeat: "no-repeat",
-        backgroundSize: 'cover',
+        backgroundSize: "cover",
+        backgroundPositionY: "-35vh",
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
-
+        paddingTop: "7vh",
+        paddingLeft: 100,
+        overflow: "hidden"
     },
     buttons: {
         color: theme.palette.secondary.main,
