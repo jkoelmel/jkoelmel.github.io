@@ -17,6 +17,7 @@ import DoctorIcon from '../../Assets/doctorIcon.svg'
 import PhoneIcon from '../../Assets/phoneIcon.svg'
 import { makeStyles } from '@material-ui/core/styles';
 import LoginForm from '../../Components/LoginForm/LoginForm'
+import RegisterPT from '../../Components/RegisterPT/RegisterPT'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
 const Landing = () => {
     const classes = useStyles();
     const [LoginOpen, setLoginOpen] = React.useState(false);
-
+    const [RegisterNow, setRegisterNow] = React.useState(false);
+    
     const handleLoginOpen = () => {
         setLoginOpen(true);
     };
@@ -52,6 +54,14 @@ const Landing = () => {
         setLoginOpen(false);
     };
 
+    
+    const handleRegisterNow = () => {
+        setRegisterNow(true);
+    };
+
+    const handleRegisterClose = () => {
+        setRegisterNow(false);
+    };
 
     return (
         <div className={classes.root}>
@@ -91,13 +101,21 @@ const Landing = () => {
                 </Grid>
                 <Grid container direction="column" alignItems="center">
                     <Grid item>
-                        <Button variant="contained" className={classes.buttons}>Register Now</Button>
+                        <Button variant="contained" className={classes.buttons} onClick={handleRegisterNow}>Register Now</Button>
                     </Grid>
+                    <Modal
+                open={RegisterNow}
+                onClose={handleRegisterNow}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                className={classes.LoginModal}>
+                <RegisterPT />
+            </Modal>
                     <Grid item>
                         <Button className={classes.buttons}
                             onClick={handleLoginOpen}>
                             Already registered? Log in
-                                </Button>
+                        </Button>
                     </Grid>
                 </Grid>
             </Grid>
