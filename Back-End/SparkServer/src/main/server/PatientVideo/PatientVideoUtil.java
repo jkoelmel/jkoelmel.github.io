@@ -73,7 +73,6 @@ public class PatientVideoUtil {
         try {
             PatientVideo pv = new PatientVideo(null);
             pv.createPatientVideo(request.queryMap().get("video_url").value(),
-                    request.queryMap().get("feedback").value(),
                     Integer.parseInt(request.queryMap().get("patient").value()));
             return 200;
         } catch (SQLException sqlEx) {
