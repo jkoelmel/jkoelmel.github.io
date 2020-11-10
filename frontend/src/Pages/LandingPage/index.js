@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { Container, Typography } from '@material-ui/core';
+import Modal from '@material-ui/core/Modal';
 
 import PatientList from '../../Components/PatientList/PatientList'
 import SearchPlan from '../../Components/SearchPlan/SearchPlan'
@@ -15,6 +16,7 @@ import HouseIcon from '../../Assets/houseIcon.svg'
 import DoctorIcon from '../../Assets/doctorIcon.svg'
 import PhoneIcon from '../../Assets/phoneIcon.svg'
 import { makeStyles } from '@material-ui/core/styles';
+import LoginForm from '../../Components/LoginForm/LoginForm'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,11 +32,25 @@ const useStyles = makeStyles((theme) => ({
     buttons: {
         color: theme.palette.secondary.main
     },
+    LoginModal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 
 }))
 
 const Landing = () => {
     const classes = useStyles();
+    const [LoginOpen, setLoginOpen] = React.useState(false);
+
+    const handleLoginOpen = () => {
+        setLoginOpen(true);
+    };
+
+    const handleLoginClose = () => {
+        setLoginOpen(false);
+    };
 
 
     return (
@@ -74,14 +90,26 @@ const Landing = () => {
                     </Grid>
                 </Grid>
                 <Grid container direction="column" alignItems="center">
-                        <Grid item>
-                            <Button variant="contained" className={classes.buttons}>Register Now</Button>
-                        </Grid>
-                        <Grid item>
-                            <Button className={classes.buttons} >Already registered? Log in</Button>
-                        </Grid>
+                    <Grid item>
+                        <Button variant="contained" className={classes.buttons}>Register Now</Button>
                     </Grid>
+                    <Grid item>
+                        <Button className={classes.buttons}
+                            onClick={handleLoginOpen}>
+                            Already registered? Log in
+                                </Button>
+                    </Grid>
+                </Grid>
             </Grid>
+            <Modal
+                open={LoginOpen}
+                onClose={handleLoginClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                className={classes.LoginModal}>
+
+                <LoginForm />
+            </Modal>
         </div>
     )
 }
