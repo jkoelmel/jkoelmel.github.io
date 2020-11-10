@@ -2,6 +2,9 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { getPatients } from '../../Redux/actions/patientActions'
+import {fetchPatients} from '../../Redux/actions/actions-patients'
+import {loadPatients} from '../../Redux/actions/actions-patients'
+
 import axios from "axios"
 
 import { ListItem, ListItemText } from '@material-ui/core';
@@ -29,7 +32,7 @@ const PatientListRedux = props => {
 
     React.useEffect(() => {
 
-        props.getPatients()
+        // props.getPatients()
 
     }, [getPatients])
 

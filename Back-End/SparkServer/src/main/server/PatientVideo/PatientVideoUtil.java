@@ -30,9 +30,11 @@ public class PatientVideoUtil {
         return toReturn;
     }
 
-    public static String selectAll(Response response) {
+    public static String selectAll(Request request, Response response) {
         String toReturn = "";
-        String query = "SELECT * FROM patient_video";
+        String query = "SELECT * FROM patient_video WHERE patient = " +
+                Integer.parseInt(request.queryMap().get("patient").value()) +
+                " ORDER BY uploaded DESC";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -44,11 +46,9 @@ public class PatientVideoUtil {
             ArrayList<PatientVideo> list = new ArrayList<>();
             while (rs.next()) {
                 PatientVideo pv = new PatientVideo(rs.getInt("patient_video_id"));
-                pv.setVideoAltText(rs.getString("video_alt_text"));
-                pv.setLength(rs.getInt("length"));
-                pv.setpatient_comment(rs.getString("patient_comment"));
+                pv.setVideo_url(rs.getString("video_url"));
                 pv.setFeedback(rs.getString("feedback"));
-                pv.setShareable(rs.getByte("shareable"));
+                pv.setUploaded(rs.getTimestamp("uploaded"));
                 pv.setPatient(rs.getInt("patient"));
 
                 list.add(pv);
@@ -72,11 +72,8 @@ public class PatientVideoUtil {
     public static Integer registerPatientVideo(Request request) {
         try {
             PatientVideo pv = new PatientVideo(Integer.parseInt(request.queryMap().get("patient_video_id").value()));
-            pv.createPatientVideo(request.queryMap().get("video_alt_text").value(),
-                    Integer.parseInt(request.queryMap().get("length").value()),
-                    request.queryMap().get("patient_comment").value(),
+            pv.createPatientVideo(request.queryMap().get("video_url").value(),
                     request.queryMap().get("feedback").value(),
-                    Byte.parseByte(request.queryMap().get("shareable").value()),
                     Integer.parseInt(request.queryMap().get("patient").value()));
             return 200;
         } catch (SQLException sqlEx) {

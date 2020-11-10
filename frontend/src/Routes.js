@@ -9,6 +9,9 @@ import PaulPage from "./Pages/PaulPage/PaulPage"
 import EricPage from "./Pages/EricPage/EricPage"
 import PeterPage from "./Pages/PeterPage/PeterPage"
 import Dashboard from "./Pages/Dashboard/Dashboard"
+import LoginPage from "./Pages/LoginPage/LoginPage"
+import Profile from "./Pages/PatientProfile/Profile";
+import Exercise from "./Pages/ExerciseLibrary/Exercise";
 //Will handle all page routing
 //TODO ask if we still need to keep about me pages
 export const Routes = () => (
@@ -19,6 +22,9 @@ export const Routes = () => (
             <Route exact={true} path='/dashboard'>
                 <Dashboard/>
             </Route>
+            <Route exact={true} path='/loginpage'>
+                <LoginPage/>
+            </Route>
 
             <Route exact path={'/brooke'} component={BrookePage} title={'Brooke Porter'}/>
             <Route exact path={'/michael'} component={MichaelPage} title={'Michael Canson'}/>
@@ -27,6 +33,12 @@ export const Routes = () => (
             <Route exact path={'/paul'} component={PaulPage} title={'Paul Borst'}/>
             <Route exact path={'/eric'} component={EricPage} title={'Eric Chen'}/>
             <Route exact path={'/peter'} component={PeterPage} title={'Peter Hu'}/>
+            <Route exact={true} path='/profile'>
+                <Profile/>
+            </Route>
+            <Route exact={true} path='/library'>
+                <Exercise/>
+            </Route>
         </Switch>
 );
    

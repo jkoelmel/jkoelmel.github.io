@@ -30,7 +30,7 @@ public class ExerciseUtil {
         return toReturn;
     }
 
-    public static String selectAll(Response response) {
+    public static String selectAll(Request request, Response response) {
         String toReturn = "";
         String query = "SELECT * FROM exercise";
 
@@ -45,9 +45,9 @@ public class ExerciseUtil {
             while (rs.next()) {
                 Exercise exercise = new Exercise(rs.getInt("exercise_id"));
                 exercise.setexercise_url(rs.getString("exercise_url"));
-                exercise.setexercise_alt_text(rs.getString("exercise_alt_text"));
+                exercise.setTitle(rs.getString("title"));
                 exercise.setDescription(rs.getString("description"));
-                exercise.setLength(rs.getInt("length"));
+                exercise.setTags(rs.getString("tags"));
 
                 list.add(exercise);
             }
@@ -71,9 +71,9 @@ public class ExerciseUtil {
         try {
             Exercise exercise = new Exercise(Integer.parseInt(request.queryMap().get("exercise_id").value()));
             exercise.createExercise(request.queryMap().get("exercise_url").value(),
-                    request.queryMap().get("exercise_alt_text").value(),
+                    request.queryMap().get("title").value(),
                     request.queryMap().get("description").value(),
-                    Integer.parseInt(request.queryMap().get("length").value()));
+                    request.queryMap().get("tags").value());
             return 200;
         } catch (SQLException sqlEx) {
             System.err.println(sqlEx.toString());

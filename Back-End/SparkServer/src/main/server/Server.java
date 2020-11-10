@@ -1,14 +1,16 @@
 package main.server;
 
 import com.google.gson.Gson;
-import main.server.Message.Message;
-import main.server.Message.MessageUtil;
+import main.server.Exercise.ExerciseUtil;
+import main.server.PTMessage.PatientMessageUtil;
 import main.server.PT.*;
 import main.server.Activity.*;
 import main.server.Patient.*;
 import main.server.Entry.*;
 import main.server.Assignment.*;
 import main.server.Contain.*;
+import main.server.PatientMessage.PTMessageUtil;
+import main.server.PatientVideo.PatientVideoUtil;
 
 import java.sql.*;
 
@@ -63,6 +65,16 @@ public class Server {
 					response.status(PTUtil.loginPT(request));
 					return response.status();
 				});
+
+				path("/message", () -> {
+					//Requires pt and patient
+					get("/id", PTMessageUtil::selectAll);
+					//Requires message, patient, and pt
+					post("/register", (request, response) -> {
+						response.status(PTMessageUtil.registerMessage(request));
+						return response.status();
+					});
+				});
 			});
 
 
@@ -86,6 +98,15 @@ public class Server {
 						return response.status();
 					});
 				});
+
+				path("/video", () -> {
+					get("/id", PatientVideoUtil::selectAll);
+					post("/register", (request, response) -> {
+						response.status(EntryUtil.registerEntry(request));
+						return response.status();
+					});
+				});
+
 			});
 
 			path("/activity", () -> {
@@ -113,10 +134,10 @@ public class Server {
 
 			path("/message", () -> {
 				//Requires pt and patient
-				get("/id", MessageUtil::selectAll);
+				get("/id", PatientMessageUtil::selectAll);
 				//Requires message, patient, and pt
 				post("/register", (request, response) -> {
-					response.status(MessageUtil.registerMessage(request));
+					response.status(PatientMessageUtil.registerMessage(request));
 					return response.status();
 				});
 			});
@@ -124,6 +145,11 @@ public class Server {
 			path("/workout", () -> {
 				//Requires workout_id in query to find exercises
 				get("/id", ContainUtil::selectExercises);
+			});
+
+			path("/exercise", () -> {
+				// No requirements, used for exercise library page
+				get("/all", ExerciseUtil::selectAll);
 			});
 
 			path("/database", () -> get("/version", (request, response) -> databaseVersion()));

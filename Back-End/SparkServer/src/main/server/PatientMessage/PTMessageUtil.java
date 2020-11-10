@@ -1,4 +1,4 @@
-package main.server.Message;
+package main.server.PatientMessage;
 
 import com.google.gson.Gson;
 import main.server.AES.AES;
@@ -9,7 +9,7 @@ import spark.Response;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class MessageUtil {
+public class PTMessageUtil {
 
     private final static String secret = "messageEncryption";
 
@@ -17,7 +17,7 @@ public class MessageUtil {
         String toReturn = "";
 
         try {
-            Message message = new Message(Integer.parseInt(request.queryMap().get("message_id").value()));
+            PTMessage message = new PTMessage(Integer.parseInt(request.queryMap().get("message_id").value()));
             Gson gson = new Gson();
             String mySQLtoSHA = AES.decrypt(message.getMessage(), secret);
             message.setMessage(AES.decrypt(mySQLtoSHA, secret));
@@ -35,7 +35,7 @@ public class MessageUtil {
 
     public static String selectAll(Request request, Response response) {
         String toReturn = "";
-        String query = "SELECT * FROM message WHERE pt = " + Integer.parseInt(request.queryMap().get("pt").value()) +
+        String query = "SELECT * FROM pt_message WHERE pt = " + Integer.parseInt(request.queryMap().get("pt").value()) +
                 " AND patient = " + Integer.parseInt(request.queryMap().get("patient").value());
 
         try (Connection con = DriverManager.getConnection(
@@ -44,11 +44,12 @@ public class MessageUtil {
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(query)) {
             ResultSet rs = pst.executeQuery();
-            ArrayList<Message> list = new ArrayList<>();
+            ArrayList<PTMessage> list = new ArrayList<>();
             while (rs.next()) {
-                Message message = new Message(rs.getInt("message_id"));
+                PTMessage message = new PTMessage(rs.getInt("message_id"));
                 String contents = AES.decrypt(rs.getString("message"), secret).split("-")[0];
                 message.setMessage(contents);
+                message.setCreated_On(rs.getTimestamp("created_on"));
                 message.setPatient(rs.getInt("patient"));
                 message.setPt(rs.getInt("pt"));
 
@@ -72,7 +73,7 @@ public class MessageUtil {
 
     public static Integer registerMessage(Request request) {
         try {
-            Message message = new Message(null);
+            PTMessage message = new PTMessage(null);
 
             message.createMessage(request.queryMap().get("message").value(),
                     Integer.parseInt(request.queryMap().get("patient").value()),

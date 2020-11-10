@@ -7,20 +7,17 @@ import java.sql.*;
 public class PatientVideo {
 
     private Integer patientVideo_id;
-    private String videoAltText;
-    private Integer length;
-    private String patient_comment;
+    private String video_url;
     private String feedback;
-    private byte shareable;
+    private Timestamp uploaded;
     private Integer patient;
     
     public PatientVideo(Integer patientVideo_id) { this.patientVideo_id = patientVideo_id ;}
 
     //TODO add uploaded field to all queries
-    public void createPatientVideo(String videoAltText, Integer length, String patient_comment,
-                                   String feedback, byte shareable , Integer patient) throws Exception {
-        String videoQuery = "INSERT INTO patient_video(patient_video_id, video_alt_text, length, patient_comment, feedback, shareable, patient) " +
-                "VALUES(null, ?, ?, ?, ?, ?, ?)";
+    public void createPatientVideo(String video_url, String feedback, Integer patient) throws Exception {
+        String videoQuery = "INSERT INTO patient_video(patient_video_id, video_url, feedback, patient) " +
+                "VALUES(null, ?, ?, now(), ?)";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -29,12 +26,9 @@ public class PatientVideo {
              PreparedStatement pst = con.prepareStatement(videoQuery)) {
 
             //INSERT Activity into activity
-            pst.setString(1, videoAltText);
-            pst.setInt(2, length);
-            pst.setString(3, patient_comment);
-            pst.setString(4, feedback);
-            pst.setByte(5, shareable);
-            pst.setInt(6, patient);
+            pst.setString(1, video_url);
+            pst.setString(2, feedback);
+            pst.setInt(3, patient);
             pst.executeUpdate();
 
             System.out.println("Video added to database");
@@ -56,11 +50,9 @@ public class PatientVideo {
             ResultSet rs = pst.executeQuery();
             if(rs.next()) {
                 setpatientVideo_id(rs.getInt("patient_video_id"));
-                setVideoAltText(rs.getString("video_alt_text"));
-                setLength(rs.getInt("length"));
-                setpatient_comment(rs.getString("patient_comment"));
+                setVideo_url(rs.getString("video_url"));
                 setFeedback(rs.getString("feedback"));
-                setShareable(rs.getByte("shareable"));
+                setUploaded(rs.getTimestamp("uploaded"));
                 setPatient(rs.getInt("patient"));
             }
         } catch (SQLException ex) {
@@ -94,25 +86,25 @@ public class PatientVideo {
 
     public void setpatientVideo_id(Integer patientVideo_id){this.patientVideo_id = patientVideo_id;}
 
-    public String getVideoAltText(){return videoAltText;}
+    public String getVideo_url() {
+        return video_url;
+    }
 
-    public void setVideoAltText(String videoAltText){this.videoAltText=videoAltText;}
-
-    public Integer getLength(){return length;}
-
-    public void setLength(Integer length){this.length=length;}
-
-    public String getpatient_comment(){return patient_comment;}
-
-    public void setpatient_comment(String patient_comment){this.patient_comment=patient_comment;}
+    public void setVideo_url(String video_url) {
+        this.video_url = video_url;
+    }
 
     public String getFeedback(){return feedback;}
 
     public void setFeedback(String feedback){this.feedback=feedback;}
 
-    public byte getShareable(){return shareable;}
+    public Timestamp getUploaded() {
+        return uploaded;
+    }
 
-    public void setShareable(byte shareable){this.shareable=shareable;}
+    public void setUploaded(Timestamp uploaded) {
+        this.uploaded = uploaded;
+    }
 
     public Integer getPatient(){return patient;}
 

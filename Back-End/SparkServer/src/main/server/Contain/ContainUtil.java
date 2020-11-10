@@ -36,9 +36,8 @@ public class ContainUtil {
             while (rs.next()) {
                 Exercise exercise = new Exercise(rs.getInt("exercise_id"));
                 exercise.setexercise_url(rs.getString("exercise_url"));
-                exercise.setexercise_alt_text(rs.getString("exercise_alt_text"));
+                exercise.setTitle(rs.getString("title"));
                 exercise.setDescription(rs.getString("description"));
-                exercise.setLength(rs.getInt("length"));
 
                 list.add(exercise);
             }
