@@ -11,7 +11,7 @@ export default createMuiTheme({
         },
         primary: {
           // light: will be calculated from palette.primary.main,
-          main: '#ffff',
+          main: '#FAFAFA',
           // dark: will be calculated from palette.primary.main,
           // contrastText: will be calculated to contrast with palette.primary.main
         },
@@ -41,6 +41,12 @@ export default createMuiTheme({
           color: `${darkBlue}`
         },
         h5: {
+          fontFamily: "Roboto",
+          fontSize: "1.5rem",
+          fontWeight: "700",
+          color: `${darkBlue}`
+        },
+        h6: {
           fontFamily: "Roboto",
           fontSize: "1.5rem",
           fontWeight: "700",

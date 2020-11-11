@@ -14,25 +14,34 @@ export const createNewPT = (pt) => {
             .then(() => {
                 dispatch(createPT(pt))
                 dispatch(getPTByEmail(pt.email))
-            })
-            .then(dispatch(getPTByEmail(pt.email)))
-            .catch(err => console.log('Error creating pt:', err))
+            }).catch(err => console.log('Error creating pt:', err))
     }
 }
-//TODO fix postauth
+//TODO SEND MESSAGE IF ERROR
+export const loginPTError = (err) => {
+    return { type: constants.CHECK_LOGIN_ERROR,
+            payload: err
+    }
+}
+
 export const loginPT = (pt) => {
     const params = new URLSearchParams()
     params.append("email", pt.email)
     params.append("password", pt.password)
+    console.log("params: ",params)
 
     return (dispatch) => {
-        postAuth('/api/pt/login',params)
-        .then(() => { 
-            dispatch(getPTByEmail(pt.email))
-
-        })
-        .then(dispatch(getPTByEmail(pt.email)))
-        .catch(err => console.log('error grabbing data from: ', err))
+        postAuth('/api/pt/login',params).then((res)=> {
+            console.log("login status: ", res.data)
+            if(res.data == 200) {
+                dispatch(getPTByEmail(pt.email))
+            }else {
+                console.log(res.data.payload.message)
+                // dispatch(loginPTError(res.data))
+            }
+        }).catch((err)=> {
+            dispatch(loginPTError('username or password is invalid.'))
+            console.log(err)})
     }
 
 }
