@@ -55,7 +55,7 @@ const Dashboard = () => {
                     </Paper>
                 </Grid>
                 <Grid item>
-                <Grid container direction="column">
+                {/* <Grid container direction="column"> */}
                     <Grid item>
                         <Paper className={classes.paperPatients} style={{ overflow: 'auto' }}
                             elevation={5}>
@@ -69,7 +69,7 @@ const Dashboard = () => {
                             <Typography>Search Activities</Typography>
                         </Paper>
                     </Grid>
-                </Grid>
+                {/* </Grid> */}
                 </Grid>
             </Grid>
 
