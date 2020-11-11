@@ -5,6 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import {Container, Typography} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import axios from 'axios'
 import Image from '../../Assets/katee-lue-SxR5wZYaOtg-unsplash.jpg'
@@ -16,7 +19,7 @@ import LoginForm from '../../Components/LoginForm/LoginForm'
 import RegisterPT from '../../Components/RegisterPT/RegisterPT'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    landingroot: {
         minHeight: "90vh",
         backgroundImage: `url(${Image})`,
         backgroundRepeat: "no-repeat",
@@ -37,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-    }
+    },
+    
 
 }))
 
@@ -64,7 +68,7 @@ const Landing = () => {
     };
 
     return (
-        <div className={classes.root}>
+        <div className={classes.landingroot}>
             <Grid container direction="column" alignItems="center" spacing={3}>
                 <Grid item>
                     <Grid container direction="row">
@@ -120,15 +124,15 @@ const Landing = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Modal
-                open={LoginOpen}
+            <Dialog open={LoginOpen} 
                 onClose={handleLoginClose}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
+                aria-labelledby="form-dialog-title"
                 className={classes.LoginModal}>
-
-                <LoginForm/>
-            </Modal>
+                    {/* <DialogTitle color="secondary" id="form-dialog-title">Log In</DialogTitle> */}
+                    <DialogContent>
+                        <LoginForm/>
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }
