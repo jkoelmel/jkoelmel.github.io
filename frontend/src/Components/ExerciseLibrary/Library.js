@@ -3,14 +3,17 @@ import axios from "axios";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import List from "@material-ui/core/List";
-import {Divider, ListItem, ListItemText, ListSubheader} from "@material-ui/core";
+import { Divider, ListItem, ListItemText, ListSubheader } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography"
 import ReactPlayer from "react-player";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import {CheckBox} from "@material-ui/icons";
+import Checkbox from "@material-ui/core/Checkbox";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -26,7 +29,13 @@ const useStyles = makeStyles((theme) => ({
         outline: 'none',
     },
     sticky: {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        color: 'inherit',
+        fontSize: 18
+        
+    },
+    thumbnail: {
+        maxHeight: '200px',
     }
 }));
 
@@ -37,17 +46,18 @@ const Library = () => {
     const [selectedVideo, setSelectedVideo] = React.useState([]);
     const [URL, setURL] = React.useState("");
     const [videoID, setVideoID] = React.useState('');
+    const [checked, setChecked] = React.useState([]); //exercise workout array. stores exercise_id
 
     const fetchExerciseVideos = () => {
         //TODO change back after testing
         axios.get('api/exercise/all')
             .then((response) => {
 
-            setExerciseVideos(response.data.map((ev) => {
-                console.log(response.data)
-                return ev;
-            }))
-        }).catch(console.log)
+                setExerciseVideos(response.data.map((ev) => {
+                    // console.log(response.data)
+                    return ev;
+                }))
+            }).catch(console.log)
     }
 
     const handleVideoClick = (e, exercise_id) => {
@@ -64,6 +74,22 @@ const Library = () => {
         setOpen(false);
     }
 
+    //Handles checked videos and adds video ids into Checked
+    const handleCheckToggle = (value) => () => {
+        const currentIndex = checked.indexOf(value);
+        const newChecked = [...checked];
+
+        if (currentIndex === -1) {
+            newChecked.push(value);
+        } else {
+            newChecked.splice(currentIndex, 1);
+        }
+
+        setChecked(newChecked);
+
+    };
+    console.log(checked)
+
     React.useEffect(() => {
         fetchExerciseVideos();
     }, []);
@@ -72,19 +98,36 @@ const Library = () => {
         //TODO add search field and update query to return tags
 
         <div className={classes.root}>
-            <List component="nav" aria-label="patient-list"
-                  style={{maxHeight: 700, overflowY: 'scroll'}}>
+            <List component="nav" aria-label="video-list">
+                <ListSubheader className={classes.sticky}>Exercise Library</ListSubheader>
                 {exerciseVideos.map((ev) => (
-                    <div>
+                    <React.Fragment>
+                        <Divider />
                         <ListItem
                             key={ev.exercise_id}
+                            role={undefined}
+                            dense
                             button
                             selected={selectedVideo == ev.exercise_id}
                             //TODO Change onClick function to populate array for selectedVideos for workout creation
-                            onClick={(event) => handleVideoClick(event, ev.exercise_id)}>
-                            <img src={"https://img.youtube.com/vi/" + ev.exercise_url.split("=")[1] + "/0.jpg"}/>
+                            // onClick={(event) => handleVideoClick(event, ev.exercise_id)}
+                            >
+                            <ListItemSecondaryAction>
+                                <Checkbox
+                                    edge="end"
+                                    tabIndex={-1}
+                                    disableRipple
+                                    onClick={handleCheckToggle(ev.exercise_id)}
+                                    checked={checked.indexOf(ev.exercise_id) !== -1}
+                                    inputProps={{ "aria-labelledby": `checkbox-list-label-${ev.exercise_id}` }}
+                                />
+                            </ListItemSecondaryAction>
+
+                            <img className={classes.thumbnail} src={"https://img.youtube.com/vi/" + ev.exercise_url.split("=")[1] + "/0.jpg"} />
                         </ListItem>
-                    </div>
+                        <Divider />
+                    </React.Fragment>
+
                 ))}
 
             </List>
