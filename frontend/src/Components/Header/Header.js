@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     margin: 3,
     flexGrow: 1,
-   
   },
   menuButton: {
     marginLeft: 10,

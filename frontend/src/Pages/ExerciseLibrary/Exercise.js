@@ -11,7 +11,9 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         marginTop: 24,
-        background: theme.palette.background.default
+        background: theme.palette.background.default,
+        overflow: 'hidden',
+        paddingTop: 75
     },
     paperLibrary: {
         padding: theme.spacing(2),

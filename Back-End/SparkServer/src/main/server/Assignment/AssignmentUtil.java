@@ -124,6 +124,46 @@ public class AssignmentUtil {
         return toReturn;
     }
 
+    public static String getPatientAssignment(Request request, Response response) {
+        String toReturn = "";
+        String query = "SELECT workout.workout_id, workout.title, assignment.start_time, assignment.patient " +
+                "FROM assignment JOIN workout ON workout.workout_id = assignment.workout " +
+                "WHERE assignment.patient = " + Integer.parseInt(request.queryMap().get("patient").value()) +
+                " ORDER BY start_time DESC LIMIT 1";
+
+        try (Connection con = DriverManager.getConnection(
+                Server.databasePath,
+                Server.databaseUsername,
+                Server.databasePassword);
+             PreparedStatement pst = con.prepareStatement(query)) {
+            ResultSet rs = pst.executeQuery();
+
+            ArrayList<Assignment> list = new ArrayList<>();
+            //Populate all
+            while (rs.next()) {
+                Assignment assignment = new Assignment(null);
+                assignment.setWorkout(rs.getInt("workout_id"));
+                assignment.setTitle(rs.getString("title"));
+                assignment.setStart_time(rs.getTimestamp("start_time"));
+                list.add(assignment);
+            }
+            Gson gson = new Gson();
+            toReturn = gson.toJson(list);
+
+            System.out.println("All workouts for PT have been selected");
+            response.type("application/json");
+            response.status(200);
+        } catch (SQLException sqlEx) {
+            System.err.println(sqlEx.toString());
+            response.status(500);
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+            response.status(400);
+        }
+
+        return toReturn;
+    }
+
     public static Integer registerAssignment(Request request) {
         try {
             //check if assignment_id exists, passed from front-end checks

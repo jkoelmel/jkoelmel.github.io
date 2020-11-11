@@ -20,6 +20,7 @@ GET     api/patient/entry/id           params: entry_id
 GET     api/patient/entry/all          params: patient_id
 POST    api/patient/entry/register     params: entry, patient_id
 
+GET     api/patient/workout/id         params: patient
 GET     api/patient/video/id           params: patient
 POST    api/patient/video/register     params: video_url, patient
 

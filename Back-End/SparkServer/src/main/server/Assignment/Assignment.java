@@ -7,10 +7,11 @@ import java.sql.*;
 public class Assignment {
 
     private Integer assignment_id;
-    private Date start_time;
-    private Date end_time;
+    private Timestamp start_time;
+    private Timestamp end_time;
     private Integer pt;
     private Integer workout;
+    private String title;
     private Integer patient;
 
     public Assignment(Integer assignment_id) {this.assignment_id = assignment_id;}
@@ -89,19 +90,19 @@ public class Assignment {
     }
 
 
-    public Date getStart_time() {
+    public Timestamp getStart_time() {
         return start_time;
     }
 
-    public void setStart_time(Date start_time) {
+    public void setStart_time(Timestamp start_time) {
         this.start_time = start_time;
     }
 
-    public Date getEnd_time() {
+    public Timestamp getEnd_time() {
         return end_time;
     }
 
-    public void setEnd_time(Date end_time) {
+    public void setEnd_time(Timestamp end_time) {
         this.end_time = end_time;
     }
 
@@ -122,6 +123,13 @@ public class Assignment {
         this.workout = workout;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Integer getPatient() {
         return patient;

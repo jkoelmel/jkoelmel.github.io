@@ -109,6 +109,10 @@ public class Server {
 					});
 				});
 
+				path("/workout", () -> {
+					get("/id", AssignmentUtil::getPatientAssignment);
+				});
+
 			});
 
 			path("/activity", () -> {

@@ -8,14 +8,16 @@ import PatientVideo from "../../Components/PatientVideos/PatientVideo";
 import SearchReport from "../../Components/SearchReport/SearchReport";
 import PatientInfo from "../../Components/PatientInfo/PatientInfo";
 import ActivitySummary from "../../Components/PatientActivitySummary/ActivitySummary";
+import CurrentWorkout from "../../Components/PatientWorkout/CurrentWorkout";
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    profileRoot: {
         minHeight: "95vw",
         flexGrow: 1,
-        marginTop: 35,
-        background: theme.palette.background.default
+        paddingTop: 100,
+        background: theme.palette.background.default,
+        overflow: "hidden"
     },
     paperInfo: {
         padding: theme.spacing(),
@@ -23,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.secondary.main,
         height: 600,
         width: 350,
-        marginTop: 10,
         marginLeft: 10
     },
     paperVideos: {
@@ -32,17 +33,14 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.secondary.main,
         height: 750,
         width: 350,
-        marginTop: 10,
         marginBottom: 139
     },
     paperProgress: {
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
-        height: 600,
-        width: 400,
-        marginTop: 10,
-        marginBottom: 139
+        height: 630,
+        width: 400
     },
     paperSummary: {
         padding: 5,
@@ -50,6 +48,12 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 10,
         width: 355,
         height: 200
+    },
+    paperWorkout: {
+      padding: 5,
+      marginBottom: 10,
+      width: 420,
+      height: 100
     },
 }));
 
@@ -59,7 +63,7 @@ const Profile = () => {
     const [selectedPatient, setSelectedPatient] = React.useState(1);
 
     return (
-        <div className={classes.root}>
+        <div className={classes.profileRoot}>
             <Grid container spacing={3} direction="row">
                 <Grid item md={3}>
                     <Paper className={classes.paperInfo} elevation={5}>
@@ -77,6 +81,9 @@ const Profile = () => {
                     </Paper>
                 </Grid>
                 <Grid item md={3}>
+                    <Paper className={classes.paperWorkout} elevation={5}>
+                        <CurrentWorkout selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
+                    </Paper>
                     <Paper className={classes.paperProgress} elevation={5}>
                         <Typography>Progress Log</Typography>
                         <SearchReport selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>

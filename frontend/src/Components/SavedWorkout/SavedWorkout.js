@@ -9,6 +9,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import ReactPlayer from "react-player";
 
 const useStyles = makeStyles((theme) => ({
+
     modal: {
         display: 'flex',
         alignItems: 'center',
@@ -50,7 +51,7 @@ const SavedWorkout = () => {
             .catch(console.log)
     }
 
-    const fetchWorkoutExercises = () => {
+    const fetchWorkoutExercises = (selectedWorkout) => {
         axios.get('api/pt/exercises', {
             params: {
                 workout: selectedWorkout
@@ -59,6 +60,7 @@ const SavedWorkout = () => {
 
             setExercises(response.data.map((e) => {
                 console.log(response.data)
+                setOpen(true);
                 return e;
             }))
         })
@@ -70,11 +72,8 @@ const SavedWorkout = () => {
     }
 
     const handleWorkoutClick = (e, selectedWorkout) => {
-        //double check proper setting
-        console.log("Selected Workout: " + selectedWorkout);
-        setSelectedWorkout(selectedWorkout);
-        fetchWorkoutExercises();
-        setOpen(true)
+
+        fetchWorkoutExercises(selectedWorkout);
     }
 
     React.useEffect(() => {
@@ -85,7 +84,7 @@ const SavedWorkout = () => {
     return (
         <div className={classes.root}>
             <List aria-label="workout-list"
-                  style={{maxHeight: 400, overflowY: 'scroll'}}>
+                  style={{maxHeight: 600, overflowY: 'scroll'}}>
                 {workouts.map((w) => (
                     <div>
                         <ListItem
@@ -113,11 +112,13 @@ const SavedWorkout = () => {
                 }}
             >
                 <Fade in={open}>
-                    <List component = "nav" aria-label="patient-list"
-                          style={{maxHeight: 400, overflowY: 'scroll'} }>
-                        <ListSubheader component="div" color="inherit" classes= {{sticky: classes.sticky}}>
-                            Workout Details
-                        </ListSubheader>
+                    <List
+                        style={{maxHeight: 400, overflowY: 'scroll', backgroundColor: "white"}}
+                        subheader={
+                            <ListSubheader component="div" color="inherit" classes= {"patient-list"}>
+                                Workout Details
+                            </ListSubheader>
+                        }>
                     {exercises.map((e) => (
                         <div>
                             <ListItem
