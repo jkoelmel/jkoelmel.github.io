@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         color: theme.palette.secondary.main,
         height: 750,
-        width: 350,
+        width: 400,
         marginTop: 10,
         marginBottom: 139,
         marginLeft: 30
@@ -54,8 +54,9 @@ const Exercise = () => {
         <div className={classes.root}>
             <Grid container spacing={5} direction="row">
                 <Grid item md={3}>
-                    <Paper className={classes.paperLibrary} elevation={5}>
-                        <Typography>Exercise Library</Typography>
+                    <Paper className={classes.paperLibrary} elevation={5}
+                     style={{ maxHeight: 700, overflowY: 'scroll',paddingTop: '0px'}}>
+                        {/* <Typography>Exercise Library</Typography> */}
                         <Library/>
                     </Paper>
                 </Grid>
