@@ -78,7 +78,7 @@ const SearchVideos = () => {
     }
 
     React.useEffect(() => {
-        //will load patients activities when the page loads
+        //will load patients video when the page loads
         if (selectedPatient != '')
             fetchPatientVideos();
     }, [selectedPatient]);

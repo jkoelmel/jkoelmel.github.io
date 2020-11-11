@@ -57,6 +57,8 @@ public class Server {
 				get("/all", (request, response) -> PTUtil.selectAll(response));
 				get("/patients", PTUtil::selectPatients);
 				get("/summary", ActivityUtil::getPatPTSummary);
+				get("/workouts", AssignmentUtil::selectPTWorkouts);
+				get("/exercises", ExerciseUtil::getWorkoutExercises);
 				post("/register", (request, response) -> {
 					response.status(PTUtil.registerPT(request));
 					return response.status();

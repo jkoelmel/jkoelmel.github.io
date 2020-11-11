@@ -2,6 +2,8 @@ GET     api/pt/email                   params: email
 GET     api/pt/all
 GET     api/pt/patients                params: pt_id
 GET     api/pt/summary                 params: pt, patient
+GET     api/pt/workouts                params: pt
+GET     api/pt/exercises               params: workout
 POST    api/pt/register                params: email, password, f_name, l_name, company
 POST    api/pt/login                   params: email, password
 

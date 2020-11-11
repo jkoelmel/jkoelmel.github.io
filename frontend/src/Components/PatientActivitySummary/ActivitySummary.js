@@ -26,7 +26,7 @@ const ActivitySummary = ({selectedPatient, setSelectedPatient}) => {
     const [activity, setActivity] = React.useState([]);
 
     const fetchSummaryInfo = () => {
-        axios.get('http://localhost:8080/api/pt/summary', {
+        axios.get('api/pt/summary', {
             params: {
                 patient: selectedPatient,
                 pt: 1
@@ -42,7 +42,7 @@ const ActivitySummary = ({selectedPatient, setSelectedPatient}) => {
     }
 
     React.useEffect(() => {
-        //will load patients activities when the page loads
+        //will load patients-PT activity summary when the page loads
         if (selectedPatient != '')
             fetchSummaryInfo();
     }, [selectedPatient]);

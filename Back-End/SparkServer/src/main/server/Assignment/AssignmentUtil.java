@@ -3,6 +3,7 @@ package main.server.Assignment;
 import com.google.gson.Gson;
 import main.server.PatientAssignment.PatientAssignment;
 import main.server.Server;
+import main.server.Workout.Workout;
 import spark.Request;
 import spark.Response;
 
@@ -72,6 +73,44 @@ public class AssignmentUtil {
             toReturn = gson.toJson(compressed);
 
             System.out.println("All assignment details have been selected");
+            response.type("application/json");
+            response.status(200);
+        } catch (SQLException sqlEx) {
+            System.err.println(sqlEx.toString());
+            response.status(500);
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+            response.status(400);
+        }
+
+        return toReturn;
+    }
+
+    public static String selectPTWorkouts(Request request, Response response) {
+        String toReturn = "";
+        String query = "SELECT pt.pt_id, workout.workout_id, workout.title FROM assignment " +
+                "JOIN pt ON assignment.pt = pt.pt_id JOIN workout ON assignment.workout = workout.workout_id WHERE " +
+                "pt.pt_id = " + Integer.parseInt(request.queryMap().get("pt").value());
+
+        try (Connection con = DriverManager.getConnection(
+                Server.databasePath,
+                Server.databaseUsername,
+                Server.databasePassword);
+             PreparedStatement pst = con.prepareStatement(query)) {
+            ResultSet rs = pst.executeQuery();
+
+            ArrayList<Workout> list = new ArrayList<>();
+            //Populate all
+            while (rs.next()) {
+                Workout workout = new Workout(null);
+                workout.setWorkoutId(rs.getInt("workout_id"));
+                workout.setTitle(rs.getString("title"));
+                list.add(workout);
+            }
+            Gson gson = new Gson();
+            toReturn = gson.toJson(list);
+
+            System.out.println("All workouts for PT have been selected");
             response.type("application/json");
             response.status(200);
         } catch (SQLException sqlEx) {

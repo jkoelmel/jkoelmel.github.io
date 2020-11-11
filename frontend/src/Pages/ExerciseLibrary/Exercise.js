@@ -3,17 +3,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import {makeStyles} from '@material-ui/core/styles';
 import {ListItem, ListItemText, Typography} from '@material-ui/core';
-import PatientListRedux from '../../Components/PatientList/PatientListRedux'
-import SearchActivities from "../../Components/SearchActivities/SearchActivities";
-import PatientVideo from "../../Components/PatientVideos/PatientVideo";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Divider from "@material-ui/core/Divider";
-import SearchReport from "../../Components/SearchReport/SearchReport";
-import PatientInfo from "../../Components/PatientInfo/PatientInfo";
 import Library from "../../Components/ExerciseLibrary/Library";
+import SavedWorkout from "../../Components/SavedWorkout/SavedWorkout";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         color: theme.palette.secondary.main,
         height: 600,
-        width: 450,
+        width: 425,
         marginTop: 10,
         marginBottom: 139
     },
@@ -74,6 +65,7 @@ const Exercise = () => {
                 <Grid item xs={3}>
                     <Paper className={classes.paperAssign} elevation={5}>
                         <Typography>Saved Workouts</Typography>
+                        <SavedWorkout/>
                     </Paper>
                 </Grid>
 
