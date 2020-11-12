@@ -13,6 +13,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import {PlayArrow} from "@material-ui/icons";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -103,21 +104,24 @@ const Library = () => {
                 {exerciseVideos.map((ev) => (
                     <React.Fragment>
                         <Divider />
-                        <ListItem
-                            key={ev.exercise_id}
-                            role={undefined}
-                            dense
-                            button
-                            selected={selectedVideo == ev.exercise_id}
-                            //TODO Change onClick function to populate array for selectedVideos for workout creation
-                            // onClick={(event) => handleVideoClick(event, ev.exercise_id)}
-                            >
+                        <ListItem key={ev.exercise_id} role={undefined} dense button
+                                  selected={selectedVideo == ev.exercise_id}>
+                            <ListItemIcon>
+                                <PlayArrow
+                                    edge="start"
+                                    checked={checked.indexOf(ev.exercise_id) !== -1}
+                                    tabIndex={-1}
+                                    disableRipple
+                                    onClick={(event) => handleVideoClick(event, ev.exercise_id)}
+                                    inputProps={{ 'aria-labelledby': `checkbox-list-label-${ev.exercise_id}` }}
+                                />
+                            </ListItemIcon>
                             <ListItemSecondaryAction>
                                 <Checkbox
                                     edge="end"
                                     tabIndex={-1}
                                     disableRipple
-                                    onClick={handleCheckToggle(ev.exercise_id)}
+                                    onChange={handleCheckToggle(ev.exercise_id)}
                                     checked={checked.indexOf(ev.exercise_id) !== -1}
                                     inputProps={{ "aria-labelledby": `checkbox-list-label-${ev.exercise_id}` }}
                                 />

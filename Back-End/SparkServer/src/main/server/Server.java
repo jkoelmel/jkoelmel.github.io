@@ -59,6 +59,11 @@ public class Server {
 				get("/summary", ActivityUtil::getPatPTSummary);
 				get("/workouts", AssignmentUtil::selectPTWorkouts);
 				get("/exercises", ExerciseUtil::getWorkoutExercises);
+
+				post("/assign", (request, response) -> {
+					response.status(AssignmentUtil.assignToPatients(request));
+					return response.status();
+				});
 				post("/register", (request, response) -> {
 					response.status(PTUtil.registerPT(request));
 					return response.status();

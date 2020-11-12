@@ -6,6 +6,7 @@ GET     api/pt/workouts                params: pt
 GET     api/pt/exercises               params: workout
 POST    api/pt/register                params: email, password, f_name, l_name, company
 POST    api/pt/login                   params: email, password
+POST    api/pt/assign                  params: workout, patient[]
 
 ### This branch is for PT message creation
 GET     api/pt/message/id              params: pt, patient

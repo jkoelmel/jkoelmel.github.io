@@ -19,16 +19,16 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.secondary.main,
         height: 1000,
         width: 350,
-        marginTop: 10,
+        marginTop: 50,
         marginBottom: 139
     },
     paperPatients: {
-        // padding: theme.spacing(2),
+        padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
-        // height: 525,
-        // width: 350,
-        // marginTop: 10,
+        height: 525,
+        width: 350,
+        marginTop: 50,
         // marginBottom: 139
     },
     paperActivities: {
@@ -47,7 +47,7 @@ const Dashboard = () => {
 
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} justify={"space-between"} alignItems={"flex-start"}>
             <Grid container spacing={3} direction="row">
                 <Grid item >
                     <Paper className={classes.paperMessage} elevation={5}>

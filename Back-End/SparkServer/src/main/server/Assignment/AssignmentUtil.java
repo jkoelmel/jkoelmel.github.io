@@ -2,6 +2,7 @@ package main.server.Assignment;
 
 import com.google.gson.Gson;
 import main.server.PatientAssignment.PatientAssignment;
+import main.server.PatientVideo.PatientVideo;
 import main.server.Server;
 import main.server.Workout.Workout;
 import spark.Request;
@@ -88,9 +89,7 @@ public class AssignmentUtil {
 
     public static String selectPTWorkouts(Request request, Response response) {
         String toReturn = "";
-        String query = "SELECT pt.pt_id, workout.workout_id, workout.title FROM assignment " +
-                "JOIN pt ON assignment.pt = pt.pt_id JOIN workout ON assignment.workout = workout.workout_id WHERE " +
-                "pt.pt_id = " + Integer.parseInt(request.queryMap().get("pt").value());
+        String query = "SELECT * FROM workout WHERE pt = " + Integer.parseInt(request.queryMap().get("pt").value());
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -162,6 +161,25 @@ public class AssignmentUtil {
         }
 
         return toReturn;
+    }
+
+    public static Integer assignToPatients(Request request) {
+
+        try {
+            for(int i = 0; i < request.queryMap().toMap().size(); i++) {
+                Assignment assignment = new Assignment(null);
+                assignment.createAssignment(Integer.parseInt(request.queryMap().get("pt").value()),
+                        Integer.parseInt(request.queryMap().get("workout").value()),
+                        Integer.parseInt(request.queryMap().get("patient").value()));
+            }
+            return 200;
+        } catch (SQLException sqlEx) {
+            System.err.println(sqlEx.toString());
+            return 500;
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+            return 400;
+        }
     }
 
     public static Integer registerAssignment(Request request) {

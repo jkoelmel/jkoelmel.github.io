@@ -5,15 +5,17 @@ import {makeStyles} from '@material-ui/core/styles';
 import {ListItem, ListItemText, Typography} from '@material-ui/core';
 import Library from "../../Components/ExerciseLibrary/Library";
 import SavedWorkout from "../../Components/SavedWorkout/SavedWorkout";
+import CurrentWorkout from "../../Components/PatientWorkout/CurrentWorkout";
+import AssignWorkout from "../../Components/AssignWorkout/AssignWorkout";
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        minHeight: "95vw",
         flexGrow: 1,
-        marginTop: 24,
+        paddingTop: 100,
         background: theme.palette.background.default,
-        overflow: 'hidden',
-        paddingTop: 75
+        overflow: "hidden"
     },
     paperLibrary: {
         padding: theme.spacing(2),
@@ -29,30 +31,39 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
-        height: 600,
-        width: 425,
+        height: 700,
+        width: 500,
         marginTop: 10,
-        marginBottom: 139
+        marginLeft: 25,
+        overflowY: "scroll"
     },
     paperAssign: {
-        padding: theme.spacing(3),
+        padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
-        height: 600,
+        height: 400,
         width: 300,
         marginTop: 10,
-        marginBottom: 139,
         marginLeft: 50
     },
+    paperPatients: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.secondary.main,
+        height: 350,
+        width: 300,
+        marginTop: 10,
+        marginLeft: 50
+    }
 }));
 
 const Exercise = () => {
     const classes = useStyles();
-    const [selectedExercise, setSelectedExercise] = React.useState([]);
+    const [selectedWorkout, setSelectedWorkout] = React.useState([]);
     
     return (
         <div className={classes.root}>
-            <Grid container spacing={5} direction="row">
+            <Grid container spacing={5} direction="row" justify={"space-between"}>
                 <Grid item md={3}>
                     <Paper className={classes.paperLibrary} elevation={5}
                      style={{ maxHeight: 700, overflowY: 'scroll',paddingTop: '0px'}}>
@@ -65,10 +76,13 @@ const Exercise = () => {
                         <Typography>Create Workout</Typography>
                     </Paper>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={3} direction={"column"}>
                     <Paper className={classes.paperAssign} elevation={5}>
                         <Typography>Saved Workouts</Typography>
                         <SavedWorkout/>
+                    </Paper>
+                    <Paper className={classes.paperPatients} elevation={5}>
+                    <AssignWorkout selectedWorkout={selectedWorkout} setSelectedWorkout={setSelectedWorkout}/>
                     </Paper>
                 </Grid>
 

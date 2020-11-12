@@ -7,6 +7,9 @@ import {Divider, ListItem, ListItemText, ListSubheader} from "@material-ui/core"
 import Modal from "@material-ui/core/Modal";
 import {makeStyles} from "@material-ui/core/styles";
 import ReactPlayer from "react-player";
+import Checkbox from "@material-ui/core/Checkbox";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import {Radio, RadioButtonChecked, RadioButtonUnchecked} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -34,7 +37,7 @@ const SavedWorkout = () => {
     const [workouts, setWorkouts] = React.useState([]);
     const [selectedWorkout, setSelectedWorkout] = React.useState('');
     const [exercises, setExercises] = React.useState([]);
-
+    const [checked, setChecked] = React.useState([]);
     //TODO hard coded PT need to change to redux
     const fetchPTWorkouts = () => {
         axios.get('api/pt/workouts', {
@@ -76,6 +79,20 @@ const SavedWorkout = () => {
         fetchWorkoutExercises(selectedWorkout);
     }
 
+    const handleCheckToggle = (value) => () => {
+        const currentIndex = checked.indexOf(value);
+        const newChecked = [...checked];
+
+        if (currentIndex === -1) {
+            newChecked.push(value);
+        } else {
+            newChecked.splice(currentIndex, 1);
+        }
+
+        setChecked(newChecked);
+
+    };
+
     React.useEffect(() => {
         fetchPTWorkouts();
     }, []);
@@ -84,7 +101,7 @@ const SavedWorkout = () => {
     return (
         <div className={classes.root}>
             <List aria-label="workout-list"
-                  style={{maxHeight: 600, overflowY: 'scroll'}}>
+                  style={{maxHeight: 600}}>
                 {workouts.map((w) => (
                     <div>
                         <ListItem
@@ -93,6 +110,16 @@ const SavedWorkout = () => {
                             selected={selectedWorkout == w.workout_id}
                             onClick={(event) => handleWorkoutClick(event, w.workout_id)}>
                             {w.title}
+                            <ListItemSecondaryAction>
+                                <Checkbox
+                                    edge="end"
+                                    tabIndex={-1}
+                                    disableRipple
+                                    onChange={handleCheckToggle(w.workout_id)}
+                                    checked={checked.indexOf(w.workout_id) !== -1}
+                                    inputProps={{ "aria-labelledby": `checkbox-list-label-${w.workout_id}` }}
+                                />
+                            </ListItemSecondaryAction>
                         </ListItem>
                     </div>
                 ))}
@@ -113,7 +140,7 @@ const SavedWorkout = () => {
             >
                 <Fade in={open}>
                     <List
-                        style={{maxHeight: 400, overflowY: 'scroll', backgroundColor: "white"}}
+                        style={{maxHeight: 400, overflowY:"scroll", backgroundColor: "white"}}
                         subheader={
                             <ListSubheader component="div" color="inherit" classes= {"patient-list"}>
                                 Workout Details

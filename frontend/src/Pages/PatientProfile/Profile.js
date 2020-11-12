@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         overflow: "hidden"
     },
     paperInfo: {
-        padding: theme.spacing(),
+        padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
         height: 600,
@@ -61,6 +61,7 @@ const Profile = () => {
     const classes = useStyles();
     //TODO change to reflect desired patient
     const [selectedPatient, setSelectedPatient] = React.useState(1);
+    const [selectedWorkout, setSelectedWorkout] = React.useState('');
 
     return (
         <div className={classes.profileRoot}>
