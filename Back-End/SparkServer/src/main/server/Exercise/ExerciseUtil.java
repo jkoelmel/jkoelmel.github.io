@@ -30,7 +30,7 @@ public class ExerciseUtil {
         return toReturn;
     }
 
-    public static String selectAll(Response response) {
+    public static String selectAll(Request request, Response response) {
         String toReturn = "";
         String query = "SELECT * FROM exercise";
 
