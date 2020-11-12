@@ -1,12 +1,12 @@
 import React from 'react'
 import axios from "axios";
-import {useEffect } from 'react'
+import {useEffect} from 'react'
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import List from "@material-ui/core/List";
-import { Divider, ListItem, ListItemText, ListSubheader } from "@material-ui/core";
+import {Divider, ListItem, ListItemText, ListSubheader} from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography"
 import ReactPlayer from "react-player";
 import TextField from "@material-ui/core/TextField";
@@ -15,7 +15,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import {fetchExerciseVideos} from '../../Redux/actions/actions-pt';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
+import {PlayArrow} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'white',
         color: 'theme.palette.secondary',
         fontSize: 18
-        
+
     },
     thumbnail: {
         maxHeight: '200px',
@@ -47,33 +48,38 @@ const Library = (props) => {
     const [exerciseVideos, setExerciseVideos] = React.useState([]);
     const [selectedVideo, setSelectedVideo] = React.useState([]);
     const [URL, setURL] = React.useState("");
-    const [videoID, setVideoID] = React.useState('');
     const [checked, setChecked] = React.useState([]);
 
     // const fetchExerciseVideos = () => {
     //     //TODO change back after testing
     //     axios.get('api/exercise/all')
     //         .then((response) => {
-
+    //
     //             setExerciseVideos(response.data.map((ev) => {
     //                 console.log(response.data)
     //                 return ev;
     //             }))
     //         }).catch(console.log)
-
+    //
     // }
+
     useEffect(() => {
         // fetchExerciseVideos();
         props.fetchExerciseVideos()
-       
+
     }, []);
-    const handleVideoClick = (e, exercise_id) => {
-        setSelectedVideo(exercise_id);
-        exerciseVideos.map((ev) => {
-            if (ev.exercise_id == exercise_id) {
-                setURL(ev.exercise_url);
-            }
-        })
+    const handleVideoClick = (event, exercise_id) => {
+        const index = selectedVideo.indexOf(exercise_id);
+        const newIndex = [...selectedVideo];
+
+        if (index === -1) {
+            newIndex.push(exercise_id);
+        } else {
+            newIndex.splice(index, 1);
+        }
+
+        setURL(props.exercises[newIndex - 1].exercise_url);
+        console.log(URL);
         setOpen(true);
     }
 
@@ -95,7 +101,7 @@ const Library = (props) => {
         setChecked(newChecked);
 
     };
-    // console.log(checked)
+    console.log(checked)
     console.log(props.exercises[0].exercise_id)
 
 
@@ -107,17 +113,22 @@ const Library = (props) => {
                 <ListSubheader className={classes.sticky}>Exercise Library</ListSubheader>
                 {props.exercises.map((ev) => (
                     <React.Fragment>
-                        <Divider />
-                        <ListItem
-                            key={ev.exercise_id}
-                            role={undefined}
-                            dense
-                            button
-                            selected={selectedVideo == ev.exercise_id}
+                        <Divider/>
+                        <ListItem key={ev.exercise_id} role={undefined} dense button
+                                  selected={selectedVideo == ev.exercise_id}
                             //TODO Change onClick function to populate array for selectedVideos for workout creation
                             // onClick={(event) => handleVideoClick(event, ev.exercise_id)}
-                            >
-                                <Typography>{ev.exercise_url}</Typography>
+                        >
+                            <ListItemIcon>
+                                <PlayArrow
+                                    edge="start"
+                                    checked={checked.indexOf(ev.exercise_id) !== -1}
+                                    tabIndex={-1}
+                                    disableRipple={true}
+                                    onClick={(event) => handleVideoClick(event, ev.exercise_id)}
+                                    inputProps={{'aria-labelledby': `checkbox-list-label-${ev.exercise_id}`}}
+                                />
+                            </ListItemIcon>
                             <ListItemSecondaryAction>
                                 <Checkbox
                                     edge="end"
@@ -125,13 +136,13 @@ const Library = (props) => {
                                     disableRipple
                                     onClick={handleCheckToggle(ev.exercise_id)}
                                     checked={checked.indexOf(ev.exercise_id) !== -1}
-                                    inputProps={{ "aria-labelledby": `checkbox-list-label-${ev.exercise_id}` }}
+                                    inputProps={{"aria-labelledby": `checkbox-list-label-${ev.exercise_id}`}}
                                 />
                             </ListItemSecondaryAction>
 
-                            {/* <img className={classes.thumbnail} src={"https://img.youtube.com/vi/" + ev.exercise_url.split("=")[1] + "/0.jpg"} /> */}
+                            <img className={classes.thumbnail} src={ev.thumbnail}/>
                         </ListItem>
-                        <Divider />
+                        <Divider/>
                     </React.Fragment>
 
                 ))}
@@ -165,11 +176,11 @@ const Library = (props) => {
 }
 
 export default connect((state) => ({
-    // The state of excercise, as defined by RootReducer
-    exercises: state.exercises.exercises,
-    
-}), (dispatch) => ({
-    // The action from actions-pt which will effect reducer-pt
-    fetchExerciseVideos: () => dispatch(fetchExerciseVideos())
-})
+        // The state of excercise, as defined by RootReducer
+        exercises: state.exercises.exercises,
+
+    }), (dispatch) => ({
+        // The action from actions-pt which will effect reducer-pt
+        fetchExerciseVideos: () => dispatch(fetchExerciseVideos())
+    })
 )(Library);

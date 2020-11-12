@@ -84,7 +84,7 @@ const SavedWorkout = () => {
     return (
         <div className={classes.root}>
             <List aria-label="workout-list"
-                  style={{maxHeight: 600, overflowY: 'scroll'}}>
+                  style={{maxHeight: 600}}>
                 {workouts.map((w) => (
                     <div>
                         <ListItem

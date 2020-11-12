@@ -6,7 +6,8 @@ const initialWorkoutState = {
     exercise_url: '',
     tags: '',
     title: '',
-    exercises: [{}]
+    exercises: [{}],
+    thumbnail: '',
 };
 
 const WorkoutReducer = handleActions({
