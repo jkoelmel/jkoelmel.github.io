@@ -30,7 +30,7 @@ public class ExerciseUtil {
         return toReturn;
     }
 
-    public static String selectAll(Request request, Response response) {
+    public static String selectAll(Response response) {
         String toReturn = "";
         String query = "SELECT * FROM exercise";
 
@@ -45,6 +45,7 @@ public class ExerciseUtil {
             while (rs.next()) {
                 Exercise exercise = new Exercise(rs.getInt("exercise_id"));
                 exercise.setexercise_url(rs.getString("exercise_url"));
+                exercise.setThumbnail(rs.getString("thumbnail"));
                 exercise.setTitle(rs.getString("title"));
                 exercise.setDescription(rs.getString("description"));
                 exercise.setTags(rs.getString("tags"));
