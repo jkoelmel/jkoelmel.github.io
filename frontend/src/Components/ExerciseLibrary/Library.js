@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from "axios";
+import {useEffect } from 'react'
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import List from "@material-ui/core/List";
@@ -13,7 +14,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-
+import {fetchExerciseVideos} from '../../Redux/actions/actions-pt';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -30,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
     sticky: {
         backgroundColor: 'white',
-        color: 'inherit',
+        color: 'theme.palette.secondary',
         fontSize: 18
         
     },
@@ -39,27 +41,32 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Library = () => {
+const Library = (props) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [exerciseVideos, setExerciseVideos] = React.useState([]);
     const [selectedVideo, setSelectedVideo] = React.useState([]);
     const [URL, setURL] = React.useState("");
     const [videoID, setVideoID] = React.useState('');
-    const [checked, setChecked] = React.useState([]); //exercise workout array. stores exercise_id
+    const [checked, setChecked] = React.useState([]);
 
-    const fetchExerciseVideos = () => {
-        //TODO change back after testing
-        axios.get('api/exercise/all')
-            .then((response) => {
+    // const fetchExerciseVideos = () => {
+    //     //TODO change back after testing
+    //     axios.get('api/exercise/all')
+    //         .then((response) => {
 
-                setExerciseVideos(response.data.map((ev) => {
-                    // console.log(response.data)
-                    return ev;
-                }))
-            }).catch(console.log)
-    }
+    //             setExerciseVideos(response.data.map((ev) => {
+    //                 console.log(response.data)
+    //                 return ev;
+    //             }))
+    //         }).catch(console.log)
 
+    // }
+    useEffect(() => {
+        // fetchExerciseVideos();
+        props.fetchExerciseVideos()
+       
+    }, []);
     const handleVideoClick = (e, exercise_id) => {
         setSelectedVideo(exercise_id);
         exerciseVideos.map((ev) => {
@@ -88,11 +95,9 @@ const Library = () => {
         setChecked(newChecked);
 
     };
-    console.log(checked)
+    // console.log(checked)
+    console.log(props.exercises[0].exercise_id)
 
-    React.useEffect(() => {
-        fetchExerciseVideos();
-    }, []);
 
     return (
         //TODO add search field and update query to return tags
@@ -100,7 +105,7 @@ const Library = () => {
         <div className={classes.root}>
             <List component="nav" aria-label="video-list">
                 <ListSubheader className={classes.sticky}>Exercise Library</ListSubheader>
-                {exerciseVideos.map((ev) => (
+                {props.exercises.map((ev) => (
                     <React.Fragment>
                         <Divider />
                         <ListItem
@@ -112,6 +117,7 @@ const Library = () => {
                             //TODO Change onClick function to populate array for selectedVideos for workout creation
                             // onClick={(event) => handleVideoClick(event, ev.exercise_id)}
                             >
+                                <Typography>{ev.exercise_url}</Typography>
                             <ListItemSecondaryAction>
                                 <Checkbox
                                     edge="end"
@@ -123,7 +129,7 @@ const Library = () => {
                                 />
                             </ListItemSecondaryAction>
 
-                            <img className={classes.thumbnail} src={"https://img.youtube.com/vi/" + ev.exercise_url.split("=")[1] + "/0.jpg"} />
+                            {/* <img className={classes.thumbnail} src={"https://img.youtube.com/vi/" + ev.exercise_url.split("=")[1] + "/0.jpg"} /> */}
                         </ListItem>
                         <Divider />
                     </React.Fragment>
@@ -158,4 +164,12 @@ const Library = () => {
     )
 }
 
-export default Library
+export default connect((state) => ({
+    // The state of excercise, as defined by RootReducer
+    exercises: state.exercises.exercises,
+    
+}), (dispatch) => ({
+    // The action from actions-pt which will effect reducer-pt
+    fetchExerciseVideos: () => dispatch(fetchExerciseVideos())
+})
+)(Library);
