@@ -38,27 +38,31 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
     const classes = useStyles()
     const [auth, setAuth] = React.useState(true);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
+    const [anchorElLeft, setAnchorElLeft] = React.useState(null);
+    const [anchorElRight, setAnchorElRight] = React.useState(null);
+    const openLeft = Boolean(anchorElLeft);
+    const openRight = Boolean(anchorElRight)
 
     const handleChange = (event) => {
         setAuth(event.target.checked);
     };
 
     const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
+        setAnchorElLeft(event.currentTarget);
     };
 
     const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+        setAnchorElRight(event.currentTarget);
     };
 
     const handleClose = () => {
-        setAnchorEl(null);
+        setAnchorElLeft(null);
+        setAnchorElRight(null);
     };
     const handleRedirect = () => {
-        setAnchorEl(null);
-        if (anchorEl == null)
+        setAnchorElLeft(null);
+        setAnchorElRight(null);
+        if ((anchorElLeft == null) || (anchorElRight  == null))
             return <Redirect to="/dashboard"/>
     };
 
@@ -68,62 +72,81 @@ const Header = () => {
             <AppBar position="fixed">
                 <Toolbar disableGutters>
 
-                    <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                        <IconButton>
-                            <MenuIcon color="secondary"/>
-                        </IconButton>
-                    </Button>
-                    <Menu
-                        id="simple-menu"
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                    >
-                    </Menu>
-                        <Button disableTouchRipple={true} href="/">
-                            <img alt="company logo" src={logo} className={classes.logo}/>
-                        </Button>
-                        {auth && (
-                            <div className={classes.accountCircle}>
-                                <IconButton
-                                    edge="start"
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
+                    <div className={classes.menuButton}>
+                        <IconButton edge="start"
+                                    aria-label="drop-down"
+                                    aria-controls="simple-menu"
                                     aria-haspopup="true"
                                     onClick={handleMenu}
-                                    color="secondary"
-                                >
-                                    <AccountCircle/>
-                                </IconButton>
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={open}
-                                    onClose={handleClose}
-                                >
-                                    <MenuItem onClick={handleClose} component={Link}
-                                              to="/dashboard">Dashboard</MenuItem>
-                                    <MenuItem onClick={handleClose} component={Link} to="/library">Exercise
-                                        Library</MenuItem>
-                                    <MenuItem onClick={handleClose} component={Link} to="/settings">Settings</MenuItem>
-                                    <MenuItem onClick={handleClose} component={Link} to="/logout">Logout</MenuItem>
-                                </Menu>
-                            </div>
-                        )}
+                                    color="secondary">
+                            <MenuIcon color="secondary"/>
+                        </IconButton>
+                        <Menu
+                            id="simple-menu"
+                            anchorEl={anchorElLeft}
+                            getContentAnchorEl={null}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                            open={openLeft}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={handleClose} component={Link}
+                                      to="/dashboard">Dashboard</MenuItem>
+                            <MenuItem onClick={handleClose} component={Link} to="/library">Exercise
+                                Library</MenuItem>
+                            <MenuItem onClick={handleClose} component={Link} to="/settings">Settings</MenuItem>
+                            <MenuItem onClick={handleClose} component={Link} to="/logout">Logout</MenuItem>
+                        </Menu>
+                    </div>
+
+                    <Button disableTouchRipple={true} href="/">
+                        <img alt="company logo" src={logo} className={classes.logo}/>
+                    </Button>
+                    {auth && (
+                        <div className={classes.accountCircle}>
+                            <IconButton
+                                edge="start"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleClick}
+                                color="secondary"
+                            >
+                                <AccountCircle/>
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorElRight}
+                                getContentAnchorEl={null}
+                                anchorOrigin={{
+                                    vertical: 'center',
+                                    horizontal: 'left',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={openRight}
+                                onClose={handleClose}
+                            >
+                                <MenuItem onClick={handleClose} component={Link}
+                                          to="/settings">My Profile</MenuItem>
+                                <MenuItem onClick={handleClose} component={Link} to="/logout">Logout</MenuItem>
+                            </Menu>
+                        </div>
+                    )}
                 </Toolbar>
             </AppBar>
         </div>
-)
+    )
 }
 
 export default Header
