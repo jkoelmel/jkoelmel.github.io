@@ -17,7 +17,7 @@ public class PTMessage {
     public PTMessage(Integer message_id) { this.message_id = message_id;}
 
     public void createMessage(String message, Integer patient, Integer pt) throws Exception {
-        String messageQuery = "INSERT INTO patient_message(patient_message_id, message, created_on, patient, pt) " +
+        String messageQuery = "INSERT INTO pt_message(message_id, message, created_on, patient, pt) " +
                 " VALUES(NULL, ?, now(), ?, ?)";
 
         try (Connection con = DriverManager.getConnection(

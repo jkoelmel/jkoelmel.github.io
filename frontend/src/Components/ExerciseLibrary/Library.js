@@ -68,6 +68,7 @@ const Library = (props) => {
         props.fetchExerciseVideos()
 
     }, []);
+
     const handleVideoClick = (event, exercise_id) => {
         const index = selectedVideo.indexOf(exercise_id);
         const newIndex = [...selectedVideo];
@@ -169,7 +170,7 @@ const Library = (props) => {
 }
 
 export default connect((state) => ({
-        // The state of excercise, as defined by RootReducer
+        // The state of exercise, as defined by RootReducer
         exercises: state.exercises.exercises,
 
     }), (dispatch) => ({
