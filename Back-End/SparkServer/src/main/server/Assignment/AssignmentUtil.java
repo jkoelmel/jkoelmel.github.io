@@ -166,7 +166,7 @@ public class AssignmentUtil {
     public static Integer assignToPatients(Request request) {
 
         try {
-            for(int i = 0; i < request.queryMap().toMap().size(); i++) {
+            for(int i = 0; i < (request.queryMap().toMap().size() / 3); i++) {
                 Assignment assignment = new Assignment(null);
                 assignment.createAssignment(Integer.parseInt(request.queryMap().get("pt").value()),
                         Integer.parseInt(request.queryMap().get("workout").value()),

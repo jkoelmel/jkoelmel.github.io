@@ -52,6 +52,7 @@ const AssignWorkout = (props, {selectedWorkout, setSelectedWorkout}) => {
         setChecked(newChecked);
 
     };
+    console.log(checked)
 
     const handleOpen = () => {
         setOpen(true);
@@ -61,10 +62,10 @@ const AssignWorkout = (props, {selectedWorkout, setSelectedWorkout}) => {
         setOpen(false);
     }
 
-    const assignToPatients = (selectedWorkout) => {
+    const assignToPatients = (checked) => {
         axios.post('api/pt/assign', {
             params: {
-                workout: selectedWorkout
+                workout: checked
             }
         })
             .catch(console.log)

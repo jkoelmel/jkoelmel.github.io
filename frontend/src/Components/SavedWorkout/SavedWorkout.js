@@ -92,6 +92,7 @@ const SavedWorkout = () => {
         setChecked(newChecked);
 
     };
+    console.log(checked)
 
     React.useEffect(() => {
         fetchPTWorkouts();
