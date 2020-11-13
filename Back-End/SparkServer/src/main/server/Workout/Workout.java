@@ -8,6 +8,7 @@ public class Workout {
 
     private Integer workout_id;
     private String title;
+    private Integer PT;
 
     public Workout(Integer workout_id) { this.workout_id = workout_id;}
 
@@ -16,8 +17,8 @@ public class Workout {
         this.title = title;
     }
     
-    public void createWorkout() throws Exception{
-        String workoutQuery = "INSERT INTO workout(workout_id,title) VALUES (NULL,?)";
+    public void createWorkout(String title, Integer pt) throws Exception{
+        String workoutQuery = "INSERT INTO workout(workout_id,title, pt) VALUES (NULL,?, ?)";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -25,7 +26,8 @@ public class Workout {
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(workoutQuery)) {
 
-            pst.setString(1,getTitle());
+            pst.setString(1,title);
+            pst.setInt(2, pt);
             pst.executeUpdate();
 
             pst.executeUpdate(workoutQuery);
@@ -49,7 +51,7 @@ public class Workout {
 
                 setWorkoutId(rs.getInt("workout_id"));
                 setTitle(rs.getString("title"));
-
+                setPT(rs.getInt("pt"));
             }
         } catch (SQLException ex) {
             throw new Exception("Error getting workout with id " + this.workout_id + ": " + ex.toString());
@@ -80,4 +82,12 @@ public class Workout {
     public String getTitle(){ return title;}
 
     public void setTitle(String title){ this.title = title;}
+
+    public Integer getPT() {
+        return PT;
+    }
+
+    public void setPT(Integer PT) {
+        this.PT = PT;
+    }
 }

@@ -60,8 +60,12 @@ public class Server {
 				get("/workouts", AssignmentUtil::selectPTWorkouts);
 				get("/exercises", ExerciseUtil::getWorkoutExercises);
 
+				post("/create", (request, response) -> {
+					response.status(AssignmentUtil.registerAssignment(request));
+					return response.status();
+				});
 				post("/assign", (request, response) -> {
-					response.status(AssignmentUtil.assignToPatients(request));
+					response.status(AssignmentUtil.registerAssignment(request));
 					return response.status();
 				});
 				post("/register", (request, response) -> {

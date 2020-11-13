@@ -163,24 +163,25 @@ public class AssignmentUtil {
         return toReturn;
     }
 
-    public static Integer assignToPatients(Request request) {
-
-        try {
-            for(int i = 0; i < (request.queryMap().toMap().size() / 3); i++) {
-                Assignment assignment = new Assignment(null);
-                assignment.createAssignment(Integer.parseInt(request.queryMap().get("pt").value()),
-                        Integer.parseInt(request.queryMap().get("workout").value()),
-                        Integer.parseInt(request.queryMap().get("patient").value()));
-            }
-            return 200;
-        } catch (SQLException sqlEx) {
-            System.err.println(sqlEx.toString());
-            return 500;
-        } catch (Exception ex) {
-            System.err.println(ex.toString());
-            return 400;
-        }
-    }
+    //WIP
+//    public static Integer assignToPatients(Request request) {
+//
+//        try {
+//            for(int i = 0; i < (request.queryMap().toMap().size() / 3); i++) {
+//                Assignment assignment = new Assignment(null);
+//                assignment.createAssignment(Integer.parseInt(request.queryMap().get("pt").value()),
+//                        Integer.parseInt(request.queryMap().get("workout").value()),
+//                        Integer.parseInt(request.queryMap().get("patient").value()));
+//            }
+//            return 200;
+//        } catch (SQLException sqlEx) {
+//            System.err.println(sqlEx.toString());
+//            return 500;
+//        } catch (Exception ex) {
+//            System.err.println(ex.toString());
+//            return 400;
+//        }
+//    }
 
     public static Integer registerAssignment(Request request) {
         try {
