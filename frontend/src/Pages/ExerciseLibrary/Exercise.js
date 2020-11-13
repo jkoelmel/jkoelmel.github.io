@@ -81,7 +81,7 @@ const Exercise = () => {
                 <Grid item xs={3} direction={"column"}>
                     <Paper className={classes.paperAssign} elevation={5}>
                         <Typography>Saved Workouts</Typography>
-                        <SavedWorkout/>
+                        <SavedWorkout checkedWorkout={checkedWorkout} setCheckedWorkout={{setCheckedWorkout}}/>
                     </Paper>
                     <Paper className={classes.paperPatients} elevation={5}>
                         <AssignWorkout checkedWorkout={checkedWorkout} />

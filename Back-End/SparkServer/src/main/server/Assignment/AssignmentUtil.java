@@ -170,10 +170,9 @@ public class AssignmentUtil {
         try {
             for(int i = 0; i < (request.queryParamsValues("workout").length); i++) {
                 for(int j = 0; j < (request.queryParamsValues("patient").length); j++) {
-
-                    System.out.println(request.queryMap().toMap());
-                    System.out.println(Arrays.toString(request.queryParamsValues("workout")));
-                    System.out.println(request.queryParamsValues("workout").length);
+//                    System.out.println(request.queryMap().toMap());
+//                    System.out.println(Arrays.toString(request.queryParamsValues("workout")));
+//                    System.out.println(request.queryParamsValues("workout").length);
                     Assignment assignment = new Assignment(null);
                     assignment.createAssignment(Integer.parseInt(request.queryMap().get("pt").value()),
                             Integer.parseInt(request.queryParamsValues("workout")[i]),

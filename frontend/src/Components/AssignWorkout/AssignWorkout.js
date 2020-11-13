@@ -3,7 +3,7 @@ import List from "@material-ui/core/List";
 import {Divider, ListItem, ListItemText, ListSubheader} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux";
-import {createNewPT, fetchPTsPatients} from "../../Redux/actions/actions-pt";
+import {fetchPTsPatients} from "../../Redux/actions/actions-pt";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
@@ -63,20 +63,30 @@ const AssignWorkout = (props, {checkedWorkout}) => {
     }
 
     const assignToPatients = () => {
-        axios.post('api/pt/create', {
-            params: {
-                pt: 1,
-                workout: checkedWorkout,
-                patient: checked
+        const params = new URLSearchParams();
+        params.append("pt", 1);
+
+        for (let i = 0; i < checked.length; i++) {
+            for (let j = 0; j < checkedWorkout.length; j++) {
+                params.append("workout", checkedWorkout[j]);
+                params.append("patient", checked[i])
             }
-        })
-            .catch(console.log)
+        }
+
+        axios.post('http://localhost:8080/api/pt/assign', params)
+            .then((response) => {
+                if (response.data == 200) {
+                    console.log("Message success")
+                    setOpen(true);
+                }
+            })
+            .catch(console.log);
     }
 
     return (
         <div>
             <List component="nav" aria-label="workout-list"
-                  style={{maxHeight: 300, overflowY:"scroll", backgroundColor: "white"}}
+                  style={{maxHeight: 300, overflowY: "scroll", backgroundColor: "white"}}
                   subheader={
                       <ListSubheader component="div" color="inherit" className={classes.sticky}>
                           Patient List
@@ -85,7 +95,7 @@ const AssignWorkout = (props, {checkedWorkout}) => {
                 {props.patients.map((p) => (
                     <ListItem
                         key={p.patient_id}>
-                        <ListItemText primary={`${p.f_name} ${p.l_name}`} />
+                        <ListItemText primary={`${p.f_name} ${p.l_name}`}/>
                         <ListItemSecondaryAction>
                             <Checkbox
                                 edge="end"
@@ -93,7 +103,7 @@ const AssignWorkout = (props, {checkedWorkout}) => {
                                 disableRipple
                                 onChange={handleCheckToggle(p.patient_id)}
                                 checked={checked.indexOf(p.patient_id) !== -1}
-                                inputProps={{ "aria-labelledby": `checkbox-list-label-${p.patient_id}` }}
+                                inputProps={{"aria-labelledby": `checkbox-list-label-${p.patient_id}`}}
                             />
                         </ListItemSecondaryAction>
                     </ListItem>
@@ -101,6 +111,30 @@ const AssignWorkout = (props, {checkedWorkout}) => {
 
             </List>
             <Button onClick={assignToPatients}>ASSIGN TO...</Button>
+
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={open}>
+                    <List
+                        style={{maxHeight: 400, overflowY: "scroll", backgroundColor: "white"}}
+                        subheader={
+                            <ListSubheader component="div" color="inherit" classes={"patient-list"}>
+                                Success
+                            </ListSubheader>
+                        }>
+                    </List>
+                </Fade>
+            </Modal>
         </div>
     )
 }

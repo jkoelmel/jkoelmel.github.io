@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import PatientList from '../../Components/PatientList/PatientList'
+import Messaging from "../../Components/Messaging/Messaging";
 
 //TODO Will most likely have to fix paperMessage margins when we implement
 //the actual message board.
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
-        height: 1000,
+        height: 700,
         width: 350,
         marginTop: 50,
         marginBottom: 139
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.secondary.main,
         height: 500,
         width: 600,
-        marginTop: 10,
+        marginTop: 50,
         marginBottom: 139
     },
 }));
@@ -52,6 +53,7 @@ const Dashboard = () => {
                 <Grid item >
                     <Paper className={classes.paperMessage} elevation={5}>
                         <Typography>Message Center</Typography>
+                        <Messaging/>
                     </Paper>
                 </Grid>
                 <Grid item>
@@ -62,14 +64,14 @@ const Dashboard = () => {
                             <PatientList />
                         </Paper>
                     </Grid>
-                    <Grid item >
-                        <Paper className={classes.paperActivities} elevation={5}>
-                            {/* <PatientsList/>  TODO need to handle Axios or hooks
-                        in order to use*/}
-                            <Typography>Search Activities</Typography>
-                        </Paper>
-                    </Grid>
                 {/* </Grid> */}
+                </Grid>
+                <Grid item >
+                    <Paper className={classes.paperActivities} elevation={5}>
+                        {/* <PatientsList/>  TODO need to handle Axios or hooks
+                        in order to use*/}
+                        <Typography>Search Activities</Typography>
+                    </Paper>
                 </Grid>
             </Grid>
 
