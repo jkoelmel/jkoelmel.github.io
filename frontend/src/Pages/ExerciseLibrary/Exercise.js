@@ -78,7 +78,7 @@ const Exercise = () => {
                         <CreateWorkout checked={checked} setChecked={setChecked}/>
                     </Paper>
                 </Grid>
-                <Grid item xs={3} direction={"column"}>
+                <Grid item xs={3}>
                     <Paper className={classes.paperAssign} elevation={5}>
                         <Typography>Saved Workouts</Typography>
                         <SavedWorkout/>

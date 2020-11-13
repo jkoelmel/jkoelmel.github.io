@@ -8,9 +8,8 @@ import Modal from "@material-ui/core/Modal";
 import {makeStyles} from "@material-ui/core/styles";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import Button from "@material-ui/core/Button";
 import {connect} from "react-redux";
-import {fetchPTsPatients} from "../../Redux/actions/actions-pt";
+import {fetchPTsPatients,setSelectedWorkouts} from "../../Redux/actions/actions-pt";
 const qs = require('qs');
 
 const useStyles = makeStyles((theme) => ({
@@ -37,9 +36,7 @@ const SavedWorkout = (props) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [workouts, setWorkouts] = React.useState([]);
-    const [selectedWorkout, setSelectedWorkout] = React.useState('');
     const [exercises, setExercises] = React.useState([]);
-    const [checkedWorkout, setCheckedWorkout] = React.useState([]);
 
     //TODO hard coded PT need to change to redux
     const fetchPTWorkouts = () => {
@@ -83,8 +80,8 @@ const SavedWorkout = (props) => {
     }
 
     const handleWorkoutToggle = (value) => () => {
-        const currentIndex = checkedWorkout.indexOf(value);
-        const newcheckedWorkout = [...checkedWorkout];
+        const currentIndex = props.savedWorkouts.indexOf(value);
+        const newcheckedWorkout = [...props.savedWorkouts];
 
         if (currentIndex === -1) {
             newcheckedWorkout.push(value);
@@ -92,10 +89,10 @@ const SavedWorkout = (props) => {
             newcheckedWorkout.splice(currentIndex, 1);
         }
 
-        setCheckedWorkout(newcheckedWorkout);
-
+        // setCheckedWorkout(newcheckedWorkout);
+        props.setSelectedWorkouts(newcheckedWorkout);
+        
     };
-    console.log(checkedWorkout)
 
     React.useEffect(() => {
         fetchPTWorkouts();
@@ -105,12 +102,11 @@ const SavedWorkout = (props) => {
         <div className={classes.root}>
             <List aria-label="workout-list"
                   style={{maxHeight: 600}}>
-                {workouts.map((w) => (
-                    <div>
+                {workouts.map((w,k) => (
+                    <div key={k}>
                         <ListItem
-                            key={w.workout_id}
                             button
-                            selected={selectedWorkout == w.workout_id}
+                            selected={props.savedWorkouts == w.workout_id}
                             onClick={(event) => handleWorkoutClick(event, w.workout_id)}>
                             {w.title}
                             <ListItemSecondaryAction>
@@ -119,7 +115,7 @@ const SavedWorkout = (props) => {
                                     tabIndex={-1}
                                     disableRipple
                                     onChange={handleWorkoutToggle(w.workout_id)}
-                                    checkedWorkout={checkedWorkout.indexOf(w.workout_id) !== -1}
+                                    checked={props.savedWorkouts.indexOf(w.workout_id) !== -1}
                                     inputProps={{ "aria-labelledby": `checkbox-list-label-${w.workout_id}` }}
                                 />
                             </ListItemSecondaryAction>
@@ -144,14 +140,13 @@ const SavedWorkout = (props) => {
                     <List
                         style={{maxHeight: 400, overflowY:"scroll", backgroundColor: "white"}}
                         subheader={
-                            <ListSubheader component="div" color="inherit" classes= {"patient-list"}>
+                            <ListSubheader component="div" color="inherit">
                                 Workout Details
                             </ListSubheader>
                         }>
-                    {exercises.map((e) => (
-                        <div>
-                            <ListItem
-                                key={e.exercise_id}>
+                    {exercises.map((e,k) => (
+                        <div key={k}>
+                            <ListItem>
                                 <ListItemText primary={`Exercise Title`} secondary={e.title}/>
                             </ListItem>
                             <ListItem
@@ -177,9 +172,11 @@ export default connect((state) => ({
         // The state of the pt, as defined by reducer-pt
         pt: state.pt,
         // The state of the pt's patients, defined by reducer-pt
-        patients: state.pt.patients
+        patients: state.pt.patients,
+        savedWorkouts: state.exercises.savedWorkouts
     }), (dispatch) => ({
         // The action from actions-pt which will effect reducer-pt
         fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
+        setSelectedWorkouts: (savedWorkouts) => dispatch(setSelectedWorkouts(savedWorkouts))
     })
 )(SavedWorkout);

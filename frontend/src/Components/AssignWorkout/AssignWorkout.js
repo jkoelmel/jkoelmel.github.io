@@ -82,9 +82,9 @@ const AssignWorkout = (props, {checkedWorkout}) => {
                           Patient List
                       </ListSubheader>
                   }>
-                {props.patients.map((p) => (
-                    <ListItem
-                        key={p.patient_id}>
+                {props.patients.map((p,k) => (
+                    <div key={k}>
+                    <ListItem>
                         <ListItemText primary={`${p.f_name} ${p.l_name}`} />
                         <ListItemSecondaryAction>
                             <Checkbox
@@ -97,6 +97,7 @@ const AssignWorkout = (props, {checkedWorkout}) => {
                             />
                         </ListItemSecondaryAction>
                     </ListItem>
+                    </div>
                 ))}
 
             </List>

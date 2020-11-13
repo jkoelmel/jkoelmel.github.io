@@ -14,7 +14,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import {fetchExerciseVideos,selectedExercises} from '../../Redux/actions/actions-pt';
+import {fetchExerciseVideos,setSelectedExercises} from '../../Redux/actions/actions-pt';
 import {connect} from 'react-redux';
 import {PlayArrow} from "@material-ui/icons";
 
@@ -45,29 +45,14 @@ const useStyles = makeStyles((theme) => ({
 const Library = (props) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [exerciseVideos, setExerciseVideos] = React.useState([]);
     const [selectedVideo, setSelectedVideo] = React.useState([]);
     const [URL, setURL] = React.useState("");
-    const [checked, setChecked] = React.useState([]);
-
-    // const fetchExerciseVideos = () => {
-    //     //TODO change back after testing
-    //     axios.get('api/exercise/all')
-    //         .then((response) => {
-    //
-    //             setExerciseVideos(response.data.map((ev) => {
-    //                 console.log(response.data)
-    //                 return ev;
-    //             }))
-    //         }).catch(console.log)
-    //
-    // }
-
+    
     useEffect(() => {
         // fetchExerciseVideos();
         props.fetchExerciseVideos()
 
-    }, [checked]);
+    }, []);
     const handleVideoClick = (event, exercise_id) => {
         const index = selectedVideo.indexOf(exercise_id);
         const newIndex = [...selectedVideo];
@@ -77,7 +62,7 @@ const Library = (props) => {
         } else {
             newIndex.splice(index, 1);
         }
-
+        
         setURL(props.exercises[newIndex - 1].exercise_url);
         console.log(URL);
         setOpen(true);
@@ -89,8 +74,8 @@ const Library = (props) => {
 
     //Handles checked videos and adds video ids into Checked
     const handleCheckToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
+        const currentIndex = props.selectedVideos.indexOf(value);
+        const newChecked = [...props.selectedVideos];
 
         if (currentIndex === -1) {
             newChecked.push(value);
@@ -98,11 +83,10 @@ const Library = (props) => {
             newChecked.splice(currentIndex, 1);
         }
 
-        setChecked(newChecked);
+        // setChecked(newChecked);
+        props.setSelectedExercises(newChecked)
 
     };
-    console.log(checked)
-    // console.log(props.exercises[0].exercise_id)
 
 
     return (
@@ -111,30 +95,30 @@ const Library = (props) => {
         <div className={classes.root}>
             <List component="nav" aria-label="video-list">
                 <ListSubheader className={classes.sticky}>Exercise Library</ListSubheader>
-                {props.exercises.map((ev) => (
-                    <React.Fragment>
+                {props.exercises.map((ev,k) => (
+                    <React.Fragment key={k}>
                         <ListItem>
                             <ListItemIcon>
                                 <PlayArrow
                                     edge="start"
-                                    checked={checked.indexOf(ev.exercise_id) !== -1}
+                                    checked={props.selectedVideos.indexOf(ev.exercise_id) !== -1}
                                     tabIndex={-1}
-                                    disableRipple
                                     onClick={(event) => handleVideoClick(event, ev.exercise_id)}
-                                    inputProps={{'aria-labelledby': `checkbox-list-label-${ev.exercise_id}`}}
+                                    inputprops={{'aria-labelledby': `checkbox-list-label-${ev.exercise_id}`}}
                                 />
                             </ListItemIcon>
-                            <ListItemSecondaryAction>
+                           
+                        <img className={classes.thumbnail} src={ev.thumbnail}/>
+                        <ListItemSecondaryAction>
                                 <Checkbox
                                     edge="end"
                                     tabIndex={-1}
                                     disableRipple
                                     onChange={handleCheckToggle(ev.exercise_id)}
-                                    checked={checked.indexOf(ev.exercise_id) !== -1}
+                                    checked={props.selectedVideos.indexOf(ev.exercise_id) !== -1}
                                     inputProps={{"aria-labelledby": `checkbox-list-label-${ev.exercise_id}`}}
                                 />
                             </ListItemSecondaryAction>
-                        <img className={classes.thumbnail} src={ev.thumbnail}/>
                     </ListItem>
                         <Divider/>
                     </React.Fragment>
@@ -171,10 +155,11 @@ const Library = (props) => {
 export default connect((state) => ({
         // The state of excercise, as defined by RootReducer
         exercises: state.exercises.exercises,
+        selectedVideos: state.exercises.selectedVideos
 
     }), (dispatch) => ({
         // The action from actions-pt which will effect reducer-pt
-        fetchExerciseVideos: () => dispatch(fetchExerciseVideos())
-        
+        fetchExerciseVideos: () => dispatch(fetchExerciseVideos()),
+        setSelectedExercises: (selectedVideos) => dispatch(setSelectedExercises(selectedVideos))
     })
 )(Library);

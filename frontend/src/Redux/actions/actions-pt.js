@@ -120,16 +120,18 @@ export const loadExerciseVideos = (exercises) => {
    }
    
 }
-export  const selectedExercises = (selectedVideos) => {
+export  const setSelectedExercises = (selectedVideos) => {
     return {
         type: constantsWorkout.GET_SELECTED_VIDEOS,
         payload: selectedVideos
     }
 }
 
-export const setSelectedExercises = (selectedExercises)=> {
-    return (dispatch) => {
-        dispatch(selectedExercises(selectedExercises))
+export const setSelectedWorkouts = (savedWorkouts) => {
+    return {
+        type: constantsWorkout.GET_SELECTED_WORKOUTS,
+        payload: savedWorkouts
     }
-        
-    }
+}
+
+
