@@ -119,7 +119,7 @@ const Library = (props) => {
                                     edge="start"
                                     checked={checked.indexOf(ev.exercise_id) !== -1}
                                     tabIndex={-1}
-                                    disableRipple={true}
+                                    disableRipple
                                     onClick={(event) => handleVideoClick(event, ev.exercise_id)}
                                     inputProps={{'aria-labelledby': `checkbox-list-label-${ev.exercise_id}`}}
                                 />
@@ -134,12 +134,10 @@ const Library = (props) => {
                                     inputProps={{"aria-labelledby": `checkbox-list-label-${ev.exercise_id}`}}
                                 />
                             </ListItemSecondaryAction>
-
-                            <img className={classes.thumbnail} src={ev.thumbnail}/>
-                            </ListItem>
+                        <img className={classes.thumbnail} src={ev.thumbnail}/>
+                    </ListItem>
                         <Divider/>
                     </React.Fragment>
-
                 ))}
 
             </List>

@@ -11,6 +11,7 @@ import main.server.Assignment.*;
 import main.server.Contain.*;
 import main.server.PatientMessage.PTMessageUtil;
 import main.server.PatientVideo.PatientVideoUtil;
+import main.server.Workout.WorkoutUtil;
 
 import java.sql.*;
 
@@ -60,6 +61,10 @@ public class Server {
 				get("/workouts", AssignmentUtil::selectPTWorkouts);
 				get("/exercises", ExerciseUtil::getWorkoutExercises);
 
+				post("/create", (request, response) -> {
+					response.status(WorkoutUtil.createWorkout(request));
+					return response.status();
+				});
 				post("/assign", (request, response) -> {
 					response.status(AssignmentUtil.assignToPatients(request));
 					return response.status();

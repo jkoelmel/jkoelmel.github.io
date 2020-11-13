@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AssignWorkout = (props, {selectedWorkout, setSelectedWorkout}) => {
+const AssignWorkout = (props, {checkedWorkout}) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [checked, setChecked] = React.useState([]);
@@ -62,10 +62,12 @@ const AssignWorkout = (props, {selectedWorkout, setSelectedWorkout}) => {
         setOpen(false);
     }
 
-    const assignToPatients = (checked) => {
-        axios.post('api/pt/assign', {
+    const assignToPatients = () => {
+        axios.post('api/pt/create', {
             params: {
-                workout: checked
+                pt: 1,
+                workout: checkedWorkout,
+                patient: checked
             }
         })
             .catch(console.log)
@@ -73,8 +75,8 @@ const AssignWorkout = (props, {selectedWorkout, setSelectedWorkout}) => {
 
     return (
         <div>
-            <List component="nav" aria-label="patient-list"
-                  style={{maxHeight: 320, overflowY:"scroll", backgroundColor: "white"}}
+            <List component="nav" aria-label="workout-list"
+                  style={{maxHeight: 300, overflowY:"scroll", backgroundColor: "white"}}
                   subheader={
                       <ListSubheader component="div" color="inherit" className={classes.sticky}>
                           Patient List
@@ -99,23 +101,6 @@ const AssignWorkout = (props, {selectedWorkout, setSelectedWorkout}) => {
 
             </List>
             <Button onClick={assignToPatients}>ASSIGN TO...</Button>
-
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <Fade in={open}>
-
-                </Fade>
-            </Modal>
         </div>
     )
 }
