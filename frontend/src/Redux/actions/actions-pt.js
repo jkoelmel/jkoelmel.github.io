@@ -1,4 +1,5 @@
 import * as constants from '../constants/constants-pt'
+import * as constantsWorkout from '../constants/constants-workouts'
 import {getAuth, postAuth} from './actions-auth'
 
 export const createNewPT = (pt) => {
@@ -98,5 +99,22 @@ export const loadPTsPatients = (patients) => {
     return {
         type: constants.GET_PT_PATIENTS,
         payload: patients
+    }
+}
+
+export const fetchExerciseVideos = () => {
+    console.log('im here')
+    return (dispatch) => {
+        getAuth('/api/exercise/all')
+        .then((response)=> dispatch(loadExerciseVideos(response.data)))
+        .catch(err=> console.log(err))
+    }
+}
+
+export const loadExerciseVideos = (exercises) => {
+    return {
+        type: constantsWorkout.GET_EXERCISE_VIDEOS,
+        payload: exercises
+
     }
 }
