@@ -8,6 +8,7 @@ import spark.Response;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class WorkoutUtil {
     public static String selectSpecific(Request request, Response response) {
@@ -64,10 +65,13 @@ public class WorkoutUtil {
         }
         return toReturn;
     }
-
+//Test method for query map data array handling
     public static Integer createWorkout(Request request) {
         try {
-            System.out.println(request.queryMap());
+            System.out.println(request.queryMap().get("workout").value());
+            System.out.println(Arrays.toString(request.queryParams().toArray()));
+            System.out.println(request.queryParamsValues("workout").length);
+            System.out.println(request.queryParamsValues("workout")[0]);
             return 200;
         } catch (Exception ex) {
             System.err.println(ex.toString());
