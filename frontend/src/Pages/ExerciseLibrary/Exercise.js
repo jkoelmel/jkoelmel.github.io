@@ -2,12 +2,11 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import {makeStyles} from '@material-ui/core/styles';
-import {ListItem, ListItemText, Typography} from '@material-ui/core';
+import {Typography} from '@material-ui/core';
 import Library from "../../Components/ExerciseLibrary/Library";
 import SavedWorkout from "../../Components/SavedWorkout/SavedWorkout";
-import CurrentWorkout from "../../Components/PatientWorkout/CurrentWorkout";
 import AssignWorkout from "../../Components/AssignWorkout/AssignWorkout";
-
+import CreateWorkout from "../../Components/CreateWorkout/CreateWorkout"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,35 +58,36 @@ const useStyles = makeStyles((theme) => ({
 
 const Exercise = () => {
     const classes = useStyles();
-    const [selectedWorkout, setSelectedWorkout] = React.useState([]);
-    
+    // const [selectedWorkout, setSelectedWorkout] = React.useState([]);
+    const [checkedWorkout, setCheckedWorkout] = React.useState([]);
+    const [checked, setChecked] = React.useState([]);
+
     return (
         <div className={classes.root}>
             <Grid container spacing={5} direction="row" justify={"space-between"}>
                 <Grid item md={3}>
                     <Paper className={classes.paperLibrary} elevation={5}
-                     style={{ maxHeight: 700, overflowY: 'scroll',paddingTop: '0px'}}>
+                           style={{maxHeight: 700, overflowY: 'scroll', paddingTop: '0px'}}>
                         {/* <Typography>Exercise Library</Typography> */}
-                        <Library/>
+                        <Library checked={checked} setChecked={setChecked}/>
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
                     <Paper className={classes.paperWorkouts} elevation={5}>
                         <Typography>Create Workout</Typography>
+                        <CreateWorkout checked={checked} setChecked={setChecked}/>
                     </Paper>
                 </Grid>
                 <Grid item xs={3} direction={"column"}>
                     <Paper className={classes.paperAssign} elevation={5}>
                         <Typography>Saved Workouts</Typography>
-                        <SavedWorkout/>
+                        <SavedWorkout checkedWorkout={checkedWorkout} setCheckedWorkout={{setCheckedWorkout}}/>
                     </Paper>
                     <Paper className={classes.paperPatients} elevation={5}>
-                    <AssignWorkout selectedWorkout={selectedWorkout} setSelectedWorkout={setSelectedWorkout}/>
+                        <AssignWorkout checkedWorkout={checkedWorkout} />
                     </Paper>
                 </Grid>
-
             </Grid>
-
         </div>
     )
 }

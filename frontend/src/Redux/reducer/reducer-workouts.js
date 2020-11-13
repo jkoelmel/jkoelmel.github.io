@@ -18,7 +18,16 @@ const WorkoutReducer = handleActions({
         ...state,
         exercises: action.payload
     }
+},
+[constants.GET_SELECTED_VIDEOS] : (state=[],action) => {
+    return {
+        ...state,
+        selectedVideos: action.payload
+    }
 }
+
+
+
 },initialWorkoutState)
 
 export default WorkoutReducer

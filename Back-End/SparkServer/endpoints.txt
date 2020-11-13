@@ -6,9 +6,9 @@ GET     api/pt/workouts                params: pt
 GET     api/pt/exercises               params: workout
 POST    api/pt/register                params: email, password, f_name, l_name, company
 POST    api/pt/login                   params: email, password
-POST    api/pt/assign                  params: workout, patient[]
+POST    api/pt/assign                  params: workout[], patient[], pt
 
-### This branch is for PT message creation
+### This branch is for PT message creation/retrieval
 GET     api/pt/message/id              params: pt, patient
 POST    api/pt/message/register        params: message, pt, patient
 
@@ -33,8 +33,8 @@ GET     api/assign/id                  params: patient
 GET     api/assign/all                 params: patient
 POST    api/assign/register            params: assignment_id (0 or -1) if patient has no assignment
                                                pt, workout, patient
-### This branch is for patient message creation
-### It will be replaced by an automatic trigger for testing messaging functionality
+### This branch is for patient message creation/retrieval
+### POST is replaced by an automatic SQL trigger for testing messaging functionality
 GET     api/message/id                 params: pt, patient
 POST    api/message/id                 params: message, pt, patient
 

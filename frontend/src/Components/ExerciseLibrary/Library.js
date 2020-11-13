@@ -14,7 +14,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import {fetchExerciseVideos} from '../../Redux/actions/actions-pt';
+import {fetchExerciseVideos,selectedExercises} from '../../Redux/actions/actions-pt';
 import {connect} from 'react-redux';
 import {PlayArrow} from "@material-ui/icons";
 
@@ -66,8 +66,8 @@ const Library = (props) => {
     useEffect(() => {
         // fetchExerciseVideos();
         props.fetchExerciseVideos()
-
     }, []);
+
     const handleVideoClick = (event, exercise_id) => {
         const index = selectedVideo.indexOf(exercise_id);
         const newIndex = [...selectedVideo];
@@ -102,7 +102,7 @@ const Library = (props) => {
 
     };
     console.log(checked)
-    console.log(props.exercises[0].exercise_id)
+    // console.log(props.exercises[0].exercise_id)
 
 
     return (
@@ -113,12 +113,13 @@ const Library = (props) => {
                 <ListSubheader className={classes.sticky}>Exercise Library</ListSubheader>
                 {props.exercises.map((ev) => (
                     <React.Fragment>
+                        <ListItem>
                             <ListItemIcon>
                                 <PlayArrow
                                     edge="start"
                                     checked={checked.indexOf(ev.exercise_id) !== -1}
                                     tabIndex={-1}
-                                    disableRipple={true}
+                                    disableRipple
                                     onClick={(event) => handleVideoClick(event, ev.exercise_id)}
                                     inputProps={{'aria-labelledby': `checkbox-list-label-${ev.exercise_id}`}}
                                 />
@@ -133,11 +134,9 @@ const Library = (props) => {
                                     inputProps={{"aria-labelledby": `checkbox-list-label-${ev.exercise_id}`}}
                                 />
                             </ListItemSecondaryAction>
-
                             <img className={classes.thumbnail} src={ev.thumbnail}/>
                         <Divider/>
                     </React.Fragment>
-
                 ))}
 
             </List>
@@ -169,11 +168,12 @@ const Library = (props) => {
 }
 
 export default connect((state) => ({
-        // The state of excercise, as defined by RootReducer
+        // The state of exercise, as defined by RootReducer
         exercises: state.exercises.exercises,
 
     }), (dispatch) => ({
         // The action from actions-pt which will effect reducer-pt
         fetchExerciseVideos: () => dispatch(fetchExerciseVideos())
+        
     })
 )(Library);

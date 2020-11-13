@@ -2,15 +2,16 @@ package main.server;
 
 import com.google.gson.Gson;
 import main.server.Exercise.ExerciseUtil;
-import main.server.PTMessage.PatientMessageUtil;
 import main.server.PT.*;
 import main.server.Activity.*;
+import main.server.PTMessage.PTMessageUtil;
 import main.server.Patient.*;
 import main.server.Entry.*;
 import main.server.Assignment.*;
 import main.server.Contain.*;
-import main.server.PatientMessage.PTMessageUtil;
+import main.server.PatientMessage.PatientMessageUtil;
 import main.server.PatientVideo.PatientVideoUtil;
+import main.server.Workout.WorkoutUtil;
 
 import java.sql.*;
 
@@ -61,11 +62,11 @@ public class Server {
 				get("/exercises", ExerciseUtil::getWorkoutExercises);
 
 				post("/create", (request, response) -> {
-					response.status(AssignmentUtil.registerAssignment(request));
+					response.status(WorkoutUtil.createWorkout(request));
 					return response.status();
 				});
 				post("/assign", (request, response) -> {
-					response.status(AssignmentUtil.registerAssignment(request));
+					response.status(AssignmentUtil.assignToPatients(request));
 					return response.status();
 				});
 				post("/register", (request, response) -> {

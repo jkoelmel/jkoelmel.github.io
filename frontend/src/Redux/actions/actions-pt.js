@@ -20,8 +20,9 @@ export const createNewPT = (pt) => {
 }
 //TODO SEND MESSAGE IF ERROR
 export const loginPTError = (err) => {
-    return { type: constants.CHECK_LOGIN_ERROR,
-            payload: err
+    return {
+        type: constants.CHECK_LOGIN_ERROR,
+        payload: err
     }
 }
 
@@ -29,20 +30,21 @@ export const loginPT = (pt) => {
     const params = new URLSearchParams()
     params.append("email", pt.email)
     params.append("password", pt.password)
-    console.log("params: ",params)
+    console.log("params: ", params)
 
     return (dispatch) => {
-        postAuth('/api/pt/login',params).then((res)=> {
+        postAuth('/api/pt/login', params).then((res) => {
             console.log("login status: ", res.data)
-            if(res.data == 200) {
+            if (res.data == 200) {
                 dispatch(getPTByEmail(pt.email))
-            }else {
+            } else {
                 console.log(res.data.payload.message)
                 // dispatch(loginPTError(res.data))
             }
-        }).catch((err)=> {
+        }).catch((err) => {
             dispatch(loginPTError('username or password is invalid.'))
-            console.log(err)})
+            console.log(err)
+        })
     }
 
 }
@@ -106,8 +108,8 @@ export const fetchExerciseVideos = () => {
     console.log('im here')
     return (dispatch) => {
         getAuth('/api/exercise/all')
-        .then((response)=> dispatch(loadExerciseVideos(response.data)))
-        .catch(err=> console.log(err))
+            .then((response) => dispatch(loadExerciseVideos(response.data)))
+            .catch(err => console.log(err))
     }
 }
 
@@ -115,6 +117,19 @@ export const loadExerciseVideos = (exercises) => {
     return {
         type: constantsWorkout.GET_EXERCISE_VIDEOS,
         payload: exercises
-
+   }
+   
+}
+export  const selectedExercises = (selectedVideos) => {
+    return {
+        type: constantsWorkout.GET_SELECTED_VIDEOS,
+        payload: selectedVideos
     }
 }
+
+export const setSelectedExercises = (selectedExercises)=> {
+    return (dispatch) => {
+        dispatch(selectedExercises(selectedExercises))
+    }
+        
+    }

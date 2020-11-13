@@ -6,10 +6,12 @@ import List from "@material-ui/core/List";
 import {Divider, ListItem, ListItemText, ListSubheader} from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import {makeStyles} from "@material-ui/core/styles";
-import ReactPlayer from "react-player";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import {Radio, RadioButtonChecked, RadioButtonUnchecked} from "@material-ui/icons";
+import Button from "@material-ui/core/Button";
+import {connect} from "react-redux";
+import {fetchPTsPatients} from "../../Redux/actions/actions-pt";
+const qs = require('qs');
 
 const useStyles = makeStyles((theme) => ({
 
@@ -31,13 +33,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const SavedWorkout = () => {
+const SavedWorkout = (props) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [workouts, setWorkouts] = React.useState([]);
     const [selectedWorkout, setSelectedWorkout] = React.useState('');
     const [exercises, setExercises] = React.useState([]);
-    const [checked, setChecked] = React.useState([]);
+    const [checkedWorkout, setCheckedWorkout] = React.useState([]);
     //TODO hard coded PT need to change to redux
     const fetchPTWorkouts = () => {
         axios.get('api/pt/workouts', {
@@ -79,25 +81,24 @@ const SavedWorkout = () => {
         fetchWorkoutExercises(selectedWorkout);
     }
 
-    const handleCheckToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
+    const handleWorkoutToggle = (value) => () => {
+        const currentIndex = checkedWorkout.indexOf(value);
+        const newcheckedWorkout = [...checkedWorkout];
 
         if (currentIndex === -1) {
-            newChecked.push(value);
+            newcheckedWorkout.push(value);
         } else {
-            newChecked.splice(currentIndex, 1);
+            newcheckedWorkout.splice(currentIndex, 1);
         }
 
-        setChecked(newChecked);
+        setCheckedWorkout(newcheckedWorkout);
 
     };
-    console.log(checked)
+    console.log(checkedWorkout)
 
     React.useEffect(() => {
         fetchPTWorkouts();
     }, []);
-
 
     return (
         <div className={classes.root}>
@@ -116,15 +117,14 @@ const SavedWorkout = () => {
                                     edge="end"
                                     tabIndex={-1}
                                     disableRipple
-                                    onChange={handleCheckToggle(w.workout_id)}
-                                    checked={checked.indexOf(w.workout_id) !== -1}
+                                    onChange={handleWorkoutToggle(w.workout_id)}
+                                    checkedWorkout={checkedWorkout.indexOf(w.workout_id) !== -1}
                                     inputProps={{ "aria-labelledby": `checkbox-list-label-${w.workout_id}` }}
                                 />
                             </ListItemSecondaryAction>
                         </ListItem>
                     </div>
                 ))}
-
             </List>
 
             <Modal
@@ -172,4 +172,13 @@ const SavedWorkout = () => {
     )
 }
 
-export default SavedWorkout
+export default connect((state) => ({
+        // The state of the pt, as defined by reducer-pt
+        pt: state.pt,
+        // The state of the pt's patients, defined by reducer-pt
+        patients: state.pt.patients
+    }), (dispatch) => ({
+        // The action from actions-pt which will effect reducer-pt
+        fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
+    })
+)(SavedWorkout);
