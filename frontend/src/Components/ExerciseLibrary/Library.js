@@ -136,6 +136,7 @@ const Library = (props) => {
                             </ListItemSecondaryAction>
                             <img className={classes.thumbnail} src={ev.thumbnail}/>
                         <Divider/>
+                        </ListItem>
                     </React.Fragment>
                 ))}
 

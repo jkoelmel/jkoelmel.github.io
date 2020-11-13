@@ -73,7 +73,7 @@ const AssignWorkout = (props, {checkedWorkout}) => {
             }
         }
 
-        axios.post('http://localhost:8080/api/pt/assign', params)
+        axios.post('api/pt/assign', params)
             .then((response) => {
                 if (response.data == 200) {
                     console.log("Message success")
