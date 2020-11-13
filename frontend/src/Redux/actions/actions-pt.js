@@ -115,6 +115,19 @@ export const loadExerciseVideos = (exercises) => {
     return {
         type: constantsWorkout.GET_EXERCISE_VIDEOS,
         payload: exercises
-
+   }
+   
+}
+export  const selectedExercises = (selectedVideos) => {
+    return {
+        type: constantsWorkout.GET_SELECTED_VIDEOS,
+        payload: selectedVideos
     }
 }
+
+export const setSelectedExercises = (selectedExercises)=> {
+    return (dispatch) => {
+        dispatch(selectedExercises(selectedExercises))
+    }
+        
+    }

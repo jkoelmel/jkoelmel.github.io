@@ -14,7 +14,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import {fetchExerciseVideos} from '../../Redux/actions/actions-pt';
+import {fetchExerciseVideos,selectedExercises} from '../../Redux/actions/actions-pt';
 import {connect} from 'react-redux';
 import {PlayArrow} from "@material-ui/icons";
 
@@ -67,7 +67,7 @@ const Library = (props) => {
         // fetchExerciseVideos();
         props.fetchExerciseVideos()
 
-    }, []);
+    }, [checked]);
     const handleVideoClick = (event, exercise_id) => {
         const index = selectedVideo.indexOf(exercise_id);
         const newIndex = [...selectedVideo];
@@ -102,7 +102,7 @@ const Library = (props) => {
 
     };
     console.log(checked)
-    console.log(props.exercises[0].exercise_id)
+    // console.log(props.exercises[0].exercise_id)
 
 
     return (
@@ -113,6 +113,7 @@ const Library = (props) => {
                 <ListSubheader className={classes.sticky}>Exercise Library</ListSubheader>
                 {props.exercises.map((ev) => (
                     <React.Fragment>
+                        <ListItem>
                             <ListItemIcon>
                                 <PlayArrow
                                     edge="start"
@@ -135,7 +136,7 @@ const Library = (props) => {
                             </ListItemSecondaryAction>
 
                             <img className={classes.thumbnail} src={ev.thumbnail}/>
-                        </ListItem>
+                            </ListItem>
                         <Divider/>
                     </React.Fragment>
 
@@ -176,5 +177,6 @@ export default connect((state) => ({
     }), (dispatch) => ({
         // The action from actions-pt which will effect reducer-pt
         fetchExerciseVideos: () => dispatch(fetchExerciseVideos())
+        
     })
 )(Library);
