@@ -6,7 +6,7 @@ import {Typography} from '@material-ui/core';
 import Library from "../../Components/ExerciseLibrary/Library";
 import SavedWorkout from "../../Components/SavedWorkout/SavedWorkout";
 import AssignWorkout from "../../Components/AssignWorkout/AssignWorkout";
-
+import CreateWorkout from "../../Components/CreateWorkout/CreateWorkout"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,6 +60,7 @@ const Exercise = () => {
     const classes = useStyles();
     // const [selectedWorkout, setSelectedWorkout] = React.useState([]);
     const [checkedWorkout, setCheckedWorkout] = React.useState([]);
+    const [checked, setChecked] = React.useState([]);
 
     return (
         <div className={classes.root}>
@@ -68,12 +69,13 @@ const Exercise = () => {
                     <Paper className={classes.paperLibrary} elevation={5}
                            style={{maxHeight: 700, overflowY: 'scroll', paddingTop: '0px'}}>
                         {/* <Typography>Exercise Library</Typography> */}
-                        <Library/>
+                        <Library checked={checked} setChecked={setChecked}/>
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
                     <Paper className={classes.paperWorkouts} elevation={5}>
                         <Typography>Create Workout</Typography>
+                        <CreateWorkout checked={checked} setChecked={setChecked}/>
                     </Paper>
                 </Grid>
                 <Grid item xs={3} direction={"column"}>

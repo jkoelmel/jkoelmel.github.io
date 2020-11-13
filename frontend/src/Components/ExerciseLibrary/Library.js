@@ -14,7 +14,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import {fetchExerciseVideos} from '../../Redux/actions/actions-pt';
+import {fetchExerciseVideos,selectedExercises} from '../../Redux/actions/actions-pt';
 import {connect} from 'react-redux';
 import {PlayArrow} from "@material-ui/icons";
 
@@ -66,7 +66,6 @@ const Library = (props) => {
     useEffect(() => {
         // fetchExerciseVideos();
         props.fetchExerciseVideos()
-
     }, []);
 
     const handleVideoClick = (event, exercise_id) => {
@@ -103,7 +102,7 @@ const Library = (props) => {
 
     };
     console.log(checked)
-    console.log(props.exercises[0].exercise_id)
+    // console.log(props.exercises[0].exercise_id)
 
 
     return (
@@ -176,5 +175,6 @@ export default connect((state) => ({
     }), (dispatch) => ({
         // The action from actions-pt which will effect reducer-pt
         fetchExerciseVideos: () => dispatch(fetchExerciseVideos())
+        
     })
 )(Library);
