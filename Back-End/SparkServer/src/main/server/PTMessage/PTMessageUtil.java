@@ -9,7 +9,7 @@ import spark.Response;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class PatientMessageUtil {
+public class PTMessageUtil {
 
     private final static String secret = "messageEncryption";
 
@@ -17,7 +17,7 @@ public class PatientMessageUtil {
         String toReturn = "";
 
         try {
-            PatientMessage message = new PatientMessage(Integer.parseInt(request.queryMap().get("patient_message_id").value()));
+            PTMessage message = new PTMessage(Integer.parseInt(request.queryMap().get("patient_message_id").value()));
             Gson gson = new Gson();
             String mySQLtoSHA = AES.decrypt(message.getMessage(), secret);
             message.setMessage(AES.decrypt(mySQLtoSHA, secret));
@@ -44,9 +44,9 @@ public class PatientMessageUtil {
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(query)) {
             ResultSet rs = pst.executeQuery();
-            ArrayList<PatientMessage> list = new ArrayList<>();
+            ArrayList<PTMessage> list = new ArrayList<>();
             while (rs.next()) {
-                PatientMessage message = new PatientMessage(rs.getInt("patient_message_id"));
+                PTMessage message = new PTMessage(rs.getInt("patient_message_id"));
                 String contents = AES.decrypt(rs.getString("message"), secret).split("-")[0];
                 message.setMessage(contents);
                 message.setCreated_On(rs.getTimestamp("created_on"));
@@ -73,7 +73,7 @@ public class PatientMessageUtil {
 
     public static Integer registerMessage(Request request) {
         try {
-            PatientMessage message = new PatientMessage(null);
+            PTMessage message = new PTMessage(null);
 
             message.createMessage(request.queryMap().get("message").value(),
                     Integer.parseInt(request.queryMap().get("patient").value()),
