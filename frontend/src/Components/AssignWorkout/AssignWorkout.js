@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AssignWorkout = (props) => {
+const AssignWorkout = (props, {checkedWorkout}) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [checked, setChecked] = React.useState([]);
@@ -63,10 +63,10 @@ const AssignWorkout = (props) => {
     }
 
     const assignToPatients = () => {
-        axios.post('http://localhost:8080/api/pt/create', {
+        axios.post('api/pt/create', {
             params: {
                 pt: 1,
-                workout: [1, 2],
+                workout: checkedWorkout,
                 patient: checked
             }
         })

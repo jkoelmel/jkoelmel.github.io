@@ -82,7 +82,7 @@ const Exercise = () => {
                         <SavedWorkout/>
                     </Paper>
                     <Paper className={classes.paperPatients} elevation={5}>
-                        <AssignWorkout checkedWorkout={checkedWorkout} setCheckedWorkout={setCheckedWorkout}/>
+                        <AssignWorkout checkedWorkout={checkedWorkout} />
                     </Paper>
                 </Grid>
             </Grid>
