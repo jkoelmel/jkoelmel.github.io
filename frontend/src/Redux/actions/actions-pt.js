@@ -117,10 +117,10 @@ export const loadExerciseVideos = (exercises) => {
     return {
         type: constantsWorkout.GET_EXERCISE_VIDEOS,
         payload: exercises
-   }
-   
+    }
+
 }
-export  const setSelectedExercises = (selectedVideos) => {
+export const selectedExercises = (selectedVideos) => {
     return {
         type: constantsWorkout.GET_SELECTED_VIDEOS,
         payload: selectedVideos
@@ -135,3 +135,9 @@ export const setSelectedWorkouts = (savedWorkouts) => {
 }
 
 
+export const setSelectedPatient = (patient) => {
+    return {
+        type: constants.SET_SELECTED_PATIENT,
+        payload: patient
+    }
+}

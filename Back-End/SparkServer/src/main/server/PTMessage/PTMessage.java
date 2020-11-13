@@ -1,4 +1,4 @@
-package main.server.PatientMessage;
+package main.server.PTMessage;
 
 import main.server.AES.AES;
 import main.server.Server;
@@ -40,7 +40,7 @@ public class PTMessage {
     }
 
     public PTMessage getMessageContents() throws Exception {
-        String messageQuery = "SELECT * FROM pt_message WHERE message_id = " + this.message_id;
+        String messageQuery = "SELECT * FROM patient_message WHERE patient_message_id = " + this.message_id;
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -51,8 +51,9 @@ public class PTMessage {
 
             ResultSet rs = pst.executeQuery();
             if(rs.next()) {
-                setmessage_id(rs.getInt("message_id"));
+                setmessage_id(rs.getInt("patient_message_id"));
                 setMessage(rs.getString("message"));
+                setCreated_On(rs.getTimestamp("created_on"));
                 setPatient(rs.getInt("patient"));
                 setPt(rs.getInt("pt"));
             }

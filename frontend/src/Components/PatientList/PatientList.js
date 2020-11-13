@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, {useEffect, useState} from 'react'
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import {createNewPT, fetchPTsPatients} from '../../Redux/actions/actions-pt';
+import {makeStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
+import {createNewPT, fetchPTsPatients, setSelectedPatient} from '../../Redux/actions/actions-pt';
 
 import './PatientList.css'
-import { ListItem, ListItemText } from '@material-ui/core';
+import {ListItem, ListItemText} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 const PatientList = (props) => {
     const classes = useStyles();
-    const [selectedPatient, setSelectedPatient] = useState({}); //patient object
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -43,7 +42,7 @@ const PatientList = (props) => {
     const handlePatientClick = (e, patientId) => {
         props.patients.map((p) => {
             if (p.patient_id === patientId) {
-                setSelectedPatient(p)
+                props.setSelectedPatient(p)
             }
         })
         setOpen(true)
@@ -57,35 +56,35 @@ const PatientList = (props) => {
     return (
         <div>
             <List component="nav" aria-label="patient-list"
-                className={classes.patientList}
-                subheader={
-                    <ListSubheader component="div" color="inherit" className={classes.sticky}>
-                        Patient List
-              </ListSubheader>
-                }>
+                  subheader={
+                      <ListSubheader className={classes.sticky}>
+                          Patient List
+                      </ListSubheader>
+                  }>
                 {props.patients.map((p) => (
                     <ListItem
                         key={p.patient_id}
                         button
-                        selected={selectedPatient === p.patient_id}
+                        selected={props.selectedPatient === p.patient_id}
                         onClick={(event) => handlePatientClick(event, p.patient_id)}>
-                        <ListItemText primary={`${p.f_name} ${p.l_name}`} />
+                        <ListItemText primary={`${p.f_name} ${p.l_name}`}/>
                     </ListItem>
                 ))}
 
             </List>
-            <Divider />
+            <Divider/>
             <List component="nav" aria-label="patient-list"
-                className={classes.patientList}
-                subheader={
-                    <ListSubheader component="div" color="inherit" className={classes.sticky} id="potential-patient-list">
-                        Potential Patient List
-              </ListSubheader>
-                }>
+                  className={classes.patientList}
+                  subheader={
+                      <ListSubheader component="div" color="inherit" className={classes.sticky}
+                                     id="potential-patient-list">
+                          Potential Patient List
+                      </ListSubheader>
+                  }>
 
                 <ListItem
                     button>
-                    <ListItemText secondary='no available potential patients' />
+                    <ListItemText secondary='no available potential patients'/>
                 </ListItem>
             </List>
             <Modal
@@ -104,17 +103,18 @@ const PatientList = (props) => {
                     <div className={classes.paper}>
                         <List>
                             <ListItem>
-                                <ListItemText primary={`Full Name`} secondary={`${selectedPatient.f_name} ${selectedPatient.l_name}`} />
+                                <ListItemText primary={`Full Name`}
+                                              secondary={`${props.selectedPatient.f_name} ${props.selectedPatient.l_name}`}/>
                             </ListItem>
-                            <Divider />
+                            <Divider/>
                             <ListItem>
-                                <ListItemText primary={`Email`} secondary={`${selectedPatient.email}`} />
+                                <ListItemText primary={`Email`} secondary={`${props.selectedPatient.email}`}/>
                             </ListItem>
-                            <Divider />
+                            <Divider/>
                             <ListItem>
-                                <ListItemText primary={`Company Name`} secondary={`${selectedPatient.company}`} />
+                                <ListItemText primary={`Company Name`} secondary={`${props.selectedPatient.company}`}/>
                             </ListItem>
-                            <Divider />
+                            <Divider/>
                         </List>
                     </div>
                 </Fade>
@@ -124,54 +124,16 @@ const PatientList = (props) => {
     )
 }
 export default connect((state) => ({
-    // The state of the pt, as defined by reducer-pt
-    pt: state.pt,
-    // The state of the pt's patients, defined by reducer-pt
-    patients: state.pt.patients
-}), (dispatch) => ({
-    // The action from actions-pt which will effect reducer-pt
-    fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
-    createNewPT: (pt) => dispatch(createNewPT(pt)),
-})
+        // The state of the pt, as defined by reducer-pt
+        pt: state.pt,
+        // The state of the pt's patients, defined by reducer-pt
+        patients: state.pt.patients,
+        selectedPatient: state.pt.selectedPatient
+    }), (dispatch) => ({
+        // The action from actions-pt which will effect reducer-pt
+        fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
+        createNewPT: (pt) => dispatch(createNewPT(pt)),
+        setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient))
+    })
 )(PatientList);
 
-{/* <List component = "nav" aria-label="patient-list"
-style={{maxHeight: 200, overflow: 'scroll'} }
-subheader={
-    <ListSubheader component="div" color="inherit" className="patient-list">
-    Patient List
-  </ListSubheader>
-  
-}>
-    <ListItem 
-    button
-    selected= {selectedPatient == 0}
-    onClick={(event) => handlePatientClick(event, 0)}>
-        <ListItemText primary = "John Smith"/> 
-    </ListItem>
-    
-    <ListItem button>
-        <ListItemText primary = "Steph Curry"/> 
-    </ListItem>
-    <ListItem button>
-        <ListItemText primary = "Michael Jordan"/> 
-    </ListItem>
-    </List>
-
-    <List component = "nav" aria-label="patient-list"
-        style={{maxHeight: 200, overflow: 'scroll'}}
-        subheader={
-    <ListSubheader component="div" color="inherit" id="potential-patient-list">
-    Potential Patient List
-  </ListSubheader>
-}>
-    <ListItem button>
-        <ListItemText primary = "Bruce Lee"/> 
-    </ListItem>
-    <ListItem button>
-        <ListItemText primary = "Peter Hu"/> 
-    </ListItem>
-    <ListItem button>
-        <ListItemText primary = "Bob theBuilder"/> 
-    </ListItem>
-</List> */}

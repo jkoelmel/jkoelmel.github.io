@@ -39,6 +39,7 @@ const SavedWorkout = (props) => {
     const [exercises, setExercises] = React.useState([]);
 
     //TODO hard coded PT need to change to redux
+
     const fetchPTWorkouts = () => {
         axios.get('api/pt/workouts', {
             params: {
