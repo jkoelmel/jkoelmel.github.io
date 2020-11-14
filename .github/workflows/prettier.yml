@@ -7,7 +7,6 @@ on:
   pull_request:
   push:
     branches:
-    - master
     - development
     - eric-be-workout
 
