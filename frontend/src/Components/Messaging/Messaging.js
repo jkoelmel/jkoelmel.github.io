@@ -14,7 +14,7 @@ const Messaging = (props) => {
     }, [props.pt.selectedPatient.patient_id]);
 
     const fetchMessages = () => {
-        axios.get('http://localhost:8080/api/pt/message/id', {
+        axios.get('api/pt/message/id', {
             params: {
                 pt: props.pt.pt_id,
                 patient: props.pt.selectedPatient.patient_id
