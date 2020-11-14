@@ -82,7 +82,7 @@ const CreateWorkout = (props) => {
                                 <Divider />
                                 <ListItem>
                                     <ListItemText>
-                                        {props.exercises[k].title}
+                                        {props.exercises[props.selectedVideos[k] - 1].title}
                                     </ListItemText>
                                 <TextField
                                     key={`description-${props.exercises[k].exercise_id}`}
