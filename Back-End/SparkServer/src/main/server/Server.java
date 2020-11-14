@@ -62,7 +62,7 @@ public class Server {
 				get("/exercises", ExerciseUtil::getWorkoutExercises);
 
 				post("/create", (request, response) -> {
-					response.status(WorkoutUtil.createWorkout(request));
+					response.status(ContainUtil.createWorkout(request));
 					return response.status();
 				});
 				post("/assign", (request, response) -> {

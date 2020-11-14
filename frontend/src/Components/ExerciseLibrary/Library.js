@@ -106,7 +106,7 @@ const Library = (props) => {
                                     inputprops={{'aria-labelledby': `checkbox-list-label-${ev.exercise_id}`}}
                                 />
                             </ListItemIcon>
-                           
+
                         <ListItemSecondaryAction>
                                 <Checkbox
                                     edge="end"

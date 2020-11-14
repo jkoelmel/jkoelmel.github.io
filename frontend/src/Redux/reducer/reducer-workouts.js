@@ -9,7 +9,7 @@ const initialWorkoutState = {
     thumbnail: '',
     exercises: [{}],
     selectedVideos: [],
-    savedWorkouts: [],
+    selectedWorkouts: [],
     
 };
 
@@ -32,7 +32,7 @@ const WorkoutReducer = handleActions({
 
     return {
         ...state,
-        savedWorkouts: action.payload
+        selectedWorkouts: action.payload
     }
 }
 

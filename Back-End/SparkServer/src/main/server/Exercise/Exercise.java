@@ -21,7 +21,7 @@ public class Exercise {
     public void createExercise(String exercise_url, String title,
                                String description, String tags) throws Exception {
         String exerciseQuery = "INSERT INTO exercise(exercise_id, exercise_url, thumbnail, title, description, tags) " +
-                "VALUES(null, ?, ?, ?, ?)";
+                "VALUES(null, ?, ?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
