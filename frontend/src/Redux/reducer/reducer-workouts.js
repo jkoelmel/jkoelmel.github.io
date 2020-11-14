@@ -9,8 +9,7 @@ const initialWorkoutState = {
     thumbnail: '',
     exercises: [{}],
     selectedVideos: [],
-    savedWorkouts: [],
-    pt_id: ''
+    selectedWorkouts: [],
     
 };
 
@@ -33,7 +32,7 @@ const WorkoutReducer = handleActions({
 
     return {
         ...state,
-        savedWorkouts: action.payload
+        selectedWorkouts: action.payload
     }
 },
 // [constants.CREATE_NEW_WORKOUT] : (state,action) => {

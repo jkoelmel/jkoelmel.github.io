@@ -146,10 +146,10 @@ export const selectedExercises = (selectedVideos) => {
     }
 }
 
-export const setSelectedWorkouts = (savedWorkouts) => {
+export const setSelectedWorkouts = (selectedWorkouts) => {
     return {
         type: constantsWorkout.GET_SELECTED_WORKOUTS,
-        payload: savedWorkouts
+        payload: selectedWorkouts
     }
 }
 

@@ -96,6 +96,7 @@ const Library = (props) => {
                 <ListSubheader color="inherit" className={classes.sticky}>Exercise Library</ListSubheader>
                 {props.exercises.map((ev,k) => (
                     <React.Fragment key={k}>
+                        <Divider/>
                         <ListItem>
                             <ListItemIcon>
                                 <PlayArrow
@@ -106,7 +107,7 @@ const Library = (props) => {
                                     inputprops={{'aria-labelledby': `checkbox-list-label-${ev.exercise_id}`}}
                                 />
                             </ListItemIcon>
-                           
+
                         <ListItemSecondaryAction>
                                 <Checkbox
                                     edge="end"
@@ -118,7 +119,6 @@ const Library = (props) => {
                                 />
                             </ListItemSecondaryAction>
                             <img className={classes.thumbnail} src={ev.thumbnail}/>
-                        <Divider/>
                         </ListItem>
                     </React.Fragment>
                 ))}

@@ -71,6 +71,51 @@ public class PTMessageUtil {
         return toReturn;
     }
 
+    public static String getPatPtMessages(Request request, Response response) {
+
+        String toReturn = "";
+        String query = "SELECT * FROM pt_message WHERE patient = " +
+                Integer.parseInt(request.queryMap().get("patient").value()) + " AND pt = " +
+                Integer.parseInt(request.queryMap().get("pt").value()) +
+                " UNION ALL SELECT * from patient_message WHERE patient = " +
+                Integer.parseInt(request.queryMap().get("patient").value()) + " AND pt = " +
+                Integer.parseInt(request.queryMap().get("pt").value()) +
+                " ORDER BY created_on ASC";
+
+        try (Connection con = DriverManager.getConnection(
+                Server.databasePath,
+                Server.databaseUsername,
+                Server.databasePassword);
+             PreparedStatement pst = con.prepareStatement(query)) {
+            ResultSet rs = pst.executeQuery();
+            ArrayList<PTMessage> list = new ArrayList<>();
+            while (rs.next()) {
+                PTMessage message = new PTMessage(null);
+                String contents = AES.decrypt(rs.getString("message"), secret).split("-")[0];
+                message.setMessage(contents);
+                message.setCreated_On(rs.getTimestamp("created_on"));
+                message.setPatient(rs.getInt("patient"));
+                message.setPt(rs.getInt("pt"));
+
+                list.add(message);
+            }
+            Gson gson = new Gson();
+            toReturn = gson.toJson(list);
+
+            System.out.println("All messages between patient and pt have been selected");
+            response.type("application/json");
+            response.status(200);
+        } catch (SQLException sqlEx) {
+            System.err.println(sqlEx.toString());
+            response.status(500);
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+            response.status(400);
+        }
+
+        return toReturn;
+    }
+
     public static Integer registerMessage(Request request) {
         try {
             PTMessage message = new PTMessage(null);
@@ -88,3 +133,4 @@ public class PTMessageUtil {
         }
     }
 }
+

@@ -1,3 +1,6 @@
+//Test component to see if a summation of all activity
+//is worthwhile to the application
+
 import React from 'react'
 import axios from "axios";
 import List from "@material-ui/core/List";
@@ -21,14 +24,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ActivitySummary = ({selectedPatient, setSelectedPatient}) => {
+const ActivitySummary = () => {
     const classes = useStyles();
     const [activity, setActivity] = React.useState([]);
 
     const fetchSummaryInfo = () => {
-        axios.get('api/pt/patient-activity', {
+        axios.get('api/pt/summary', {
             params: {
-                patient: selectedPatient,
                 pt: 1
             }
         }).then((response) => {

@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AssignWorkout = (props, {checkedWorkout}) => {
+const AssignWorkout = (props) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [checked, setChecked] = React.useState([]);
@@ -64,13 +64,13 @@ const AssignWorkout = (props, {checkedWorkout}) => {
 
     const assignToPatients = () => {
         const params = new URLSearchParams();
-        params.append("pt", 1);
+        params.append("pt", props.pt.pt_id);
 
         for (let i = 0; i < checked.length; i++) {
-            for (let j = 0; j < checkedWorkout.length; j++) {
-                params.append("workout", checkedWorkout[j]);
-                params.append("patient", checked[i])
-            }
+            params.append("patient", checked[i])
+        }
+        for (let j = 0; j < props.selectedWorkouts.length; j++) {
+            params.append("workout", props.selectedWorkouts[j]);
         }
 
         axios.post('api/pt/assign', params)
@@ -111,7 +111,7 @@ const AssignWorkout = (props, {checkedWorkout}) => {
                 ))}
 
             </List>
-            <Button onClick={assignToPatients}>ASSIGN TO...</Button>
+            <Button onClick={assignToPatients}>ASSIGN</Button>
 
             <Modal
                 aria-labelledby="transition-modal-title"
@@ -144,9 +144,11 @@ export default connect((state) => ({
         // The state of the pt, as defined by reducer-pt
         pt: state.pt,
         // The state of the pt's patients, defined by reducer-pt
-        patients: state.pt.patients
+        patients: state.pt.patients,
+        selectedWorkouts: state.exercises.selectedWorkouts
     }), (dispatch) => ({
         // The action from actions-pt which will effect reducer-pt
         fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
+
     })
 )(AssignWorkout);

@@ -18,7 +18,7 @@ public class Workout {
     }
     
     public void createWorkout(String title, Integer pt) throws Exception{
-        String workoutQuery = "INSERT INTO workout(workout_id,title, pt) VALUES (NULL,?, ?)";
+        String workoutQuery = "INSERT INTO workout(workout_id,title, pt) VALUES (NULL, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -26,11 +26,10 @@ public class Workout {
                 Server.databasePassword);
              PreparedStatement pst = con.prepareStatement(workoutQuery)) {
 
-            pst.setString(1,title);
+            pst.setString(1, title);
             pst.setInt(2, pt);
             pst.executeUpdate();
 
-            pst.executeUpdate(workoutQuery);
             System.out.println("Workout added to database");
         } catch(SQLException ex){
             throw new Exception("Error inserting workout: " + ex.toString());

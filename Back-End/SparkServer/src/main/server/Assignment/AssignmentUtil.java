@@ -2,7 +2,6 @@ package main.server.Assignment;
 
 import com.google.gson.Gson;
 import main.server.PatientAssignment.PatientAssignment;
-import main.server.PatientVideo.PatientVideo;
 import main.server.Server;
 import main.server.Workout.Workout;
 import spark.Request;
@@ -10,7 +9,6 @@ import spark.Response;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -170,9 +168,6 @@ public class AssignmentUtil {
         try {
             for(int i = 0; i < (request.queryParamsValues("workout").length); i++) {
                 for(int j = 0; j < (request.queryParamsValues("patient").length); j++) {
-//                    System.out.println(request.queryMap().toMap());
-//                    System.out.println(Arrays.toString(request.queryParamsValues("workout")));
-//                    System.out.println(request.queryParamsValues("workout").length);
                     Assignment assignment = new Assignment(null);
                     assignment.createAssignment(Integer.parseInt(request.queryMap().get("pt").value()),
                             Integer.parseInt(request.queryParamsValues("workout")[i]),

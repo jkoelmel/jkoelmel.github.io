@@ -38,12 +38,10 @@ const SavedWorkout = (props) => {
     const [workouts, setWorkouts] = React.useState([]);
     const [exercises, setExercises] = React.useState([]);
 
-    //TODO hard coded PT need to change to redux
-
     const fetchPTWorkouts = () => {
         axios.get('api/pt/workouts', {
             params: {
-                pt: 1
+                pt: props.pt.pt_id
             }
         }).then((response) => {
 
@@ -81,8 +79,8 @@ const SavedWorkout = (props) => {
     }
 
     const handleWorkoutToggle = (value) => () => {
-        const currentIndex = props.savedWorkouts.indexOf(value);
-        const newcheckedWorkout = [...props.savedWorkouts];
+        const currentIndex = props.selectedWorkouts.indexOf(value);
+        const newcheckedWorkout = [...props.selectedWorkouts];
 
         if (currentIndex === -1) {
             newcheckedWorkout.push(value);
@@ -90,7 +88,6 @@ const SavedWorkout = (props) => {
             newcheckedWorkout.splice(currentIndex, 1);
         }
 
-        // setCheckedWorkout(newcheckedWorkout);
         props.setSelectedWorkouts(newcheckedWorkout);
         
     };
@@ -107,7 +104,7 @@ const SavedWorkout = (props) => {
                     <div key={k}>
                         <ListItem
                             button
-                            selected={props.savedWorkouts == w.workout_id}
+                            selected={props.selectedWorkouts == w.workout_id}
                             onClick={(event) => handleWorkoutClick(event, w.workout_id)}>
                             {w.title}
                             <ListItemSecondaryAction>
@@ -116,7 +113,7 @@ const SavedWorkout = (props) => {
                                     tabIndex={-1}
                                     disableRipple
                                     onChange={handleWorkoutToggle(w.workout_id)}
-                                    checked={props.savedWorkouts.indexOf(w.workout_id) !== -1}
+                                    checked={props.selectedWorkouts.indexOf(w.workout_id) !== -1}
                                     inputProps={{ "aria-labelledby": `checkbox-list-label-${w.workout_id}` }}
                                 />
                             </ListItemSecondaryAction>
@@ -174,10 +171,10 @@ export default connect((state) => ({
         pt: state.pt,
         // The state of the pt's patients, defined by reducer-pt
         patients: state.pt.patients,
-        savedWorkouts: state.exercises.savedWorkouts
+        selectedWorkouts: state.exercises.selectedWorkouts
     }), (dispatch) => ({
         // The action from actions-pt which will effect reducer-pt
         fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
-        setSelectedWorkouts: (savedWorkouts) => dispatch(setSelectedWorkouts(savedWorkouts))
+        setSelectedWorkouts: (selectedWorkouts) => dispatch(setSelectedWorkouts(selectedWorkouts))
     })
 )(SavedWorkout);
