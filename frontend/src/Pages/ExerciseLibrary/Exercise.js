@@ -43,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
         height: 400,
         width: 300,
         marginTop: 10,
-        marginLeft: 50
+        marginLeft: 50,
+        overflowY: "scroll"
     },
     paperPatients: {
         padding: theme.spacing(2),
@@ -74,7 +75,7 @@ const Exercise = () => {
                 </Grid>
                 <Grid item xs={3}>
                     <Paper className={classes.paperWorkouts} elevation={5}>
-                        <Typography>Create Workout</Typography>
+                        <Typography >Create Workout</Typography>
                         <CreateWorkout checked={checked} setChecked={setChecked}/>
                     </Paper>
                 </Grid>

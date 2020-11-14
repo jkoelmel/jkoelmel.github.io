@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     },
     sticky: {
         backgroundColor: 'white',
-        color: 'theme.palette.secondary',
         fontSize: 18
 
     },
@@ -94,7 +93,7 @@ const Library = (props) => {
 
         <div className={classes.root}>
             <List component="nav" aria-label="video-list">
-                <ListSubheader className={classes.sticky}>Exercise Library</ListSubheader>
+                <ListSubheader color="inherit" className={classes.sticky}>Exercise Library</ListSubheader>
                 {props.exercises.map((ev,k) => (
                     <React.Fragment key={k}>
                         <ListItem>
@@ -108,7 +107,6 @@ const Library = (props) => {
                                 />
                             </ListItemIcon>
                            
-                        <img className={classes.thumbnail} src={ev.thumbnail}/>
                         <ListItemSecondaryAction>
                                 <Checkbox
                                     edge="end"
