@@ -10,7 +10,6 @@ const initialWorkoutState = {
     exercises: [{}],
     selectedVideos: [],
     selectedWorkouts: [],
-    
 };
 
 const WorkoutReducer = handleActions({

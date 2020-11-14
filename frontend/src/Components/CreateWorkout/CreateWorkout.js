@@ -4,12 +4,12 @@ import Grid from '@material-ui/core/Grid';
 import List from "@material-ui/core/List";
 import { Divider, ListItem, ListItemText,Button } from "@material-ui/core";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import {createWorkout, fetchExerciseVideos, selectedExercises} from '../../Redux/actions/actions-pt';
-import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
-import Paper from '@material-ui/core/Paper';
-import SendIcon from '@material-ui/icons/Send';
-// import {createWorkout} from '../../Redux/actions/actions-pt';
+import {
+    createWorkout,
+    fetchExerciseVideos,
+    selectedExercises,
+    setVideoDescriptions
+} from '../../Redux/actions/actions-pt';
 
 import { connect } from 'react-redux';
 
@@ -22,42 +22,35 @@ const useStyles = makeStyles((theme) => ({
         //   margin: theme.spacing(1),
           width: '25ch',
         },
-    }
+    },
+    sticky: {
+        color: "secondary",
+        fontWeight: "bold",
+    },
 }));
 
 const CreateWorkout = (props) => {
     const classes = useStyles();
-    const [openDescription, setOpenDescription] = React.useState(false)
-    const [descriptionTitleID, setDescriptionTitleID] = React.useState('') //used for description title textbox
     const [description, setDescription] = React.useState('')
-    const [videoDescriptions, setVideoDescriptions] = React.useState([])
+    const [videoDescriptions, setVideoDescriptions] = React.useState([]);
     const [workoutTitle,setWorkoutTitle] = React.useState('')
-    const handleDescriptionToggle = (id) => {
-        console.log(id)
-        setOpenDescription(!openDescription)
 
-    }
-    //TODO fix the description population on submit instead of
-    //in real time
+
     const submitDescription = (desc, index) => {
-        // const currentIndex = videoDescription.indexOf(i)
-        // const newDescription = [...videoDescriptions]
-        // if(currentIndex == -1) {
-        //     newDescription.push(vd)
-        // }else {
-        //     newDescription.splice(currentIndex,1);
-        // }
+
         setDescription(desc);
-        console.log(description);
 
         let instructions = [...videoDescriptions];
         instructions[index] = description;
         setVideoDescriptions([...instructions]);
-        console.log(videoDescriptions);
     }
+    //check updates
+    console.log(workoutTitle);
+    console.log(videoDescriptions);
 
     const submitWorkout = () => {
-        props.createWorkout(props.pt.pt_id,workoutTitle,props.selectedVideos,videoDescriptions)
+        props.createWorkout(props.pt, workoutTitle, props.selectedVideos,
+            videoDescriptions)
     }
 
     return (
@@ -79,7 +72,7 @@ const CreateWorkout = (props) => {
 
                 <Grid item>
                     <List subheader={
-                        <ListSubheader color="secondary" className={classes.sticky}>
+                        <ListSubheader className={classes.sticky}>
                             Exercises
                         </ListSubheader>
                     }>
@@ -123,12 +116,12 @@ export default connect((state) => ({
     pt: state.pt,
     // The state of exercise, as defined by RootReducer
     exercises: state.exercises.exercises,
-    selectedVideos: state.exercises.selectedVideos
+    selectedVideos: state.exercises.selectedVideos,
 
 }), (dispatch) => ({
     // The action from actions-pt which will effect reducer-pt
     fetchExerciseVideos: () => dispatch(fetchExerciseVideos()),
     selectedExercises: (selectedVideos) => dispatch(selectedExercises(selectedVideos)),
-    createWorkout: (ptId,title,selectedVideos,descriptions) => dispatch(createWorkout(ptId,title,selectedVideos,descriptions))
+    createWorkout: (pt, title, exercises, descriptions) => dispatch(createWorkout(pt, title, exercises, descriptions))
 })
 )(CreateWorkout);
