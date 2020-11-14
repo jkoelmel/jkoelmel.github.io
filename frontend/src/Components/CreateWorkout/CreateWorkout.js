@@ -4,57 +4,53 @@ import Grid from '@material-ui/core/Grid';
 import List from "@material-ui/core/List";
 import { Divider, ListItem, ListItemText,Button } from "@material-ui/core";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import { fetchExerciseVideos, selectedExercises } from '../../Redux/actions/actions-pt';
-import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
-import Paper from '@material-ui/core/Paper';
-import SendIcon from '@material-ui/icons/Send';
-// import {createWorkout} from '../../Redux/actions/actions-pt';
+import {
+    createWorkout,
+    fetchExerciseVideos,
+    selectedExercises,
+    setVideoDescriptions
+} from '../../Redux/actions/actions-pt';
 
 import { connect } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
 import { Create } from '@material-ui/icons';
+import ListSubheader from "@material-ui/core/ListSubheader";
 const useStyles = makeStyles((theme) => ({
     root: {
         '& .MuiTextField-root': {
         //   margin: theme.spacing(1),
           width: '25ch',
         },
-    }
+    },
+    sticky: {
+        color: "secondary",
+        fontWeight: "bold",
+    },
 }));
 
 const CreateWorkout = (props) => {
     const classes = useStyles();
-    const [openDescription, setOpenDescription] = React.useState(false)
-    const [descriptionTitleID, setDescriptionTitleID] = React.useState('') //used for description title textbox
     const [description, setDescription] = React.useState('')
-    const [videoDescriptions, setVideoDescriptions] = React.useState([])
+    const [videoDescriptions, setVideoDescriptions] = React.useState([]);
     const [workoutTitle,setWorkoutTitle] = React.useState('')
-    const handleDescriptionToggle = (id) => {
-        console.log(id)
-        setOpenDescription(!openDescription)
 
-    }
-    // console.log(videoDescription[0])
-    const submitDescription = (e,vd,i) => {
-        // const currentIndex = videoDescription.indexOf(i)
-        // const newDescription = [...videoDescriptions]
-        // if(currentIndex == -1) {
-        //     newDescription.push(vd)
-        // }else {
-        //     newDescription.splice(currentIndex,1);
-        // }
-        
-        setVideoDescriptions([...videoDescriptions,{description}])
-    }
 
-    console.log(videoDescriptions.map((d,i)=> {
-        return d
-    }))
+    const submitDescription = (desc, index) => {
+
+        setDescription(desc);
+
+        let instructions = [...videoDescriptions];
+        instructions[index] = description;
+        setVideoDescriptions([...instructions]);
+    }
+    //check updates
+    console.log(workoutTitle);
+    console.log(videoDescriptions);
 
     const submitWorkout = () => {
-        // props.createWorkout(100,workoutTitle,props.selectedVideos,videoDescriptions)
+        props.createWorkout(props.pt, workoutTitle, props.selectedVideos,
+            videoDescriptions)
     }
 
     return (
@@ -75,30 +71,31 @@ const CreateWorkout = (props) => {
                 </Grid>
 
                 <Grid item>
-                    <List >
+                    <List subheader={
+                        <ListSubheader className={classes.sticky}>
+                            Exercises
+                        </ListSubheader>
+                    }>
                         
                         {props.selectedVideos.map((ev, k) => (
                             <React.Fragment key={k}>
                                 <Divider />
                                 <ListItem>
                                     <ListItemText>
-                                        Exercise {props.exercises[k].title}</ListItemText>
+                                        {props.exercises[k].title}
+                                    </ListItemText>
                                 <TextField
                                     key={`description-${props.exercises[k].exercise_id}`}
-                                    placeholder="exercise Description"
+                                    placeholder="Exercise Instructions"
                                     label="Description"
                                     variant="outlined"
                                     color="secondary"
                                     // value = {description}
-                                    onChange={(e)=> {setDescription(e.target.value)}}
+                                    onChange={(e) => {setDescription(e.target.value)}}
+                                    onBlur={(e)=> {submitDescription(e.target.value, k)}}
                                     multiline
                                     rows={4} />
                                     <ListItemIcon>
-                                <SendIcon
-                                    edge="start"
-                                    onClick={(event) => submitDescription(event, description,k)}
-                                    inputprops={{'aria-labelledby': `checkbox-list-label-${props.exercises[k].exercise_id}`}}
-                                />
                             </ListItemIcon>
                                 <Divider />
                                 </ListItem>
@@ -119,12 +116,12 @@ export default connect((state) => ({
     pt: state.pt,
     // The state of exercise, as defined by RootReducer
     exercises: state.exercises.exercises,
-    selectedVideos: state.exercises.selectedVideos
+    selectedVideos: state.exercises.selectedVideos,
 
 }), (dispatch) => ({
     // The action from actions-pt which will effect reducer-pt
     fetchExerciseVideos: () => dispatch(fetchExerciseVideos()),
     selectedExercises: (selectedVideos) => dispatch(selectedExercises(selectedVideos)),
-    // createWorkout: (ptId,title,selectedVideos,descriptions) => dispatch(createWorkout(ptId,title,selectedVideos,descriptions))
+    createWorkout: (pt, title, exercises, descriptions) => dispatch(createWorkout(pt, title, exercises, descriptions))
 })
 )(CreateWorkout);

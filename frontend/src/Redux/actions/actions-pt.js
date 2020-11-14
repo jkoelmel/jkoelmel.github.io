@@ -48,24 +48,27 @@ export const loginPT = (pt) => {
     }
 
 }
-//TODO CREATE WORKOUT
-// export const createWorkout = (ptId,title,selectedVideos,descriptions)=> {
-//     const params = new URLSearchParams()
-//     params.append("title",title)
-//     params.append("pt_id",ptId)
-//     console.log(params)
 
-//     for(let i = 0; i < selectedVideos.length;i++) {
-//         params.append("exercise_id",selectedVideos)
-//         params.append("description",descriptions)
-//     }
-//     postAuth('/api/pt/create', params).then((res) => {
-//         if (res.data == 200) {
-//            console.log(res.data)
-//         }
-//     }).catch((err) => {console.log(err)
-//     })
-// }
+export const createWorkout = (pt, title, exercises, descriptions)=> {
+
+    const params = new URLSearchParams()
+    params.append("pt", pt.pt_id)
+    params.append("title", title)
+
+    for(let i = 0; i < exercises.length; i++) {
+        params.append("exercise_id", exercises[i]);
+        params.append("description", descriptions[i]);
+    }
+    return () => {
+        postAuth('/api/pt/create', params).then((res) => {
+            if (res.data == 200) {
+                console.log(res.data)
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+}
 
 
 export const createPT = (pt) => {
@@ -160,3 +163,4 @@ export const setSelectedPatient = (patient) => {
         payload: patient
     }
 }
+
