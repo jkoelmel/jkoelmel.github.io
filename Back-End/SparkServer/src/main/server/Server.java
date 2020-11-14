@@ -57,7 +57,8 @@ public class Server {
 				get("/email", PTUtil::selectSpecific);
 				get("/all", (request, response) -> PTUtil.selectAll(response));
 				get("/patients", PTUtil::selectPatients);
-				get("/summary", ActivityUtil::getPatPTSummary);
+				get("/summary", ActivityUtil::getAllPTActivity);
+				get("/patient-activity", ActivityUtil::getPatPTSummary);
 				get("/workouts", AssignmentUtil::selectPTWorkouts);
 				get("/exercises", ExerciseUtil::getWorkoutExercises);
 
@@ -80,7 +81,7 @@ public class Server {
 
 				path("/message", () -> {
 					//Requires pt and patient
-					get("/id", PTMessageUtil::selectAll);
+					get("/id", PTMessageUtil::getPatPtMessages);
 					//Requires message, patient, and pt
 					post("/register", (request, response) -> {
 						response.status(PTMessageUtil.registerMessage(request));

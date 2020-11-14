@@ -38,12 +38,10 @@ const SavedWorkout = (props) => {
     const [workouts, setWorkouts] = React.useState([]);
     const [exercises, setExercises] = React.useState([]);
 
-    //TODO hard coded PT need to change to redux
-
     const fetchPTWorkouts = () => {
         axios.get('api/pt/workouts', {
             params: {
-                pt: 1
+                pt: props.pt.pt_id
             }
         }).then((response) => {
 
@@ -90,7 +88,6 @@ const SavedWorkout = (props) => {
             newcheckedWorkout.splice(currentIndex, 1);
         }
 
-        // setCheckedWorkout(newcheckedWorkout);
         props.setSelectedWorkouts(newcheckedWorkout);
         
     };

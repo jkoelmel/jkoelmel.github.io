@@ -25,7 +25,9 @@ const useStyles = makeStyles((theme) => ({
     subheader: {
         fontSize: 18
     },
-    patientList: {}
+    patientList: {
+        backgroundColor: "white",
+    }
 }));
 
 const PatientList = (props) => {
@@ -36,8 +38,6 @@ const PatientList = (props) => {
         //will load patients when the page loads
         props.fetchPTsPatients(props.pt.pt_id)
     }, []);
-
-    //TODO save pt id
 
     const handlePatientClick = (e, patientId) => {
         props.patients.map((p) => {
@@ -100,7 +100,7 @@ const PatientList = (props) => {
                 }}
             >
                 <Fade in={open}>
-                    <div className={classes.paper}>
+                    <div  style={{ width: "auto", backgroundColor: "white" }}>
                         <List>
                             <ListItem>
                                 <ListItemText primary={`Full Name`}
