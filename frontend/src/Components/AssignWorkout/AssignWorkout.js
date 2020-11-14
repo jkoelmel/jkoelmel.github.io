@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AssignWorkout = (props, {checkedWorkout}) => {
+const AssignWorkout = (props) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [checked, setChecked] = React.useState([]);

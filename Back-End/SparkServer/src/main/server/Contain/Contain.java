@@ -32,7 +32,6 @@ public class Contain {
             while(rs.next()) {
                 exercise_id = rs.getInt("MAX(exercise_id)");
             }
-            System.out.println(exercise_id);
 
             // INSERT Contain into contain
                 pst.setInt(1, workout);
