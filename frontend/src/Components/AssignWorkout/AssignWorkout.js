@@ -103,7 +103,7 @@ const AssignWorkout = (props) => {
         </div>
     )
 }
-
+}
 export default connect((state) => ({
         // The state of the pt, as defined by reducer-pt
         pt: state.pt,
@@ -116,4 +116,4 @@ export default connect((state) => ({
         assignWorkout: (pt, checked, selectedWorkouts) => dispatch(assignWorkout(pt,checked,selectedWorkouts))
 
     })
-)(AssignWorkout);
+)(AssignWorkout)
