@@ -11,49 +11,48 @@ import ActivitySummary from "../../Components/PatientActivitySummary/ActivitySum
 import CurrentWorkout from "../../Components/PatientWorkout/CurrentWorkout";
 
 const useStyles = makeStyles((theme) => ({
-  profileRoot: {
-    minHeight: "95vw",
-    flexGrow: 1,
-    paddingTop: 100,
-    background: theme.palette.background.default,
-    overflow: "hidden",
-  },
-  paperInfo: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.secondary.main,
-    height: 600,
-    width: 350,
-    marginLeft: 10,
-  },
-  paperVideos: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.secondary.main,
-    height: 750,
-    width: 350,
-    marginBottom: 139,
-  },
-  paperProgress: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.secondary.main,
-    height: 630,
-    width: 400,
-  },
-  paperSummary: {
-    padding: 5,
-    marginTop: 10,
-    marginLeft: 10,
-    width: 355,
-    height: 200,
-  },
-  paperWorkout: {
-    padding: 5,
-    marginBottom: 10,
-    width: 420,
-    height: 100,
-  },
+    root: {
+        maxHeight: "95vh",
+        flexGrow: 1,
+        paddingTop: 100,
+        background: theme.palette.background.default,
+        overflow: "hidden"
+    },
+    paperInfo: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.secondary.main,
+        height: 675,
+        width: 350,
+        marginLeft: 10
+    },
+    paperVideos: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.secondary.main,
+        height: 675,
+        width: 350,
+        marginBottom: 139
+    },
+    paperProgress: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.secondary.main,
+        height: 630,
+        width: 400
+    },
+    paperSummary: {
+        padding: 5,
+        marginLeft: 10,
+        width: 355,
+        height: 200
+    },
+    paperWorkout: {
+      padding: 5,
+      marginBottom: 10,
+      width: 420,
+      height: 100
+    },
 }));
 
 const Profile = () => {
@@ -64,15 +63,12 @@ const Profile = () => {
     const [selectedWorkout, setSelectedWorkout] = React.useState('');
 
     return (
-        <div className={classes.profileRoot}>
+        <div className={classes.root}>
             <Grid container spacing={3} direction="row">
                 <Grid item md={3}>
                     <Paper className={classes.paperInfo} elevation={5}>
                         <Typography>Patient Info</Typography>
                         <PatientInfo selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
-                    </Paper>
-                    <Paper className={classes.paperSummary} elevation={5}>
-                        <ActivitySummary/>
                     </Paper>
                 </Grid>
                 <Grid item md={3}>
@@ -88,6 +84,11 @@ const Profile = () => {
                     <Paper className={classes.paperProgress} elevation={5}>
                         <Typography>Progress Log</Typography>
                         <SearchReport selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
+                    </Paper>
+                </Grid>
+                <Grid item md={3}>
+                    <Paper className={classes.paperSummary} elevation={5}>
+                        <ActivitySummary/>
                     </Paper>
                 </Grid>
 
