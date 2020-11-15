@@ -11,6 +11,7 @@ public class Patient extends User {
 	private Integer user;
 	private Integer pt;
 	private Integer prospective_pt;
+	private String injury;
 
 	public Patient(String email, String password,String f_name, String l_name, String company) {
 		super(email, password, f_name, l_name, company);
@@ -47,8 +48,9 @@ public class Patient extends User {
 	}
 
 	public Patient getPatient() throws Exception {
-		String patientQuery = "SELECT * FROM user u JOIN patient p " +
-				"ON u.user_id = p.user WHERE p.patient_id = " + this.patient_id;
+		String patientQuery = "SELECT * FROM patient_injury JOIN patient ON patient_injury.patient = " + this.patient_id +
+				" JOIN injury ON patient_injury.injury = injury_id " +
+				"JOIN user ON user_id = patient.user WHERE patient.patient_id = " + this.patient_id;
 
 		try (Connection con = DriverManager.getConnection(
 				Server.databasePath,
@@ -64,6 +66,7 @@ public class Patient extends User {
 				setUser(rs.getInt("user"));
 				setPt(rs.getInt("pt"));
 				setProspective_pt(rs.getInt("prospective_pt"));
+				setInjury(rs.getString("injury_type"));
 
 				// User data
 				setEmail(rs.getString("email"));
@@ -125,5 +128,13 @@ public class Patient extends User {
 
 	public void setProspective_pt(Integer prospective_pt) {
 		this.prospective_pt = prospective_pt;
+	}
+
+	public String getInjury() {
+		return injury;
+	}
+
+	public void setInjury(String injury) {
+		this.injury = injury;
 	}
 }

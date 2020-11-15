@@ -68,7 +68,7 @@ const PatientInfo = ({selectedPatient, setSelectedPatient}) => {
     return (
         <div>
             <List component="nav" aria-label="patient-list"
-                  style={{maxHeight: 550}}>
+                  style={{maxHeight: 600}}>
 
                 <div>
                     <ListItem>
@@ -82,6 +82,9 @@ const PatientInfo = ({selectedPatient, setSelectedPatient}) => {
                     </ListItem>
                     <ListItem>
                         <ListItemText primary={`Company`} secondary={info.company}/>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemText primary={`Injured Area`} secondary={info.injury}/>
                     </ListItem>
                     <Divider/>
                 </div>
