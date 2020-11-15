@@ -54,85 +54,54 @@ const AssignWorkout = (props) => {
     setChecked(newChecked);
   };
   console.log(checked);
-
+  
   const assignToPatients = () => {
-    const params = new URLSearchParams();
-    params.append("pt", props.pt.pt_id);
-
-    for (let i = 0; i < checked.length; i++) {
-      params.append("patient", checked[i]);
-    }
-    for (let j = 0; j < props.selectedWorkouts.length; j++) {
-      params.append("workout", props.selectedWorkouts[j]);
+        props.assignWorkout(props.pt,checked,props.selectedWorkouts)
     }
 
-    axios
-      .post("api/pt/assign", params)
-      .then((response) => {
-        if (response.data == 200) {
-          console.log("Message success");
-          window.alert("Assignments complete");
-          window.location.reload();
-        }
-      })
-      .catch(console.log);
-  };
+    return (
+        <div>
+            <List component="nav" aria-label="workout-list"
+                  style={{maxHeight: 300, overflowY: "scroll", backgroundColor: "white"}}
+                  subheader={
+                      <ListSubheader component="div" color="inherit" className={classes.sticky}>
+                          Patient List
+                      </ListSubheader>
+                  }>
+                {props.patients.map((p,k) => (
+                    <div key={k}>
+                    <ListItem>
+                        <ListItemText primary={`${p.f_name} ${p.l_name}`} />
+                        <ListItemSecondaryAction>
+                            <Checkbox
+                                edge="end"
+                                tabIndex={-1}
+                                disableRipple
+                                onChange={handleCheckToggle(p.patient_id)}
+                                checked={checked.indexOf(p.patient_id) !== -1}
+                                inputProps={{"aria-labelledby": `checkbox-list-label-${p.patient_id}`}}
+                            />
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                    </div>
+                ))}
 
-  return (
-    <div>
-      <List
-        component="nav"
-        aria-label="workout-list"
-        style={{
-          maxHeight: 300,
-          overflowY: "scroll",
-          backgroundColor: "white",
-        }}
-        subheader={
-          <ListSubheader
-            component="div"
-            color="inherit"
-            className={classes.sticky}
-          >
-            Patient List
-          </ListSubheader>
-        }
-      >
-        {props.patients.map((p, k) => (
-          <div key={k}>
-            <ListItem>
-              <ListItemText primary={`${p.f_name} ${p.l_name}`} />
-              <ListItemSecondaryAction>
-                <Checkbox
-                  edge="end"
-                  tabIndex={-1}
-                  disableRipple
-                  onChange={handleCheckToggle(p.patient_id)}
-                  checked={checked.indexOf(p.patient_id) !== -1}
-                  inputProps={{
-                    "aria-labelledby": `checkbox-list-label-${p.patient_id}`,
-                  }}
-                />
-              </ListItemSecondaryAction>
-            </ListItem>
-          </div>
-        ))}
-      </List>
-      <Button onClick={assignToPatients}>ASSIGN</Button>
-    </div>
-  );
-};
+            </List>
+            <Button onClick={assignToPatients}>ASSIGN</Button>
+        </div>
+    )
+}
+}
+export default connect((state) => ({
+        // The state of the pt, as defined by reducer-pt
+        pt: state.pt,
+        // The state of the pt's patients, defined by reducer-pt
+        patients: state.pt.patients,
+        selectedWorkouts: state.exercises.selectedWorkouts
+    }), (dispatch) => ({
+        // The action from actions-pt which will effect reducer-pt
+        fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
+        assignWorkout: (pt, checked, selectedWorkouts) => dispatch(assignWorkout(pt,checked,selectedWorkouts))
 
-export default connect(
-  (state) => ({
-    // The state of the pt, as defined by reducer-pt
-    pt: state.pt,
-    // The state of the pt's patients, defined by reducer-pt
-    patients: state.pt.patients,
-    selectedWorkouts: state.exercises.selectedWorkouts,
-  }),
-  (dispatch) => ({
-    // The action from actions-pt which will effect reducer-pt
-    fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
-  })
-)(AssignWorkout);
+    })
+)(AssignWorkout)
