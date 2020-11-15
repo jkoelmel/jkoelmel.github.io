@@ -8,7 +8,6 @@ import {
     createWorkout,
     fetchExerciseVideos,
     selectedExercises,
-    setVideoDescriptions
 } from '../../Redux/actions/actions-pt';
 
 import { connect } from 'react-redux';

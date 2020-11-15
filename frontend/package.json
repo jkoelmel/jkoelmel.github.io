@@ -80,6 +80,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.26.3"
+    "babel-core": "^6.26.3",
+    "react-toastify": "^6.1.0"
   }
 }

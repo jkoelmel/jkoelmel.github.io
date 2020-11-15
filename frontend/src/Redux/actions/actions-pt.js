@@ -2,6 +2,7 @@ import * as constants from '../constants/constants-pt'
 import * as constantsWorkout from '../constants/constants-workouts'
 import {getAuth, postAuth} from './actions-auth'
 
+
 export const createNewPT = (pt) => {
     const params = new URLSearchParams()
     params.append("email", pt.email)
@@ -63,6 +64,8 @@ export const createWorkout = (pt, title, exercises, descriptions)=> {
         postAuth('/api/pt/create', params).then((res) => {
             if (res.data == 200) {
                 console.log(res.data)
+                window.alert("Workout creation: success")
+                window.location.reload()
             }
         }).catch((err) => {
             console.log(err)

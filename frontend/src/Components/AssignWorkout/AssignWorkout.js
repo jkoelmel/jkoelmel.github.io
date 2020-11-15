@@ -77,7 +77,8 @@ const AssignWorkout = (props) => {
             .then((response) => {
                 if (response.data == 200) {
                     console.log("Message success")
-                    setOpen(true);
+                    window.alert("Assignments complete")
+                    window.location.reload()
                 }
             })
             .catch(console.log);
@@ -112,30 +113,6 @@ const AssignWorkout = (props) => {
 
             </List>
             <Button onClick={assignToPatients}>ASSIGN</Button>
-
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <Fade in={open}>
-                    <List
-                        style={{maxHeight: 400, overflowY: "scroll", backgroundColor: "white"}}
-                        subheader={
-                            <ListSubheader component="div" color="inherit" classes={"patient-list"}>
-                                Success
-                            </ListSubheader>
-                        }>
-                    </List>
-                </Fade>
-            </Modal>
         </div>
     )
 }
