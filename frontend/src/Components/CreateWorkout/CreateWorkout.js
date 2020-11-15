@@ -63,6 +63,7 @@ const CreateWorkout = (props) => {
                             label="Workout Title"
                             multiline
                             value={workoutTitle}
+                            required={true}
                             onChange={(e)=>{setWorkoutTitle(e.target.value)}}
                             variant="outlined"
                             rowsMax={4} />
@@ -90,6 +91,7 @@ const CreateWorkout = (props) => {
                                     variant="outlined"
                                     color="secondary"
                                     // value = {description}
+                                    required={true}
                                     onChange={(e) => {setDescription(e.target.value)}}
                                     onBlur={(e)=> {submitDescription(e.target.value, k)}}
                                     multiline

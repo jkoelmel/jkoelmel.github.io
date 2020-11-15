@@ -21,15 +21,15 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ActivitySummary = ({selectedPatient, setSelectedPatient}) => {
+const ActivitySummary = () => {
     const classes = useStyles();
     const [activity, setActivity] = React.useState([]);
 
     const fetchSummaryInfo = () => {
         axios.get('api/pt/patient-activity', {
             params: {
-                patient: selectedPatient,
-                pt: 1
+                patient: 1,
+                pt: 100
             }
         }).then((response) => {
 
@@ -43,9 +43,8 @@ const ActivitySummary = ({selectedPatient, setSelectedPatient}) => {
 
     React.useEffect(() => {
         //will load patients-PT activity summary when the page loads
-        if (selectedPatient != '')
             fetchSummaryInfo();
-    }, [selectedPatient]);
+    }, []);
 
 
     return (

@@ -14,9 +14,9 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import {fetchExerciseVideos,selectedExercises} from '../../Redux/actions/actions-pt';
+import {fetchExerciseVideos,selectedExercises,filterExercises} from '../../Redux/actions/actions-pt';
 import {connect} from 'react-redux';
-import {PlayArrow} from "@material-ui/icons";
+import {PlayArrow, TextFieldsRounded} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -33,12 +33,14 @@ const useStyles = makeStyles((theme) => ({
     },
     sticky: {
         backgroundColor: 'white',
-        fontSize: 18
-
     },
     thumbnail: {
         maxHeight: '200px',
-    }
+    },
+    title: {
+        //need to set up for dynamic scaling
+      marginLeft: 125,
+    },
 }));
 
 const Library = (props) => {
@@ -46,7 +48,7 @@ const Library = (props) => {
     const [open, setOpen] = React.useState(false);
     const [selectedVideo, setSelectedVideo] = React.useState([]);
     const [URL, setURL] = React.useState("");
-    
+
     useEffect(() => {
         // fetchExerciseVideos();
         props.fetchExerciseVideos()
@@ -94,9 +96,13 @@ const Library = (props) => {
         <div className={classes.root}>
             <List component="nav" aria-label="video-list">
                 <ListSubheader color="inherit" className={classes.sticky}>Exercise Library</ListSubheader>
+
                 {props.exercises.map((ev,k) => (
                     <React.Fragment key={k}>
                         <Divider/>
+                        <ListItem className={classes.title} >
+                            {ev.title}
+                        </ListItem>
                         <ListItem>
                             <ListItemIcon>
                                 <PlayArrow
@@ -159,6 +165,7 @@ export default connect((state) => ({
     }), (dispatch) => ({
         // The action from actions-pt which will effect reducer-pt
         fetchExerciseVideos: () => dispatch(fetchExerciseVideos()),
-        selectedExercises: (selectedVideos) => dispatch(selectedExercises(selectedVideos))
+        selectedExercises: (selectedVideos) => dispatch(selectedExercises(selectedVideos)),
+        filterExercises: (exercises, searchTerm) => dispatch(exercises, searchTerm)
     })
 )(Library);

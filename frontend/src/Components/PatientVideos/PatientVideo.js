@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const SearchVideos = () => {
+const PatientVideos = () => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [selectedPatient, setselectedPatient] = React.useState(1);
@@ -37,13 +37,8 @@ const SearchVideos = () => {
     const [URL, setURL] = React.useState("");
     const [feedback, setFeedback] = React.useState("");
 
-    const handleVideoClick = (e, patient_video_id) => {
-        setSelectedVideo(patient_video_id);
-        videos.map((v) => {
-            if (v.patient_video_id == patient_video_id) {
-                setURL(v.video_url);
-            }
-        })
+    const handleVideoClick = (e, video_url) => {
+        setURL(video_url);
         setOpen(true)
     }
 
@@ -52,7 +47,7 @@ const SearchVideos = () => {
     const fetchPatientVideos = () => {
         axios.get('api/patient/video/id', {
             params: {
-                patient: selectedPatient
+                patient: 1
             }
         }).then((response) => {
 
@@ -95,7 +90,7 @@ const SearchVideos = () => {
                             key={v.patient_video_id}
                             button
                             selected={selectedVideo == v.patient_video_id}
-                            onClick={(event) => handleVideoClick(event, v.patient_video_id)}>
+                            onClick={(event) => handleVideoClick(event, v.video_url)}>
                             <img src={"https://img.youtube.com/vi/" + v.video_url.split("=")[1] + "/0.jpg"}/>
                         </ListItem>
                     </div>
@@ -129,4 +124,4 @@ const SearchVideos = () => {
     )
 }
 
-export default SearchVideos
+export default PatientVideos

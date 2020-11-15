@@ -72,7 +72,7 @@ const Profile = () => {
                         <PatientInfo selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
                     </Paper>
                     <Paper className={classes.paperSummary} elevation={5}>
-                        <ActivitySummary selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
+                        <ActivitySummary/>
                     </Paper>
                 </Grid>
                 <Grid item md={3}>
