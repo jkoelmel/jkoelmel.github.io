@@ -1,51 +1,54 @@
-import {handleActions} from 'redux-actions';
-import * as constants from '../constants/constants-patient'
+import { handleActions } from "redux-actions";
+import * as constants from "../constants/constants-patient";
 
 const initialPatientState = {
-    patients: [
-        {
-            patient_id: 1,
-            user: 14,
-            pt: 2,
-            prospective_pt: 2,
-            user_id: 14,
-            email: "test@mail.com",
-            f_name: "jane",
-            l_name: "doe",
-            company: "the NY co"
-        }
-    ]
+  patients: [
+    {
+      patient_id: 1,
+      user: 14,
+      pt: 2,
+      prospective_pt: 2,
+      user_id: 14,
+      email: "test@mail.com",
+      f_name: "jane",
+      l_name: "doe",
+      company: "the NY co",
+    },
+  ],
 };
 
-const PatientsReducer = handleActions({
+const PatientsReducer = handleActions(
+  {
     // TODO: check that this actually works
     [constants.CREATE_PATIENT]: (state, action) => {
-        const patient = action.payload.patient
-        const newPatients = state.patients.slice()
-        newPatients.push(patient)
+      const patient = action.payload.patient;
+      const newPatients = state.patients.slice();
+      newPatients.push(patient);
 
-        return {
-            patients: newPatients
-        }
+      return {
+        patients: newPatients,
+      };
     },
 
     // TODO: check that this actually works
     [constants.UPDATE_PATIENT_PTS]: (state, action) => {
-        const newPatients = state.patients.slice()
-        const patient = newPatients.find(action.payload.patient)
-        patient.pt_id = action.payload.pt
-        patient.prospective_pt = action.payload.prospective_pt
+      const newPatients = state.patients.slice();
+      const patient = newPatients.find(action.payload.patient);
+      patient.pt_id = action.payload.pt;
+      patient.prospective_pt = action.payload.prospective_pt;
 
-        return {
-            patients: newPatients
-        }
+      return {
+        patients: newPatients,
+      };
     },
 
     [constants.GET_PATIENTS]: (state, action) => {
-        return {
-            patients: action.payload.patients
-        }
-    }
-}, initialPatientState)
+      return {
+        patients: action.payload.patients,
+      };
+    },
+  },
+  initialPatientState
+);
 
-export default PatientsReducer
+export default PatientsReducer;

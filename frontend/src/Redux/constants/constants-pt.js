@@ -5,3 +5,4 @@ export const GET_ALL_PTS = 'GET_ALL_PTS'
 export const UPDATE_PT = 'UPDATE_PT'
 export const CHECK_LOGIN_ERROR = 'CHECK_LOGIN_ERROR'
 export const SET_SELECTED_PATIENT = 'SET_SELECTED_PATIENT'
+

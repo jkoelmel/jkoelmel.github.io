@@ -1,8 +1,8 @@
-import React from 'react'
-import {Switch, Route} from 'react-router-dom'
-import Landing from './Pages/LandingPage/index'
-import Dashboard from "./Pages/Dashboard/Dashboard"
-import LoginPage from "./Pages/LoginPage/LoginPage"
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import Landing from "./Pages/LandingPage/index";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import LoginPage from "./Pages/LoginPage/LoginPage";
 import Profile from "./Pages/PatientProfile/Profile";
 import Exercise from "./Pages/ExerciseLibrary/Exercise";
 import Login from "./Pages/Login"
@@ -27,5 +27,3 @@ export const Routes = () => (
         </Route>
     </Switch>
 );
-   
-

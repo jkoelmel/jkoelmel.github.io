@@ -12,9 +12,9 @@ import {
   IconButton,
   FormControl,
   Typography,
-} from '@material-ui/core'
-import Paper from '@material-ui/core/Paper';
-import { Visibility, VisibilityOff } from '@material-ui/icons'
+} from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -37,9 +37,9 @@ const LoginForm = (props,{ submit, isLoading, error }) => {
   const classes = useStyles()
 
   // ~ Logic
-  const [showPassword, handleShowPassword] = React.useState(false)
+  const [showPassword, handleShowPassword] = React.useState(false);
   if (isLoading) {
-    return <Typography>Loading</Typography>
+    return <Typography>Loading</Typography>;
   }
 
   
@@ -143,18 +143,7 @@ export default connect((state) => ({
       // The action from actions-pt which will effect reducer-pt
       loginPT: (data) => dispatch(loginPT(data))
   })
-  )(LoginForm)
-
-
-
-
-
-
-
-
-
-
-
+)(LoginForm);
 
 // import { Typography } from '@material-ui/core'
 // import TextField from '@material-ui/core/TextField';
@@ -168,7 +157,7 @@ export default connect((state) => ({
 
 // const useStyles = makeStyles((theme) => ({
 //     root: {
-        
+
 //         display: 'flex',
 //         justifyContent: 'center',
 //         alignItems: 'center',
