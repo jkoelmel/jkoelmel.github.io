@@ -34,10 +34,10 @@ const PatientList = (props) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
-    useEffect(() => {
-        //will load patients when the page loads
-        props.fetchPTsPatients(props.pt.pt_id)
-    }, []);
+  useEffect(() => {
+    //will load patients when the page loads
+    props.fetchPTsPatients(props.pt.pt_id);
+  }, []);
 
     const handlePatientClick = (e, patientId) => {
         props.patients.map((p) => {
@@ -49,9 +49,9 @@ const PatientList = (props) => {
         //TODO return patients info by its ID. 
     }
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
     return (
         <div>
@@ -136,4 +136,3 @@ export default connect((state) => ({
         setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient))
     })
 )(PatientList);
-

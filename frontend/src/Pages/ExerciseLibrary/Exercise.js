@@ -92,5 +92,4 @@ const Exercise = () => {
         </div>
     )
 }
-
-export default Exercise
+export default Exercise;

@@ -9,6 +9,7 @@ import Messaging from "../../Components/Messaging/Messaging";
 //TODO Will most likely have to fix paperMessage margins when we implement
 //the actual message board.
 const useStyles = makeStyles((theme) => ({
+
     root: {
         flexGrow: 1,
         marginTop: 24,
@@ -44,8 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = () => {
-    const classes = useStyles();
-
+  const classes = useStyles();
 
     return (
         <div className={classes.root} justify={"space-between"} alignItems={"flex-start"}>
@@ -79,4 +79,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default Dashboard;

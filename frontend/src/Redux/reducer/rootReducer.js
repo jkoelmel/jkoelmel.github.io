@@ -9,5 +9,4 @@ const rootReducer = combineReducers({
     exercises: WorkoutReducer
 })
 
-export default rootReducer
-     
+export default rootReducer;
