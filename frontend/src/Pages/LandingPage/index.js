@@ -52,10 +52,6 @@ const Landing = ({handleLogin,error}) => {
         setLoginOpen(true);
     };
 
-  const handleLoginOpen = () => {
-    setLoginOpen(true);
-  };
-
   const handleLoginClose = () => {
     setLoginOpen(false);
   };

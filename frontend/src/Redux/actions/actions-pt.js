@@ -97,30 +97,6 @@ export const createWorkout = (pt, title, exercises, descriptions)=> {
     }
 }
 
-export const createWorkout = (pt, title, exercises, descriptions) => {
-  const params = new URLSearchParams();
-  params.append("pt", pt.pt_id);
-  params.append("title", title);
-
-  for (let i = 0; i < exercises.length; i++) {
-    params.append("exercise_id", exercises[i]);
-    params.append("description", descriptions[i]);
-  }
-  return () => {
-    postAuth("/api/pt/create", params)
-      .then((res) => {
-        if (res.data == 200) {
-          console.log(res.data);
-          window.alert("Workout creation: success");
-          window.location.reload();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
-
 export const createPT = (pt) => {
   return {
     type: constants.CREATE_PT,

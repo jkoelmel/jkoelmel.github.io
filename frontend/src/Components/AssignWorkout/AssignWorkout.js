@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
-import { fetchPTsPatients } from "../../Redux/actions/actions-pt";
+import {assignWorkout, fetchPTsPatients} from "../../Redux/actions/actions-pt";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Button from "@material-ui/core/Button";
@@ -90,7 +90,6 @@ const AssignWorkout = (props) => {
             <Button onClick={assignToPatients}>ASSIGN</Button>
         </div>
     )
-}
 }
 export default connect((state) => ({
         // The state of the pt, as defined by reducer-pt
