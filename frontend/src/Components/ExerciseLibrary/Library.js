@@ -28,28 +28,27 @@ import { connect } from "react-redux";
 import { PlayArrow, TextFieldsRounded } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
-
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        backgroundColor: theme.palette.background.paper,
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-        outline: 'none',
-    },
-    sticky: {
-        backgroundColor: 'white',
-    },
-    thumbnail: {
-        maxHeight: '200px',
-    },
-    title: {
-        //need to set up for dynamic scaling
-      marginLeft: 125,
-    },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    outline: "none",
+  },
+  sticky: {
+    backgroundColor: "white",
+  },
+  thumbnail: {
+    maxHeight: "200px",
+  },
+  title: {
+    //need to set up for dynamic scaling
+    marginLeft: 125,
+  },
 }));
 
 const Library = (props) => {

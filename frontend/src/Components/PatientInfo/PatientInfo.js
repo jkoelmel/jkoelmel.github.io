@@ -76,30 +76,36 @@ const PatientInfo = ({ selectedPatient, setSelectedPatient }) => {
         style={{ maxHeight: 550 }}
       >
         <div>
-            <List component="nav" aria-label="patient-list"
-                  style={{maxHeight: 600}}>
-
-                <div>
-                    <ListItem>
-                        <img class="image" src={userImage}/>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText primary={`Patient`} secondary={info.f_name + " " + info.l_name}/>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText primary={`Email`} secondary={info.email}/>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText primary={`Company`} secondary={info.company}/>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText primary={`Injured Area`} secondary={info.injury}/>
-                    </ListItem>
-                    <Divider/>
-                </div>
-
-            </List>
-
+          <List
+            component="nav"
+            aria-label="patient-list"
+            style={{ maxHeight: 600 }}
+          >
+            <div>
+              <ListItem>
+                <img class="image" src={userImage} />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary={`Patient`}
+                  secondary={info.f_name + " " + info.l_name}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary={`Email`} secondary={info.email} />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary={`Company`} secondary={info.company} />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary={`Injured Area`}
+                  secondary={info.injury}
+                />
+              </ListItem>
+              <Divider />
+            </div>
+          </List>
         </div>
       </List>
     </div>

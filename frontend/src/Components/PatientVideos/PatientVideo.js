@@ -34,98 +34,105 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PatientVideos = () => {
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const [selectedPatient, setselectedPatient] = React.useState(1);
-    const [videos, setVideos] = React.useState([]);
-    const [selectedVideo, setSelectedVideo] = React.useState([]);
-    const [URL, setURL] = React.useState("");
-    const [feedback, setFeedback] = React.useState("");
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const [selectedPatient, setselectedPatient] = React.useState(1);
+  const [videos, setVideos] = React.useState([]);
+  const [selectedVideo, setSelectedVideo] = React.useState([]);
+  const [URL, setURL] = React.useState("");
+  const [feedback, setFeedback] = React.useState("");
 
-    const handleVideoClick = (e, video_url) => {
-        setURL(video_url);
-        setOpen(true)
-    }
+  const handleVideoClick = (e, video_url) => {
+    setURL(video_url);
+    setOpen(true);
+  };
 
-    console.log(`patient id: ${selectedPatient}`)
+  console.log(`patient id: ${selectedPatient}`);
 
-    const fetchPatientVideos = () => {
-        axios.get('api/patient/video/id', {
-            params: {
-                patient: 1
-            }
-        }).then((response) => {
+  const fetchPatientVideos = () => {
+    axios
+      .get("api/patient/video/id", {
+        params: {
+          patient: 1,
+        },
+      })
+      .then((response) => {
+        setVideos(
+          response.data.map((pv) => {
+            console.log(response.data);
+            return pv;
+          })
+        );
+      })
+      .catch(console.log);
+  };
 
-            setVideos(response.data.map((pv) => {
-                console.log(response.data)
-                return pv;
-            }))
-        })
-            .catch(console.log)
-    }
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    const handleClose = () => {
-        setOpen(false);
-    }
+  const handleChange = () => {
+    setFeedback(feedback);
+  };
 
-    const handleChange = () => {
-        setFeedback(feedback);
-    }
+  const handleSubmit = () => {
+    alert("Feedback was submitted: " + feedback);
+    handleClose();
+  };
 
-    const handleSubmit = () => {
-        alert('Feedback was submitted: ' + feedback);
-        handleClose();
-    }
+  React.useEffect(() => {
+    //will load patients video when the page loads
+    if (selectedPatient != "") fetchPatientVideos();
+  }, [selectedPatient]);
 
-    React.useEffect(() => {
-        //will load patients video when the page loads
-        if (selectedPatient != '')
-            fetchPatientVideos();
-    }, [selectedPatient]);
-
-
-    return (
-        <div className={classes.root}>
-            <List component="nav" aria-label="patient-list"
-                  style={{maxHeight: 625, overflowY: 'scroll'}}>
-                {videos.map((v) => (
-                    <div>
-                        <ListItem class="date">{v.uploaded}</ListItem>
-                        <ListItem
-                            key={v.patient_video_id}
-                            button
-                            selected={selectedVideo == v.patient_video_id}
-                            onClick={(event) => handleVideoClick(event, v.video_url)}>
-                            <img src={"https://img.youtube.com/vi/" + v.video_url.split("=")[1] + "/0.jpg"}/>
-                        </ListItem>
-                    </div>
-                ))}
-
-            </List>
-
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
+  return (
+    <div className={classes.root}>
+      <List
+        component="nav"
+        aria-label="patient-list"
+        style={{ maxHeight: 625, overflowY: "scroll" }}
+      >
+        {videos.map((v) => (
+          <div>
+            <ListItem class="date">{v.uploaded}</ListItem>
+            <ListItem
+              key={v.patient_video_id}
+              button
+              selected={selectedVideo == v.patient_video_id}
+              onClick={(event) => handleVideoClick(event, v.video_url)}
             >
-                <Fade in={open}>
-                    <div className={classes.paper}>
-                        <ReactPlayer
-                            controls={true}
-                            url={URL}
-                        />
-                    </div>
-                </Fade>
-            </Modal>
-        </div>
-        )
+              <img
+                src={
+                  "https://img.youtube.com/vi/" +
+                  v.video_url.split("=")[1] +
+                  "/0.jpg"
+                }
+              />
+            </ListItem>
+          </div>
+        ))}
+      </List>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+            <ReactPlayer controls={true} url={URL} />
+          </div>
+        </Fade>
+      </Modal>
+    </div>
+  );
 };
 
 export default PatientVideos;
