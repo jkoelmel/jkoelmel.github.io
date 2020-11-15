@@ -15,6 +15,7 @@ To retrieve a specific PT, use the endpoint `/api/pt/email` with the query param
 To retrieve the patients belonging to a specific PT, use the endpoint `api/pt/patients` with the query parameter `pt_id`. This should be a GET request.
 
 #####Sample JSON data
+
 ```
 [
     {
@@ -40,6 +41,7 @@ Patients can be updated to add a PT link by using `api/patient/update-pt` with q
 Patients can be retrieved by calling a GET request on `api/patient/all` for all patients, or `api/patient/id` with the query parameter `patient_id` for a specific one.
 
 #####Sample JSON data
+
 ```
 [
     {
@@ -65,6 +67,7 @@ To add a patient entry log, send a POST request to the endpoint `api/patient/ent
 To retrieve a specific entry, use a GET request at `api/patient/entry/id` with the query parameter `entry_id`. To retrieve all entries by a specific patient, use a GET request at `api/patient/entry/all` with the query parameter `patient_id`.
 
 #####Sample JSON data
+
 ```
 [
     {

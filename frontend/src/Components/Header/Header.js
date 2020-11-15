@@ -1,20 +1,20 @@
-import React from 'react'
-import { Redirect, Link } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import React from "react";
+import { Redirect, Link } from "react-router-dom";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
-import logo from '../../Assets/Images/logo_with_text.svg'
+import logo from "../../Assets/Images/logo_with_text.svg";
 //TODO when you click the logo, redirect to dashboard
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,16 +29,16 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   logo: {
-    width: 200
+    width: 200,
   },
   accountCircle: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
     marginRight: 10,
-  }
+  },
 }));
 
 const Header = () => {
-  const classes = useStyles()
+  const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -56,21 +56,21 @@ const Header = () => {
   };
   const handleRedirect = () => {
     setAnchorEl(null);
-    if (anchorEl == null)
-      return <Redirect to="/dashboard" />
+    if (anchorEl == null) return <Redirect to="/dashboard" />;
   };
-
-
-
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" >
-        <Toolbar disableGutters >
-
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+      <AppBar position="fixed">
+        <Toolbar disableGutters>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
             <MenuIcon color="secondary" />
-          </IconButton >
+          </IconButton>
 
           <Button disableTouchRipple={true} href="/dashboard">
             <img alt="company logo" src={logo} className={classes.logo} />
@@ -91,19 +91,25 @@ const Header = () => {
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 open={open}
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose} component={Link} to="/dashboard">Dashboard</MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  component={Link}
+                  to="/dashboard"
+                >
+                  Dashboard
+                </MenuItem>
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
               </Menu>
             </div>
@@ -111,7 +117,7 @@ const Header = () => {
         </Toolbar>
       </AppBar>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
