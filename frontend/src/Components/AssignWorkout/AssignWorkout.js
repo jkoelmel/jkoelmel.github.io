@@ -128,4 +128,4 @@ export default connect((state) => ({
         fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
 
     })
-)(AssignWorkout);
+)(AssignWorkout)
