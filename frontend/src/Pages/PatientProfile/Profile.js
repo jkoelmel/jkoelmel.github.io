@@ -93,52 +93,8 @@ const Profile = () => {
                 </Grid>
 
             </Grid>
+        </div>
+    )
+}
 
-  return (
-    <div className={classes.profileRoot}>
-      <Grid container spacing={3} direction="row">
-        <Grid item md={3}>
-          <Paper className={classes.paperInfo} elevation={5}>
-            <Typography>Patient Info</Typography>
-            <PatientInfo
-              selectedPatient={selectedPatient}
-              setSelectedPatient={setSelectedPatient}
-            />
-          </Paper>
-          <Paper className={classes.paperSummary} elevation={5}>
-            <ActivitySummary
-              selectedPatient={selectedPatient}
-              setSelectedPatient={setSelectedPatient}
-            />
-          </Paper>
-        </Grid>
-        <Grid item md={3}>
-          <Paper className={classes.paperVideos} elevation={5}>
-            <Typography>Patient Videos</Typography>
-            <PatientVideo
-              selectedPatient={selectedPatient}
-              setSelectedPatient={setSelectedPatient}
-            />
-          </Paper>
-        </Grid>
-        <Grid item md={3}>
-          <Paper className={classes.paperWorkout} elevation={5}>
-            <CurrentWorkout
-              selectedPatient={selectedPatient}
-              setSelectedPatient={setSelectedPatient}
-            />
-          </Paper>
-          <Paper className={classes.paperProgress} elevation={5}>
-            <Typography>Progress Log</Typography>
-            <SearchReport
-              selectedPatient={selectedPatient}
-              setSelectedPatient={setSelectedPatient}
-            />
-          </Paper>
-        </Grid>
-      </Grid>
-    </div>
-  );
-};
-
-export default Profile;
+export default Profile

@@ -115,38 +115,17 @@ const PatientVideos = () => {
                     timeout: 500,
                 }}
             >
-              <img
-                src={
-                  "https://img.youtube.com/vi/" +
-                  v.video_url.split("=")[1] +
-                  "/0.jpg"
-                }
-              />
-            </ListItem>
-          </div>
-        ))}
-      </List>
-
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <div className={classes.paper}>
-            <ReactPlayer controls={true} url={URL} />
-          </div>
-        </Fade>
-      </Modal>
-    </div>
-  );
+                <Fade in={open}>
+                    <div className={classes.paper}>
+                        <ReactPlayer
+                            controls={true}
+                            url={URL}
+                        />
+                    </div>
+                </Fade>
+            </Modal>
+        </div>
+        )
 };
 
 export default PatientVideos;
