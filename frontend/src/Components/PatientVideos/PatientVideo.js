@@ -82,7 +82,7 @@ const PatientVideos = () => {
     return (
         <div className={classes.root}>
             <List component="nav" aria-label="patient-list"
-                  style={{maxHeight: 700, overflowY: 'scroll'}}>
+                  style={{maxHeight: 625, overflowY: 'scroll'}}>
                 {videos.map((v) => (
                     <div>
                         <ListItem class="date">{v.uploaded}</ListItem>

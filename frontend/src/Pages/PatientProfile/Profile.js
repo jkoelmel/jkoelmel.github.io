@@ -12,8 +12,8 @@ import CurrentWorkout from "../../Components/PatientWorkout/CurrentWorkout";
 
 
 const useStyles = makeStyles((theme) => ({
-    profileRoot: {
-        minHeight: "95vw",
+    root: {
+        maxHeight: "95vh",
         flexGrow: 1,
         paddingTop: 100,
         background: theme.palette.background.default,
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
-        height: 750,
+        height: 675,
         width: 350,
         marginLeft: 10
     },
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.secondary.main,
-        height: 750,
+        height: 675,
         width: 350,
         marginBottom: 139
     },
@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
     },
     paperSummary: {
         padding: 5,
-        marginTop: 10,
         marginLeft: 10,
         width: 355,
         height: 200
@@ -64,15 +63,12 @@ const Profile = () => {
     const [selectedWorkout, setSelectedWorkout] = React.useState('');
 
     return (
-        <div className={classes.profileRoot}>
+        <div className={classes.root}>
             <Grid container spacing={3} direction="row">
                 <Grid item md={3}>
                     <Paper className={classes.paperInfo} elevation={5}>
                         <Typography>Patient Info</Typography>
                         <PatientInfo selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
-                    </Paper>
-                    <Paper className={classes.paperSummary} elevation={5}>
-                        <ActivitySummary/>
                     </Paper>
                 </Grid>
                 <Grid item md={3}>
@@ -88,6 +84,11 @@ const Profile = () => {
                     <Paper className={classes.paperProgress} elevation={5}>
                         <Typography>Progress Log</Typography>
                         <SearchReport selectedPatient={selectedPatient} setSelectedPatient={setSelectedPatient}/>
+                    </Paper>
+                </Grid>
+                <Grid item md={3}>
+                    <Paper className={classes.paperSummary} elevation={5}>
+                        <ActivitySummary/>
                     </Paper>
                 </Grid>
 
