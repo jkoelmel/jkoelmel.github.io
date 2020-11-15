@@ -1,13 +1,9 @@
-import React from 'react'
+import React from "react";
 
-//TODO maybe this should be in the component folder since we can just login straight in the 
+//TODO maybe this should be in the component folder since we can just login straight in the
 //landing page
 const Login = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+  return <div></div>;
+};
 
-export default Login
+export default Login;

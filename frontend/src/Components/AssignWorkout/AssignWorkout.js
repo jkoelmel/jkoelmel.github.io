@@ -1,33 +1,30 @@
-import React from 'react'
+import React from "react";
 import List from "@material-ui/core/List";
 import {Divider, ListItem, ListItemText, ListSubheader} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux";
 import {fetchPTsPatients} from "../../Redux/actions/actions-pt";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Modal from "@material-ui/core/Modal";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        backgroundColor: theme.palette.background.paper,
-        //   border: '2px solid #000',a
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-        outline: 'none',
-    },
-    sticky: {
-        backgroundColor: 'white'
-    }
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    //   border: '2px solid #000',a
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    outline: "none",
+  },
+  sticky: {
+    backgroundColor: "white",
+  },
 }));
 
 const AssignWorkout = (props) => {
@@ -35,32 +32,23 @@ const AssignWorkout = (props) => {
     const [open, setOpen] = React.useState(false);
     const [checked, setChecked] = React.useState([]);
 
-    React.useEffect(() => {
-        props.fetchPTsPatients(props.pt.pt_id)
-    }, []);
+  React.useEffect(() => {
+    props.fetchPTsPatients(props.pt.pt_id);
+  }, []);
 
-    const handleCheckToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
+  const handleCheckToggle = (value) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
 
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-
-        setChecked(newChecked);
-
-    };
-    console.log(checked)
-
-    const handleOpen = () => {
-        setOpen(true);
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
     }
 
-    const handleClose = () => {
-        setOpen(false);
-    }
+    setChecked(newChecked);
+  };
+  console.log(checked);
 
     const assignToPatients = () => {
         const params = new URLSearchParams();

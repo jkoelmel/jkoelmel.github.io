@@ -1,6 +1,6 @@
-import React from 'react'
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import React from "react";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import axios from "axios";
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
@@ -35,18 +35,28 @@ const SearchReport = ({selectedPatient,setSelectedPatient}) => {
             return pr
           })) 
       })
-      .catch(console.log)
-    }
-    console.log(patientReport.map((p) => {
-      return p
-    }))
+      .then((response) => {
+        console.log(response);
+        console.log(response.data.patient);
 
-      React.useEffect(() => {
-        //will load patients Report when the page loads
-        if(selectedPatient!='')
-          fetchPatientsReport();
-    }, [selectedPatient]);
+        setPatientReport(
+          response.data.map((pr) => {
+            return pr;
+          })
+        );
+      })
+      .catch(console.log);
+  };
+  console.log(
+    patientReport.map((p) => {
+      return p;
+    })
+  );
 
+  React.useEffect(() => {
+    //will load patients Report when the page loads
+    if (selectedPatient != "") fetchPatientsReport();
+  }, [selectedPatient]);
 
     return (
             <div className={classes.sticky}>
@@ -77,4 +87,5 @@ const SearchReport = ({selectedPatient,setSelectedPatient}) => {
     )
 }
 
-export default SearchReport
+
+export default SearchReport;
