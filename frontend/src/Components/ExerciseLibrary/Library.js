@@ -1,182 +1,171 @@
 import React from "react";
 import axios from "axios";
+import {useEffect} from 'react'
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import List from "@material-ui/core/List";
-import {
-  Divider,
-  ListItem,
-  ListItemText,
-  ListSubheader,
-} from "@material-ui/core";
+import {Divider, ListItem, ListItemText, ListSubheader} from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import {makeStyles} from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography"
 import ReactPlayer from "react-player";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import { PlayArrow } from "@material-ui/icons";
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import {fetchExerciseVideos,selectedExercises,filterExercises} from '../../Redux/actions/actions-pt';
+import {connect} from 'react-redux';
+import {PlayArrow, TextFieldsRounded} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    //   border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    outline: "none",
-  },
-  sticky: {
-    backgroundColor: "white",
-    color: "inherit",
-    fontSize: 18,
-  },
-  thumbnail: {
-    maxHeight: "200px",
-  },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        //   border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+        outline: 'none',
+    },
+    sticky: {
+        backgroundColor: 'white',
+    },
+    thumbnail: {
+        maxHeight: '200px',
+    },
+    title: {
+        //need to set up for dynamic scaling
+      marginLeft: 125,
+    },
 }));
 
-const Library = () => {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [exerciseVideos, setExerciseVideos] = React.useState([]);
-  const [selectedVideo, setSelectedVideo] = React.useState([]);
-  const [URL, setURL] = React.useState("");
-  const [videoID, setVideoID] = React.useState("");
-  const [checked, setChecked] = React.useState([]); //exercise workout array. stores exercise_id
+const Library = (props) => {
+    const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    const [selectedVideo, setSelectedVideo] = React.useState([]);
+    const [URL, setURL] = React.useState("");
 
-  const fetchExerciseVideos = () => {
-    //TODO change back after testing
-    axios
-      .get("api/exercise/all")
-      .then((response) => {
-        setExerciseVideos(
-          response.data.map((ev) => {
-            // console.log(response.data)
-            return ev;
-          })
-        );
-      })
-      .catch(console.log);
-  };
+    useEffect(() => {
+        // fetchExerciseVideos();
+        props.fetchExerciseVideos()
+    }, []);
 
-  const handleVideoClick = (e, exercise_id) => {
-    setSelectedVideo(exercise_id);
-    exerciseVideos.map((ev) => {
-      if (ev.exercise_id == exercise_id) {
-        setURL(ev.exercise_url);
-      }
-    });
-    setOpen(true);
-  };
+    const handleVideoClick = (event, exercise_id) => {
+        const index = selectedVideo.indexOf(exercise_id);
+        const newIndex = [...selectedVideo];
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  //Handles checked videos and adds video ids into Checked
-  const handleCheckToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
+        if (index === -1) {
+            newIndex.push(exercise_id);
+        } else {
+            newIndex.splice(index, 1);
+        }
+        
+        setURL(props.exercises[newIndex - 1].exercise_url);
+        console.log(URL);
+        setOpen(true);
     }
 
-    setChecked(newChecked);
-  };
-  console.log(checked);
+    const handleClose = () => {
+        setOpen(false);
+    }
 
-  React.useEffect(() => {
-    fetchExerciseVideos();
-  }, []);
+    //Handles checked videos and adds video ids into Checked
+    const handleCheckToggle = (value) => () => {
+        const currentIndex = props.selectedVideos.indexOf(value);
+        const newChecked = [...props.selectedVideos];
 
-  return (
-    //TODO add search field and update query to return tags
+        if (currentIndex === -1) {
+            newChecked.push(value);
+        } else {
+            newChecked.splice(currentIndex, 1);
+        }
 
-    <div className={classes.root}>
-      <List component="nav" aria-label="video-list">
-        <ListSubheader className={classes.sticky}>
-          Exercise Library
-        </ListSubheader>
-        {exerciseVideos.map((ev) => (
-          <React.Fragment>
-            <Divider />
-            <ListItem
-              key={ev.exercise_id}
-              role={undefined}
-              dense
-              button
-              selected={selectedVideo == ev.exercise_id}
+        // setChecked(newChecked);
+        props.selectedExercises(newChecked)
+
+    };
+
+
+    return (
+        //TODO add search field and update query to return tags
+
+        <div className={classes.root}>
+            <List component="nav" aria-label="video-list">
+                <ListSubheader color="inherit" className={classes.sticky}>Exercise Library</ListSubheader>
+
+                {props.exercises.map((ev,k) => (
+                    <React.Fragment key={k}>
+                        <Divider/>
+                        <ListItem className={classes.title} >
+                            {ev.title}
+                        </ListItem>
+                        <ListItem>
+                            <ListItemIcon>
+                                <PlayArrow
+                                    edge="start"
+                                    checked={props.selectedVideos.indexOf(ev.exercise_id) !== -1}
+                                    tabIndex={-1}
+                                    onClick={(event) => handleVideoClick(event, ev.exercise_id)}
+                                    inputprops={{'aria-labelledby': `checkbox-list-label-${ev.exercise_id}`}}
+                                />
+                            </ListItemIcon>
+
+                        <ListItemSecondaryAction>
+                                <Checkbox
+                                    edge="end"
+                                    tabIndex={-1}
+                                    disableRipple
+                                    onChange={handleCheckToggle(ev.exercise_id)}
+                                    checked={props.selectedVideos.indexOf(ev.exercise_id) !== -1}
+                                    inputProps={{"aria-labelledby": `checkbox-list-label-${ev.exercise_id}`}}
+                                />
+                            </ListItemSecondaryAction>
+                            <img className={classes.thumbnail} src={ev.thumbnail}/>
+                        </ListItem>
+                    </React.Fragment>
+                ))}
+
+            </List>
+
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
             >
-              <ListItemIcon>
-                <PlayArrow
-                  edge="start"
-                  checked={checked.indexOf(ev.exercise_id) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                  onClick={(event) => handleVideoClick(event, ev.exercise_id)}
-                  inputProps={{
-                    "aria-labelledby": `checkbox-list-label-${ev.exercise_id}`,
-                  }}
-                />
-              </ListItemIcon>
-              <ListItemSecondaryAction>
-                <Checkbox
-                  edge="end"
-                  tabIndex={-1}
-                  disableRipple
-                  onChange={handleCheckToggle(ev.exercise_id)}
-                  checked={checked.indexOf(ev.exercise_id) !== -1}
-                  inputProps={{
-                    "aria-labelledby": `checkbox-list-label-${ev.exercise_id}`,
-                  }}
-                />
-              </ListItemSecondaryAction>
+                <Fade in={open}>
+                    <div className={classes.paper}>
+                        <ReactPlayer
+                            controls={true}
+                            url={URL}
+                        />
+                    </div>
+                </Fade>
+            </Modal>
 
-              <img
-                className={classes.thumbnail}
-                src={
-                  "https://img.youtube.com/vi/" +
-                  ev.exercise_url.split("=")[1] +
-                  "/0.jpg"
-                }
-              />
-            </ListItem>
-            <Divider />
-          </React.Fragment>
-        ))}
-      </List>
+        </div>
+    )
+}
 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <div className={classes.paper}>
-            <ReactPlayer controls={true} url={URL} />
-          </div>
-        </Fade>
-      </Modal>
-    </div>
-  );
-};
+export default connect((state) => ({
+        // The state of exercise, as defined by RootReducer
+        exercises: state.exercises.exercises,
+        selectedVideos: state.exercises.selectedVideos
 
-export default Library;
+    }), (dispatch) => ({
+        // The action from actions-pt which will effect reducer-pt
+        fetchExerciseVideos: () => dispatch(fetchExerciseVideos()),
+        selectedExercises: (selectedVideos) => dispatch(selectedExercises(selectedVideos)),
+        filterExercises: (exercises, searchTerm) => dispatch(exercises, searchTerm)
+    })
+)(Library);

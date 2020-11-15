@@ -13,21 +13,30 @@ public class Contain {
     public Contain(Integer contain_id) {
         this.contain_id = contain_id;}
 
-    public void createContain(Integer workout, Integer[] exercise) throws Exception {
+    public void createContain(Integer workout) throws Exception {
         String containQuery = "INSERT INTO contain(workout, exercise) VALUES (?, ?)";
+
+        Integer exercise_id = -1;
+        String query = "SELECT MAX(exercise_id) FROM exercise";
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
                 Server.databaseUsername,
                 Server.databasePassword);
-             PreparedStatement pst = con.prepareStatement(containQuery)) {
+             PreparedStatement pst = con.prepareStatement(containQuery);
+             PreparedStatement qst = con.prepareStatement(query)) {
 
-            // INSERT Contain into contain, needs testing for iterative additions
-            for(int i = 0; i < exercise.length; i++) {
-                pst.setInt(1, workout);
-                pst.setInt(2, exercise[i]);
-                pst.executeQuery(containQuery);
+
+            ResultSet rs = qst.executeQuery();
+
+            while(rs.next()) {
+                exercise_id = rs.getInt("MAX(exercise_id)");
             }
+
+            // INSERT Contain into contain
+                pst.setInt(1, workout);
+                pst.setInt(2, exercise_id);
+                pst.executeUpdate();
             System.out.println("Contain added to database");
         } catch (SQLException ex) {
             throw new Exception("Error inserting contains: " + ex.toString());

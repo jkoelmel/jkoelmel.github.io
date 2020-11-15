@@ -1,14 +1,9 @@
 import React from "react";
 import List from "@material-ui/core/List";
-import {
-  Divider,
-  ListItem,
-  ListItemText,
-  ListSubheader,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { connect } from "react-redux";
-import { createNewPT, fetchPTsPatients } from "../../Redux/actions/actions-pt";
+import {Divider, ListItem, ListItemText, ListSubheader} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+import {connect} from "react-redux";
+import {fetchPTsPatients} from "../../Redux/actions/actions-pt";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
@@ -35,10 +30,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AssignWorkout = (props, { selectedWorkout, setSelectedWorkout }) => {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [checked, setChecked] = React.useState([]);
+const AssignWorkout = (props) => {
+    const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    const [checked, setChecked] = React.useState([]);
+
+    React.useEffect(() => {
+        props.fetchPTsPatients(props.pt.pt_id)
+    }, []);
+
+    const handleCheckToggle = (value) => () => {
+        const currentIndex = checked.indexOf(value);
+        const newChecked = [...checked];
+
+        if (currentIndex === -1) {
+            newChecked.push(value);
+        } else {
+            newChecked.splice(currentIndex, 1);
+        }
 
   React.useEffect(() => {
     props.fetchPTsPatients(props.pt.pt_id);
@@ -58,91 +67,70 @@ const AssignWorkout = (props, { selectedWorkout, setSelectedWorkout }) => {
   };
   console.log(checked);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+    const assignToPatients = () => {
+        const params = new URLSearchParams();
+        params.append("pt", props.pt.pt_id);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const assignToPatients = (checked) => {
-    axios
-      .post("api/pt/assign", {
-        params: {
-          workout: checked,
-        },
-      })
-      .catch(console.log);
-  };
-
-  return (
-    <div>
-      <List
-        component="nav"
-        aria-label="patient-list"
-        style={{
-          maxHeight: 320,
-          overflowY: "scroll",
-          backgroundColor: "white",
-        }}
-        subheader={
-          <ListSubheader
-            component="div"
-            color="inherit"
-            className={classes.sticky}
-          >
-            Patient List
-          </ListSubheader>
+        for (let i = 0; i < checked.length; i++) {
+            params.append("patient", checked[i])
         }
-      >
-        {props.patients.map((p) => (
-          <ListItem key={p.patient_id}>
-            <ListItemText primary={`${p.f_name} ${p.l_name}`} />
-            <ListItemSecondaryAction>
-              <Checkbox
-                edge="end"
-                tabIndex={-1}
-                disableRipple
-                onChange={handleCheckToggle(p.patient_id)}
-                checked={checked.indexOf(p.patient_id) !== -1}
-                inputProps={{
-                  "aria-labelledby": `checkbox-list-label-${p.patient_id}`,
-                }}
-              />
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
-      <Button onClick={assignToPatients}>ASSIGN TO...</Button>
+        for (let j = 0; j < props.selectedWorkouts.length; j++) {
+            params.append("workout", props.selectedWorkouts[j]);
+        }
 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}></Fade>
-      </Modal>
-    </div>
-  );
-};
+        axios.post('api/pt/assign', params)
+            .then((response) => {
+                if (response.data == 200) {
+                    console.log("Message success")
+                    window.alert("Assignments complete")
+                    window.location.reload()
+                }
+            })
+            .catch(console.log);
+    }
 
-export default connect(
-  (state) => ({
-    // The state of the pt, as defined by reducer-pt
-    pt: state.pt,
-    // The state of the pt's patients, defined by reducer-pt
-    patients: state.pt.patients,
-  }),
-  (dispatch) => ({
-    // The action from actions-pt which will effect reducer-pt
-    fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
-  })
+    return (
+        <div>
+            <List component="nav" aria-label="workout-list"
+                  style={{maxHeight: 300, overflowY: "scroll", backgroundColor: "white"}}
+                  subheader={
+                      <ListSubheader component="div" color="inherit" className={classes.sticky}>
+                          Patient List
+                      </ListSubheader>
+                  }>
+                {props.patients.map((p,k) => (
+                    <div key={k}>
+                    <ListItem>
+                        <ListItemText primary={`${p.f_name} ${p.l_name}`} />
+                        <ListItemSecondaryAction>
+                            <Checkbox
+                                edge="end"
+                                tabIndex={-1}
+                                disableRipple
+                                onChange={handleCheckToggle(p.patient_id)}
+                                checked={checked.indexOf(p.patient_id) !== -1}
+                                inputProps={{"aria-labelledby": `checkbox-list-label-${p.patient_id}`}}
+                            />
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                    </div>
+                ))}
+
+            </List>
+            <Button onClick={assignToPatients}>ASSIGN</Button>
+        </div>
+    )
+}
+
+export default connect((state) => ({
+        // The state of the pt, as defined by reducer-pt
+        pt: state.pt,
+        // The state of the pt's patients, defined by reducer-pt
+        patients: state.pt.patients,
+        selectedWorkouts: state.exercises.selectedWorkouts
+    }), (dispatch) => ({
+        // The action from actions-pt which will effect reducer-pt
+        fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
+
+    })
 )(AssignWorkout);

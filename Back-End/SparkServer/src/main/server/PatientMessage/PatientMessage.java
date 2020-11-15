@@ -1,4 +1,4 @@
-package main.server.PTMessage;
+package main.server.PatientMessage;
 
 import main.server.AES.AES;
 import main.server.Server;
@@ -7,17 +7,17 @@ import java.sql.*;
 
 public class PatientMessage {
 
-    private Integer patient_message_id;
+    private Integer message_id;
     private String message;
     private Timestamp created_On;
     private Integer patient;
     private Integer pt;
     private final String secret = "messageEncryption";
 
-    public PatientMessage(Integer message_id) { this.patient_message_id = message_id;}
+    public PatientMessage(Integer message_id) { this.message_id = message_id;}
 
     public void createMessage(String message, Integer patient, Integer pt) throws Exception {
-        String messageQuery = "INSERT INTO patient_message(patient_message_id, message, created_on, patient, pt) " +
+        String messageQuery = "INSERT INTO pt_message(message_id, message, created_on, patient, pt) " +
                 " VALUES(NULL, ?, now(), ?, ?)";
 
         try (Connection con = DriverManager.getConnection(
@@ -40,7 +40,7 @@ public class PatientMessage {
     }
 
     public PatientMessage getMessageContents() throws Exception {
-        String messageQuery = "SELECT * FROM patient_message WHERE patient_message_id = " + this.patient_message_id;
+        String messageQuery = "SELECT * FROM pt_message WHERE message_id = " + this.message_id;
 
         try (Connection con = DriverManager.getConnection(
                 Server.databasePath,
@@ -51,9 +51,8 @@ public class PatientMessage {
 
             ResultSet rs = pst.executeQuery();
             if(rs.next()) {
-                setmessage_id(rs.getInt("patient_message_id"));
+                setmessage_id(rs.getInt("message_id"));
                 setMessage(rs.getString("message"));
-                setCreated_On(rs.getTimestamp("created_on"));
                 setPatient(rs.getInt("patient"));
                 setPt(rs.getInt("pt"));
             }
@@ -67,11 +66,11 @@ public class PatientMessage {
     //No message update method created because messages created are final and uneditable.
 
     public Integer getmessage_id() {
-        return patient_message_id;
+        return message_id;
     }
 
     public void setmessage_id(Integer message_id) {
-        this.patient_message_id = message_id;
+        this.message_id = message_id;
     }
 
 

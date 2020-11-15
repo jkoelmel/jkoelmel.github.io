@@ -97,6 +97,42 @@ public class ActivityUtil {
         return toReturn;
     }
 
+    public static String getAllPTActivity(Request request, Response response) {
+        String toReturn = "";
+        String query = "SELECT type_activity, SUM(duration) totalTime FROM activity WHERE pt = " +
+                Integer.parseInt(request.queryMap().get("pt").value()) + " GROUP BY type_activity " +
+                "ORDER BY type_activity ASC";
+
+        try (Connection con = DriverManager.getConnection(
+                Server.databasePath,
+                Server.databaseUsername,
+                Server.databasePassword);
+             PreparedStatement pst = con.prepareStatement(query)) {
+            ResultSet rs = pst.executeQuery();
+
+            ArrayList<Activity> list = new ArrayList<>();
+            while (rs.next()) {
+                Activity activity = new Activity(null);
+                activity.setType_activity(rs.getString("type_activity"));
+                activity.setDuration(rs.getInt("totalTime"));
+                list.add(activity);
+            }
+            Gson gson = new Gson();
+            toReturn = gson.toJson(list);
+
+            System.out.println("All PT activities summed and returned");
+            response.type("application/json");
+            response.status(200);
+        } catch (SQLException sqlEx) {
+            System.err.println(sqlEx.toString());
+            response.status(500);
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+            response.status(400);
+        }
+
+        return toReturn;
+    }
 
     public static String getPatPTSummary(Request request, Response response) {
         String query = "SELECT type_activity, SUM(duration) totalTime FROM activity WHERE pt = " +

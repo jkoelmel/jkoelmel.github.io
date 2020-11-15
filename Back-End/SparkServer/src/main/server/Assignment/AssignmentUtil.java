@@ -2,7 +2,6 @@ package main.server.Assignment;
 
 import com.google.gson.Gson;
 import main.server.PatientAssignment.PatientAssignment;
-import main.server.PatientVideo.PatientVideo;
 import main.server.Server;
 import main.server.Workout.Workout;
 import spark.Request;
@@ -163,14 +162,17 @@ public class AssignmentUtil {
         return toReturn;
     }
 
+    //WIP
     public static Integer assignToPatients(Request request) {
 
         try {
-            for(int i = 0; i < (request.queryMap().toMap().size() / 3); i++) {
-                Assignment assignment = new Assignment(null);
-                assignment.createAssignment(Integer.parseInt(request.queryMap().get("pt").value()),
-                        Integer.parseInt(request.queryMap().get("workout").value()),
-                        Integer.parseInt(request.queryMap().get("patient").value()));
+            for(int i = 0; i < (request.queryParamsValues("workout").length); i++) {
+                for(int j = 0; j < (request.queryParamsValues("patient").length); j++) {
+                    Assignment assignment = new Assignment(null);
+                    assignment.createAssignment(Integer.parseInt(request.queryMap().get("pt").value()),
+                            Integer.parseInt(request.queryParamsValues("workout")[i]),
+                            Integer.parseInt(request.queryParamsValues("patient")[j]));
+                }
             }
             return 200;
         } catch (SQLException sqlEx) {

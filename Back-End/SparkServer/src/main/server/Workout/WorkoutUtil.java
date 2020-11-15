@@ -1,12 +1,14 @@
 package main.server.Workout;
 
 import com.google.gson.Gson;
+import main.server.Assignment.Assignment;
 import main.server.Server;
 import spark.Request;
 import spark.Response;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class WorkoutUtil {
     public static String selectSpecific(Request request, Response response) {
@@ -64,5 +66,21 @@ public class WorkoutUtil {
         return toReturn;
     }
 
+    public static Integer registerWorkout(Request request) {
+        try {
+            Workout workout = new Workout(null);
+            workout.createWorkout(request.queryMap().get("title").value(),
+                    Integer.parseInt(request.queryMap().get("pt").value()));
+            return 200;
+        } catch (SQLException sqlEx) {
+            System.err.println(sqlEx.toString());
+            return 500;
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+            return 400;
+        }
+
+
+    }
 
 }
