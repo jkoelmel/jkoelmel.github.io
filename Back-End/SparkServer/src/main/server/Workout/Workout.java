@@ -6,87 +6,96 @@ import java.sql.*;
 
 public class Workout {
 
-    private Integer workout_id;
-    private String title;
-    private Integer PT;
+  private Integer workout_id;
+  private String title;
+  private Integer PT;
 
-    public Workout(Integer workout_id) { this.workout_id = workout_id;}
+  public Workout(Integer workout_id) {
+    this.workout_id = workout_id;
+  }
 
-    public Workout(Integer workout_id, String title) {
-        this.workout_id = workout_id;
-        this.title = title;
+  public Workout(Integer workout_id, String title) {
+    this.workout_id = workout_id;
+    this.title = title;
+  }
+
+  public void createWorkout(String title, Integer pt) throws Exception {
+    String workoutQuery = "INSERT INTO workout(workout_id,title, pt) VALUES (NULL, ?, ?)";
+
+    try (Connection con =
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(workoutQuery)) {
+
+      pst.setString(1, title);
+      pst.setInt(2, pt);
+      pst.executeUpdate();
+
+      System.out.println("Workout added to database");
+    } catch (SQLException ex) {
+      throw new Exception("Error inserting workout: " + ex.toString());
     }
-    
-    public void createWorkout(String title, Integer pt) throws Exception{
-        String workoutQuery = "INSERT INTO workout(workout_id,title, pt) VALUES (NULL, ?, ?)";
+  }
 
-        try (Connection con = DriverManager.getConnection(
-                Server.databasePath,
-                Server.databaseUsername,
-                Server.databasePassword);
-             PreparedStatement pst = con.prepareStatement(workoutQuery)) {
+  public Workout getWorkout() throws Exception {
+    String workoutQuery = "SELECT * FROM workout";
+    try (Connection con =
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(workoutQuery)) {
+      pst.executeQuery(workoutQuery);
 
-            pst.setString(1, title);
-            pst.setInt(2, pt);
-            pst.executeUpdate();
+      ResultSet rs = pst.executeQuery();
+      if (rs.next()) {
 
-            System.out.println("Workout added to database");
-        } catch(SQLException ex){
-            throw new Exception("Error inserting workout: " + ex.toString());
-        }
+        setWorkoutId(rs.getInt("workout_id"));
+        setTitle(rs.getString("title"));
+        setPT(rs.getInt("pt"));
+      }
+    } catch (SQLException ex) {
+      throw new Exception(
+          "Error getting workout with id " + this.workout_id + ": " + ex.toString());
     }
+    return this;
+  }
 
-    public Workout getWorkout() throws Exception{
-        String workoutQuery = "SELECT * FROM workout";
-        try (Connection con = DriverManager.getConnection(
-                Server.databasePath,
-                Server.databaseUsername,
-                Server.databasePassword);
-             PreparedStatement pst = con.prepareStatement(workoutQuery)) {
-            pst.executeQuery(workoutQuery);
+  public void updateWorkout(String title) throws Exception {
+    String query = "UPDATE workout SET title = " + title + " WHERE workout_id = " + this.workout_id;
 
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
+    try (Connection con =
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(query)) {
+      pst.executeUpdate(query);
 
-                setWorkoutId(rs.getInt("workout_id"));
-                setTitle(rs.getString("title"));
-                setPT(rs.getInt("pt"));
-            }
-        } catch (SQLException ex) {
-            throw new Exception("Error getting workout with id " + this.workout_id + ": " + ex.toString());
-        }
-        return this;
+      System.out.println("Workout updated");
+    } catch (Exception ex) {
+      throw new Exception(
+          "Error updating workouts for patient with id " + this.workout_id + ": " + ex.toString());
     }
+  }
 
-    public void updateWorkout(String title) throws Exception{
-        String query = "UPDATE workout SET title = " + title + " WHERE workout_id = " + this.workout_id;
+  public Integer getWorkoutId() {
+    return workout_id;
+  }
 
-        try (Connection con = DriverManager.getConnection(
-                Server.databasePath,
-                Server.databaseUsername,
-                Server.databasePassword);
-             PreparedStatement pst = con.prepareStatement(query)) {
-            pst.executeUpdate(query);
+  public void setWorkoutId(Integer workoutId) {
+    this.workout_id = workoutId;
+  }
 
-            System.out.println("Workout updated");
-        } catch (Exception ex) {
-            throw new Exception("Error updating workouts for patient with id " + this.workout_id + ": " + ex.toString());
-        }
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public Integer getWorkoutId(){ return workout_id; }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public void setWorkoutId(Integer workoutId){ this.workout_id = workoutId;}
+  public Integer getPT() {
+    return PT;
+  }
 
-    public String getTitle(){ return title;}
-
-    public void setTitle(String title){ this.title = title;}
-
-    public Integer getPT() {
-        return PT;
-    }
-
-    public void setPT(Integer PT) {
-        this.PT = PT;
-    }
+  public void setPT(Integer PT) {
+    this.PT = PT;
+  }
 }

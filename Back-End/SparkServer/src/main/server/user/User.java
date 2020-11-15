@@ -3,84 +3,87 @@ package main.server.user;
 import main.server.AES.AES;
 
 public abstract class User {
-    private Integer user_id;
-    private String email;
-    private String password;
-    private String f_name;
-    private String l_name;
-    private String company;
-    private Integer address;
-    private Boolean admin;
-    private String secret = "passwordEncryption";
+  private Integer user_id;
+  private String email;
+  private String password;
+  private String f_name;
+  private String l_name;
+  private String company;
+  private Integer address;
+  private Boolean admin;
+  private String secret = "passwordEncryption";
 
-    public User() {
-    }
+  public User() {}
 
-    public User(String email, String password, String f_name, String l_name, String company) {
-        this.email = email;
-        this.password = AES.encrypt(password, secret);
-        this.f_name = f_name;
-        this.l_name = l_name;
-        this.company = company;
-    }
+  public User(String email, String password, String f_name, String l_name, String company) {
+    this.email = email;
+    this.password = AES.encrypt(password, secret);
+    this.f_name = f_name;
+    this.l_name = l_name;
+    this.company = company;
+  }
 
-    public Integer getUser_id() {
-        return user_id;
-    }
+  public Integer getUser_id() {
+    return user_id;
+  }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
-    }
+  public void setUser_id(Integer user_id) {
+    this.user_id = user_id;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public String getPassword() { return password; }
+  public String getPassword() {
+    return password;
+  }
 
-    public void setPassword(String password) { this.password = password; }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public String getF_name() {
-        return f_name;
-    }
+  public String getF_name() {
+    return f_name;
+  }
 
-    public void setF_name(String f_name) {
-        this.f_name = f_name;
-    }
+  public void setF_name(String f_name) {
+    this.f_name = f_name;
+  }
 
-    public String getL_name() {
-        return l_name;
-    }
+  public String getL_name() {
+    return l_name;
+  }
 
-    public void setL_name(String l_name) {
-        this.l_name = l_name;
-    }
+  public void setL_name(String l_name) {
+    this.l_name = l_name;
+  }
 
-    public String getCompany() {
-        return company;
-    }
+  public String getCompany() {
+    return company;
+  }
 
-    public void setCompany(String company) {
-        this.company = company;
-    }
+  public void setCompany(String company) {
+    this.company = company;
+  }
 
-    public Integer getAddress() {
-        return address;
-    }
+  public Integer getAddress() {
+    return address;
+  }
 
-    public void setAddress(Integer address) {
-        this.address = address;
-    }
+  public void setAddress(Integer address) {
+    this.address = address;
+  }
 
-    public Boolean getAdmin() {
-        return admin;
-    }
+  public Boolean getAdmin() {
+    return admin;
+  }
 
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
-    }
+  public void setAdmin(Boolean admin) {
+    this.admin = admin;
+  }
 }

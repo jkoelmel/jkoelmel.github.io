@@ -5,8 +5,8 @@ import main.server.user.*;
 
 import java.sql.*;
 
-
 public class Patient extends User {
+
 	private Integer patient_id;
 	private Integer user;
 	private Integer pt;
