@@ -84,7 +84,7 @@ const Dashboard = () => {
         </Grid>
         <Grid item>
           <Paper className={classes.paperSummary} elevation={5}>
-            <Typography><b><u>Total Activity Summary</u></b></Typography>
+            <Typography><b>Activity Summary</b></Typography>
             <ActivitySummary/>
           </Paper>
         </Grid>

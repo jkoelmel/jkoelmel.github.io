@@ -11,6 +11,8 @@ import {
   ListSubheader,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import {connect} from "react-redux";
+import {fetchPTsPatients, setSelectedWorkouts} from "../../Redux/actions/actions-pt";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -28,15 +30,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ActivitySummary = () => {
+const ActivitySummary = (props) => {
   const classes = useStyles();
   const [activity, setActivity] = React.useState([]);
+  const [subheader, setSubheader] = React.useState('');
 
   const fetchSummaryInfo = () => {
     axios
       .get("api/pt/summary", {
         params: {
-          pt: 100,
+          pt: props.pt.pt_id
         },
       })
       .then((response) => {
@@ -50,10 +53,31 @@ const ActivitySummary = () => {
       .catch(console.log);
   };
 
+  const fetchPatPTSummary = (selectedPatient) => {
+    axios.get('api/pt/patient-activity', {
+      params: {
+        pt: props.pt.pt_id,
+        patient: selectedPatient
+      }
+    }).then((response) => {
+      setActivity(
+          response.data.map((a) => {
+            return a
+          })
+      )
+    })
+  }
+
   React.useEffect(() => {
-    //will load patients-PT activity summary when the page loads
-        fetchSummaryInfo();
-  }, []);
+    if(props.pt.selectedPatient.patient_id == null){
+      fetchSummaryInfo()
+      setSubheader("For All Patients")
+    } else {
+      fetchPatPTSummary(props.pt.selectedPatient.patient_id);
+      setSubheader("For " + props.pt.selectedPatient.f_name +
+          " " + props.pt.selectedPatient.l_name)
+    }
+  }, [props.pt.selectedPatient]);
 
   return (
     <List
@@ -61,6 +85,9 @@ const ActivitySummary = () => {
       aria-label="activity-list"
       style={{ maxHeight: 300 }}
     >
+      <ListItem color="inherit" className={classes.modal}>
+        <b>{subheader}</b>
+      </ListItem>
       <ListItem className={classes.modal}>
         <u>
           <b>Activity : Minutes</b>
@@ -75,4 +102,15 @@ const ActivitySummary = () => {
   );
 };
 
-export default ActivitySummary;
+export default connect(
+    (state) => ({
+      // The state of the pt, as defined by reducer-pt
+      pt: state.pt,
+      // The state of the pt's patients, defined by reducer-pt
+      patients: state.pt.patients
+    }),
+    (dispatch) => ({
+      // The action from actions-pt which will effect reducer-pt
+      fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
+    })
+)(ActivitySummary);
