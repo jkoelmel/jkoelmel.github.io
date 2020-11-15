@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-const Landing = () => {
+const Landing = ({handleLogin,error}) => {
     const classes = useStyles();
     const [LoginOpen, setLoginOpen] = React.useState(false);
     const [RegisterNow, setRegisterNow] = React.useState(false);
@@ -130,7 +130,8 @@ const Landing = () => {
                 className={classes.LoginModal}>
                     {/* <DialogTitle color="secondary" id="form-dialog-title">Log In</DialogTitle> */}
                     <DialogContent>
-                        <LoginForm/>
+                        <Typography >LOGIN</Typography>
+                        <LoginForm submit={handleLogin} error={error}/>
                 </DialogContent>
             </Dialog>
         </div>

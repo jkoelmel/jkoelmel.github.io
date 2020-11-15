@@ -7,7 +7,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import {makeStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
-import {createNewPT, fetchPTsPatients, setSelectedPatient} from '../../Redux/actions/actions-pt';
+import {createNewPT, fetchPTsPatients, setSelectedPatient,updatePT} from '../../Redux/actions/actions-pt';
 
 import './PatientList.css'
 import {ListItem, ListItemText} from '@material-ui/core';
@@ -36,6 +36,7 @@ const PatientList = (props) => {
 
     useEffect(() => {
         //will load patients when the page loads
+        props.updatePT(props.pt)
         props.fetchPTsPatients(props.pt.pt_id)
     }, []);
 
@@ -133,7 +134,8 @@ export default connect((state) => ({
         // The action from actions-pt which will effect reducer-pt
         fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
         createNewPT: (pt) => dispatch(createNewPT(pt)),
-        setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient))
+        setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
+        updatePT: (pt) => dispatch(updatePT(pt))
     })
 )(PatientList);
 

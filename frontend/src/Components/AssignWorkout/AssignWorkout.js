@@ -3,7 +3,7 @@ import List from "@material-ui/core/List";
 import {Divider, ListItem, ListItemText, ListSubheader} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux";
-import {fetchPTsPatients} from "../../Redux/actions/actions-pt";
+import {fetchPTsPatients, assignWorkout} from "../../Redux/actions/actions-pt";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
@@ -63,25 +63,7 @@ const AssignWorkout = (props) => {
     }
 
     const assignToPatients = () => {
-        const params = new URLSearchParams();
-        params.append("pt", props.pt.pt_id);
-
-        for (let i = 0; i < checked.length; i++) {
-            params.append("patient", checked[i])
-        }
-        for (let j = 0; j < props.selectedWorkouts.length; j++) {
-            params.append("workout", props.selectedWorkouts[j]);
-        }
-
-        axios.post('api/pt/assign', params)
-            .then((response) => {
-                if (response.data == 200) {
-                    console.log("Message success")
-                    window.alert("Assignments complete")
-                    window.location.reload()
-                }
-            })
-            .catch(console.log);
+        props.assignWorkout(props.pt,checked,props.selectedWorkouts)
     }
 
     return (
@@ -126,6 +108,7 @@ export default connect((state) => ({
     }), (dispatch) => ({
         // The action from actions-pt which will effect reducer-pt
         fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
+        assignWorkout: (pt, checked, selectedWorkouts) => dispatch(assignWorkout(pt,checked,selectedWorkouts))
 
     })
 )(AssignWorkout);

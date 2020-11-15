@@ -50,6 +50,30 @@ export const loginPT = (pt) => {
 
 }
 
+export const assignWorkout = (pt,checked,selectedWorkout) => {
+    const params = new URLSearchParams()
+    params.append("pt", pt.pt_id)
+    for (let i = 0; i < checked.length; i++) {
+        params.append("patient", checked[i])
+    }
+    for (let j = 0; j < selectedWorkout.length; j++) {
+        params.append("workout", selectedWorkout[j]);
+    }
+    return() => {
+        postAuth('/api/pt/assign', params)
+        .then((response) => {
+            if (response.data == 200) {
+                console.log("Message success")
+                window.alert("Assignments complete")
+                window.location.reload()
+            }
+        })
+        .catch(console.log);
+    } 
+}
+
+
+
 export const createWorkout = (pt, title, exercises, descriptions)=> {
 
     const params = new URLSearchParams()

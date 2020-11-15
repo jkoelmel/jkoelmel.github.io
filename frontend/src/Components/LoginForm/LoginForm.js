@@ -2,6 +2,8 @@ import * as React from 'react'
 import { Formik, Form } from 'formik'
 import { connect } from 'react-redux';
 import {loginPT} from '../../Redux/actions/actions-pt';
+import {Redirect} from 'react-router-dom';
+
 import {
   TextField,
   Button,
@@ -15,18 +17,6 @@ import Paper from '@material-ui/core/Paper';
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
-    // root: {
-    //             display: 'flex',
-    //             justifyContent: 'center',
-    //             alignItems: 'center',
-    //             height: 400,
-    //             width: 400,
-    //             '& .MuiTextField-root': {
-    //                 // margin: theme.spacing(1),
-    //                 // width: '25ch',
-    //                 color: theme.palette.secondary.main,
-    //               },
-    //         },
     form: {
       margin: '10px auto',
       height: '300px',
@@ -52,6 +42,8 @@ const LoginForm = (props,{ submit, isLoading, error }) => {
     return <Typography>Loading</Typography>
   }
 
+  
+
   return (
     <Paper className={classes.root}>
     <React.Fragment>
@@ -62,7 +54,6 @@ const LoginForm = (props,{ submit, isLoading, error }) => {
           setSubmitting(true)
           // make async call
           await props.loginPT(data)
-          console.log(props.errorCode)
           setSubmitting(false)
         }}
       >
@@ -85,9 +76,9 @@ const LoginForm = (props,{ submit, isLoading, error }) => {
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              helperText={
-                errors.email &&touched.email && errors.email
-              }
+              // helperText={
+              //   // props.errorCode
+              // }
             />
             <TextField
               color="secondary"
@@ -95,9 +86,9 @@ const LoginForm = (props,{ submit, isLoading, error }) => {
               className={classes.box}
               label='password'
               name='password'
-              error={errors.password ? true : false}
+              error={props.errorCode ? true : false}
               helperText={
-                errors.password && touched.password && errors.password
+                props.errorCode
               }
               type={showPassword ? 'text' : 'password'}
               value={values.password}
@@ -119,7 +110,8 @@ const LoginForm = (props,{ submit, isLoading, error }) => {
                 ),
               }}
             />
-            {props.errorCode && <p style={{ color: 'red' }}>{error}</p>}
+            {/* {error && <p style={{ color: 'red' }}>{error}</p>} */}
+            {/* {props.errorCode && <p style={{ color: 'red' }}>{props.errorCode}</p>} */}
             <FormControl>
               <Button
                 disabled={isSubmitting}
@@ -146,7 +138,7 @@ export default connect((state) => ({
       // The state of the pt's patients, defined by reducer-pt
       patients: state.pt.patients,
 
-      errorCode: state.errorCode
+      errorCode: state.pt.errorCode
   }), (dispatch) => ({
       // The action from actions-pt which will effect reducer-pt
       loginPT: (data) => dispatch(loginPT(data))
