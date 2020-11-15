@@ -36,7 +36,7 @@ const ActivitySummary = () => {
     axios
       .get("api/pt/summary", {
         params: {
-          pt: 1,
+          pt: 100,
         },
       })
       .then((response) => {
@@ -52,8 +52,8 @@ const ActivitySummary = () => {
 
   React.useEffect(() => {
     //will load patients-PT activity summary when the page loads
-    if (selectedPatient != "") fetchSummaryInfo();
-  }, [selectedPatient]);
+        fetchSummaryInfo();
+  }, []);
 
   return (
     <List
