@@ -2,15 +2,15 @@ import { handleActions } from "redux-actions";
 import * as constants from "../constants/constants-pt";
 
 const initialPTState = {
-    pt_id: 100,
-    user: null,
-    user_id: null,
-    email: '',
-    f_name: '',
-    l_name: '',
-    company: '',
-    patients: [{}],
-    selectedPatient: {}
+  pt_id: 100,
+  user: null,
+  user_id: null,
+  email: "",
+  f_name: "",
+  l_name: "",
+  company: "",
+  patients: [{}],
+  selectedPatient: {},
 };
 
 const PTReducer = handleActions(
@@ -45,23 +45,24 @@ const PTReducer = handleActions(
       };
     },
     [constants.LOGIN_PT]: (state, action) => {
-        const pt = action.payload
-        return {
-            email: pt.email,
-        }
+      const pt = action.payload;
+      return {
+        email: pt.email,
+      };
     },
     [constants.CHECK_LOGIN_ERROR]: (state, action) => {
-        const errorCode = action.payload
-        console.log(errorCode)
-        return {errorCode: errorCode}
-
+      const errorCode = action.payload;
+      console.log(errorCode);
+      return { errorCode: errorCode };
     },
     [constants.SET_SELECTED_PATIENT]: (state, action) => {
-        return {
-            ...state,
-            selectedPatient: action.payload
-        }
-    }
-}, initialPTState)
+      return {
+        ...state,
+        selectedPatient: action.payload,
+      };
+    },
+  },
+  initialPTState
+);
 
 export default PTReducer;

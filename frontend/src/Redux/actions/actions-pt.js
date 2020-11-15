@@ -1,6 +1,6 @@
-import * as constants from '../constants/constants-pt'
-import * as constantsWorkout from '../constants/constants-workouts'
-import {getAuth, postAuth} from './actions-auth'
+import * as constants from "../constants/constants-pt";
+import * as constantsWorkout from "../constants/constants-workouts";
+import { getAuth, postAuth } from "./actions-auth";
 
 export const createNewPT = (pt) => {
   const params = new URLSearchParams();
@@ -21,58 +21,59 @@ export const createNewPT = (pt) => {
 };
 //TODO SEND MESSAGE IF ERROR
 export const loginPTError = (err) => {
-    return {
-        type: constants.CHECK_LOGIN_ERROR,
-        payload: err
-    }
-}
+  return {
+    type: constants.CHECK_LOGIN_ERROR,
+    payload: err,
+  };
+};
 
 export const loginPT = (pt) => {
-    const params = new URLSearchParams()
-    params.append("email", pt.email)
-    params.append("password", pt.password)
-    console.log("params: ", params)
+  const params = new URLSearchParams();
+  params.append("email", pt.email);
+  params.append("password", pt.password);
+  console.log("params: ", params);
 
-    return (dispatch) => {
-        postAuth('/api/pt/login', params).then((res) => {
-            console.log("login status: ", res.data)
-            if (res.data == 200) {
-                dispatch(getPTByEmail(pt.email))
-            } else {
-                console.log(res.data.payload.message)
-                // dispatch(loginPTError(res.data))
-            }
-        }).catch((err) => {
-            dispatch(loginPTError('username or password is invalid.'))
-            console.log(err)
-        })
-    }
+  return (dispatch) => {
+    postAuth("/api/pt/login", params)
+      .then((res) => {
+        console.log("login status: ", res.data);
+        if (res.data == 200) {
+          dispatch(getPTByEmail(pt.email));
+        } else {
+          console.log(res.data.payload.message);
+          // dispatch(loginPTError(res.data))
+        }
+      })
+      .catch((err) => {
+        dispatch(loginPTError("username or password is invalid."));
+        console.log(err);
+      });
+  };
+};
 
-}
+export const createWorkout = (pt, title, exercises, descriptions) => {
+  const params = new URLSearchParams();
+  params.append("pt", pt.pt_id);
+  params.append("title", title);
 
-export const createWorkout = (pt, title, exercises, descriptions)=> {
-
-    const params = new URLSearchParams()
-    params.append("pt", pt.pt_id)
-    params.append("title", title)
-
-    for(let i = 0; i < exercises.length; i++) {
-        params.append("exercise_id", exercises[i]);
-        params.append("description", descriptions[i]);
-    }
-    return () => {
-        postAuth('/api/pt/create', params).then((res) => {
-            if (res.data == 200) {
-                console.log(res.data)
-                window.alert("Workout creation: success")
-                window.location.reload()
-            }
-        }).catch((err) => {
-            console.log(err)
-        })
-    }
-}
-
+  for (let i = 0; i < exercises.length; i++) {
+    params.append("exercise_id", exercises[i]);
+    params.append("description", descriptions[i]);
+  }
+  return () => {
+    postAuth("/api/pt/create", params)
+      .then((res) => {
+        if (res.data == 200) {
+          console.log(res.data);
+          window.alert("Workout creation: success");
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
 export const createPT = (pt) => {
   return {
@@ -125,46 +126,44 @@ export const fetchPTsPatients = (pt) => {
 };
 
 export const loadPTsPatients = (patients) => {
-    return {
-        type: constants.GET_PT_PATIENTS,
-        payload: patients
-    }
-}
+  return {
+    type: constants.GET_PT_PATIENTS,
+    payload: patients,
+  };
+};
 
 export const fetchExerciseVideos = () => {
-    console.log('im here')
-    return (dispatch) => {
-        getAuth('/api/exercise/all')
-            .then((response) => dispatch(loadExerciseVideos(response.data)))
-            .catch(err => console.log(err))
-    }
-}
+  console.log("im here");
+  return (dispatch) => {
+    getAuth("/api/exercise/all")
+      .then((response) => dispatch(loadExerciseVideos(response.data)))
+      .catch((err) => console.log(err));
+  };
+};
 
 export const loadExerciseVideos = (exercises) => {
-    return {
-        type: constantsWorkout.GET_EXERCISE_VIDEOS,
-        payload: exercises
-    }
-
-}
+  return {
+    type: constantsWorkout.GET_EXERCISE_VIDEOS,
+    payload: exercises,
+  };
+};
 export const selectedExercises = (selectedVideos) => {
-    return {
-        type: constantsWorkout.GET_SELECTED_VIDEOS,
-        payload: selectedVideos
-    }
-}
+  return {
+    type: constantsWorkout.GET_SELECTED_VIDEOS,
+    payload: selectedVideos,
+  };
+};
 
 export const setSelectedWorkouts = (selectedWorkouts) => {
-    return {
-        type: constantsWorkout.GET_SELECTED_WORKOUTS,
-        payload: selectedWorkouts
-    }
-}
-
+  return {
+    type: constantsWorkout.GET_SELECTED_WORKOUTS,
+    payload: selectedWorkouts,
+  };
+};
 
 export const setSelectedPatient = (patient) => {
-    return {
-        type: constants.SET_SELECTED_PATIENT,
-        payload: patient
-    }
-}
+  return {
+    type: constants.SET_SELECTED_PATIENT,
+    payload: patient,
+  };
+};

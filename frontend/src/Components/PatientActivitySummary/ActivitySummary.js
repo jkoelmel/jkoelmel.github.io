@@ -25,31 +25,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const ActivitySummary = () => {
-    const classes = useStyles();
-    const [activity, setActivity] = React.useState([]);
+  const classes = useStyles();
+  const [activity, setActivity] = React.useState([]);
 
-    const fetchSummaryInfo = () => {
-        axios.get('api/pt/patient-activity', {
-            params: {
-                patient: 1,
-                pt: 100
-            }
-        }).then((response) => {
+  const fetchSummaryInfo = () => {
+    axios
+      .get("api/pt/patient-activity", {
+        params: {
+          patient: 1,
+          pt: 100,
+        },
+      })
+      .then((response) => {
+        setActivity(
+          response.data.map((a) => {
+            console.log(response.data);
+            return a;
+          })
+        );
+      })
+      .catch(console.log);
+  };
 
-            setActivity(response.data.map((a) => {
-                console.log(response.data)
-                return a;
-            }))
-        })
-            .catch(console.log)
-    }
-
-    React.useEffect(() => {
-        //will load patients-PT activity summary when the page loads
-            fetchSummaryInfo();
-    }, []);
+  React.useEffect(() => {
+    //will load patients-PT activity summary when the page loads
+    fetchSummaryInfo();
+  }, []);
 
   React.useEffect(() => {
     //will load patients-PT activity summary when the page loads
