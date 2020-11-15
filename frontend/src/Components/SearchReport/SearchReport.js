@@ -2,8 +2,19 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import axios from "axios";
+import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
+import { ListSubheader } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  sticky: {
+    backgroundColor: "white",
+  },
+}));
 
 const SearchReport = ({ selectedPatient, setSelectedPatient }) => {
+  const classes = useStyles();
   const [patientReport, setPatientReport] = React.useState([]);
   const [patients, setPatients] = React.useState([]);
   const [entry, setEntry] = React.useState("");
@@ -15,6 +26,16 @@ const SearchReport = ({ selectedPatient, setSelectedPatient }) => {
         params: {
           patient_id: selectedPatient,
         },
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data.patient);
+
+        setPatientReport(
+          response.data.map((pr) => {
+            return pr;
+          })
+        );
       })
       .then((response) => {
         console.log(response);
@@ -40,24 +61,31 @@ const SearchReport = ({ selectedPatient, setSelectedPatient }) => {
   }, [selectedPatient]);
 
   return (
-    <div>
-      <div style={{ width: "auto" }}>
-        <Autocomplete
-          searchreport
-          id="search-report"
-          disableClearable
-          options={patientReport.map((pr) => pr.created_on + " " + pr.entry)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Search Patient Report"
-              margin="normal"
-              variant="outlined"
-              InputProps={{ ...params.InputProps, type: "search" }}
-            />
-          )}
-        />
-      </div>
+    <div className={classes.sticky}>
+      <List
+        component="nav"
+        aria-label="patient-list"
+        style={{ maxHeight: 600, overflowY: "scroll" }}
+      >
+        {patientReport.map((pr) => (
+          <ListItem>{pr.created_on + " " + pr.entry}</ListItem>
+        ))}
+      </List>
+      {/*<Autocomplete*/}
+      {/*  searchreport*/}
+      {/*  id="search-report"*/}
+      {/*  disableClearable*/}
+      {/*  options={patientReport.map((pr) => pr.created_on + " " + pr.entry)}*/}
+      {/*  renderInput={(params) => (*/}
+      {/*    <TextField*/}
+      {/*      {...params}*/}
+      {/*      label="Search Patient Report"*/}
+      {/*      margin="normal"*/}
+      {/*      variant="outlined"*/}
+      {/*      InputProps={{ ...params.InputProps, type: 'search' }}*/}
+      {/*    />*/}
+      {/*  )}*/}
+      {/*/>*/}
     </div>
   );
 };

@@ -1,12 +1,14 @@
 import React from "react";
 import List from "@material-ui/core/List";
-import {Divider, ListItem, ListItemText, ListSubheader} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-import {connect} from "react-redux";
-import {fetchPTsPatients, assignWorkout} from "../../Redux/actions/actions-pt";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Modal from "@material-ui/core/Modal";
+import {
+  Divider,
+  ListItem,
+  ListItemText,
+  ListSubheader,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { fetchPTsPatients } from "../../Redux/actions/actions-pt";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Button from "@material-ui/core/Button";
@@ -31,23 +33,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AssignWorkout = (props) => {
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const [checked, setChecked] = React.useState([]);
-
-    React.useEffect(() => {
-        props.fetchPTsPatients(props.pt.pt_id)
-    }, []);
-
-    const handleCheckToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const [checked, setChecked] = React.useState([]);
 
   React.useEffect(() => {
     props.fetchPTsPatients(props.pt.pt_id);
@@ -66,8 +54,8 @@ const AssignWorkout = (props) => {
     setChecked(newChecked);
   };
   console.log(checked);
-
-    const assignToPatients = () => {
+  
+  const assignToPatients = () => {
         props.assignWorkout(props.pt,checked,props.selectedWorkouts)
     }
 

@@ -46,10 +46,10 @@ const PTReducer = handleActions(
       };
     },
     [constants.LOGIN_PT]: (state, action) => {
-        const pt = action.payload
-        return {
-            email: pt.email,
-        }
+      const pt = action.payload;
+      return {
+        email: pt.email,
+      };
     },
     [constants.CHECK_LOGIN_ERROR]: (state, action) => {
         const errorCode = action.payload
@@ -57,14 +57,15 @@ const PTReducer = handleActions(
         return {
         ...state,
             errorCode: errorCode}
-
     },
     [constants.SET_SELECTED_PATIENT]: (state, action) => {
-        return {
-            ...state,
-            selectedPatient: action.payload
-        }
-    }
-}, initialPTState)
+      return {
+        ...state,
+        selectedPatient: action.payload,
+      };
+    },
+  },
+  initialPTState
+);
 
 export default PTReducer;

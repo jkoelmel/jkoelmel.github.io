@@ -10,71 +10,72 @@ import java.util.ArrayList;
 
 public class SpecializationUtil {
 
-    public static String selectSpecifc(Request request, Response response) {
-        String toReturn = "";
+  public static String selectSpecifc(Request request, Response response) {
+    String toReturn = "";
 
-        try{
-            Specialization spec = new Specialization(Integer.parseInt(request.queryMap().get("spec_id").value()));
-            Gson gson = new Gson();
-            toReturn = gson.toJson(spec.getSpecialization());
+    try {
+      Specialization spec =
+          new Specialization(Integer.parseInt(request.queryMap().get("spec_id").value()));
+      Gson gson = new Gson();
+      toReturn = gson.toJson(spec.getSpecialization());
 
-            System.out.println("Specialization has been selected");
-            response.type("application/json");
-            response.status(200);
-        } catch (SQLException sqlEx) {
-            System.err.println(sqlEx.toString());
-            response.status(500);
-        } catch (Exception ex) {
-            System.err.println(ex.toString());
-            response.status(400);
-        }
-
-        return toReturn;
+      System.out.println("Specialization has been selected");
+      response.type("application/json");
+      response.status(200);
+    } catch (SQLException sqlEx) {
+      System.err.println(sqlEx.toString());
+      response.status(500);
+    } catch (Exception ex) {
+      System.err.println(ex.toString());
+      response.status(400);
     }
 
-    public static String selectAll(Response response) {
-        String toReturn = "";
-        String query = "SELECT * FROM specialization";
+    return toReturn;
+  }
 
-        try (Connection con = DriverManager.getConnection(
-                Server.databasePath,
-                Server.databaseUsername,
-                Server.databasePassword);
-             PreparedStatement pst = con.prepareStatement(query)) {
-            ResultSet rs = pst.executeQuery();
+  public static String selectAll(Response response) {
+    String toReturn = "";
+    String query = "SELECT * FROM specialization";
 
-            ArrayList<Specialization> list = new ArrayList<>();
-            while (rs.next()) {
-                Specialization spec = new Specialization(rs.getInt("spec_id"));
-                spec.setspec_area(rs.getString("spec_area"));
+    try (Connection con =
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(query)) {
+      ResultSet rs = pst.executeQuery();
 
-                list.add(spec);
-            }
-            Gson gson = new Gson();
-            toReturn = gson.toJson(list);
+      ArrayList<Specialization> list = new ArrayList<>();
+      while (rs.next()) {
+        Specialization spec = new Specialization(rs.getInt("spec_id"));
+        spec.setspec_area(rs.getString("spec_area"));
 
-            System.out.println("All specializations have been selected");
-            response.type("application/json");
-            response.status(200);
-        } catch (SQLException sqlEx) {
-            System.err.println(sqlEx.toString());
-            response.status(500);
-        } catch (Exception ex) {
-            System.err.println(ex.toString());
-            response.status(400);
-        }
-        return toReturn;
+        list.add(spec);
+      }
+      Gson gson = new Gson();
+      toReturn = gson.toJson(list);
+
+      System.out.println("All specializations have been selected");
+      response.type("application/json");
+      response.status(200);
+    } catch (SQLException sqlEx) {
+      System.err.println(sqlEx.toString());
+      response.status(500);
+    } catch (Exception ex) {
+      System.err.println(ex.toString());
+      response.status(400);
     }
+    return toReturn;
+  }
 
-    public static Integer registerSpecialization(Request request) {
-        try {
-            Specialization spec = new Specialization(Integer.parseInt(request.queryMap().get("spec_id").value()));
-            spec.setspec_area(request.queryMap().get("spec_area").value());
+  public static Integer registerSpecialization(Request request) {
+    try {
+      Specialization spec =
+          new Specialization(Integer.parseInt(request.queryMap().get("spec_id").value()));
+      spec.setspec_area(request.queryMap().get("spec_area").value());
 
-            return 200;
-        } catch (Exception ex) {
-            System.err.println(ex.toString());
-            return 400;
-        }
+      return 200;
+    } catch (Exception ex) {
+      System.err.println(ex.toString());
+      return 400;
     }
+  }
 }

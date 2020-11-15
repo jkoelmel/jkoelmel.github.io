@@ -6,73 +6,67 @@ import java.sql.*;
 
 public class Injury {
 
-    private Integer injury_id;
-    private String injuryType;
+  private Integer injury_id;
+  private String injuryType;
 
-    public Injury(Integer injury_id) { this.injury_id = injury_id;}
+  public Injury(Integer injury_id) {
+    this.injury_id = injury_id;
+  }
 
-    public void createInjury(String injury) throws Exception {
-        String injuryQuery = "INSERT INTO injury(injury_id, injury_type) VALUES(null, ?)";
+  public void createInjury(String injury) throws Exception {
+    String injuryQuery = "INSERT INTO injury(injury_id, injury_type) VALUES(null, ?)";
 
-        try (Connection con = DriverManager.getConnection(
-                Server.databasePath,
-                Server.databaseUsername,
-                Server.databasePassword);
-             PreparedStatement pst = con.prepareStatement(injuryQuery)) {
+    try (Connection con =
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(injuryQuery)) {
 
-            //INSERT Injury into injury
-            pst.setString(1, injury);
-            pst.executeUpdate();
+      // INSERT Injury into injury
+      pst.setString(1, injury);
+      pst.executeUpdate();
 
-            System.out.println("Injury added to database");
-        } catch (SQLException ex) {
-            throw new Exception("Error inserting injury: " + ex.toString());
-        }
+      System.out.println("Injury added to database");
+    } catch (SQLException ex) {
+      throw new Exception("Error inserting injury: " + ex.toString());
+    }
+  }
+
+  public Injury getInjury() throws Exception {
+    String injuryQuery = "SELECT * FROM injury WHERE injury_id = " + this.injury_id;
+
+    try (Connection con =
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(injuryQuery)) {
+      pst.executeQuery(injuryQuery);
+
+      ResultSet rs = pst.executeQuery();
+
+      if (rs.next()) {
+        setinjury_id(rs.getInt("injury_id"));
+        setInjuryType(rs.getString("injury_type"));
+      }
+
+    } catch (SQLException ex) {
+      throw new Exception("Error getting injury with id: " + ex.toString());
     }
 
-    public Injury getInjury() throws Exception {
-        String injuryQuery = "SELECT * FROM injury WHERE injury_id = " + this.injury_id;
+    return this;
+  }
 
-        try (Connection con = DriverManager.getConnection(
-                Server.databasePath,
-                Server.databaseUsername,
-                Server.databasePassword);
-             PreparedStatement pst = con.prepareStatement(injuryQuery)) {
-            pst.executeQuery(injuryQuery);
+  public Integer getinjury_id() {
+    return injury_id;
+  }
 
-            ResultSet rs = pst.executeQuery();
+  public void setinjury_id(Integer injury_id) {
+    this.injury_id = injury_id;
+  }
 
-            if (rs.next()) {
-                setinjury_id(rs.getInt("injury_id"));
-                setInjuryType(rs.getString("injury_type"));
-            }
+  public String getInjuryType() {
+    return injuryType;
+  }
 
-        } catch (SQLException ex) {
-            throw new Exception("Error getting injury with id: " + ex.toString());
-        }
-
-        return this;
-    }
-
-
-
-
-    public Integer getinjury_id() {
-        return injury_id;
-    }
-
-    public void setinjury_id(Integer injury_id) {
-        this.injury_id = injury_id;
-    }
-
-
-    public String getInjuryType() {
-        return injuryType;
-    }
-
-    public void setInjuryType(String injuryType) {
-        this.injuryType = injuryType;
-    }
-
+  public void setInjuryType(String injuryType) {
+    this.injuryType = injuryType;
+  }
 }
-

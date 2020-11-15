@@ -1,84 +1,139 @@
-import React, {useEffect, useState} from 'react'
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import {makeStyles} from '@material-ui/core/styles';
-import {connect} from 'react-redux';
-import {createNewPT, fetchPTsPatients, setSelectedPatient,updatePT} from '../../Redux/actions/actions-pt';
+import React, { useEffect, useState } from "react";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import {
+  createNewPT,
+  fetchPTsPatients,
+  setSelectedPatient,
+} from "../../Redux/actions/actions-pt";
 
-import './PatientList.css'
-import {ListItem, ListItemText} from '@material-ui/core';
+import "./PatientList.css";
+import { ListItem, ListItemText } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    sticky: {
-        backgroundColor: "white",
-        fontSize: 18
-    },
-    subheader: {
-        fontSize: 18
-    },
-    patientList: {
-        backgroundColor: "white",
-    }
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  sticky: {
+    backgroundColor: "white",
+    fontSize: 18,
+  },
+  subheader: {
+    fontSize: 18,
+  },
+  patientList: {
+    backgroundColor: "white",
+  },
 }));
 
 const PatientList = (props) => {
-    const classes = useStyles();
-    const [open, setOpen] = useState(false);
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
-<<<<<<< HEAD
     useEffect(() => {
         //will load patients when the page loads
         props.updatePT(props.pt)
         props.fetchPTsPatients(props.pt.pt_id)
     }, []);
-=======
-  useEffect(() => {
-    //will load patients when the page loads
-    props.fetchPTsPatients(props.pt.pt_id);
-  }, []);
->>>>>>> 8515f308ced89ebaa80e274831c2932db88f9da6
 
-    const handlePatientClick = (e, patientId) => {
-        props.patients.map((p) => {
-            if (p.patient_id === patientId) {
-                props.setSelectedPatient(p)
-            }
-        })
-        setOpen(true)
-        //TODO return patients info by its ID. 
-    }
+  const handlePatientClick = (e, patientId) => {
+    props.patients.map((p) => {
+      if (p.patient_id === patientId) {
+        props.setSelectedPatient(p);
+      }
+    });
+    setOpen(true);
+    //TODO return patients info by its ID.
+  };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-    return (
-        <div>
-            <List component="nav" aria-label="patient-list"
-                  subheader={
-                      <ListSubheader className={classes.sticky}>
-                          Patient List
-                      </ListSubheader>
-                  }>
-                {props.patients.map((p) => (
-                    <ListItem
-                        key={p.patient_id}
-                        button
-                        selected={props.selectedPatient === p.patient_id}
-                        onClick={(event) => handlePatientClick(event, p.patient_id)}>
-                        <ListItemText primary={`${p.f_name} ${p.l_name}`}/>
-                    </ListItem>
-                ))}
-
+  return (
+    <div>
+      <List
+        component="nav"
+        aria-label="patient-list"
+        subheader={
+          <ListSubheader className={classes.sticky}>Patient List</ListSubheader>
+        }
+      >
+        {props.patients.map((p) => (
+          <ListItem
+            key={p.patient_id}
+            button
+            selected={props.selectedPatient === p.patient_id}
+            onClick={(event) => handlePatientClick(event, p.patient_id)}
+          >
+            <ListItemText primary={`${p.f_name} ${p.l_name}`} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List
+        component="nav"
+        aria-label="patient-list"
+        className={classes.patientList}
+        subheader={
+          <ListSubheader
+            component="div"
+            color="inherit"
+            className={classes.sticky}
+            id="potential-patient-list"
+          >
+            Potential Patient List
+          </ListSubheader>
+        }
+      >
+        <ListItem button>
+          <ListItemText secondary="no available potential patients" />
+        </ListItem>
+      </List>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div style={{ width: "auto", backgroundColor: "white" }}>
+            <List>
+              <ListItem>
+                <ListItemText
+                  primary={`Full Name`}
+                  secondary={`${props.selectedPatient.f_name} ${props.selectedPatient.l_name}`}
+                />
+              </ListItem>
+              <Divider />
+              <ListItem>
+                <ListItemText
+                  primary={`Email`}
+                  secondary={`${props.selectedPatient.email}`}
+                />
+              </ListItem>
+              <Divider />
+              <ListItem>
+                <ListItemText
+                  primary={`Company Name`}
+                  secondary={`${props.selectedPatient.company}`}
+                />
+              </ListItem>
+              <Divider />
             </List>
             <Divider/>
             <List component="nav" aria-label="patient-list"
