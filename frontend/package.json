@@ -81,7 +81,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
     "babel-core": "^6.26.3",
-    "react-toastify": "^6.1.0"
+    "react-toastify": "^6.1.0",
+    "redux-persist": "^6.0.0"
   }
 }

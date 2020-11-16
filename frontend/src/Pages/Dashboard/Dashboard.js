@@ -6,6 +6,7 @@ import { Typography } from "@material-ui/core";
 import PatientList from "../../Components/PatientList/PatientList";
 import Messaging from "../../Components/Messaging/Messaging";
 import ActivitySummary from "../../Components/PTActivitySummary/PTActivitySummary";
+import PatientDashboardInfo from "../../Components/PatientDashboardInfo/PatientDashboardInfo";
 
 //TODO Will most likely have to fix paperMessage margins when we implement
 //the actual message board.
@@ -33,12 +34,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 50,
     // marginBottom: 139
   },
-  paperActivities: {
+  paperProfile: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.secondary.main,
-    height: 500,
-    width: 600,
+    height: 650,
+    width: 700,
     marginTop: 50,
     marginBottom: 139,
   },
@@ -60,7 +61,10 @@ const Dashboard = () => {
       justify={"space-between"}
       alignItems={"flex-start"}
     >
-      <Grid container spacing={3} direction="row">
+      <Grid container spacing={3} direction="row" style={{
+        margin: 0,
+        width: '100%'
+      }}>
         <Grid item>
           {/* <Grid container direction="column"> */}
           <Grid item>
@@ -70,22 +74,23 @@ const Dashboard = () => {
               elevation={5}
             >
               <PatientList />
-              <Messaging/>
+              <Messaging />
             </Paper>
           </Grid>
           {/* </Grid> */}
         </Grid>
         <Grid item>
-          <Paper className={classes.paperActivities} elevation={5}>
+          <Paper className={classes.paperProfile} elevation={5}>
             {/* <PatientsList/>  TODO need to handle Axios or hooks
                         in order to use*/}
-            <Typography>Patient Profile</Typography>
+            <Typography variant= "h6">Patient Profile</Typography>
+            <PatientDashboardInfo />
           </Paper>
         </Grid>
         <Grid item>
           <Paper className={classes.paperSummary} elevation={5}>
-            <Typography><b>Activity Summary</b></Typography>
-            <ActivitySummary/>
+            <Typography><b><u>Total Activity Summary</u></b></Typography>
+            <ActivitySummary />
           </Paper>
         </Grid>
       </Grid>

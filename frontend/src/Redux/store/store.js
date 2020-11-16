@@ -13,7 +13,6 @@ const persistConfig = {
     blacklist: ['exercises', 'patients'],
     stateReconciler: autoMergeLevel2,
 }
-
 const initialState = {};
 
 // redux-thunk middleware is required for actions to work as async

@@ -9,6 +9,7 @@ import "react-chat-widget/lib/styles.css";
 import axios from "axios";
 import { connect } from "react-redux";
 import { createNewPT, fetchPTsPatients } from "../../Redux/actions/actions-pt";
+import './Messaging.css'
 
 const Messaging = (props) => {
   useEffect(() => {
@@ -59,8 +60,8 @@ const Messaging = (props) => {
   return (
     <div>
       <Widget
-        title={"Messages From"}
-        subtitle={`${props.selectedPatient.f_name} ${props.selectedPatient.l_name}`}
+        title={ props.selectedPatient.patient_id ? "Messages From" : "Message Center"}
+        subtitle={props.selectedPatient.patient_id ?`${props.selectedPatient.f_name} ${props.selectedPatient.l_name}` : "Choose a patient"}
         showTimeStamp={false}
         senderPlaceHolder={"Enter message..."}
         handleNewUserMessage={handleNewUserMessage}
