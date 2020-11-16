@@ -50,6 +50,17 @@ export const loginPT = (pt) => {
 
 }
 
+export const logoutPT = (pt) => {
+    if(pt.pt_id == null) {
+        return null;
+    }
+
+    return {
+        type: constants.LOGOUT_PT,
+        payload: {},
+    }
+}
+
 export const assignWorkout = (pt,checked,selectedWorkout) => {
     const params = new URLSearchParams()
     params.append("pt", pt.pt_id)
