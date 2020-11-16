@@ -12,7 +12,8 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {connect} from "react-redux";
-import {fetchPTsPatients, setSelectedWorkouts} from "../../Redux/actions/actions-pt";
+import {fetchPTsPatients, setSelectedPatient} from "../../Redux/actions/actions-pt";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -67,6 +68,24 @@ const ActivitySummary = (props) => {
       )
     })
   }
+  const showButton = () => {
+    if(props.pt.selectedPatient.patient_id == null) {
+      return null;
+    }
+
+    return (
+        <Button
+            variant="contained"
+            color="inherit"
+            onClick={handleClick}>
+          Show Summary Info
+        </Button>
+    )
+  }
+
+  const handleClick = () => {
+    props.setSelectedPatient({})
+  }
 
   React.useEffect(() => {
     if(props.pt.selectedPatient.patient_id == null){
@@ -98,6 +117,7 @@ const ActivitySummary = (props) => {
           <ListItem>{a.type_activity + " : " + a.duration}</ListItem>
         </div>
       ))}
+      {showButton()}
     </List>
   );
 };
@@ -112,5 +132,6 @@ export default connect(
     (dispatch) => ({
       // The action from actions-pt which will effect reducer-pt
       fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
+      setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
     })
 )(ActivitySummary);

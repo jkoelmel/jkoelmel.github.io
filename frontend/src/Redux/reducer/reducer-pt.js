@@ -1,8 +1,10 @@
 import { handleActions } from "redux-actions";
 import * as constants from "../constants/constants-pt";
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from "redux-persist";
 
 const initialPTState = {
-    pt_id: 100,
+    pt_id: '',
     user: null,
     user_id: null,
     email: '',
@@ -68,4 +70,11 @@ const PTReducer = handleActions(
   initialPTState
 );
 
-export default PTReducer;
+const persistConfig = {
+    key: 'pt',
+    storage: storage,
+    whitelist: ['pt_id'],
+    blacklist: ['selectedPatient', 'patients', 'errorCode'],
+};
+
+export default persistReducer(persistConfig, PTReducer);
