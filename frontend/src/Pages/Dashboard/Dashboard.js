@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.secondary.main,
-    height: 550,
+    height: 650,
     width: 700,
     marginTop: 50,
     marginBottom: 139,
@@ -61,7 +61,10 @@ const Dashboard = () => {
       justify={"space-between"}
       alignItems={"flex-start"}
     >
-      <Grid container spacing={3} direction="row">
+      <Grid container spacing={3} direction="row" style={{
+        margin: 0,
+        width: '100%'
+      }}>
         <Grid item>
           {/* <Grid container direction="column"> */}
           <Grid item>
@@ -71,7 +74,7 @@ const Dashboard = () => {
               elevation={5}
             >
               <PatientList />
-              <Messaging/>
+              <Messaging />
             </Paper>
           </Grid>
           {/* </Grid> */}
@@ -80,14 +83,14 @@ const Dashboard = () => {
           <Paper className={classes.paperProfile} elevation={5}>
             {/* <PatientsList/>  TODO need to handle Axios or hooks
                         in order to use*/}
-            <Typography>Patient Profile</Typography>
-                        <PatientDashboardInfo/>
+            <Typography variant= "h6">Patient Profile</Typography>
+            <PatientDashboardInfo />
           </Paper>
         </Grid>
         <Grid item>
           <Paper className={classes.paperSummary} elevation={5}>
             <Typography><b><u>Total Activity Summary</u></b></Typography>
-            <ActivitySummary/>
+            <ActivitySummary />
           </Paper>
         </Grid>
       </Grid>

@@ -59,7 +59,7 @@ const PatientList = (props) => {
         <div>
             <List component="nav" aria-label="patient-list"
                   subheader={
-                      <ListSubheader className={classes.sticky}>
+                      <ListSubheader variant= "h6" color ="inherit" className={classes.sticky}>
                           Patient List
                       </ListSubheader>
                   }>

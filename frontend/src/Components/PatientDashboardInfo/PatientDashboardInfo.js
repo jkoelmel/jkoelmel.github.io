@@ -88,7 +88,7 @@ const PatientDashboardInfo = (props) => {
     return (
         <div>
             <Grid container direction="column">
-                <Paper elevation={5}>
+            { props.selectedPatient.patient_id ? <Paper elevation={3}>
                     <Grid item>
 
                         <List>
@@ -110,8 +110,8 @@ const PatientDashboardInfo = (props) => {
                             </ListItem>
                             <Divider />
                         </List>
-                    </Grid>
-                    </Paper>
+                    </Grid> 
+                    
                         <GridList className={classes.gridList} cols={2.5}>
                             {props.PatientExerciseVideos.map((v) => (
                                 <GridListTile key={v.img}>
@@ -132,6 +132,7 @@ const PatientDashboardInfo = (props) => {
                                 </GridListTile>
                             ))}
                         </GridList>
+                        </Paper>: <p> </p>}
             </Grid>
         </div>
 
