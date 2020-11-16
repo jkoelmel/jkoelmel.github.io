@@ -6,6 +6,7 @@ import { Typography } from "@material-ui/core";
 import PatientList from "../../Components/PatientList/PatientList";
 import Messaging from "../../Components/Messaging/Messaging";
 import ActivitySummary from "../../Components/PTActivitySummary/PTActivitySummary";
+import PatientDashboardInfo from "../../Components/PatientDashboardInfo/PatientDashboardInfo";
 
 //TODO Will most likely have to fix paperMessage margins when we implement
 //the actual message board.
@@ -33,12 +34,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 50,
     // marginBottom: 139
   },
-  paperActivities: {
+  paperProfile: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.secondary.main,
-    height: 500,
-    width: 600,
+    height: 550,
+    width: 700,
     marginTop: 50,
     marginBottom: 139,
   },
@@ -76,10 +77,11 @@ const Dashboard = () => {
           {/* </Grid> */}
         </Grid>
         <Grid item>
-          <Paper className={classes.paperActivities} elevation={5}>
+          <Paper className={classes.paperProfile} elevation={5}>
             {/* <PatientsList/>  TODO need to handle Axios or hooks
                         in order to use*/}
             <Typography>Patient Profile</Typography>
+                        <PatientDashboardInfo/>
           </Paper>
         </Grid>
         <Grid item>
