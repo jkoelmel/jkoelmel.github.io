@@ -2,7 +2,7 @@ import { handleActions } from "redux-actions";
 import * as constants from "../constants/constants-pt";
 
 const initialPTState = {
-    pt_id: '',
+    pt_id: 100,
     user: null,
     user_id: null,
     email: '',

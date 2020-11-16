@@ -8,146 +8,94 @@ import Fade from "@material-ui/core/Fade";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import {
-  createNewPT,
-  fetchPTsPatients,
-  setSelectedPatient,
+    createNewPT,
+    fetchPTsPatients,
+    setSelectedPatient,
+    updatePT
 } from "../../Redux/actions/actions-pt";
 
 import "./PatientList.css";
 import { ListItem, ListItemText } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  sticky: {
-    backgroundColor: "white",
-    fontSize: 18,
-  },
-  subheader: {
-    fontSize: 18,
-  },
-  patientList: {
-    backgroundColor: "white",
-  },
+    modal: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    sticky: {
+        backgroundColor: "white",
+        fontSize: 18,
+    },
+    subheader: {
+        fontSize: 18,
+    },
+    patientList: {
+        backgroundColor: "white",
+    },
 }));
 
 const PatientList = (props) => {
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         //will load patients when the page loads
-        props.updatePT(props.pt)
-        props.fetchPTsPatients(props.pt.pt_id)
+        props.fetchPTsPatients(props.pt.pt_id);
     }, []);
 
-  const handlePatientClick = (e, patientId) => {
-    props.patients.map((p) => {
-      if (p.patient_id === patientId) {
-        props.setSelectedPatient(p);
-      }
-    });
-    setOpen(true);
-    //TODO return patients info by its ID.
-  };
+    const handlePatientClick = (e, patientId) => {
+        props.patients.map((p) => {
+            if (p.patient_id === patientId) {
+                props.setSelectedPatient(p);
+            }
+        });
+        setOpen(true);
+        //TODO return patients info by its ID.
+    };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
-  return (
-    <div>
-      <List
-        component="nav"
-        aria-label="patient-list"
-        subheader={
-          <ListSubheader className={classes.sticky}>Patient List</ListSubheader>
-        }
-      >
-        {props.patients.map((p) => (
-          <ListItem
-            key={p.patient_id}
-            button
-            selected={props.selectedPatient === p.patient_id}
-            onClick={(event) => handlePatientClick(event, p.patient_id)}
-          >
-            <ListItemText primary={`${p.f_name} ${p.l_name}`} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List
-        component="nav"
-        aria-label="patient-list"
-        className={classes.patientList}
-        subheader={
-          <ListSubheader
-            component="div"
-            color="inherit"
-            className={classes.sticky}
-            id="potential-patient-list"
-          >
-            Potential Patient List
-          </ListSubheader>
-        }
-      >
-        <ListItem button>
-          <ListItemText secondary="no available potential patients" />
-        </ListItem>
-      </List>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <div style={{ width: "auto", backgroundColor: "white" }}>
-            <List>
-              <ListItem>
-                <ListItemText
-                  primary={`Full Name`}
-                  secondary={`${props.selectedPatient.f_name} ${props.selectedPatient.l_name}`}
-                />
-              </ListItem>
-              <Divider />
-              <ListItem>
-                <ListItemText
-                  primary={`Email`}
-                  secondary={`${props.selectedPatient.email}`}
-                />
-              </ListItem>
-              <Divider />
-              <ListItem>
-                <ListItemText
-                  primary={`Company Name`}
-                  secondary={`${props.selectedPatient.company}`}
-                />
-              </ListItem>
-              <Divider />
+    return (
+        <div>
+            <List
+                component="nav"
+                aria-label="patient-list"
+                subheader={
+                    <ListSubheader className={classes.sticky}>Patient List</ListSubheader>
+                }
+            >
+                {props.patients.map((p) => (
+                    <ListItem
+                        key={p.patient_id}
+                        button
+                        selected={props.selectedPatient === p.patient_id}
+                        onClick={(event) => handlePatientClick(event, p.patient_id)}
+                    >
+                        <ListItemText primary={`${p.f_name} ${p.l_name}`} />
+                    </ListItem>
+                ))}
             </List>
-            <Divider/>
-            <List component="nav" aria-label="patient-list"
-                  className={classes.patientList}
-                  subheader={
-                      <ListSubheader component="div" color="inherit" className={classes.sticky}
-                                     id="potential-patient-list">
-                          Potential Patient List
-                      </ListSubheader>
-                  }>
-
-                <ListItem
-                    button>
-                    <ListItemText secondary='no available potential patients'/>
+            <Divider />
+            <List
+                component="nav"
+                aria-label="patient-list"
+                className={classes.patientList}
+                subheader={
+                    <ListSubheader
+                        component="div"
+                        color="inherit"
+                        className={classes.sticky}
+                        id="potential-patient-list"
+                    >
+                        Potential Patient List
+                    </ListSubheader>
+                }
+            >
+                <ListItem button>
+                    <ListItemText secondary="no available potential patients" />
                 </ListItem>
             </List>
             <Modal
@@ -163,29 +111,36 @@ const PatientList = (props) => {
                 }}
             >
                 <Fade in={open}>
-                    <div  style={{ width: "auto", backgroundColor: "white" }}>
+                    <div style={{ width: "auto", backgroundColor: "white" }}>
                         <List>
                             <ListItem>
-                                <ListItemText primary={`Full Name`}
-                                              secondary={`${props.selectedPatient.f_name} ${props.selectedPatient.l_name}`}/>
+                                <ListItemText
+                                    primary={`Full Name`}
+                                    secondary={`${props.selectedPatient.f_name} ${props.selectedPatient.l_name}`}
+                                />
                             </ListItem>
-                            <Divider/>
+                            <Divider />
                             <ListItem>
-                                <ListItemText primary={`Email`} secondary={`${props.selectedPatient.email}`}/>
+                                <ListItemText
+                                    primary={`Email`}
+                                    secondary={`${props.selectedPatient.email}`}
+                                />
                             </ListItem>
-                            <Divider/>
+                            <Divider />
                             <ListItem>
-                                <ListItemText primary={`Company Name`} secondary={`${props.selectedPatient.company}`}/>
+                                <ListItemText
+                                    primary={`Company Name`}
+                                    secondary={`${props.selectedPatient.company}`}
+                                />
                             </ListItem>
-                            <Divider/>
+                            <Divider />
                         </List>
                     </div>
                 </Fade>
             </Modal>
-
         </div>
-    )
-}
+    );
+};
 export default connect((state) => ({
         // The state of the pt, as defined by reducer-pt
         pt: state.pt,
@@ -199,4 +154,4 @@ export default connect((state) => ({
         setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
         updatePT: (pt) => dispatch(updatePT(pt))
     })
-)(PatientList);
+)(PatientList)
