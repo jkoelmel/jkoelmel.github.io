@@ -18,7 +18,6 @@ import {
   fetchPTsPatients,
   setSelectedWorkouts,
 } from "../../Redux/actions/actions-pt";
-const qs = require("qs");
 
 const useStyles = makeStyles((theme) => ({
   modal: {

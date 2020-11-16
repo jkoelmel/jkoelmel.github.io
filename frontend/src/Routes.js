@@ -11,7 +11,7 @@ import Login from "./Pages/Login"
 export const Routes = () => (
     <Switch>
         <Route exact={true} path='/'>
-            <Login/>
+            <Landing/>
         </Route>
         <Route exact={true} path='/dashboard'>
             <Dashboard/>
