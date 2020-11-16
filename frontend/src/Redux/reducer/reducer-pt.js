@@ -66,6 +66,12 @@ const PTReducer = handleActions(
         selectedPatient: action.payload,
       };
     },
+      [constants.LOGOUT_PT]: (state,action) => {
+        const pt = action.payload;
+        return {
+            pt: pt,
+        };
+      },
   },
   initialPTState
 );
