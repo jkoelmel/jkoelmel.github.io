@@ -10,7 +10,7 @@ import CreateWorkout from "../../Components/CreateWorkout/CreateWorkout";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minHeight: "95vw",
+    minHeight: "95vh",
     flexGrow: 1,
     paddingTop: 100,
     background: theme.palette.background.default,
@@ -65,7 +65,7 @@ const Exercise = () => {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={5} direction="row" justify={"space-between"}>
+      <Grid container spacing={3} direction="row" justify={"space-between"} >
         <Grid item md={3}>
           <Paper
             className={classes.paperLibrary}
