@@ -15,19 +15,11 @@ import Paper from "@material-ui/core/Paper";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-<<<<<<< HEAD
-import IconButton from '@material-ui/core/IconButton';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import Typography from "@material-ui/core/Typography";
-import SearchReport from "../../Components/SearchReport/SearchReport"
-import avatarIcon from "../../Assets/Images/chiu.jpg"
-=======
 import SearchReport from "../SearchReport/SearchReport";
 import PatientInfo from "../PatientInfo/PatientInfo";
 import PatientVideos from "../PatientVideos/PatientVideo";
 import PatientVideo from "../PatientVideos/PatientVideo";
 
->>>>>>> 6e16e2036ef0c3e4408803d673e9bb4bf55ae340
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -53,9 +45,6 @@ const useStyles = makeStyles((theme) => ({
     },
     titleBar: {
         background:
-<<<<<<< HEAD
-            'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-=======
           'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
       },
         info: {
@@ -69,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
     video: {
             width: 300,
             height: 600,
->>>>>>> 6e16e2036ef0c3e4408803d673e9bb4bf55ae340
     },
 }));
 
@@ -85,91 +73,13 @@ const PatientDashboardInfo = (props) => {
         });
     };
 
-<<<<<<< HEAD
-    const fetchPatientVideos = () => {
-        axios
-            .get("api/patient/video/id", {
-                params: {
-                    patient: 1,
-                },
-            })
-            .then((response) => {
-                console.log(response.data)
-                setVideos(
-                    response.data.map((pv) => {
-                        console.log(response.data);
-                        return pv;
-                    })
-                );
-            })
-            .catch(console.log);
-    };
     React.useEffect(() => {
         //will load patients activities when the page loads
-        // setGender("male");
-
-        // fetchPatientVideos();
-=======
-    React.useEffect(() => {
-        //will load patients activities when the page loads
->>>>>>> 6e16e2036ef0c3e4408803d673e9bb4bf55ae340
         fetchPatientImg();
     }, []);
 
     return (
         <div>
-<<<<<<< HEAD
-            <Grid container direction="column">
-                {props.selectedPatient.patient_id ? <Paper elevation={3}>
-                    <Grid item >
-
-                        <List>
-                            <ListItem>
-                                <Avatar alt="user-profile images" src={avatarIcon} className={classes.large} />
-                                {/* <img class="image" src={userImage} /> */}
-                             </ListItem>
-                            <ListItem>
-                                <ListItemText primary={`Full Name`}
-                                    secondary={`${props.selectedPatient.f_name} ${props.selectedPatient.l_name}`} />
-                            </ListItem>
-                            <Divider />
-                            <ListItem>
-                                <ListItemText primary={`Email`} secondary={`${props.selectedPatient.email}`} />
-                            </ListItem>
-                            <Divider />
-                            <ListItem>
-                                <ListItemText primary={`Company Name`} secondary={`${props.selectedPatient.company}`} />
-                            </ListItem>
-                            <Divider />
-                        </List>
-                    </Grid>
-
-                </Paper> : <p> </p>}
-                <Grid item>
-                    <SearchReport />
-                </Grid>
-                <GridList className={classes.gridList} cols={2.5}>
-                    {props.PatientExerciseVideos.map((v) => (
-                        <GridListTile key={v.img}>
-                            <img
-                                src={
-                                    "https://img.youtube.com/vi/" +
-                                    v.video_url.split("=")[1] +
-                                    "/0.jpg"
-                                }
-                            />
-                            <GridListTileBar
-                                title={v.uploaded}
-                                classes={{
-                                    root: classes.titleBar,
-                                    title: classes.title,
-                                }}
-                            />
-                        </GridListTile>
-                    ))}
-                </GridList>
-            </Grid> 
-=======
 
             { props.selectedPatient.patient_id ? <Grid container
                                                        spacing={3}
@@ -199,7 +109,6 @@ const PatientDashboardInfo = (props) => {
                     
 
                         </Grid>: <p> </p> }
->>>>>>> 6e16e2036ef0c3e4408803d673e9bb4bf55ae340
         </div>
 
     )
