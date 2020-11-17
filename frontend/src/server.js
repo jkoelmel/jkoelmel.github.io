@@ -14,7 +14,7 @@ app.use(cors(corsOptions));
 
 app.use(express.static("C:/Users/jaret/CSC648-Team-2/frontend/build"));
 
-app.get("/", function (req, res) {
+app.get("/*", function (req, res) {
   res.sendFile("C:/Users/jaret/CSC648-Team-2/frontend/build/index.html");
 });
 
