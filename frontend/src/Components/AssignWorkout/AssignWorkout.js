@@ -62,7 +62,7 @@ const AssignWorkout = (props) => {
     return (
         <div>
             <List component="nav" aria-label="workout-list"
-                  style={{maxHeight: 275, overflow: "auto"}}
+                  style={{maxHeight: 275, overflowY: "scroll"}}
                   subheader={
                       <ListSubheader component="div" color="inherit" className={classes.sticky}>
                           Assign To...
@@ -85,9 +85,12 @@ const AssignWorkout = (props) => {
                     </ListItem>
                     </div>
                 ))}
-
             </List>
-            <Button variant="contained" color="inherit" onClick={assignToPatients}>ASSIGN</Button>
+
+            <Button variant="contained"
+                    color="inherit"
+                    onClick={assignToPatients}>ASSIGN
+            </Button>
         </div>
     )
 }
