@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Grid from "@material-ui/core/Grid";
-import { ListItem, ListItemText } from '@material-ui/core';
+import {ListItem, ListItemText, Typography} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,11 +15,19 @@ import Paper from "@material-ui/core/Paper";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+<<<<<<< HEAD
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Typography from "@material-ui/core/Typography";
 import SearchReport from "../../Components/SearchReport/SearchReport"
 import avatarIcon from "../../Assets/Images/chiu.jpg"
+=======
+import SearchReport from "../SearchReport/SearchReport";
+import PatientInfo from "../PatientInfo/PatientInfo";
+import PatientVideos from "../PatientVideos/PatientVideo";
+import PatientVideo from "../PatientVideos/PatientVideo";
+
+>>>>>>> 6e16e2036ef0c3e4408803d673e9bb4bf55ae340
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -45,7 +53,23 @@ const useStyles = makeStyles((theme) => ({
     },
     titleBar: {
         background:
+<<<<<<< HEAD
             'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+=======
+          'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+      },
+        info: {
+            width: 200,
+            height: 410,
+      },
+        report: {
+            width: 350,
+            height: 600,
+        },
+    video: {
+            width: 300,
+            height: 600,
+>>>>>>> 6e16e2036ef0c3e4408803d673e9bb4bf55ae340
     },
 }));
 
@@ -61,6 +85,7 @@ const PatientDashboardInfo = (props) => {
         });
     };
 
+<<<<<<< HEAD
     const fetchPatientVideos = () => {
         axios
             .get("api/patient/video/id", {
@@ -84,11 +109,16 @@ const PatientDashboardInfo = (props) => {
         // setGender("male");
 
         // fetchPatientVideos();
+=======
+    React.useEffect(() => {
+        //will load patients activities when the page loads
+>>>>>>> 6e16e2036ef0c3e4408803d673e9bb4bf55ae340
         fetchPatientImg();
     }, []);
 
     return (
         <div>
+<<<<<<< HEAD
             <Grid container direction="column">
                 {props.selectedPatient.patient_id ? <Paper elevation={3}>
                     <Grid item >
@@ -139,6 +169,37 @@ const PatientDashboardInfo = (props) => {
                     ))}
                 </GridList>
             </Grid> 
+=======
+
+            { props.selectedPatient.patient_id ? <Grid container
+                                                       spacing={3}
+                                                       direction="row"
+                                                       justify="space-between"
+                                                       alignItems="flex-start">
+
+                    <Grid item>
+                        <Typography variant='h6'>Info</Typography>
+                        <Paper className={classes.info}>
+                        <PatientInfo/>
+                    </Paper>
+                        </Grid>
+                    <Grid item>
+                        <Typography variant='h6'>Progress Log</Typography>
+                        <Paper className={classes.report}>
+                        <SearchReport/>
+                    </Paper>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant='h6'>Patient Videos</Typography>
+                        <Paper className={classes.video}>
+                        <PatientVideo/>
+                        </Paper>
+                    </Grid>
+
+                    
+
+                        </Grid>: <p> </p> }
+>>>>>>> 6e16e2036ef0c3e4408803d673e9bb4bf55ae340
         </div>
 
     )

@@ -13,12 +13,20 @@ import {
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import {connect} from "react-redux";
+import {fetchPTsPatients} from "../../Redux/actions/actions-pt";
+import Avatar from "@material-ui/core/Avatar";
+import Image from "../../Assets/Images/Paul.jpg";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  large: {
+    width: 100,
+    height: 100,
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -32,18 +40,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PatientInfo = ({ selectedPatient, setSelectedPatient }) => {
+const PatientInfo = (props) => {
   const classes = useStyles();
   const [info, setInfo] = React.useState([]);
-  const [gender, setGender] = React.useState("");
   const [userImage, setUserImage] = React.useState("");
-  console.log(`patient id: ${selectedPatient}`);
 
   const fetchPatientInfo = () => {
     axios
       .get("api/patient/id", {
         params: {
-          patient_id: selectedPatient,
+          patient_id: props.selectedPatient.patient_id,
         },
       })
       .then((response) => {
@@ -54,36 +60,34 @@ const PatientInfo = ({ selectedPatient, setSelectedPatient }) => {
       })
       .catch(console.log);
   };
+  console.log(info);
 
   const fetchPatientImg = () => {
-    //TODO hard-coded need to add support to various patients in DB
-    axios.get("https://randomuser.me/api/?gender=male").then((response) => {
-      setUserImage(response.data.results[0].picture.large);
-    });
+    // //TODO hard-coded need to add support to various patients in DB
+    // axios.get("https://randomuser.me/api/?gender=male").then((response) => {
+    //   console.log(response.data);
+    //   setUserImage(response.data.results[0].picture.large);
+    // });
   };
+
   React.useEffect(() => {
     //will load patients activities when the page loads
-    setGender("male");
-    if (selectedPatient != "") fetchPatientInfo();
-    fetchPatientImg();
-  }, [selectedPatient]);
+
+    if (props.selectedPatient != "")
+          fetchPatientInfo();
+      fetchPatientImg();
+  }, [props.selectedPatient]);
 
   return (
-    <div>
-      <List
-        component="nav"
-        aria-label="patient-list"
-        style={{ maxHeight: 550 }}
-      >
         <div>
           <List
             component="nav"
             aria-label="patient-list"
-            style={{ maxHeight: 600 }}
+            style={{ maxHeight:300 }}
           >
             <div>
               <ListItem>
-                <img class="image" src={userImage} />
+                <Avatar alt="user-profile images" src={Image} className={classes.large} />
               </ListItem>
               <ListItem>
                 <ListItemText
@@ -106,10 +110,17 @@ const PatientInfo = ({ selectedPatient, setSelectedPatient }) => {
               <Divider />
             </div>
           </List>
-        </div>
-      </List>
     </div>
   );
 };
 
-export default PatientInfo;
+export default  connect(
+    (state) => ({
+      pt: state.pt,
+      patients: state.pt.patients,
+      selectedPatient: state.pt.selectedPatient,
+    }),
+    (dispatch) => ({
+
+    })
+)(PatientInfo);

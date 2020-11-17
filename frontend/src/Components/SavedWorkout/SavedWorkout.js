@@ -107,7 +107,12 @@ const SavedWorkout = (props) => {
 
   return (
     <div className={classes.root}>
-      <List aria-label="workout-list" style={{ maxHeight: 600 }}>
+      <List aria-label="workout-list" style={{ maxHeight: 600 }}
+            subheader={
+                <ListSubheader component="div" color="inherit" className={classes.sticky}>
+                   Saved Workouts
+                </ListSubheader>
+            }>
         {workouts.map((w, k) => (
           <div key={k}>
             <ListItem

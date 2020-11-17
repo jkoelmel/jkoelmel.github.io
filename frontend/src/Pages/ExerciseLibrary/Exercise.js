@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.secondary.main,
-    height: 350,
+    height: 375,
     width: 300,
     marginTop: 10,
     marginLeft: 50,

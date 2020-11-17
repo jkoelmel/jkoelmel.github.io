@@ -54,11 +54,11 @@ const ActivitySummary = (props) => {
       .catch(console.log);
   };
 
-  const fetchPatPTSummary = (selectedPatient) => {
+  const fetchPatPTSummary = () => {
     axios.get('api/pt/patient-activity', {
       params: {
         pt: props.pt.pt_id,
-        patient: selectedPatient
+        patient: props.pt.selectedPatient.patient_id
       }
     }).then((response) => {
       setActivity(

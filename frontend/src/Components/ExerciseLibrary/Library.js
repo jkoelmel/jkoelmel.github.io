@@ -121,7 +121,7 @@ const Library = (props) => {
                   }}
                 />
               </ListItemIcon>
-
+              <img className={classes.thumbnail} src={ev.thumbnail} />
               <ListItemSecondaryAction>
                 <Checkbox
                   edge="end"
@@ -134,7 +134,7 @@ const Library = (props) => {
                   }}
                 />
               </ListItemSecondaryAction>
-              <img className={classes.thumbnail} src={ev.thumbnail} />
+
             </ListItem>
           </React.Fragment>
         ))}
