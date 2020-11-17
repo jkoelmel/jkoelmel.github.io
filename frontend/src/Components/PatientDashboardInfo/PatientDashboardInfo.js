@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { createNewPT, fetchPTsPatients, setSelectedPatient, updatePT } from '../../Redux/actions/actions-pt';
-import {fetchPatientExerciseVideos} from '../../Redux/actions/actions-patients'
+import { fetchPatientExerciseVideos } from '../../Redux/actions/actions-patients'
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -17,7 +17,9 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-
+import Typography from "@material-ui/core/Typography";
+import SearchReport from "../../Components/SearchReport/SearchReport"
+import avatarIcon from "../../Assets/Images/chiu.jpg"
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -32,19 +34,19 @@ const useStyles = makeStyles((theme) => ({
     large: {
         width: theme.spacing(7),
         height: theme.spacing(7),
-    }, 
+    },
     gridList: {
         flexWrap: 'nowrap',
         // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
         transform: 'translateZ(0)',
-      },
-      title: {
+    },
+    title: {
         color: theme.palette.primary.light,
-      },
-      titleBar: {
+    },
+    titleBar: {
         background:
-          'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-      },
+            'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+    },
 }));
 
 const PatientDashboardInfo = (props) => {
@@ -63,7 +65,7 @@ const PatientDashboardInfo = (props) => {
         axios
             .get("api/patient/video/id", {
                 params: {
-                    patient:1,
+                    patient: 1,
                 },
             })
             .then((response) => {
@@ -80,7 +82,7 @@ const PatientDashboardInfo = (props) => {
     React.useEffect(() => {
         //will load patients activities when the page loads
         // setGender("male");
- 
+
         // fetchPatientVideos();
         fetchPatientImg();
     }, []);
@@ -88,14 +90,14 @@ const PatientDashboardInfo = (props) => {
     return (
         <div>
             <Grid container direction="column">
-            { props.selectedPatient.patient_id ? <Paper elevation={3}>
-                    <Grid item>
+                {props.selectedPatient.patient_id ? <Paper elevation={3}>
+                    <Grid item >
 
                         <List>
                             <ListItem>
-                                <Avatar alt="user-profile images" src={userImage} className={classes.large} />
+                                <Avatar alt="user-profile images" src={avatarIcon} className={classes.large} />
                                 {/* <img class="image" src={userImage} /> */}
-                            </ListItem>
+                             </ListItem>
                             <ListItem>
                                 <ListItemText primary={`Full Name`}
                                     secondary={`${props.selectedPatient.f_name} ${props.selectedPatient.l_name}`} />
@@ -110,30 +112,33 @@ const PatientDashboardInfo = (props) => {
                             </ListItem>
                             <Divider />
                         </List>
-                    </Grid> 
-                    
-                        <GridList className={classes.gridList} cols={2.5}>
-                            {props.PatientExerciseVideos.map((v) => (
-                                <GridListTile key={v.img}>
-                                    <img
-                                        src={
-                                            "https://img.youtube.com/vi/" +
-                                            v.video_url.split("=")[1] +
-                                            "/0.jpg"
-                                        }
-                                    />
-                                    <GridListTileBar
-                                        title={v.title}
-                                        classes={{
-                                            root: classes.titleBar,
-                                            title: classes.title,
-                                        }}
-                                    />
-                                </GridListTile>
-                            ))}
-                        </GridList>
-                        </Paper>: <p> </p>}
-            </Grid>
+                    </Grid>
+
+                </Paper> : <p> </p>}
+                <Grid item>
+                    <SearchReport />
+                </Grid>
+                <GridList className={classes.gridList} cols={2.5}>
+                    {props.PatientExerciseVideos.map((v) => (
+                        <GridListTile key={v.img}>
+                            <img
+                                src={
+                                    "https://img.youtube.com/vi/" +
+                                    v.video_url.split("=")[1] +
+                                    "/0.jpg"
+                                }
+                            />
+                            <GridListTileBar
+                                title={v.uploaded}
+                                classes={{
+                                    root: classes.titleBar,
+                                    title: classes.title,
+                                }}
+                            />
+                        </GridListTile>
+                    ))}
+                </GridList>
+            </Grid> 
         </div>
 
     )
