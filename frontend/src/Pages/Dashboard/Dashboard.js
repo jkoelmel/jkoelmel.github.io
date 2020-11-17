@@ -7,6 +7,9 @@ import PatientList from "../../Components/PatientList/PatientList";
 import Messaging from "../../Components/Messaging/Messaging";
 import ActivitySummary from "../../Components/PTActivitySummary/PTActivitySummary";
 import PatientDashboardInfo from "../../Components/PatientDashboardInfo/PatientDashboardInfo";
+import AssignWorkout from "../../Components/AssignWorkout/AssignWorkout";
+import SavedWorkout from "../../Components/SavedWorkout/SavedWorkout";
+import Divider from "@material-ui/core/Divider";
 
 //TODO Will most likely have to fix paperMessage margins when we implement
 //the actual message board.
@@ -14,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     marginTop: 24,
-    background: theme.palette.background.default,
+    color: theme.palette.secondary.light,
+
   },
   paperMessage: {
     padding: theme.spacing(2),
@@ -26,28 +30,29 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 139,
   },
   paperPatients: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(0),
     textAlign: "center",
     color: theme.palette.secondary.main,
-    height: 525,
+    height: 650,
     width: 350,
     marginTop: 50,
-    // marginBottom: 139
+    marginLeft: 10,
   },
   paperProfile: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.secondary.main,
-    height: 650,
-    width: 700,
+    backgroundColor: "lightgrey",
+    height: 700,
+    width: 1000,
     marginTop: 50,
     marginBottom: 139,
+    marginRight: 15,
   },
   paperSummary: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.secondary.main,
-    marginTop: 50,
+    marginTop: 60,
     width: 350,
   }
 }));
@@ -61,12 +66,11 @@ const Dashboard = () => {
       justify={"space-between"}
       alignItems={"flex-start"}
     >
+      <Messaging />
       <Grid container spacing={3} direction="row" style={{
         margin: 0,
         width: '100%'
       }}>
-        <Grid item>
-          {/* <Grid container direction="column"> */}
           <Grid item>
             <Paper
               className={classes.paperPatients}
@@ -74,24 +78,34 @@ const Dashboard = () => {
               elevation={5}
             >
               <PatientList />
-              <Messaging />
             </Paper>
           </Grid>
-          {/* </Grid> */}
-        </Grid>
         <Grid item>
           <Paper className={classes.paperProfile} elevation={5}>
             {/* <PatientsList/>  TODO need to handle Axios or hooks
                         in order to use*/}
-            <Typography variant= "h6">Patient Profile</Typography>
+            <Typography variant= "h5"><u>Patient Profile</u></Typography>
             <PatientDashboardInfo />
           </Paper>
         </Grid>
         <Grid item>
+          <Grid container spacing={3} direction='column'>
           <Paper className={classes.paperSummary} elevation={5}>
-            <Typography><b><u>Total Activity Summary</u></b></Typography>
-            <ActivitySummary />
+            <Grid item>
+              <Typography><b><u>Total Activity Summary</u></b></Typography>
+              <ActivitySummary />
+            </Grid>
+            <Divider />
+            <Grid item>
+            <SavedWorkout/>
+            </Grid>
+            <Divider />
+            <Grid item>
+            <AssignWorkout/>
+            </Grid>
+
           </Paper>
+          </Grid>
         </Grid>
       </Grid>
     </div>

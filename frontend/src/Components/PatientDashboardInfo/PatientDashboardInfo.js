@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Grid from "@material-ui/core/Grid";
-import { ListItem, ListItemText } from '@material-ui/core';
+import {ListItem, ListItemText, Typography} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,8 +15,10 @@ import Paper from "@material-ui/core/Paper";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
+import SearchReport from "../SearchReport/SearchReport";
+import PatientInfo from "../PatientInfo/PatientInfo";
+import PatientVideos from "../PatientVideos/PatientVideo";
+import PatientVideo from "../PatientVideos/PatientVideo";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,6 +47,18 @@ const useStyles = makeStyles((theme) => ({
         background:
           'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
       },
+        info: {
+            width: 200,
+            height: 410,
+      },
+        report: {
+            width: 350,
+            height: 600,
+        },
+    video: {
+            width: 300,
+            height: 600,
+    },
 }));
 
 const PatientDashboardInfo = (props) => {
@@ -59,81 +73,42 @@ const PatientDashboardInfo = (props) => {
         });
     };
 
-    const fetchPatientVideos = () => {
-        axios
-            .get("api/patient/video/id", {
-                params: {
-                    patient:1,
-                },
-            })
-            .then((response) => {
-                console.log(response.data)
-                setVideos(
-                    response.data.map((pv) => {
-                        console.log(response.data);
-                        return pv;
-                    })
-                );
-            })
-            .catch(console.log);
-    };
     React.useEffect(() => {
         //will load patients activities when the page loads
-        // setGender("male");
- 
-        // fetchPatientVideos();
         fetchPatientImg();
     }, []);
 
     return (
         <div>
-            <Grid container direction="column">
-            { props.selectedPatient.patient_id ? <Paper elevation={3}>
-                    <Grid item>
 
-                        <List>
-                            <ListItem>
-                                <Avatar alt="user-profile images" src={userImage} className={classes.large} />
-                                {/* <img class="image" src={userImage} /> */}
-                            </ListItem>
-                            <ListItem>
-                                <ListItemText primary={`Full Name`}
-                                    secondary={`${props.selectedPatient.f_name} ${props.selectedPatient.l_name}`} />
-                            </ListItem>
-                            <Divider />
-                            <ListItem>
-                                <ListItemText primary={`Email`} secondary={`${props.selectedPatient.email}`} />
-                            </ListItem>
-                            <Divider />
-                            <ListItem>
-                                <ListItemText primary={`Company Name`} secondary={`${props.selectedPatient.company}`} />
-                            </ListItem>
-                            <Divider />
-                        </List>
-                    </Grid> 
+            { props.selectedPatient.patient_id ? <Grid container
+                                                       spacing={3}
+                                                       direction="row"
+                                                       justify="space-between"
+                                                       alignItems="flex-start">
+
+                    <Grid item>
+                        <Typography variant='h6'>Info</Typography>
+                        <Paper className={classes.info}>
+                        <PatientInfo/>
+                    </Paper>
+                        </Grid>
+                    <Grid item>
+                        <Typography variant='h6'>Progress Log</Typography>
+                        <Paper className={classes.report}>
+                        <SearchReport/>
+                    </Paper>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant='h6'>Patient Videos</Typography>
+                        <Paper className={classes.video}>
+                        <PatientVideo/>
+                        </Paper>
+                    </Grid>
+
                     
-                        <GridList className={classes.gridList} cols={2.5}>
-                            {props.PatientExerciseVideos.map((v) => (
-                                <GridListTile key={v.img}>
-                                    <img
-                                        src={
-                                            "https://img.youtube.com/vi/" +
-                                            v.video_url.split("=")[1] +
-                                            "/0.jpg"
-                                        }
-                                    />
-                                    <GridListTileBar
-                                        title={v.title}
-                                        classes={{
-                                            root: classes.titleBar,
-                                            title: classes.title,
-                                        }}
-                                    />
-                                </GridListTile>
-                            ))}
-                        </GridList>
-                        </Paper>: <p> </p>}
-            </Grid>
+
+                        </Grid>: <p> </p> }
         </div>
 
     )

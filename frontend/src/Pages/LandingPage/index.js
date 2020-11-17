@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${Image})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-    backgroundPositionY: "-35vh",
+    backgroundPositionY: "-25vh",
     display: "flex",
     justifyContent: "center",
     paddingTop: "7vh",
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 const Landing = ({handleLogin,error}) => {
     const classes = useStyles();
     const [LoginOpen, setLoginOpen] = React.useState(false);
-    const [RegisterNow, setRegisterNow] = React.useState(false);
+    const [RegisterOpen, setRegisterOpen] = React.useState(false);
 
     const handleLoginOpen = () => {
         setLoginOpen(true);
@@ -56,12 +56,12 @@ const Landing = ({handleLogin,error}) => {
     setLoginOpen(false);
   };
 
-  const handleRegisterNow = () => {
-    setRegisterNow(true);
+  const handleRegisterOpen = () => {
+    setRegisterOpen(true);
   };
 
   const handleRegisterClose = () => {
-    setRegisterNow(false);
+    setRegisterOpen(false);
   };
 
   return (
@@ -109,14 +109,14 @@ const Landing = ({handleLogin,error}) => {
             <Button
               variant="contained"
               className={classes.buttons}
-              onClick={handleRegisterNow}
+              onClick={handleRegisterOpen}
             >
               Register Now
             </Button>
           </Grid>
           <Modal
-            open={RegisterNow}
-            onClose={handleRegisterNow}
+            open={RegisterOpen}
+            onClose={handleRegisterClose}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
             className={classes.LoginModal}

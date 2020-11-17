@@ -14,6 +14,8 @@ import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import ReactPlayer from "react-player";
+import {connect} from "react-redux";
+import {fetchPTsPatients, setSelectedPatient} from "../../Redux/actions/actions-pt";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -33,10 +35,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PatientVideos = () => {
+const PatientVideos = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [selectedPatient, setselectedPatient] = React.useState(1);
   const [videos, setVideos] = React.useState([]);
   const [selectedVideo, setSelectedVideo] = React.useState([]);
   const [URL, setURL] = React.useState("");
@@ -47,13 +48,11 @@ const PatientVideos = () => {
     setOpen(true);
   };
 
-  console.log(`patient id: ${selectedPatient}`);
-
   const fetchPatientVideos = () => {
     axios
       .get("api/patient/video/id", {
         params: {
-          patient: 1,
+          patient: props.selectedPatient.patient_id,
         },
       })
       .then((response) => {
@@ -82,15 +81,15 @@ const PatientVideos = () => {
 
   React.useEffect(() => {
     //will load patients video when the page loads
-    if (selectedPatient != "") fetchPatientVideos();
-  }, [selectedPatient]);
+    if (props.selectedPatient != "") fetchPatientVideos();
+  }, [props.selectedPatient]);
 
   return (
     <div className={classes.root}>
       <List
         component="nav"
         aria-label="patient-list"
-        style={{ maxHeight: 625, overflowY: "scroll" }}
+        style={{ maxHeight: 600, overflowY: "scroll" }}
       >
         {videos.map((v) => (
           <div>
@@ -135,4 +134,13 @@ const PatientVideos = () => {
   );
 };
 
-export default PatientVideos;
+export default connect(
+    (state) => ({
+      // The state of the pt, as defined by reducer-pt
+      selectedPatient: state.pt.selectedPatient,
+    }),
+    (dispatch) => ({
+      // The action from actions-pt which will effect reducer-pt
+      setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
+    })
+)(PatientVideos);
