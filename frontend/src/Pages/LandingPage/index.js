@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${Image})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-    backgroundPositionY: "-25vh",
+    backgroundPositionY: "-35vh",
     display: "flex",
     justifyContent: "center",
     paddingTop: "7vh",
