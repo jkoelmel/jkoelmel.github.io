@@ -62,7 +62,7 @@ const AssignWorkout = (props) => {
     return (
         <div>
             <List component="nav" aria-label="workout-list"
-                  style={{maxHeight: 300, overflow: "auto"}}
+                  style={{maxHeight: 275, overflow: "auto"}}
                   subheader={
                       <ListSubheader component="div" color="inherit" className={classes.sticky}>
                           Assign To...

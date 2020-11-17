@@ -81,28 +81,18 @@ public class ContainUtil {
       }
       for (int i = 0; i < (request.queryParamsValues("exercise_id").length); i++) {
         Exercise exercise =
-            new Exercise(Integer.parseInt(request.queryParamsValues("exercise_id")[i]));
+                new Exercise(Integer.parseInt(request.queryParamsValues("exercise_id")[i]));
         exercise.getExercise();
-        try {
-          Exercise newExercise = new Exercise(null);
-          newExercise.createExercise(
-              exercise.getexercise_url(),
-              exercise.getTitle(),
-              request.queryParamsValues("description")[i],
-              exercise.getTags());
+        Exercise newExercise = new Exercise(null);
+        newExercise.createExercise(
+                exercise.getexercise_url(),
+                exercise.getTitle(),
+                request.queryParamsValues("description")[i],
+                exercise.getTags());
 
-          Contain contain = new Contain(null);
-          contain.createContain(workout_id);
-          return 200;
-        } catch (SQLException sqlEx) {
-          System.err.println(sqlEx.toString());
-          return 500;
-        } catch (Exception ex) {
-          System.err.println(ex.toString());
-          return 400;
-        }
+        Contain contain = new Contain(null);
+        contain.createContain(workout_id);
       }
-
       return 200;
     } catch (SQLException sqlEx) {
       System.err.println(sqlEx.toString());
