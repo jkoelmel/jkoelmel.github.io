@@ -84,7 +84,6 @@ const Exercise = () => {
         </Grid>
         <Grid item xs={3}>
           <Paper className={classes.paperAssign} elevation={5}>
-            <Typography>Saved Workouts</Typography>
             <SavedWorkout
               checkedWorkout={checkedWorkout}
               setCheckedWorkout={{ setCheckedWorkout }}

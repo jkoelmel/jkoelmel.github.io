@@ -11,7 +11,7 @@ export const createNewPT = (pt) => {
   params.append("company", pt.company);
 
   return (dispatch) => {
-    postAuth("/api/pt/register", params)
+    postAuth("api/pt/register", params)
       .then(() => {
         dispatch(createPT(pt));
         dispatch(getPTByEmail(pt.email));
@@ -76,7 +76,7 @@ export const assignWorkout = (pt,checked,selectedWorkout) => {
             if (response.data == 200) {
                 console.log("Message success")
                 window.alert("Assignments complete")
-                window.location.reload()
+                window.location.href='/'
             }
         })
         .catch(console.log);
@@ -85,7 +85,7 @@ export const assignWorkout = (pt,checked,selectedWorkout) => {
 
 
 
-export const createWorkout = (pt, title, exercises, descriptions)=> {
+export const createWorkout = (pt, title, exercises, descriptions) => {
 
     const params = new URLSearchParams()
     params.append("pt", pt.pt_id)
@@ -100,7 +100,7 @@ export const createWorkout = (pt, title, exercises, descriptions)=> {
             if (res.data == 200) {
                 console.log(res.data)
                 window.alert("Workout creation: success")
-                window.location.reload()
+                window.location.href='/library'
             }
         }).catch((err) => {
             console.log(err)

@@ -42,6 +42,7 @@ const CreateWorkout = (props) => {
     setVideoDescriptions([...instructions]);
   };
   //check updates
+  console.log(props.selectedVideos);
   console.log(workoutTitle);
   console.log(videoDescriptions);
 
