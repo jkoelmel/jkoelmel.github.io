@@ -54,7 +54,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
     marginTop: 60,
     width: 350,
-  }
+    height: 830,
+  },
 }));
 
 const Dashboard = () => {
@@ -89,7 +90,8 @@ const Dashboard = () => {
           </Paper>
         </Grid>
         <Grid item>
-          <Grid container spacing={3} direction='column'>
+          <Grid container spacing={3} direction='column'
+          alignItems={"center"}>
           <Paper className={classes.paperSummary} elevation={5}>
             <Grid item>
               <Typography><b><u>Total Activity Summary</u></b></Typography>
@@ -97,7 +99,7 @@ const Dashboard = () => {
             </Grid>
             <Divider />
             <Grid item>
-            <SavedWorkout/>
+              <SavedWorkout/>
             </Grid>
             <Divider />
             <Grid item>
