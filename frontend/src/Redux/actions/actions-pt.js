@@ -100,7 +100,7 @@ export const createWorkout = (pt, title, exercises, descriptions) => {
             if (res.data == 200) {
                 console.log(res.data)
                 window.alert("Workout creation: success")
-                window.location.href='/library'
+                window.location.href='/'
             }
         }).catch((err) => {
             console.log(err)
