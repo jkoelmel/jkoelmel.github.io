@@ -12,7 +12,12 @@ const initialPTState = {
     l_name: '',
     company: '',
     patients: [{}],
-    selectedPatient: {},
+    selectedPatient: {
+        patient_id: null,
+        email: '',
+        f_name: '',
+        l_name: ''
+    },
     errorCode: ''
 };
 

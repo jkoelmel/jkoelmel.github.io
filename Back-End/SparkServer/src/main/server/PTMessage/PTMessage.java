@@ -12,10 +12,16 @@ public class PTMessage {
   private Timestamp created_On;
   private Integer patient;
   private Integer pt;
+  private String sender;
   private final String secret = "messageEncryption";
 
   public PTMessage(Integer message_id) {
     this.message_id = message_id;
+  }
+
+  public PTMessage(String sender, Timestamp created_On) {
+    this.sender = sender;
+    this.created_On = created_On;
   }
 
   public void createMessage(String message, Integer patient, Integer pt) throws Exception {
@@ -106,5 +112,13 @@ public class PTMessage {
 
   public void setPt(Integer pt) {
     this.pt = pt;
+  }
+
+  public String getSender() {
+    return sender;
+  }
+
+  public void setSender(String sender) {
+    this.sender = sender;
   }
 }
