@@ -1,4 +1,3 @@
 package main.server.Address;
 
-public class AddressUtil {
-}
+public class AddressUtil {}

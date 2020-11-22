@@ -4,10 +4,9 @@ name: Continuous Integration
 
 # This action works with pull requests and pushes
 on:
-  pull_request:
   push:
     branches:
-    - development
+    - Development
     - eric-be-workout
 
 jobs:
