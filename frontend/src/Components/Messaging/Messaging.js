@@ -27,7 +27,6 @@ const Messaging = (props) => {
             })
             .then((response) => {
                 response.data.map((message) => {
-                    console.log(message, props.pt)
                     if (message.sender === props.pt.email) {
                         addUserMessage(message.message);
                     } else {
