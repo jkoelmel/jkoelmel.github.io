@@ -12,7 +12,12 @@ const initialPTState = {
     l_name: '',
     company: '',
     patients: [{}],
-    selectedPatient: {},
+    selectedPatient: {
+        patient_id: null,
+        email: '',
+        f_name: '',
+        l_name: ''
+    },
     errorCode: ''
 };
 
@@ -27,7 +32,6 @@ const PTReducer = handleActions(
 
     [constants.CREATE_PT]: (state, action) => {
       const pt = action.payload;
-      // TODO: we might be able to just say return { action.payload } but idk, test it out?
       return {
         email: pt.email,
         f_name: pt.f_name,
@@ -38,13 +42,16 @@ const PTReducer = handleActions(
     },
 
     [constants.UPDATE_PT]: (state, action) => {
-      console.log(action.payload);
+        const p = action.payload
       return {
-        // ...state allows it to keep existing state, and only update pt_id, user, and user_id
         ...state,
-        pt_id: action.payload.pt_id,
-        user: action.payload.user,
-        user_id: action.payload.user_id,
+        pt_id: p.pt_id,
+        user: p.user,
+        user_id: p.user_id,
+        email: p.email,
+        f_name: p.f_name,
+        l_name: p.l_name,
+        company: p.company
       };
     },
     [constants.LOGIN_PT]: (state, action) => {
@@ -68,6 +75,7 @@ const PTReducer = handleActions(
     },
       [constants.LOGOUT_PT]: (state,action) => {
         const pt = action.payload;
+        console.log(initialPTState, action.payload)
         return {
             pt: pt,
         };

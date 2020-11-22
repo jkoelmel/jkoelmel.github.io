@@ -1,6 +1,7 @@
 import { GET_PATIENTS, PATIENTS_ERROR } from "../types/types";
 import axios from "axios";
 
+// TODO: This already exists in actions-pt as fetchPTsPatients, do we need this file?
 export const getPatients = () => async (dispatch) => {
   try {
     const res = await axios.get("api/pt/patients", {
