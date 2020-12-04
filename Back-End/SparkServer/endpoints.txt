@@ -33,8 +33,7 @@ POST    api/activity/register          params: type_activity, duration, pt, pati
 
 GET     api/assign/id                  params: patient
 GET     api/assign/all                 params: patient
-POST    api/assign/register            params: assignment_id (0 or -1) if patient has no assignment
-                                               pt, workout, patient
+
 ### This branch is for patient message creation/retrieval
 ### POST is replaced by an automatic SQL trigger for testing messaging functionality
 GET     api/message/id                 params: pt, patient

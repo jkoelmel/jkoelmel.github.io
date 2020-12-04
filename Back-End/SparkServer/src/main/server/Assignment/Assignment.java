@@ -4,6 +4,10 @@ import main.server.Server;
 
 import java.sql.*;
 
+/**
+ * Assignment Class: Provides basic functionality for CRUD operations
+ * of entries into the portalDB 'assignment' table.
+ */
 public class Assignment {
 
   private Integer assignment_id;
@@ -14,10 +18,23 @@ public class Assignment {
   private String title;
   private Integer patient;
 
+  /**
+   * Assignment constructor: Can be NULL because value is auto-incremented for
+   * new entries by the database
+   * @param assignment_id
+   */
   public Assignment(Integer assignment_id) {
     this.assignment_id = assignment_id;
   }
 
+  /**
+   * createAssignment: Takes the provided params to create an SQL INSERT statement
+   * that will place a new entry into the 'assignment' table in the database
+   * @param pt
+   * @param workout
+   * @param patient
+   * @throws Exception
+   */
   public void createAssignment(Integer pt, Integer workout, Integer patient) throws Exception {
     String assignmentQuery =
         "INSERT INTO assignment(assignment_id, start_time, end_time, pt, workout, patient)"
@@ -40,6 +57,13 @@ public class Assignment {
     }
   }
 
+  /**
+   * getAssignment: Called by an existing Assignment object to retrieve all data
+   * pertinent to that entry in the database
+   * @param patient
+   * @return
+   * @throws Exception
+   */
   public Assignment getAssignment(Integer patient) throws Exception {
     String assignmentQuery =
         "SELECT * FROM workout w JOIN assignment a "
@@ -66,6 +90,12 @@ public class Assignment {
     return this;
   }
 
+  /**
+   * updateAssignment: Updates the end_time of the assignment in the database
+   * Useful trigger to update 'assignment' table when a patient is assigned
+   * something new.
+   * @throws Exception
+   */
   public void updateAssignment() throws Exception {
     String query = "UPDATE assignment SET end_time = now() WHERE assignment_id = " + assignment_id;
 
@@ -81,6 +111,24 @@ public class Assignment {
     }
   }
 
+  /**
+   * The following are all standard setters and getters for this class:
+   * getassignment_id
+   * setassignment_id
+   * getStart_time
+   * setStart_time
+   * getEnd_time
+   * setEnd_time
+   * getPt
+   * setPt
+   * setWorkout
+   * getWorkoutID
+   * setWorkout
+   * getTitle
+   * setTitle
+   * getPatient
+   * setPatient
+   */
   public Integer getassignment_id() {
     return assignment_id;
   }
