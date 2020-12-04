@@ -11,8 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
-import {connect} from "react-redux";
-import {setSelectedPatient} from "../../Redux/actions/actions-pt";
+import { connect } from "react-redux";
+import { setSelectedPatient } from "../../Redux/actions/actions-pt";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -184,12 +184,12 @@ const CurrentWorkout = (props) => {
 };
 
 export default connect(
-    (state) => ({
-        // The state of the pt, as defined by reducer-pt
-        selectedPatient: state.pt.selectedPatient,
-    }),
-    (dispatch) => ({
-        // The action from actions-pt which will effect reducer-pt
-        setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
-    })
+  (state) => ({
+    // The state of the pt, as defined by reducer-pt
+    selectedPatient: state.pt.selectedPatient,
+  }),
+  (dispatch) => ({
+    // The action from actions-pt which will effect reducer-pt
+    setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
+  })
 )(CurrentWorkout);

@@ -5,13 +5,13 @@ import theme from "./Components/UI/Theme";
 import "./App.css";
 import Header from "./Components/Header/Header"; //App bar
 import { BrowserRouter } from "react-router-dom";
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const App = () => {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <CssBaseline/>
+        <CssBaseline />
         <Header />
         <Routes />
       </ThemeProvider>

@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     marginTop: 24,
     color: theme.palette.secondary.light,
-
   },
   paperMessage: {
     padding: theme.spacing(2),
@@ -68,45 +67,54 @@ const Dashboard = () => {
       alignItems={"flex-start"}
     >
       <Messaging />
-      <Grid container spacing={3} direction="row" style={{
-        margin: 0,
-        width: '100%'
-      }}>
-          <Grid item>
-            <Paper
-              className={classes.paperPatients}
-              style={{ overflow: "auto" }}
-              elevation={5}
-            >
-              <PatientList />
-            </Paper>
-          </Grid>
+      <Grid
+        container
+        spacing={3}
+        direction="row"
+        style={{
+          margin: 0,
+          width: "100%",
+        }}
+      >
+        <Grid item>
+          <Paper
+            className={classes.paperPatients}
+            style={{ overflow: "auto" }}
+            elevation={5}
+          >
+            <PatientList />
+          </Paper>
+        </Grid>
         <Grid item>
           <Paper className={classes.paperProfile} elevation={5}>
             {/* <PatientsList/>  TODO need to handle Axios or hooks
                         in order to use*/}
-            <Typography variant= "h5"><u>Patient Profile</u></Typography>
+            <Typography variant="h5">
+              <u>Patient Profile</u>
+            </Typography>
             <PatientDashboardInfo />
           </Paper>
         </Grid>
         <Grid item>
-          <Grid container spacing={3} direction='column'
-          alignItems={"center"}>
-          <Paper className={classes.paperSummary} elevation={5}>
-            <Grid item>
-              <Typography><b><u>Total Activity Summary</u></b></Typography>
-              <ActivitySummary />
-            </Grid>
-            <Divider />
-            <Grid item>
-              <SavedWorkout/>
-            </Grid>
-            <Divider />
-            <Grid item>
-            <AssignWorkout/>
-            </Grid>
-
-          </Paper>
+          <Grid container spacing={3} direction="column" alignItems={"center"}>
+            <Paper className={classes.paperSummary} elevation={5}>
+              <Grid item>
+                <Typography>
+                  <b>
+                    <u>Total Activity Summary</u>
+                  </b>
+                </Typography>
+                <ActivitySummary />
+              </Grid>
+              <Divider />
+              <Grid item>
+                <SavedWorkout />
+              </Grid>
+              <Divider />
+              <Grid item>
+                <AssignWorkout />
+              </Grid>
+            </Paper>
           </Grid>
         </Grid>
       </Grid>

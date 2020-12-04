@@ -8,7 +8,10 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
-import {assignWorkout, fetchPTsPatients} from "../../Redux/actions/actions-pt";
+import {
+  assignWorkout,
+  fetchPTsPatients,
+} from "../../Redux/actions/actions-pt";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Button from "@material-ui/core/Button";
@@ -54,56 +57,66 @@ const AssignWorkout = (props) => {
     setChecked(newChecked);
   };
   console.log(checked);
-  
+
   const assignToPatients = () => {
-        props.assignWorkout(props.pt,checked,props.selectedWorkouts)
-    }
+    props.assignWorkout(props.pt, checked, props.selectedWorkouts);
+  };
 
-    return (
-        <div>
-            <List component="nav" aria-label="workout-list"
-                  style={{maxHeight: 275, overflowY: "scroll"}}
-                  subheader={
-                      <ListSubheader component="div" color="inherit" className={classes.sticky}>
-                          Assign To...
-                      </ListSubheader>
-                  }>
-                {props.patients.map((p,k) => (
-                    <div key={k}>
-                    <ListItem>
-                        <ListItemText primary={`${p.f_name} ${p.l_name}`} />
-                        <ListItemSecondaryAction>
-                            <Checkbox
-                                edge="end"
-                                tabIndex={-1}
-                                disableRipple
-                                onChange={handleCheckToggle(p.patient_id)}
-                                checked={checked.indexOf(p.patient_id) !== -1}
-                                inputProps={{"aria-labelledby": `checkbox-list-label-${p.patient_id}`}}
-                            />
-                        </ListItemSecondaryAction>
-                    </ListItem>
-                    </div>
-                ))}
-            </List>
+  return (
+    <div>
+      <List
+        component="nav"
+        aria-label="workout-list"
+        style={{ maxHeight: 275, overflowY: "scroll" }}
+        subheader={
+          <ListSubheader
+            component="div"
+            color="inherit"
+            className={classes.sticky}
+          >
+            Assign To...
+          </ListSubheader>
+        }
+      >
+        {props.patients.map((p, k) => (
+          <div key={k}>
+            <ListItem>
+              <ListItemText primary={`${p.f_name} ${p.l_name}`} />
+              <ListItemSecondaryAction>
+                <Checkbox
+                  edge="end"
+                  tabIndex={-1}
+                  disableRipple
+                  onChange={handleCheckToggle(p.patient_id)}
+                  checked={checked.indexOf(p.patient_id) !== -1}
+                  inputProps={{
+                    "aria-labelledby": `checkbox-list-label-${p.patient_id}`,
+                  }}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+          </div>
+        ))}
+      </List>
 
-            <Button variant="contained"
-                    color="inherit"
-                    onClick={assignToPatients}>ASSIGN
-            </Button>
-        </div>
-    )
-}
-export default connect((state) => ({
-        // The state of the pt, as defined by reducer-pt
-        pt: state.pt,
-        // The state of the pt's patients, defined by reducer-pt
-        patients: state.pt.patients,
-        selectedWorkouts: state.exercises.selectedWorkouts
-    }), (dispatch) => ({
-        // The action from actions-pt which will effect reducer-pt
-        fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
-        assignWorkout: (pt, checked, selectedWorkouts) => dispatch(assignWorkout(pt,checked,selectedWorkouts))
-
-    })
-)(AssignWorkout)
+      <Button variant="contained" color="inherit" onClick={assignToPatients}>
+        ASSIGN
+      </Button>
+    </div>
+  );
+};
+export default connect(
+  (state) => ({
+    // The state of the pt, as defined by reducer-pt
+    pt: state.pt,
+    // The state of the pt's patients, defined by reducer-pt
+    patients: state.pt.patients,
+    selectedWorkouts: state.exercises.selectedWorkouts,
+  }),
+  (dispatch) => ({
+    // The action from actions-pt which will effect reducer-pt
+    fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
+    assignWorkout: (pt, checked, selectedWorkouts) =>
+      dispatch(assignWorkout(pt, checked, selectedWorkouts)),
+  })
+)(AssignWorkout);

@@ -134,7 +134,6 @@ const Library = (props) => {
                   }}
                 />
               </ListItemSecondaryAction>
-
             </ListItem>
           </React.Fragment>
         ))}

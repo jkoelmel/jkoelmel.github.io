@@ -13,8 +13,8 @@ import {
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import {connect} from "react-redux";
-import {fetchPTsPatients} from "../../Redux/actions/actions-pt";
+import { connect } from "react-redux";
+import { fetchPTsPatients } from "../../Redux/actions/actions-pt";
 import Avatar from "@material-ui/core/Avatar";
 import Image from "../../Assets/Images/Paul.jpg";
 
@@ -73,54 +73,52 @@ const PatientInfo = (props) => {
   React.useEffect(() => {
     //will load patients activities when the page loads
 
-    if (props.selectedPatient != "")
-          fetchPatientInfo();
-      fetchPatientImg();
+    if (props.selectedPatient != "") fetchPatientInfo();
+    fetchPatientImg();
   }, [props.selectedPatient]);
 
   return (
+    <div>
+      <List
+        component="nav"
+        aria-label="patient-list"
+        style={{ maxHeight: 300 }}
+      >
         <div>
-          <List
-            component="nav"
-            aria-label="patient-list"
-            style={{ maxHeight:300 }}
-          >
-            <div>
-              <ListItem>
-                <Avatar alt="user-profile images" src={Image} className={classes.large} />
-              </ListItem>
-              <ListItem>
-                <ListItemText
-                  primary={`Patient`}
-                  secondary={info.f_name + " " + info.l_name}
-                />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary={`Email`} secondary={info.email} />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary={`Company`} secondary={info.company} />
-              </ListItem>
-              <ListItem>
-                <ListItemText
-                  primary={`Injured Area`}
-                  secondary={info.injury}
-                />
-              </ListItem>
-              <Divider />
-            </div>
-          </List>
+          <ListItem>
+            <Avatar
+              alt="user-profile images"
+              src={Image}
+              className={classes.large}
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary={`Patient`}
+              secondary={info.f_name + " " + info.l_name}
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary={`Email`} secondary={info.email} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary={`Company`} secondary={info.company} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary={`Injured Area`} secondary={info.injury} />
+          </ListItem>
+          <Divider />
+        </div>
+      </List>
     </div>
   );
 };
 
-export default  connect(
-    (state) => ({
-      pt: state.pt,
-      patients: state.pt.patients,
-      selectedPatient: state.pt.selectedPatient,
-    }),
-    (dispatch) => ({
-
-    })
+export default connect(
+  (state) => ({
+    pt: state.pt,
+    patients: state.pt.patients,
+    selectedPatient: state.pt.selectedPatient,
+  }),
+  (dispatch) => ({})
 )(PatientInfo);

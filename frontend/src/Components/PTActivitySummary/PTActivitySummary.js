@@ -11,8 +11,11 @@ import {
   ListSubheader,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import {connect} from "react-redux";
-import {fetchPTsPatients, setSelectedPatient} from "../../Redux/actions/actions-pt";
+import { connect } from "react-redux";
+import {
+  fetchPTsPatients,
+  setSelectedPatient,
+} from "../../Redux/actions/actions-pt";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,13 +37,13 @@ const useStyles = makeStyles((theme) => ({
 const ActivitySummary = (props) => {
   const classes = useStyles();
   const [activity, setActivity] = React.useState([]);
-  const [subheader, setSubheader] = React.useState('');
+  const [subheader, setSubheader] = React.useState("");
 
   const fetchSummaryInfo = () => {
     axios
       .get("api/pt/summary", {
         params: {
-          pt: props.pt.pt_id
+          pt: props.pt.pt_id,
         },
       })
       .then((response) => {
@@ -55,46 +58,49 @@ const ActivitySummary = (props) => {
   };
 
   const fetchPatPTSummary = () => {
-    axios.get('api/pt/patient-activity', {
-      params: {
-        pt: props.pt.pt_id,
-        patient: props.pt.selectedPatient.patient_id
-      }
-    }).then((response) => {
-      setActivity(
+    axios
+      .get("api/pt/patient-activity", {
+        params: {
+          pt: props.pt.pt_id,
+          patient: props.pt.selectedPatient.patient_id,
+        },
+      })
+      .then((response) => {
+        setActivity(
           response.data.map((a) => {
-            return a
+            return a;
           })
-      )
-    })
-  }
+        );
+      });
+  };
   const showButton = () => {
-    if(props.pt.selectedPatient.patient_id == null) {
+    if (props.pt.selectedPatient.patient_id == null) {
       return null;
     }
 
     return (
-        <Button
-            variant="contained"
-            color="inherit"
-            onClick={handleClick}>
-          Show Summary Info
-        </Button>
-    )
-  }
+      <Button variant="contained" color="inherit" onClick={handleClick}>
+        Show Summary Info
+      </Button>
+    );
+  };
 
   const handleClick = () => {
-    props.setSelectedPatient({})
-  }
+    props.setSelectedPatient({});
+  };
 
   React.useEffect(() => {
-    if(props.pt.selectedPatient.patient_id == null){
-      fetchSummaryInfo()
-      setSubheader("For All Patients")
+    if (props.pt.selectedPatient.patient_id == null) {
+      fetchSummaryInfo();
+      setSubheader("For All Patients");
     } else {
       fetchPatPTSummary(props.pt.selectedPatient.patient_id);
-      setSubheader("For " + props.pt.selectedPatient.f_name +
-          " " + props.pt.selectedPatient.l_name)
+      setSubheader(
+        "For " +
+          props.pt.selectedPatient.f_name +
+          " " +
+          props.pt.selectedPatient.l_name
+      );
     }
   }, [props.pt.selectedPatient]);
 
@@ -114,7 +120,9 @@ const ActivitySummary = (props) => {
       {/*</ListItem>*/}
       {activity.map((a) => (
         <div>
-          <ListItem>{a.type_activity + " : " + a.duration + " minutes"}</ListItem>
+          <ListItem>
+            {a.type_activity + " : " + a.duration + " minutes"}
+          </ListItem>
         </div>
       ))}
       {showButton()}
@@ -123,15 +131,15 @@ const ActivitySummary = (props) => {
 };
 
 export default connect(
-    (state) => ({
-      // The state of the pt, as defined by reducer-pt
-      pt: state.pt,
-      // The state of the pt's patients, defined by reducer-pt
-      patients: state.pt.patients
-    }),
-    (dispatch) => ({
-      // The action from actions-pt which will effect reducer-pt
-      fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
-      setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
-    })
+  (state) => ({
+    // The state of the pt, as defined by reducer-pt
+    pt: state.pt,
+    // The state of the pt's patients, defined by reducer-pt
+    patients: state.pt.patients,
+  }),
+  (dispatch) => ({
+    // The action from actions-pt which will effect reducer-pt
+    fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
+    setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
+  })
 )(ActivitySummary);

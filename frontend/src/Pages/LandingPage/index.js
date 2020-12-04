@@ -43,14 +43,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Landing = ({handleLogin,error}) => {
-    const classes = useStyles();
-    const [LoginOpen, setLoginOpen] = React.useState(false);
-    const [RegisterOpen, setRegisterOpen] = React.useState(false);
+const Landing = ({ handleLogin, error }) => {
+  const classes = useStyles();
+  const [LoginOpen, setLoginOpen] = React.useState(false);
+  const [RegisterOpen, setRegisterOpen] = React.useState(false);
 
-    const handleLoginOpen = () => {
-        setLoginOpen(true);
-    };
+  const handleLoginOpen = () => {
+    setLoginOpen(true);
+  };
 
   const handleLoginClose = () => {
     setLoginOpen(false);

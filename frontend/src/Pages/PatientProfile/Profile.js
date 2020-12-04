@@ -77,12 +77,11 @@ const Profile = () => {
         <Grid item md={3}>
           <Paper className={classes.paperVideos} elevation={5}>
             <Typography>Patient Videos</Typography>
-            <PatientVideo/>
+            <PatientVideo />
             {/*<PatientVideo*/}
             {/*  selectedPatient={selectedPatient}*/}
             {/*  setSelectedPatient={setSelectedPatient}*/}
             {/*/>*/}
-
           </Paper>
         </Grid>
         <Grid item md={3}>

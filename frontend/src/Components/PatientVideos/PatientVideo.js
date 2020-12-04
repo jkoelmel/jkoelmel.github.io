@@ -14,8 +14,11 @@ import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import ReactPlayer from "react-player";
-import {connect} from "react-redux";
-import {fetchPTsPatients, setSelectedPatient} from "../../Redux/actions/actions-pt";
+import { connect } from "react-redux";
+import {
+  fetchPTsPatients,
+  setSelectedPatient,
+} from "../../Redux/actions/actions-pt";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -135,12 +138,12 @@ const PatientVideos = (props) => {
 };
 
 export default connect(
-    (state) => ({
-      // The state of the pt, as defined by reducer-pt
-      selectedPatient: state.pt.selectedPatient,
-    }),
-    (dispatch) => ({
-      // The action from actions-pt which will effect reducer-pt
-      setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
-    })
+  (state) => ({
+    // The state of the pt, as defined by reducer-pt
+    selectedPatient: state.pt.selectedPatient,
+  }),
+  (dispatch) => ({
+    // The action from actions-pt which will effect reducer-pt
+    setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
+  })
 )(PatientVideos);

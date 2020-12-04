@@ -10,7 +10,7 @@ const initialWorkoutState = {
   exercises: [{}],
   selectedVideos: [],
   selectedWorkouts: [],
-  patientExerciseVideos: []
+  patientExerciseVideos: [],
 };
 
 const WorkoutReducer = handleActions(
@@ -31,14 +31,14 @@ const WorkoutReducer = handleActions(
       return {
         ...state,
         selectedWorkouts: action.payload,
-      }
+      };
     },
-    [constants.GET_PATIENT_EXERCISE_VIDEOS] : (state, action) => {
+    [constants.GET_PATIENT_EXERCISE_VIDEOS]: (state, action) => {
       return {
-      ...state,
-      patientExerciseVideos: action.payload
-      }
-  }
+        ...state,
+        patientExerciseVideos: action.payload,
+      };
+    },
     // [constants.CREATE_NEW_WORKOUT] : (state,action) => {
     //     return {
     //         ...state,

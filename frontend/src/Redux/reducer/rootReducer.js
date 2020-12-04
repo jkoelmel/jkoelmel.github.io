@@ -6,7 +6,7 @@ import WorkoutReducer from "./reducer-workouts";
 const rootReducer = combineReducers({
   patients: PatientsReducer,
   pt: PTReducer,
-  exercises: WorkoutReducer
+  exercises: WorkoutReducer,
 });
 
 export default rootReducer;

@@ -12,8 +12,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import logo from "../../Assets/Images/logo_with_text.svg";
 import Dropdown from "react-bootstrap/Dropdown";
-import {connect} from "react-redux";
-import {loginPT, logoutPT} from "../../Redux/actions/actions-pt";
+import { connect } from "react-redux";
+import { loginPT, logoutPT } from "../../Redux/actions/actions-pt";
 
 //TODO when you click the logo, redirect to dashboard
 const useStyles = makeStyles((theme) => ({
@@ -46,9 +46,9 @@ const Header = (props) => {
   const openRight = Boolean(anchorElRight);
 
   const logout = () => {
-      props.logoutPT(props.pt);
-      window.location.href='/';
-  }
+    props.logoutPT(props.pt);
+    window.location.href = "/";
+  };
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -150,9 +150,7 @@ const Header = (props) => {
                 <MenuItem onClick={handleClose} component={Link} to="/settings">
                   My Profile
                 </MenuItem>
-                <MenuItem onClick={logout}>
-                  Logout
-                </MenuItem>
+                <MenuItem onClick={logout}>Logout</MenuItem>
               </Menu>
             </div>
           )}
@@ -162,11 +160,13 @@ const Header = (props) => {
   );
 };
 
-export default connect((state) => ({
-      pt: state.pt,
-    }), (dispatch) => ({
-      //May be used if we add a login to the dropdown
-      loginPT: (data) => dispatch(loginPT(data)),
-      logoutPT: (pt) => dispatch(logoutPT(pt))
-    })
+export default connect(
+  (state) => ({
+    pt: state.pt,
+  }),
+  (dispatch) => ({
+    //May be used if we add a login to the dropdown
+    loginPT: (data) => dispatch(loginPT(data)),
+    logoutPT: (pt) => dispatch(logoutPT(pt)),
+  })
 )(Header);

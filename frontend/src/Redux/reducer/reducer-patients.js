@@ -13,7 +13,7 @@ const initialPatientState = {
       f_name: "jane",
       l_name: "doe",
       company: "the NY co",
-      injury: '',
+      injury: "",
     },
   ],
 };

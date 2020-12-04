@@ -1,5 +1,5 @@
 import * as constants from "../constants/constants-patient";
-import * as constantsWorkout from "../constants/constants-workouts"
+import * as constantsWorkout from "../constants/constants-workouts";
 import { getAuth, postAuth, putAuth } from "./actions-auth";
 
 export const createNewPatient = (patient) => {
@@ -64,11 +64,11 @@ export const submitUpdatePatientPT = (patient, pt, prospective_pt) => {
 };
 
 export const fetchPatientExerciseVideos = (selectedPatient) => {
-  const params = new URLSearchParams()
-  params.append("patient",selectedPatient)
-  console.log('made it to fetch patients videos!!')
+  const params = new URLSearchParams();
+  params.append("patient", selectedPatient);
+  console.log("made it to fetch patients videos!!");
   return (dispatch) => {
-    getAuth("/api/patient/video/id",params)
+    getAuth("/api/patient/video/id", params)
       .then((response) => dispatch(loadPatientExerciseVideos(response.data)))
       .catch((err) => console.log(err));
   };
