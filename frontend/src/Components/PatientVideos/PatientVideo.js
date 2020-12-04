@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   sticky: {
     backgroundColor: "white",
   },
+  thumbnail: {
+    maxHeight: "200px",
+  },
 }));
 
 const PatientVideos = (props) => {
@@ -100,7 +103,7 @@ const PatientVideos = (props) => {
               selected={selectedVideo == v.patient_video_id}
               onClick={(event) => handleVideoClick(event, v.video_url)}
             >
-              <img
+              <img className={classes.thumbnail}
                 src={
                   "https://img.youtube.com/vi/" +
                   v.video_url.split("=")[1] +

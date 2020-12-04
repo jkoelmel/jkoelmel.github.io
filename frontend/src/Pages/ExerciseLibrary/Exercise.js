@@ -21,10 +21,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: theme.palette.secondary.main,
     height: 750,
-    width: 400,
+    width: 450,
     marginTop: 10,
     marginBottom: 139,
     marginLeft: 30,
+    overflowX: "hidden"
   },
   paperWorkouts: {
     padding: theme.spacing(2),

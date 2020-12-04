@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     //need to set up for dynamic scaling
-    marginLeft: 125,
+    marginLeft: 110,
   },
 }));
 
@@ -134,7 +134,6 @@ const Library = (props) => {
                   }}
                 />
               </ListItemSecondaryAction>
-
             </ListItem>
           </React.Fragment>
         ))}
