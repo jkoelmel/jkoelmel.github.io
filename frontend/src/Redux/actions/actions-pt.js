@@ -76,7 +76,7 @@ export const assignWorkout = (pt,checked,selectedWorkout) => {
             if (response.data == 200) {
                 console.log("Message success")
                 window.alert("Assignments complete")
-                window.location.href='/'
+                window.location.reload();
             }
         })
         .catch(console.log);
@@ -100,7 +100,7 @@ export const createWorkout = (pt, title, exercises, descriptions) => {
             if (res.data == 200) {
                 console.log(res.data)
                 window.alert("Workout creation: success")
-                window.location.href='/'
+                window.location.reload();
             }
         }).catch((err) => {
             console.log(err)

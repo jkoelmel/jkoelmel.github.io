@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
     marginTop: 60,
     width: 350,
-    height: 830,
+    height: 825,
   },
 }));
 
