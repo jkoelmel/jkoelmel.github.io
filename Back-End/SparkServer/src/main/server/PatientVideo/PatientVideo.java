@@ -12,10 +12,20 @@ public class PatientVideo {
   private Timestamp uploaded;
   private Integer patient;
 
+  /**
+   * Default constructor for PatientVideo
+   * @param patientVideo_id The integer value of  patientVideo_id
+   */
   public PatientVideo(Integer patientVideo_id) {
     this.patientVideo_id = patientVideo_id;
   }
 
+  /**
+   * Create a new patient video into the database, given its video_url and the patient.
+   * @param video_url The string value of video_url
+   * @param patient The integer value of patient
+   * @throws Exception Throws SQL exception
+   */
   // TODO add uploaded field to all queries
   public void createPatientVideo(String video_url, Integer patient) throws Exception {
     String videoQuery = "INSERT INTO patient_video(video_url, patient) " + "VALUES( ?, ?)";
@@ -36,6 +46,11 @@ public class PatientVideo {
     }
   }
 
+  /**
+   * Get a specific patient video from the database using the patient_video_id
+   * @return The current patient video object
+   * @throws Exception Throws SQL exception
+   */
   public PatientVideo getPatientVideo() throws Exception {
     String videoQuery =
         "SELECT * FROM patient_video WHERE patient_video_id = " + this.patientVideo_id;
@@ -61,6 +76,11 @@ public class PatientVideo {
     return this;
   }
 
+  /**
+   * Update an exisiting patient video from the database using the patient_video_id
+   * @param feedback The string value of feedback
+   * @throws Exception Throws an exception
+   */
   public void updatePatientVideo(String feedback) throws Exception {
 
     String query =
@@ -82,6 +102,9 @@ public class PatientVideo {
     }
   }
 
+  /**
+   * Getters and Setters
+   */
   public Integer getpatientVideo_id() {
     return patientVideo_id;
   }

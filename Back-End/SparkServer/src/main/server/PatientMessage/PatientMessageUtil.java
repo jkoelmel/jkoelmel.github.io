@@ -13,6 +13,12 @@ public class PatientMessageUtil {
 
   private static final String secret = "messageEncryption";
 
+  /**
+   * Select a specific patient message, given the query parameters.
+   * @param request The query parameters: message_id
+   * @param response The status code from the given request
+   * @return The current patient message object
+   */
   public static String selectSpecific(Request request, Response response) {
     String toReturn = "";
 
@@ -34,6 +40,12 @@ public class PatientMessageUtil {
     return toReturn;
   }
 
+  /**
+   * Select all patient message, given the query parameters.
+   * @param request The query parameters: pt and patient
+   * @param response The status code from the given request.
+   * @return The response code -- whether they were successful or not
+   */
   public static String selectAll(Request request, Response response) {
     String toReturn = "";
     String query =
@@ -74,6 +86,11 @@ public class PatientMessageUtil {
     return toReturn;
   }
 
+  /**
+   * Register a new message into the database.
+   * @param request The required query parameters: message, patient, pt
+   * @return The response code -- whether the query was successful or not.
+   */
   public static Integer registerMessage(Request request) {
     try {
       PatientMessage message = new PatientMessage(null);

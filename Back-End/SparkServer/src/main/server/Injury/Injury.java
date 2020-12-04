@@ -9,10 +9,19 @@ public class Injury {
   private Integer injury_id;
   private String injuryType;
 
+  /**
+   * Default constructor, used for instantiating injury with injury_ID
+   * @param injury_id: The identification number for the injury
+   */
   public Injury(Integer injury_id) {
     this.injury_id = injury_id;
   }
 
+  /**
+   * createInjury creates an Injury in the database with an injury id and type of injury.
+   * @param injury
+   * @throws Exception throws a SQL exception
+   */
   public void createInjury(String injury) throws Exception {
     String injuryQuery = "INSERT INTO injury(injury_id, injury_type) VALUES(null, ?)";
 
@@ -31,6 +40,10 @@ public class Injury {
     }
   }
 
+  /**
+   * @return the current injury
+   * @throws Exception throws a SQL exception
+   */
   public Injury getInjury() throws Exception {
     String injuryQuery = "SELECT * FROM injury WHERE injury_id = " + this.injury_id;
 
@@ -54,6 +67,9 @@ public class Injury {
     return this;
   }
 
+  /**
+   * Getters and Setters
+   */
   public Integer getinjury_id() {
     return injury_id;
   }
