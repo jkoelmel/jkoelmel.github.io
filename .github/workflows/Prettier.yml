@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      -eric/testing-workflow
+      - eric/testing-workflow
 
 jobs:
   prettier:
