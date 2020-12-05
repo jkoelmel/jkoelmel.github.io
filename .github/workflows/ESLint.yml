@@ -1,4 +1,4 @@
-name: Code quality for frontend
+name: Frontend Code quality check
 
 on: 'push'
 
