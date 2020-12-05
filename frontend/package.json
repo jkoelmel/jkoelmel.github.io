@@ -60,6 +60,8 @@
     "server": "node src/server.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
+    "lint:js": "eslint '**/*.js' --ignore-pattern node_modules/",
+    "lint:js:fix": "eslint '**/*.js' --ignore-pattern node_modules/ --fix",
     "lint": "npm run lint:js && npm run lint:scss"
   },
   "eslintConfig": {

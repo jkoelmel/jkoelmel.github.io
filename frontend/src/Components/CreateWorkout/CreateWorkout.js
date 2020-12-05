@@ -37,7 +37,7 @@ const CreateWorkout = (props) => {
   const submitDescription = (desc, index) => {
     setDescription(desc);
 
-    let instructions = [...videoDescriptions];
+    const instructions = [...videoDescriptions];
     instructions[index] = description;
     setVideoDescriptions([...instructions]);
   };
