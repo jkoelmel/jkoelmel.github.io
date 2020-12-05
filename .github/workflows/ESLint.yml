@@ -32,4 +32,4 @@ jobs:
       - name: Lint files
         working-directory: frontend/
         run: |
-          npx eslint . --fix
+          npm run lint
