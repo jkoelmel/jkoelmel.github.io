@@ -29,5 +29,6 @@ jobs:
           npm install
 
       - name: Lint files
+        working-directory: frontend/
         run: |
           npm run lint
