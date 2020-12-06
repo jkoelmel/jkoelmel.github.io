@@ -1,6 +1,5 @@
-package test.java;
+package main.server.Specialization;
 
-import main.server.Specialization.Specialization;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,6 +26,4 @@ public class SpecializationTest {
 		spec.setSpec_area("back");
 		assertEquals("back", spec.getSpec_area());
 	}
-
-	// TODO: mocked functions
 }

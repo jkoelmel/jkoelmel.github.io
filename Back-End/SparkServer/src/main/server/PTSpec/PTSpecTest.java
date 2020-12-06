@@ -1,6 +1,5 @@
-package test.java;
+package main.server.PTSpec;
 
-import main.server.PTSpec.PTSpec;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,6 +35,4 @@ public class PTSpecTest {
 		ptSpec.setSpec(6);
 		assertEquals(6, ptSpec.getSpec());
 	}
-
-	// TODO: mocked tests
 }

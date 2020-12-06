@@ -53,7 +53,6 @@
                 <directory>src/main/resources</directory>
             </resource>
         </resources>
-        <testSourceDirectory>src/test</testSourceDirectory>
 
         <plugins>
             <plugin>

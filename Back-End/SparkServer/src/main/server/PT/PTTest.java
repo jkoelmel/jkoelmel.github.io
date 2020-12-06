@@ -1,6 +1,5 @@
-package test.java;
+package main.server.PT;
 
-import main.server.PT.PT;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,6 +15,7 @@ class PTTest {
 		PT pt = new PT(email, password, f_name, l_name, company);
 		// Passwords are tested in AES
 
+		// Doubles as User testing
 		assertEquals(email, pt.getEmail());
 		assertEquals(f_name, pt.getF_name());
 		assertEquals(l_name, pt.getL_name());
@@ -37,17 +37,15 @@ class PTTest {
 
 		pt.setUser(3);
 		assertEquals(3, pt.getUser());
-	}
 
-	@Test
-	void createPT() {
-		// TODO: Need to go over mocking data first.
+		// Doubles as User testing
+		pt.setEmail("another@mail.com");
+		pt.setF_name("Jane");
+		pt.setL_name("Day");
+		pt.setCompany("Another Test");
+		assertEquals("another@mail.com", pt.getEmail());
+		assertEquals("Jane", pt.getF_name());
+		assertEquals("Day", pt.getL_name());
+		assertEquals("Another Test", pt.getCompany());
 	}
-
-	@Test
-	void getPT() {
-		// TODO: Need to go over mocking data first.
-	}
-
-	// TODO: PTUtil functions, once mocking is set up.
 }

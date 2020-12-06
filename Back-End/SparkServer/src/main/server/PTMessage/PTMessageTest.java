@@ -1,6 +1,5 @@
-package test.java;
+package main.server.PTMessage;
 
-import main.server.PTMessage.PTMessage;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;
@@ -25,18 +24,18 @@ public class PTMessageTest {
 
 	@Test
 	void gettersAndSettersShouldReturnCorrectData() {
-		// TODO: these rely on mock data
-	}
+		PTMessage ptMessage = new PTMessage(1);
+		ptMessage.setCreated_On(Timestamp.valueOf("2020-11-13 19:14:01"));
+		ptMessage.setMessage("test");
+		ptMessage.setPatient(1);
+		ptMessage.setPt(2);
+		ptMessage.setSender("test@mail.com");
 
-	@Test
-	void getMessageContents() {
-		// TODO
+		assertEquals(1, ptMessage.getmessage_id());
+		assertEquals(Timestamp.valueOf("2020-11-13 19:14:01"), ptMessage.getCreated_On());
+		assertEquals("test", ptMessage.getMessage());
+		assertEquals(1, ptMessage.getPatient());
+		assertEquals(2, ptMessage.getPt());
+		assertEquals("test@mail.com", ptMessage.getSender());
 	}
-
-	@Test
-	void createMessage() {
-		// TODO
-	}
-
-	// TODO: PTMessageUtil once we have mocking
 }
