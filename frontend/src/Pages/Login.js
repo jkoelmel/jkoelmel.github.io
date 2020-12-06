@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 // eslint-disable-next-line import/extensions
-import { loginPT } from "../Redux/actions/actions-pt.js";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import Landing from "./LandingPage/index";
+import {loginPT} from '../Redux/actions/actions-pt.js';
+import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
+import Landing from './LandingPage/index';
 //TODO maybe this should be in the component folder since we can just login straight in the
 //landing page
 const Login = (props) => {
   //essentially handles submit on loginForm
-  const [error, setError] = React.useState("");
+  const [error, setError] = React.useState('');
 
   const handleLogin = (data) => {
     props.loginPT(data);
@@ -32,5 +32,5 @@ export default connect(
   (dispatch) => ({
     // The action from actions-pt which will effect reducer-pt
     loginPT: (data) => dispatch(loginPT(data)),
-  })
+  }),
 )(Login);

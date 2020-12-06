@@ -1,7 +1,7 @@
-import { createMuiTheme } from "@material-ui/core/styles"; //different from @@material-ui/styles
-import React from "react";
+import {createMuiTheme} from '@material-ui/core/styles'; //different from @@material-ui/styles
+import React from 'react';
 
-const darkBlue = "#00559A";
+const darkBlue = '#00559A';
 
 export default createMuiTheme({
   palette: {
@@ -10,19 +10,19 @@ export default createMuiTheme({
     },
     primary: {
       // light: will be calculated from palette.primary.main,
-      main: "#FAFAFA",
+      main: '#FAFAFA',
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
     },
     secondary: {
-      light: "#0066ff",
+      light: '#0066ff',
       main: `${darkBlue}`,
       // dark: will be calculated from palette.secondary.main,
-      contrastText: "#00559A",
+      contrastText: '#00559A',
     },
 
     background: {
-      default: "#FAFAFA",
+      default: '#FAFAFA',
     },
     // Used by `getContrastText()` to maximize the contrast between
     // the background and the text.
@@ -34,21 +34,21 @@ export default createMuiTheme({
   },
   typography: {
     h2: {
-      fontFamily: "Roboto",
-      fontSize: "4.5rem",
-      fontWeight: "700",
+      fontFamily: 'Roboto',
+      fontSize: '4.5rem',
+      fontWeight: '700',
       color: `${darkBlue}`,
     },
     h5: {
-      fontFamily: "Roboto",
-      fontSize: "1.5rem",
-      fontWeight: "700",
+      fontFamily: 'Roboto',
+      fontSize: '1.5rem',
+      fontWeight: '700',
       color: `${darkBlue}`,
     },
     h6: {
-      fontFamily: "Roboto",
-      fontSize: "1.5rem",
-      fontWeight: "700",
+      fontFamily: 'Roboto',
+      fontSize: '1.5rem',
+      fontWeight: '700',
       color: `${darkBlue}`,
     },
   },

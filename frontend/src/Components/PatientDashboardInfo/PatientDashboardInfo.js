@@ -1,35 +1,35 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import {connect} from 'react-redux';
 import {
   createNewPT,
   fetchPTsPatients,
   setSelectedPatient,
   updatePT,
-} from "../../Redux/actions/actions-pt";
-import { fetchPatientExerciseVideos } from "../../Redux/actions/actions-patients";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import Grid from "@material-ui/core/Grid";
-import { ListItem, ListItemText, Typography } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
-import axios from "axios";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
+} from '../../Redux/actions/actions-pt';
+import {fetchPatientExerciseVideos} from '../../Redux/actions/actions-patients';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Grid from '@material-ui/core/Grid';
+import {ListItem, ListItemText, Typography} from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import axios from 'axios';
+import {makeStyles} from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import SearchReport from "../SearchReport/SearchReport";
-import PatientInfo from "../PatientInfo/PatientInfo";
-import PatientVideos from "../PatientVideos/PatientVideo";
-import PatientVideo from "../PatientVideos/PatientVideo";
-import CurrentWorkout from "../PatientWorkout/CurrentWorkout";
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import SearchReport from '../SearchReport/SearchReport';
+import PatientInfo from '../PatientInfo/PatientInfo';
+import PatientVideos from '../PatientVideos/PatientVideo';
+import PatientVideo from '../PatientVideos/PatientVideo';
+import CurrentWorkout from '../PatientWorkout/CurrentWorkout';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    "& > *": {
+    display: 'flex',
+    '& > *': {
       margin: theme.spacing(1),
     },
   },
@@ -42,16 +42,16 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(7),
   },
   gridList: {
-    flexWrap: "nowrap",
+    flexWrap: 'nowrap',
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-    transform: "translateZ(0)",
+    transform: 'translateZ(0)',
   },
   title: {
     color: theme.palette.primary.light,
   },
   titleBar: {
     background:
-      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
+      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
   },
   info: {
     width: 200,
@@ -74,12 +74,12 @@ const useStyles = makeStyles((theme) => ({
 
 const PatientDashboardInfo = (props) => {
   const classes = useStyles();
-  const [userImage, setUserImage] = React.useState("");
+  const [userImage, setUserImage] = React.useState('');
   const [videos, setVideos] = React.useState([]);
 
   const fetchPatientImg = () => {
     //TODO hard-coded need to add support to various patients in DB
-    axios.get("https://randomuser.me/api/?gender=male").then((response) => {
+    axios.get('https://randomuser.me/api/?gender=male').then((response) => {
       setUserImage(response.data.results[0].picture.large);
     });
   };
@@ -145,5 +145,5 @@ export default connect(
     updatePT: (pt) => dispatch(updatePT(pt)),
     fetchPatientExerciseVideos: (selectedPatient) =>
       dispatch(fetchPatientExerciseVideos(selectedPatient)),
-  })
+  }),
 )(PatientDashboardInfo);

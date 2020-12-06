@@ -1,35 +1,35 @@
-import React from "react";
-import "./styles.css";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { Container, Typography } from "@material-ui/core";
-import Modal from "@material-ui/core/Modal";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import React from 'react';
+import './styles.css';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import {Container, Typography} from '@material-ui/core';
+import Modal from '@material-ui/core/Modal';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
-import axios from "axios";
-import Image from "../../Assets/katee-lue-SxR5wZYaOtg-unsplash.jpg";
-import HouseIcon from "../../Assets/houseIcon.svg";
-import DoctorIcon from "../../Assets/doctorIcon.svg";
-import PhoneIcon from "../../Assets/phoneIcon.svg";
-import { makeStyles } from "@material-ui/core/styles";
-import LoginForm from "../../Components/LoginForm/LoginForm";
-import RegisterPT from "../../Components/RegisterPT/RegisterPT";
+import axios from 'axios';
+import Image from '../../Assets/katee-lue-SxR5wZYaOtg-unsplash.jpg';
+import HouseIcon from '../../Assets/houseIcon.svg';
+import DoctorIcon from '../../Assets/doctorIcon.svg';
+import PhoneIcon from '../../Assets/phoneIcon.svg';
+import {makeStyles} from '@material-ui/core/styles';
+import LoginForm from '../../Components/LoginForm/LoginForm';
+import RegisterPT from '../../Components/RegisterPT/RegisterPT';
 
 const useStyles = makeStyles((theme) => ({
   landingroot: {
-    minHeight: "90vh",
+    minHeight: '90vh',
     backgroundImage: `url(${Image})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPositionY: "-35vh",
-    display: "flex",
-    justifyContent: "center",
-    paddingTop: "7vh",
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPositionY: '-35vh',
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: '7vh',
     paddingLeft: 100,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   buttons: {
     color: theme.palette.secondary.main,
@@ -37,13 +37,13 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 45,
   },
   LoginModal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));
 
-const Landing = ({ handleLogin, error }) => {
+const Landing = ({handleLogin, error}) => {
   const classes = useStyles();
   const [LoginOpen, setLoginOpen] = React.useState(false);
   const [RegisterOpen, setRegisterOpen] = React.useState(false);

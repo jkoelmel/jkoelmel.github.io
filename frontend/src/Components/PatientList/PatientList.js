@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from "react";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import { makeStyles } from "@material-ui/core/styles";
-import { connect } from "react-redux";
+import React, {useEffect, useState} from 'react';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import {makeStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
 import {
   createNewPT,
   fetchPTsPatients,
   setSelectedPatient,
   updatePT,
-} from "../../Redux/actions/actions-pt";
-import { fetchPatientExerciseVideos } from "../../Redux/actions/actions-patients";
-import "./PatientList.css";
-import { ListItem, ListItemText } from "@material-ui/core";
+} from '../../Redux/actions/actions-pt';
+import {fetchPatientExerciseVideos} from '../../Redux/actions/actions-patients';
+import './PatientList.css';
+import {ListItem, ListItemText} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sticky: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     fontSize: 18,
   },
   subheader: {
     fontSize: 18,
   },
   patientList: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
 }));
 
@@ -156,5 +156,5 @@ export default connect(
     updatePT: (pt) => dispatch(updatePT(pt)),
     fetchPatientExerciseVideos: (selectedPatient) =>
       dispatch(fetchPatientExerciseVideos(selectedPatient)),
-  })
+  }),
 )(PatientList);

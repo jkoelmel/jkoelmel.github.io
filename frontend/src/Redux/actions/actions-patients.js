@@ -1,6 +1,6 @@
-import * as constants from "../constants/constants-patient";
-import * as constantsWorkout from "../constants/constants-workouts";
-import { getAuth, postAuth, putAuth } from "./actions-auth";
+import * as constants from '../constants/constants-patient';
+import * as constantsWorkout from '../constants/constants-workouts';
+import {getAuth, postAuth, putAuth} from './actions-auth';
 
 export const createNewPatient = (patient) => {
   const data = {
@@ -10,9 +10,9 @@ export const createNewPatient = (patient) => {
     company: patient.compact,
   };
   return (dispatch) => {
-    postAuth("/api/patient/register", data)
+    postAuth('/api/patient/register', data)
       .then(dispatch(createPatient(patient)))
-      .catch((err) => console.log("Error creating patient:", err));
+      .catch((err) => console.log('Error creating patient:', err));
   };
 };
 
@@ -25,9 +25,9 @@ export const createPatient = (patient) => {
 
 export const fetchPatients = () => {
   return (dispatch) => {
-    getAuth("/api/patient/all")
+    getAuth('/api/patient/all')
       .then((response) => dispatch(loadPatients(response.data.patients)))
-      .catch((err) => console.log("Error fetching all patients:", err));
+      .catch((err) => console.log('Error fetching all patients:', err));
   };
 };
 
@@ -39,15 +39,15 @@ export const loadPatients = (patients) => {
 };
 
 export const updatePatientPT = (patient, pt, prospective_pt) => {
-  const data = { patient_id: patient, pt: pt, prospective_pt: prospective_pt };
+  const data = {patient_id: patient, pt: pt, prospective_pt: prospective_pt};
   return (dispatch) => {
-    putAuth("api/patient/update-pt", data)
+    putAuth('api/patient/update-pt', data)
       .then(dispatch(submitUpdatePatientPT(patient, pt, prospective_pt)))
       .catch((err) =>
         console.log(
           `Error updating patient PT's to ${pt} and/or ${prospective_pt}:`,
-          err
-        )
+          err,
+        ),
       );
   };
 };
@@ -65,10 +65,10 @@ export const submitUpdatePatientPT = (patient, pt, prospective_pt) => {
 
 export const fetchPatientExerciseVideos = (selectedPatient) => {
   const params = new URLSearchParams();
-  params.append("patient", selectedPatient);
-  console.log("made it to fetch patients videos!!");
+  params.append('patient', selectedPatient);
+  console.log('made it to fetch patients videos!!');
   return (dispatch) => {
-    getAuth("/api/patient/video/id", params)
+    getAuth('/api/patient/video/id', params)
       .then((response) => dispatch(loadPatientExerciseVideos(response.data)))
       .catch((err) => console.log(err));
   };

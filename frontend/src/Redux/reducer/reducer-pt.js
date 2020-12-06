@@ -1,24 +1,24 @@
-import { handleActions } from "redux-actions";
-import * as constants from "../constants/constants-pt";
-import storage from "redux-persist/lib/storage";
-import { persistReducer } from "redux-persist";
+import {handleActions} from 'redux-actions';
+import * as constants from '../constants/constants-pt';
+import storage from 'redux-persist/lib/storage';
+import {persistReducer} from 'redux-persist';
 
 const initialPTState = {
-  pt_id: "",
+  pt_id: '',
   user: null,
   user_id: null,
-  email: "",
-  f_name: "",
-  l_name: "",
-  company: "",
+  email: '',
+  f_name: '',
+  l_name: '',
+  company: '',
   patients: [{}],
   selectedPatient: {
     patient_id: null,
-    email: "",
-    f_name: "",
-    l_name: "",
+    email: '',
+    f_name: '',
+    l_name: '',
   },
-  errorCode: "",
+  errorCode: '',
 };
 
 const PTReducer = handleActions(
@@ -82,14 +82,14 @@ const PTReducer = handleActions(
       };
     },
   },
-  initialPTState
+  initialPTState,
 );
 
 const persistConfig = {
-  key: "pt",
+  key: 'pt',
   storage: storage,
-  whitelist: ["pt_id"],
-  blacklist: ["selectedPatient", "patients", "errorCode"],
+  whitelist: ['pt_id'],
+  blacklist: ['selectedPatient', 'patients', 'errorCode'],
 };
 
 export default persistReducer(persistConfig, PTReducer);

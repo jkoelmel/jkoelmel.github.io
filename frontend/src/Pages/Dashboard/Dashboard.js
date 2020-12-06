@@ -1,15 +1,15 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
-import PatientList from "../../Components/PatientList/PatientList";
-import Messaging from "../../Components/Messaging/Messaging";
-import ActivitySummary from "../../Components/PTActivitySummary/PTActivitySummary";
-import PatientDashboardInfo from "../../Components/PatientDashboardInfo/PatientDashboardInfo";
-import AssignWorkout from "../../Components/AssignWorkout/AssignWorkout";
-import SavedWorkout from "../../Components/SavedWorkout/SavedWorkout";
-import Divider from "@material-ui/core/Divider";
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import {makeStyles} from '@material-ui/core/styles';
+import {Typography} from '@material-ui/core';
+import PatientList from '../../Components/PatientList/PatientList';
+import Messaging from '../../Components/Messaging/Messaging';
+import ActivitySummary from '../../Components/PTActivitySummary/PTActivitySummary';
+import PatientDashboardInfo from '../../Components/PatientDashboardInfo/PatientDashboardInfo';
+import AssignWorkout from '../../Components/AssignWorkout/AssignWorkout';
+import SavedWorkout from '../../Components/SavedWorkout/SavedWorkout';
+import Divider from '@material-ui/core/Divider';
 
 //TODO Will most likely have to fix paperMessage margins when we implement
 //the actual message board.
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paperMessage: {
     padding: theme.spacing(2),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.secondary.main,
     height: 700,
     width: 350,
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paperPatients: {
     padding: theme.spacing(0),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.secondary.main,
     height: 650,
     width: 350,
@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paperProfile: {
     padding: theme.spacing(2),
-    textAlign: "center",
-    backgroundColor: "lightgrey",
+    textAlign: 'center',
+    backgroundColor: 'lightgrey',
     height: 700,
     width: 1000,
     marginTop: 50,
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paperSummary: {
     padding: theme.spacing(2),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.secondary.main,
     marginTop: 60,
     width: 350,
@@ -63,8 +63,8 @@ const Dashboard = () => {
   return (
     <div
       className={classes.root}
-      justify={"space-between"}
-      alignItems={"flex-start"}
+      justify={'space-between'}
+      alignItems={'flex-start'}
     >
       <Messaging />
       <Grid
@@ -73,13 +73,13 @@ const Dashboard = () => {
         direction="row"
         style={{
           margin: 0,
-          width: "100%",
+          width: '100%',
         }}
       >
         <Grid item>
           <Paper
             className={classes.paperPatients}
-            style={{ overflow: "auto" }}
+            style={{overflow: 'auto'}}
             elevation={5}
           >
             <PatientList />
@@ -96,7 +96,7 @@ const Dashboard = () => {
           </Paper>
         </Grid>
         <Grid item>
-          <Grid container spacing={3} direction="column" alignItems={"center"}>
+          <Grid container spacing={3} direction="column" alignItems={'center'}>
             <Paper className={classes.paperSummary} elevation={5}>
               <Grid item>
                 <Typography>

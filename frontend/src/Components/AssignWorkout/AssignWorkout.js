@@ -1,37 +1,34 @@
-import React from "react";
-import List from "@material-ui/core/List";
+import React from 'react';
+import List from '@material-ui/core/List';
 import {
   Divider,
   ListItem,
   ListItemText,
   ListSubheader,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { connect } from "react-redux";
-import {
-  assignWorkout,
-  fetchPTsPatients,
-} from "../../Redux/actions/actions-pt";
-import Checkbox from "@material-ui/core/Checkbox";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import Button from "@material-ui/core/Button";
-import axios from "axios";
+} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
+import {assignWorkout, fetchPTsPatients} from '../../Redux/actions/actions-pt';
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     //   border: '2px solid #000',a
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    outline: "none",
+    outline: 'none',
   },
   sticky: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
 }));
 
@@ -67,7 +64,7 @@ const AssignWorkout = (props) => {
       <List
         component="nav"
         aria-label="workout-list"
-        style={{ maxHeight: 275, overflowY: "scroll" }}
+        style={{maxHeight: 275, overflowY: 'scroll'}}
         subheader={
           <ListSubheader
             component="div"
@@ -90,7 +87,7 @@ const AssignWorkout = (props) => {
                   onChange={handleCheckToggle(p.patient_id)}
                   checked={checked.indexOf(p.patient_id) !== -1}
                   inputProps={{
-                    "aria-labelledby": `checkbox-list-label-${p.patient_id}`,
+                    'aria-labelledby': `checkbox-list-label-${p.patient_id}`,
                   }}
                 />
               </ListItemSecondaryAction>
@@ -118,5 +115,5 @@ export default connect(
     fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
     assignWorkout: (pt, checked, selectedWorkouts) =>
       dispatch(assignWorkout(pt, checked, selectedWorkouts)),
-  })
+  }),
 )(AssignWorkout);

@@ -1,8 +1,8 @@
-import * as React from "react";
-import { Formik, Form } from "formik";
-import { connect } from "react-redux";
-import { loginPT } from "../../Redux/actions/actions-pt";
-import { Redirect } from "react-router-dom";
+import * as React from 'react';
+import {Formik, Form} from 'formik';
+import {connect} from 'react-redux';
+import {loginPT} from '../../Redux/actions/actions-pt';
+import {Redirect} from 'react-router-dom';
 
 import {
   TextField,
@@ -12,28 +12,28 @@ import {
   IconButton,
   FormControl,
   Typography,
-} from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
+} from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import {Visibility, VisibilityOff} from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    margin: "10px auto",
-    height: "300px",
-    width: "400px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+    margin: '10px auto',
+    height: '300px',
+    width: '400px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   box: {
-    width: "200px",
-    marginBottom: "1.5rem",
+    width: '200px',
+    marginBottom: '1.5rem',
   },
 }));
 //TODO handle error text and redux.... might have to swtich it to a regular func instead of formik.
 
-const LoginForm = (props, { submit, isLoading, error }) => {
+const LoginForm = (props, {submit, isLoading, error}) => {
   const classes = useStyles();
 
   // ~ Logic
@@ -46,8 +46,8 @@ const LoginForm = (props, { submit, isLoading, error }) => {
     <Paper className={classes.root}>
       <React.Fragment>
         <Formik
-          initialValues={{ email: "", password: "" }}
-          onSubmit={async (data, { setSubmitting }) => {
+          initialValues={{email: '', password: ''}}
+          onSubmit={async (data, {setSubmitting}) => {
             console.log(data);
             setSubmitting(true);
             // make async call
@@ -86,7 +86,7 @@ const LoginForm = (props, { submit, isLoading, error }) => {
                 name="password"
                 error={props.errorCode ? true : false}
                 helperText={props.errorCode}
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -94,7 +94,7 @@ const LoginForm = (props, { submit, isLoading, error }) => {
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton
-                        style={{ fontSize: "200px" }}
+                        style={{fontSize: '200px'}}
                         aria-label="toggle password visibility"
                         onClick={() => {
                           handleShowPassword(!showPassword);
@@ -114,7 +114,7 @@ const LoginForm = (props, { submit, isLoading, error }) => {
                   // variant='contained'
                   color="secondary"
                   type="submit"
-                  style={{ marginTop: "1.5rem" }}
+                  style={{marginTop: '1.5rem'}}
                 >
                   Login
                 </Button>
@@ -140,5 +140,5 @@ export default connect(
   (dispatch) => ({
     // The action from actions-pt which will effect reducer-pt
     loginPT: (data) => dispatch(loginPT(data)),
-  })
+  }),
 )(LoginForm);
