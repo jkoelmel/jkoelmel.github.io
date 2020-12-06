@@ -4,8 +4,7 @@
 
     },
     "extends": [
-        "plugin:react/recommended",
-        "airbnb"
+        "airbnb-base", "prettier"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -20,5 +19,31 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "import/order": "warn",
+        "no-unused-vars": "warn",
+        "no-use-before-define": "warn",
+        "no-param-reassign": "warn",
+        "no-var": "warn",
+        "spaced-comment": "warn",
+        "import/prefer-default-export": "warn",
+        "object-shorthand": "warn",
+        "arrow-body-style": "warn",
+        "import/newline-after-import": "warn",
+        "eqeqeq": "warn",
+        "no-plusplus": "warn",
+        "camelcase": "warn",
+        "prefer-template": "warn",
+        "no-shadow": "warn",
+        "import/no-duplicates": "warn",
+        "no-undef": "warn",
+        "import/named": "warn",
+        "consistent-return": "warn",
+        "no-unneeded-ternary": "warn",
+        "array-callback-return": "warn",
+        "array-callback-return": "warn",
+        "import/no-unresolved": "warn",
+        "import/extensions": "warn",
+        "prefer-destructuring": "warn",
+        "prefer-arrow-callback": "warn"
     }
 }

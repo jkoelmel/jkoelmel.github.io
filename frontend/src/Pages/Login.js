@@ -1,4 +1,5 @@
 import React from "react";
+// eslint-disable-next-line import/extensions
 import { loginPT } from "../Redux/actions/actions-pt.js";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
