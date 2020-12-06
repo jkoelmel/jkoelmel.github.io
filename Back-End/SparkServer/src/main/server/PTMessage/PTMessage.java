@@ -15,15 +15,31 @@ public class PTMessage {
   private String sender;
   private final String secret = "messageEncryption";
 
+  /**
+   * Constructor for instantiating the PT's message given its ID.
+   * @param message_id The integer ID for the message
+   */
   public PTMessage(Integer message_id) {
     this.message_id = message_id;
   }
 
+  /**
+   * Constructor for instantiating the PT's message given their email and the date it was created.
+   * @param sender The email string of the sender of the message
+   * @param created_On The timestamp of the date created
+   */
   public PTMessage(String sender, Timestamp created_On) {
     this.sender = sender;
     this.created_On = created_On;
   }
 
+  /**
+   * Create the message in the database given the PT and their patient, as well as the message text.
+   * @param message The string message's text
+   * @param patient The integer of the patient's ID
+   * @param pt The integer of the PT's ID
+   * @throws Exception On error, throw a SQL exception so that frontend has context for the error.
+   */
   public void createMessage(String message, Integer patient, Integer pt) throws Exception {
     String messageQuery =
         "INSERT INTO pt_message(message_id, message, created_on, patient, pt) "
@@ -47,6 +63,11 @@ public class PTMessage {
     }
   }
 
+  /**
+   * Given the message's ID, get its contents between the PT and the patient.
+   * @return The current message object
+   * @throws Exception Throw a SQL exception so that frontend has context for the error.
+   */
   public PTMessage getMessageContents() throws Exception {
     String messageQuery =
         "SELECT * FROM patient_message WHERE patient_message_id = " + this.message_id;
@@ -74,6 +95,7 @@ public class PTMessage {
 
   // No message update method created because messages created are final and uneditable.
 
+  // Getters and setters
   public Integer getmessage_id() {
     return message_id;
   }

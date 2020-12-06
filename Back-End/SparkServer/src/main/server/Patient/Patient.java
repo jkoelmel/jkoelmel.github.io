@@ -1,7 +1,7 @@
 package main.server.Patient;
 
 import main.server.Server;
-import main.server.user.*;
+import main.server.User.*;
 
 import java.sql.*;
 

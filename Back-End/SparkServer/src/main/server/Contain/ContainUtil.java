@@ -74,10 +74,10 @@ public class ContainUtil {
   public static Integer createWorkout(Request request) {
     try {
 
-      Workout workout = new Workout(null);
-      workout.createWorkout(
-          request.queryMap().get("title").value(),
-          Integer.parseInt(request.queryMap().get("pt").value()));
+      Workout workout = new Workout(
+              request.queryMap().get("title").value(),
+              Integer.parseInt(request.queryMap().get("pt").value()));
+      workout.createWorkout();
 
       Integer workout_id = -1;
       String query = "SELECT MAX(workout_id) FROM workout";

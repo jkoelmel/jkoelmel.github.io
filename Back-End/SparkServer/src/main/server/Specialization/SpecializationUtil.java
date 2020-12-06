@@ -10,6 +10,12 @@ import java.util.ArrayList;
 
 public class SpecializationUtil {
 
+  /**
+   * Select a specific specialization given query parameters.
+   * @param request The required query parameters: spec_id
+   * @param response The status code from the given request
+   * @return The JSON object of the Specialization to be returned
+   */
   public static String selectSpecifc(Request request, Response response) {
     String toReturn = "";
 
@@ -33,6 +39,11 @@ public class SpecializationUtil {
     return toReturn;
   }
 
+  /**
+   * Select all Specializations from the database.
+   * @param response The status code from the given request
+   * @return The JSON object of the list of Specializations
+   */
   public static String selectAll(Response response) {
     String toReturn = "";
     String query = "SELECT * FROM specialization";
@@ -46,7 +57,7 @@ public class SpecializationUtil {
       ArrayList<Specialization> list = new ArrayList<>();
       while (rs.next()) {
         Specialization spec = new Specialization(rs.getInt("spec_id"));
-        spec.setspec_area(rs.getString("spec_area"));
+        spec.setSpec_area(rs.getString("spec_area"));
 
         list.add(spec);
       }
@@ -66,13 +77,20 @@ public class SpecializationUtil {
     return toReturn;
   }
 
+  /**
+   * Register a new Specialization into the database, given required query parameters.
+   * @param request The required query parameters: spec_area
+   * @return The response status code -- whether the query was successful or not
+   */
   public static Integer registerSpecialization(Request request) {
     try {
-      Specialization spec =
-          new Specialization(Integer.parseInt(request.queryMap().get("spec_id").value()));
-      spec.setspec_area(request.queryMap().get("spec_area").value());
+      Specialization spec = new Specialization(request.queryMap().get("spec_area").value());
+      spec.createSpecialization();
 
       return 200;
+    } catch (SQLException sqlEx) {
+      System.err.println(sqlEx.toString());
+      return 500;
     } catch (Exception ex) {
       System.err.println(ex.toString());
       return 400;
