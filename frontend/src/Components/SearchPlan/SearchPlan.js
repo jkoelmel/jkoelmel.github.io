@@ -1,43 +1,43 @@
-import React from "react";
-import TextField from "@material-ui/core/TextField";
-import List from "@material-ui/core/List";
-import { ListItem, ListItemText, ListSubheader } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import { Divider } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react';
+import TextField from '@material-ui/core/TextField';
+import List from '@material-ui/core/List';
+import {ListItem, ListItemText, ListSubheader} from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import {Divider} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import {makeStyles} from '@material-ui/core/styles';
 
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import NumberFormat from "react-number-format";
-import Grid from "@material-ui/core/Grid";
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import NumberFormat from 'react-number-format';
+import Grid from '@material-ui/core/Grid';
 
-import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
   KeyboardDatePicker,
-} from "@material-ui/pickers";
+} from '@material-ui/pickers';
 
-import axios from "axios";
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     //   border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    outline: "none",
+    outline: 'none',
   },
 }));
 
@@ -52,24 +52,24 @@ const SearchPlan = ({
   const [open, setOpen] = React.useState(false);
   const [exercisePlan, setExercisePlan] = React.useState([]);
   const [workoutbyDate, setWorkoutByDate] = React.useState([]);
-  const [start, setStart] = React.useState("2020-06-01");
-  const [end, setEnd] = React.useState("2020-06-01");
-  const [startYear, setStartYear] = React.useState("");
-  const [startMonth, setStartMonth] = React.useState("");
-  const [startDay, setStartDay] = React.useState("");
-  const [endYear, setEndYear] = React.useState("");
-  const [endMonth, setEndMonth] = React.useState("");
-  const [endDay, setEndDay] = React.useState("");
+  const [start, setStart] = React.useState('2020-06-01');
+  const [end, setEnd] = React.useState('2020-06-01');
+  const [startYear, setStartYear] = React.useState('');
+  const [startMonth, setStartMonth] = React.useState('');
+  const [startDay, setStartDay] = React.useState('');
+  const [endYear, setEndYear] = React.useState('');
+  const [endMonth, setEndMonth] = React.useState('');
+  const [endDay, setEndDay] = React.useState('');
   const [readySearch, setReadySearch] = React.useState(false);
 
-  const [values, setValues] = React.useState({ textmask: "    -   -   " });
+  const [values, setValues] = React.useState({textmask: '    -   -   '});
   const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2014-08-18T21:11:54")
+    new Date('2014-08-18T21:11:54'),
   );
 
   const handleStartDateChange = (date) => {
     setStart(date);
-    console.log("start: ", start);
+    console.log('start: ', start);
   };
   const handleEndDateChange = (date) => {
     setEnd(date);
@@ -77,7 +77,7 @@ const SearchPlan = ({
 
   const fetchWorkouts = () => {
     axios
-      .get("api/assign/all", {
+      .get('api/assign/all', {
         params: {
           patient: selectedPatient,
           start: start,
@@ -89,7 +89,7 @@ const SearchPlan = ({
         setExercisePlan(
           response.data.map((e) => {
             return e;
-          })
+          }),
         );
       })
       .catch(console.log);
@@ -108,13 +108,13 @@ const SearchPlan = ({
   console.log(
     exercisePlan.map((exercisePlan) => {
       return exercisePlan;
-    })
+    }),
   );
 
   const ExercisePlan = [
-    { title: "Leg Exercise" },
-    { title: "Back Exercise" },
-    { title: "Acl Rehabilitation" },
+    {title: 'Leg Exercise'},
+    {title: 'Back Exercise'},
+    {title: 'Acl Rehabilitation'},
   ];
   const handleReadySearch = () => {
     setReadySearch(true);
@@ -138,7 +138,7 @@ const SearchPlan = ({
 
   return (
     <div>
-      <div style={{ width: "auto" }}>
+      <div style={{width: 'auto'}}>
         {/* <FormControl>
             <InputLabel htmlFor="formatted-text-mask-input">Start Date</InputLabel>
             <Input
@@ -221,7 +221,7 @@ const SearchPlan = ({
             value={start}
             onChange={handleStartDateChange}
             KeyboardButtonProps={{
-              "aria-label": "change date",
+              'aria-label': 'change date',
             }}
           />
           <KeyboardDatePicker
@@ -234,7 +234,7 @@ const SearchPlan = ({
             value={end}
             onChange={handleEndDateChange}
             KeyboardButtonProps={{
-              "aria-label": "change date",
+              'aria-label': 'change date',
             }}
           />
         </MuiPickersUtilsProvider>
@@ -259,12 +259,12 @@ const SearchPlan = ({
             <List
               component="nav"
               aria-label="patient-list"
-              style={{ maxHeight: 500, overflowY: "scroll" }}
+              style={{maxHeight: 500, overflowY: 'scroll'}}
               subheader={
                 <ListSubheader
                   component="div"
                   color="inherit"
-                  classes={"patient-list"}
+                  classes={'patient-list'}
                 >
                   Patient Workouts
                 </ListSubheader>

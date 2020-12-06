@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const getAuth = (url, params) => {
   return axios.get(url, {

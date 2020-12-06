@@ -1,21 +1,21 @@
-import React from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { getPatients } from "../../Redux/actions/patientActions";
-import { fetchPatients } from "../../Redux/actions/actions-patients";
-import { loadPatients } from "../../Redux/actions/actions-patients";
+import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {getPatients} from '../../Redux/actions/patientActions';
+import {fetchPatients} from '../../Redux/actions/actions-patients';
+import {loadPatients} from '../../Redux/actions/actions-patients';
 
-import axios from "axios";
+import axios from 'axios';
 
-import { ListItem, ListItemText } from "@material-ui/core";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import { makeStyles } from "@material-ui/core/styles";
+import {ListItem, ListItemText} from '@material-ui/core';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   sticky: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     fontSize: 18,
   },
   subheader: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PatientListRedux = (props) => {
   const classes = useStyles();
-  const { patients } = props.patients;
+  const {patients} = props.patients;
   console.log(props.patients); //Test
 
   React.useEffect(() => {
@@ -72,4 +72,4 @@ function mapStateToProps(state) {
 //     return bindActionCreators({getPatients: getPatients},dispatch)
 // }
 
-export default connect(mapStateToProps, { getPatients })(PatientListRedux);
+export default connect(mapStateToProps, {getPatients})(PatientListRedux);

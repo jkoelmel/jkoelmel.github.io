@@ -1,5 +1,5 @@
-import { handleActions } from "redux-actions";
-import * as constants from "../constants/constants-patient";
+import {handleActions} from 'redux-actions';
+import * as constants from '../constants/constants-patient';
 
 const initialPatientState = {
   patients: [
@@ -9,11 +9,11 @@ const initialPatientState = {
       pt: 2,
       prospective_pt: 2,
       user_id: 14,
-      email: "test@mail.com",
-      f_name: "jane",
-      l_name: "doe",
-      company: "the NY co",
-      injury: "",
+      email: 'test@mail.com',
+      f_name: 'jane',
+      l_name: 'doe',
+      company: 'the NY co',
+      injury: '',
     },
   ],
 };
@@ -49,7 +49,7 @@ const PatientsReducer = handleActions(
       };
     },
   },
-  initialPatientState
+  initialPatientState,
 );
 
 export default PatientsReducer;

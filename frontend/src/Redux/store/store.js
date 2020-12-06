@@ -1,16 +1,16 @@
-import { createStore, applyMiddleware } from "redux";
-import rootReducer from "../reducer/rootReducer";
-import thunk from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
+import {createStore, applyMiddleware} from 'redux';
+import rootReducer from '../reducer/rootReducer';
+import thunk from 'redux-thunk';
+import {composeWithDevTools} from 'redux-devtools-extension';
+import {persistStore, persistReducer} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage: storage,
-  whitelist: ["pt"],
-  blacklist: ["exercises", "patients"],
+  whitelist: ['pt'],
+  blacklist: ['exercises', 'patients'],
   stateReconciler: autoMergeLevel2,
 };
 const initialState = {};
@@ -24,7 +24,7 @@ const persistentReducer = persistReducer(persistConfig, rootReducer);
 export const store = createStore(
   persistentReducer,
   initialState,
-  composeWithDevTools(applyMiddleware(...middleware))
+  composeWithDevTools(applyMiddleware(...middleware)),
 );
 
 export const persistor = persistStore(store);

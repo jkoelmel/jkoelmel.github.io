@@ -1,47 +1,47 @@
 //Test component to see if a summation of all activity
 //is worthwhile to the application
 
-import React from "react";
-import axios from "axios";
-import List from "@material-ui/core/List";
+import React from 'react';
+import axios from 'axios';
+import List from '@material-ui/core/List';
 import {
   Divider,
   ListItem,
   ListItemText,
   ListSubheader,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { connect } from "react-redux";
+} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
 import {
   fetchPTsPatients,
   setSelectedPatient,
-} from "../../Redux/actions/actions-pt";
-import Button from "@material-ui/core/Button";
+} from '../../Redux/actions/actions-pt';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     //   border: '2px solid #000',a
-    outline: "none",
+    outline: 'none',
   },
   sticky: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
 }));
 
 const ActivitySummary = (props) => {
   const classes = useStyles();
   const [activity, setActivity] = React.useState([]);
-  const [subheader, setSubheader] = React.useState("");
+  const [subheader, setSubheader] = React.useState('');
 
   const fetchSummaryInfo = () => {
     axios
-      .get("api/pt/summary", {
+      .get('api/pt/summary', {
         params: {
           pt: props.pt.pt_id,
         },
@@ -51,7 +51,7 @@ const ActivitySummary = (props) => {
           response.data.map((a) => {
             console.log(response.data);
             return a;
-          })
+          }),
         );
       })
       .catch(console.log);
@@ -59,7 +59,7 @@ const ActivitySummary = (props) => {
 
   const fetchPatPTSummary = () => {
     axios
-      .get("api/pt/patient-activity", {
+      .get('api/pt/patient-activity', {
         params: {
           pt: props.pt.pt_id,
           patient: props.pt.selectedPatient.patient_id,
@@ -69,7 +69,7 @@ const ActivitySummary = (props) => {
         setActivity(
           response.data.map((a) => {
             return a;
-          })
+          }),
         );
       });
   };
@@ -92,14 +92,14 @@ const ActivitySummary = (props) => {
   React.useEffect(() => {
     if (props.pt.selectedPatient.patient_id == null) {
       fetchSummaryInfo();
-      setSubheader("For All Patients");
+      setSubheader('For All Patients');
     } else {
       fetchPatPTSummary(props.pt.selectedPatient.patient_id);
       setSubheader(
-        "For " +
+        'For ' +
           props.pt.selectedPatient.f_name +
-          " " +
-          props.pt.selectedPatient.l_name
+          ' ' +
+          props.pt.selectedPatient.l_name,
       );
     }
   }, [props.pt.selectedPatient]);
@@ -108,7 +108,7 @@ const ActivitySummary = (props) => {
     <List
       className={classes.paper}
       aria-label="activity-list"
-      style={{ maxHeight: 300 }}
+      style={{maxHeight: 300}}
     >
       <ListItem color="inherit" className={classes.modal}>
         <b>{subheader}</b>
@@ -121,7 +121,7 @@ const ActivitySummary = (props) => {
       {activity.map((a) => (
         <div>
           <ListItem>
-            {a.type_activity + " : " + a.duration + " minutes"}
+            {a.type_activity + ' : ' + a.duration + ' minutes'}
           </ListItem>
         </div>
       ))}
@@ -141,5 +141,5 @@ export default connect(
     // The action from actions-pt which will effect reducer-pt
     fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
     setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
-  })
+  }),
 )(ActivitySummary);

@@ -1,19 +1,19 @@
-import React from "react";
-import { Redirect, Link } from "react-router-dom";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import logo from "../../Assets/Images/logo_with_text.svg";
-import Dropdown from "react-bootstrap/Dropdown";
-import { connect } from "react-redux";
-import { loginPT, logoutPT } from "../../Redux/actions/actions-pt";
+import React from 'react';
+import {Redirect, Link} from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import {makeStyles} from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import logo from '../../Assets/Images/logo_with_text.svg';
+import Dropdown from 'react-bootstrap/Dropdown';
+import {connect} from 'react-redux';
+import {loginPT, logoutPT} from '../../Redux/actions/actions-pt';
 
 //TODO when you click the logo, redirect to dashboard
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     width: 200,
   },
   accountCircle: {
-    marginLeft: "auto",
+    marginLeft: 'auto',
     marginRight: 10,
   },
 }));
@@ -47,7 +47,7 @@ const Header = (props) => {
 
   const logout = () => {
     props.logoutPT(props.pt);
-    window.location.href = "/";
+    window.location.href = '/';
   };
 
   const handleChange = (event) => {
@@ -93,13 +93,13 @@ const Header = (props) => {
               anchorEl={anchorElLeft}
               getContentAnchorEl={null}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
+                vertical: 'bottom',
+                horizontal: 'center',
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "center",
+                vertical: 'top',
+                horizontal: 'center',
               }}
               open={openLeft}
               onClose={handleClose}
@@ -136,13 +136,13 @@ const Header = (props) => {
                 anchorEl={anchorElRight}
                 getContentAnchorEl={null}
                 anchorOrigin={{
-                  vertical: "center",
-                  horizontal: "left",
+                  vertical: 'center',
+                  horizontal: 'left',
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
                 open={openRight}
                 onClose={handleClose}
@@ -168,5 +168,5 @@ export default connect(
     //May be used if we add a login to the dropdown
     loginPT: (data) => dispatch(loginPT(data)),
     logoutPT: (pt) => dispatch(logoutPT(pt)),
-  })
+  }),
 )(Header);

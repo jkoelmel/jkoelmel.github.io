@@ -1,12 +1,12 @@
-import { handleActions } from "redux-actions";
-import * as constants from "../constants/constants-workouts";
+import {handleActions} from 'redux-actions';
+import * as constants from '../constants/constants-workouts';
 const initialWorkoutState = {
-  description: "",
+  description: '',
   exercise_id: null,
-  exercise_url: "",
-  tags: "",
-  title: "",
-  thumbnail: "",
+  exercise_url: '',
+  tags: '',
+  title: '',
+  thumbnail: '',
   exercises: [{}],
   selectedVideos: [],
   selectedWorkouts: [],
@@ -46,7 +46,7 @@ const WorkoutReducer = handleActions(
     //     }
     // }
   },
-  initialWorkoutState
+  initialWorkoutState,
 );
 
 export default WorkoutReducer;
