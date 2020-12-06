@@ -3,16 +3,34 @@ package main.server.Contain;
 import main.server.Server;
 import java.sql.*;
 
+/**
+ * Contain Class: Provides basic functionality for CRUD operations of
+ * entries in the portalDB 'contain' table. This table is a relationship
+ * turned table for the M:M required between workouts and exercises
+ */
 public class Contain {
 
   private Integer contain_id;
   private Integer workout;
   private Integer exercise;
 
+  /**
+   * Contain constructor: Can be NULL becuase value is auto-incremented
+   * for new entries in the database
+   * @param contain_id
+   */
   public Contain(Integer contain_id) {
     this.contain_id = contain_id;
   }
 
+  /**
+   * createContain: Takes the param Integer for workout and associates the
+   * entry to the most recently added exercise because the workouts are created
+   * at the same time as the custom exercises in order desired by the pt creating
+   * it
+   * @param workout
+   * @throws Exception
+   */
   public void createContain(Integer workout) throws Exception {
     String containQuery = "INSERT INTO contain(workout, exercise) VALUES (?, ?)";
 
@@ -41,6 +59,13 @@ public class Contain {
     }
   }
 
+  /**
+   * getExerciseList: Calling object uses its workout_id to query the database
+   * and provide all exercises associated with it as logged by the 'contain'
+   * table
+   * @return
+   * @throws Exception
+   */
   public Contain getExerciseList() throws Exception {
     String containQuery =
         "SELECT * FROM exercise e INNER JOIN contain  c ON e.exercise_id = c.exercise"
@@ -67,6 +92,13 @@ public class Contain {
     return this;
   }
 
+  /**
+   * updateContain: Basic operation to update a contain entry in the database.
+   * The params are used to fulfill escaped values in the SQL statement
+   * @param workout
+   * @param exercise
+   * @throws Exception
+   */
   public void updateContain(Integer workout, Integer exercise) throws Exception {
     String query =
         "UPDATE contain SET workout = "
@@ -88,6 +120,15 @@ public class Contain {
     }
   }
 
+  /**
+   * The following are all standard setters and getters for this class:
+   * getcontain_id
+   * setcontain_id
+   * getWorkout
+   * setWorkout
+   * getExercise
+   * setExercise
+   */
   public Integer getcontain_id() {
     return contain_id;
   }

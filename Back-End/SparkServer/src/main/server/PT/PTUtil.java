@@ -14,6 +14,12 @@ public class PTUtil {
 
   private static String secret = "passwordEncryption";
 
+  /**
+   * Select a specific PT given their email.
+   * @param request The required query parameters: email
+   * @param response The status code from the given request
+   * @return The JSON object of the PT to be returned
+   */
   public static String selectSpecific(Request request, Response response) {
     String toReturn = "";
     try {
@@ -34,6 +40,12 @@ public class PTUtil {
     return toReturn;
   }
 
+  /**
+   * Select the patients of a specific PT, given their ID.
+   * @param request The required query parameters: pt_id
+   * @param response The status code from the given request
+   * @return The JSON object of the list of patients belonging to the PT
+   */
   public static String selectPatients(Request request, Response response) {
     String query =
         "SELECT * FROM user u JOIN patient p "
@@ -80,6 +92,11 @@ public class PTUtil {
     return toReturn;
   }
 
+  /**
+   * Select all PT's from the database.
+   * @param response The status code from the given request
+   * @return The JSON object of the list of PT's
+   */
   public static String selectAll(Response response) {
     String toReturn = "";
     // Select all users from "user" whose user_id matches the user_id from a pt
@@ -122,6 +139,11 @@ public class PTUtil {
     return toReturn;
   }
 
+  /**
+   * Register a new PT into the database, given required query parameters.
+   * @param request The required query parameters: email, password, f_name, l_name, company
+   * @return The response status code -- whether the query was successful or not
+   */
   public static Integer registerPT(Request request) {
     try {
       PT pt =
@@ -142,13 +164,16 @@ public class PTUtil {
     }
   }
 
+  /**
+   * Given the query parameters for email and password, check if the given PT is able to log in.
+   * @param request The required query parameters: email, password
+   * @return The response status code -- whether the query was successful or not
+   */
   public static Integer loginPT(Request request) {
 
     String query =
         "SELECT * FROM user INNER JOIN pt ON user.user_id = pt.user "
-            + " WHERE user.email = \""
-            + request.queryMap().get("email").value()
-            + "\"";
+            + " WHERE user.email = " + request.queryMap().get("email").value();
 
     try (Connection con =
             DriverManager.getConnection(
@@ -159,9 +184,8 @@ public class PTUtil {
       String input = request.queryMap().get("password").value();
       input = AES.encrypt(input, secret);
 
-      ArrayList<PT> list = new ArrayList<>();
-      while (rs.next()) {
-        if (rs.getString("email") == null) {
+      if (rs.next()) {
+        if (rs.getString("email") == null || input == null) {
           System.out.println("Email not found");
           return 400;
         } else {

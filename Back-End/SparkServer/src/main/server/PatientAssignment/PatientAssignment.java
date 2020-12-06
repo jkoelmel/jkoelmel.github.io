@@ -17,9 +17,17 @@ public class PatientAssignment {
   private String description;
   private Integer length;
 
+  /**
+   * Constructor for PatientAssignment
+   * @param assignment_id the integer value of assignment_id
+   */
   public PatientAssignment(Integer assignment_id) {
     this.assignment_id = assignment_id;
   }
+
+  /**
+   * Getters and Setters
+   */
 
   public Integer getAssignment_id() {
     return assignment_id;

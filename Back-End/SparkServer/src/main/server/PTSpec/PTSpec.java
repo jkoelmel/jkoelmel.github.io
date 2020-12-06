@@ -1,20 +1,39 @@
-package main.server.PtSpec;
+package main.server.PTSpec;
 
 import main.server.Server;
 
 import java.sql.*;
 
-public class PtSpec {
+public class PTSpec {
 
   private Integer pt_spec_id;
   private Integer pt;
   private Integer spec;
 
-  public PtSpec(Integer pt_spec_id) {
+  /**
+   * Default constructor given the PT and their spec.
+   * @param pt The integer ID of the PT
+   * @param spec The specialization number
+   */
+  public PTSpec(Integer pt, Integer spec) {
+    this.pt = pt;
+    this.spec = spec;
+  }
+
+  /**
+   * Constructor given an existing PT spec.
+   * @param pt_spec_id The integer ID of the PT spec
+   */
+  public PTSpec(Integer pt_spec_id) {
     this.pt_spec_id = pt_spec_id;
   }
 
-  public void createPTSpec(Integer pt, Integer spec) throws Exception {
+  /**
+   * Create a PT spec in the database, given its PT and their specialization. This should be called after the
+   * default constructor has initialized the PT spec object with PT and Spec.
+   * @throws Exception Throw a SQL exception so that frontend has context for the error.
+   */
+  public void createPTSpec() throws Exception {
     String PTSpecQuery = "INSERT INTO pt_spec(pt_spec_id,pt,spec) VALUES (NULL,?,?)";
 
     try (Connection con =
@@ -22,7 +41,7 @@ public class PtSpec {
                 Server.databasePath, Server.databaseUsername, Server.databasePassword);
         PreparedStatement pst = con.prepareStatement(PTSpecQuery)) {
 
-      pst.setInt(1, getPt());
+      pst.setInt(1, getPT());
       pst.setInt(2, getSpec());
 
       pst.executeUpdate();
@@ -35,7 +54,12 @@ public class PtSpec {
     }
   }
 
-  public PtSpec getPTSpec() throws Exception {
+  /**
+   * Get the current PT spec from the database, for the current pt_spec_id.
+   * @return The current PT spec object
+   * @throws Exception Throw a SQL exception so that frontend has context for the error.
+   */
+  public PTSpec getPTSpec() throws Exception {
 
     String PTSpecQuery = "SELECT * FROM pt_spec WHERE pt_spec_id = " + pt_spec_id;
 
@@ -47,8 +71,8 @@ public class PtSpec {
 
       ResultSet rs = pst.executeQuery();
       if (rs.next()) {
-        setPtSpecId(rs.getInt("pt_spec_id"));
-        setPt(rs.getInt("pt"));
+        setPTSpecId(rs.getInt("pt_spec_id"));
+        setPT(rs.getInt("pt"));
         setSpec(rs.getInt("spec"));
       }
     } catch (SQLException ex) {
@@ -58,6 +82,12 @@ public class PtSpec {
     return this;
   }
 
+  /**
+   * Update the existing PT spec given it's ID, and its new PT ID and spec number.
+   * @param pt The integer ID of the PT
+   * @param spec The integer corresponding to their specialization
+   * @throws Exception Throw a SQL exception so that frontend has context for the error.
+   */
   public void updatePTSpec(Integer pt, Integer spec) throws Exception {
     String query =
         "UPDATE pt_spec SET pt =" + pt + ", spec =" + spec + " WHERE pt_spec_id = " + pt_spec_id;
@@ -69,24 +99,25 @@ public class PtSpec {
       pst.executeUpdate(query);
 
       System.out.println("PTSpec updated");
-    } catch (Exception ex) {
+    } catch (SQLException ex) {
       throw new Exception("Error updating PTSpec: " + ex.toString());
     }
   }
 
-  public Integer getPtSpecId() {
+  // Getters and setters
+  public Integer getPTSpecId() {
     return pt_spec_id;
   }
 
-  public void setPtSpecId(Integer ptId) {
+  public void setPTSpecId(Integer pt_spec_id) {
     this.pt_spec_id = pt_spec_id;
   }
 
-  public Integer getPt() {
+  public Integer getPT() {
     return pt;
   }
 
-  public void setPt(Integer pt) {
+  public void setPT(Integer pt) {
     this.pt = pt;
   }
 

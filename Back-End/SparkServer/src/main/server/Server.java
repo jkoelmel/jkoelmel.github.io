@@ -16,6 +16,11 @@ import java.sql.*;
 
 import static spark.Spark.*;
 
+/**
+ * Server driver program to provide routing for all major endpoints accessed
+ * by the frontend. Calls respective functions in Util classes throughout the
+ * pacakge.
+ */
 public class Server {
   public static final String databasePath =
       "jdbc:mysql://portaldb.cciebyoevg9q.us-west-1.rds.amazonaws.com:3306/portalDB";
@@ -26,7 +31,9 @@ public class Server {
   public static void main(String[] args) {
 
     port(8080);
-
+  /**
+   * The following code provides the required headers to solve CORS-issues
+   */
     options(
         "/*",
         (request, response) -> {
@@ -47,47 +54,60 @@ public class Server {
     System.out.println("Starting server on port 8080");
 
     path(
+            //base route prepended before all API requests
         "/api",
         () -> {
+            //Console logging
           before("/*", (q, a) -> System.out.println("Received api call"));
 
           path(
+                  //PT routing provides functionality for all major PT queries
               "/pt",
               () -> {
+                  //Requires email
                 get("/email", PTUtil::selectSpecific);
+                  //No parameters
                 get("/all", (request, response) -> PTUtil.selectAll(response));
+                  //Requires pt_id
                 get("/patients", PTUtil::selectPatients);
+                  //Requires pt
                 get("/summary", ActivityUtil::getAllPTActivity);
+                  //Requires pt and patient
                 get("/patient-activity", ActivityUtil::getPatPTSummary);
+                  //Requires pt
                 get("/workouts", AssignmentUtil::selectPTWorkouts);
+                  //Requires workout
                 get("/exercises", ExerciseUtil::getWorkoutExercises);
-
+                  //Requires title, pt, exercise_id array. amd description array
                 post(
                     "/create",
                     (request, response) -> {
                       response.status(ContainUtil.createWorkout(request));
                       return response.status();
                     });
+                  //Requires workout array, patient array, and pt
                 post(
                     "/assign",
                     (request, response) -> {
                       response.status(AssignmentUtil.assignToPatients(request));
                       return response.status();
                     });
+                  //Requires email, password, f_name, l_name, and company
                 post(
                     "/register",
                     (request, response) -> {
                       response.status(PTUtil.registerPT(request));
                       return response.status();
                     });
+                  //Requires email and password
                 post(
                     "/login",
                     (request, response) -> {
                       response.status(PTUtil.loginPT(request));
                       return response.status();
                     });
-
                 path(
+                        //Path for message creation and retrieval
                     "/message",
                     () -> {
                       // Requires pt and patient
@@ -103,16 +123,21 @@ public class Server {
               });
 
           path(
+                  //Used for patient creation for testing
               "/patient",
               () -> {
+                  //Requires patient_id
                 get("/id", PatientUtil::selectSpecific);
+                  //No parameters
                 get("/all", (request, response) -> PatientUtil.selectAll(response));
+                  //Requires email, password, f_name, l_name, company
                 post(
                     "/register",
                     (request, response) -> {
                       response.status(PatientUtil.registerPatient(request));
                       return response.status();
                     });
+                  //Requires patient_id, pt, prospective_pt
                 put(
                     "/update-pt",
                     (request, response) -> {
@@ -121,10 +146,14 @@ public class Server {
                     });
 
                 path(
+                        //Used for progress log creation and retrieval
                     "/entry",
                     () -> {
+                        //Requires entry_id
                       get("/id", EntryUtil::selectSpecific);
+                        //Requires patient_id
                       get("/all", EntryUtil::selectAll);
+                        //Requires entry and patient_id
                       post(
                           "/register",
                           (request, response) -> {
@@ -134,9 +163,12 @@ public class Server {
                     });
 
                 path(
+                        //Used for patient video creation and retrieval
                     "/video",
                     () -> {
+                        //Requires patient
                       get("/id", PatientVideoUtil::selectAll);
+                        //Requires video_url and patient
                       post(
                           "/register",
                           (request, response) -> {
@@ -146,19 +178,23 @@ public class Server {
                     });
 
                 path(
+                        //Used to get workouts assigned to a patient
                     "/workout",
                     () -> {
+                        //Requires patient
                       get("/id", AssignmentUtil::getPatientAssignment);
                     });
               });
 
           path(
+                  //Used for creating and retrieving logs of PT activity
               "/activity",
               () -> {
                 // Requires pt and patient query fields to get all activity between the two
                 get("/id", ActivityUtil::selectSpecific);
-                // Literally returns all data, for now
+                // Returns all activity data
                 get("/all", (request, response) -> ActivityUtil.selectAll(response));
+                //Requires type_activity, duration, pt, and patient
                 post(
                     "/register",
                     (request, response) -> {
@@ -168,22 +204,17 @@ public class Server {
               });
 
           path(
+                  //Used for checking assignments to patient
               "/assign",
               () -> {
                 // Requires patient in query to find workout indices
                 get("/id", AssignmentUtil::selectSpecific);
                 // Requires patient in query to find all details, assignment, workout, and exercises
                 get("/all", AssignmentUtil::selectAllData);
-                // Requires old assignment_id (0 or -1 if not available), pt, workout, and patient
-                post(
-                    "/register",
-                    (request, response) -> {
-                      response.status(AssignmentUtil.registerAssignment(request));
-                      return response.status();
-                    });
               });
 
           path(
+                  //Used for message creation and retieval
               "/message",
               () -> {
                 // Requires pt and patient
@@ -198,6 +229,7 @@ public class Server {
               });
 
           path(
+                  //Used to get exercises assigned to a specific workout
               "/workout",
               () -> {
                 // Requires workout_id in query to find exercises
@@ -205,12 +237,13 @@ public class Server {
               });
 
           path(
+                  //Used to get all exercise info from the exercise table
               "/exercise",
               () -> {
                 // No requirements, used for exercise library page
                 get("/all", ExerciseUtil::selectAll);
               });
-
+                //Test path for local server testing
           path("/database", () -> get("/version", (request, response) -> databaseVersion()));
 
           // Example get request and response
@@ -233,6 +266,7 @@ public class Server {
                         return gson.toJson(pt);
                       }));
           path(
+                  //Used for AWS health checks and automated error handling
               "/heartbeat",
               () ->
                   get(
@@ -241,7 +275,7 @@ public class Server {
                         response.status(heartbeatCheck());
                         return response.status();
                       }));
-
+                    //Console logging
           after("/*", (q, a) -> System.out.println("API call completed"));
         });
   }

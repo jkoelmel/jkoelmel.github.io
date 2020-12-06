@@ -10,6 +10,13 @@ import java.util.ArrayList;
 
 public class InjuryUtil {
 
+  /**
+   * Select specific injury by injury id
+   * @param request The required query parameters: injury_id
+   * @param response The status code from the given request
+   * @return The JSON object of the injury to be returned.
+   */
+
   public static String selectSpecific(Request request, Response response) {
     String toReturn = "";
     try {
@@ -30,6 +37,11 @@ public class InjuryUtil {
     return toReturn;
   }
 
+  /**
+   * Select all injurys from database
+   * @param response The status code of selecting all injury
+   * @return The JSON object of the list of workouts
+   */
   public static String selectAll(Response response) {
     String toReturn = "";
     String query = "SELECT * FROM injury";
@@ -63,6 +75,12 @@ public class InjuryUtil {
     return toReturn;
   }
 
+
+  /**
+   * Register a new injury
+   * @param request The required query parameters: injury_id
+   * @return The response status code -- whether the query was successful or not
+   */
   public static Integer registerInjury(Request request) {
     try {
       Injury injury = new Injury(Integer.parseInt(request.queryMap().get("injury_id").value()));

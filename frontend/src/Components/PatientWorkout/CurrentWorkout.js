@@ -11,6 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
+import {connect} from "react-redux";
+import {setSelectedPatient} from "../../Redux/actions/actions-pt";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -30,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CurrentWorkout = ({ selectedPatient, setSelectedPatient }) => {
+const CurrentWorkout = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [workout, setWorkout] = React.useState([]);
@@ -41,7 +43,7 @@ const CurrentWorkout = ({ selectedPatient, setSelectedPatient }) => {
     axios
       .get("api/patient/workout/id", {
         params: {
-          patient: selectedPatient,
+          patient: props.selectedPatient.patient_id,
         },
       })
       .then((response) => {
@@ -88,8 +90,8 @@ const CurrentWorkout = ({ selectedPatient, setSelectedPatient }) => {
 
   React.useEffect(() => {
     //will load workout info when the page loads
-    if (selectedPatient != "") fetchWorkoutInfo();
-  }, [selectedPatient]);
+    if (props.selectedPatient != "") fetchWorkoutInfo();
+  }, [props.selectedPatient]);
 
   return (
     <div className={classes.root}>
@@ -181,4 +183,13 @@ const CurrentWorkout = ({ selectedPatient, setSelectedPatient }) => {
   );
 };
 
-export default CurrentWorkout;
+export default connect(
+    (state) => ({
+        // The state of the pt, as defined by reducer-pt
+        selectedPatient: state.pt.selectedPatient,
+    }),
+    (dispatch) => ({
+        // The action from actions-pt which will effect reducer-pt
+        setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
+    })
+)(CurrentWorkout);

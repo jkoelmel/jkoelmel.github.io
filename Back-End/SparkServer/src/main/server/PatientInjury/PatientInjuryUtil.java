@@ -10,6 +10,12 @@ import java.util.ArrayList;
 
 public class PatientInjuryUtil {
 
+  /**
+   * Select the specific patient injury given the patient injury id.
+   * @param request The required query parameter: patient_injury_id
+   * @param response The status code from the given request
+   * @return The JSON object of the patient injury to be returned.
+   */
   public static String selectSpecific(Request request, Response response) {
     String toReturn = "";
     try {
@@ -32,6 +38,12 @@ public class PatientInjuryUtil {
     return toReturn;
   }
 
+  /**
+   * Select all patient injury from the database.
+   * @param request The required query parameter: patient
+   * @param response The status code from the given request
+   * @return The JSON object of the patient injury to be returned.
+   */
   public static String selectAll(Request request, Response response) {
     String toReturn = "";
     String query =
@@ -67,6 +79,11 @@ public class PatientInjuryUtil {
     return toReturn;
   }
 
+  /**
+   * Register a new exercise, given the required query parameters.
+   * @param request The required query parameters: patient_injury_id, patient, injury.
+   * @return The status code -- whether the query was successful or not.
+   */
   public static Integer registerExercise(Request request) {
     try {
       PatientInjury pi =

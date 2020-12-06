@@ -24,6 +24,7 @@ hs_err_pid*
 
 # Maven generated files
 Back-End/SparkServer/csc648_team2_backend.iml
+Back-End/SparkServer/target
 
 # Gradle files
 .gradle

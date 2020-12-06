@@ -107,14 +107,14 @@ const ActivitySummary = (props) => {
       <ListItem color="inherit" className={classes.modal}>
         <b>{subheader}</b>
       </ListItem>
-      <ListItem className={classes.modal}>
-        <u>
-          <b>Activity : Minutes</b>
-        </u>
-      </ListItem>
+      {/*<ListItem className={classes.modal}>*/}
+      {/*  <u>*/}
+      {/*    <b>Activity : Minutes</b>*/}
+      {/*  </u>*/}
+      {/*</ListItem>*/}
       {activity.map((a) => (
         <div>
-          <ListItem>{a.type_activity + " : " + a.duration}</ListItem>
+          <ListItem>{a.type_activity + " : " + a.duration + " minutes"}</ListItem>
         </div>
       ))}
       {showButton()}

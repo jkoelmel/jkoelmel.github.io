@@ -10,6 +10,12 @@ import java.util.ArrayList;
 
 public class PatientVideoUtil {
 
+  /**
+   * Select a specific patient video, given its required parameters.
+   * @param request The required query parameters: patient_video_id
+   * @param response The status code from the given request
+   * @return The JSON object of the poatient video to be returned
+   */
   public static String selectSpecific(Request request, Response response) {
     String toReturn = "";
     try {
@@ -31,6 +37,12 @@ public class PatientVideoUtil {
     return toReturn;
   }
 
+  /**
+   * Select all patient video from the database, given it's required paramters.
+   * @param request The required parameters: patient
+   * @param response The status code from the given request
+   * @return The JSON object of the patient video to be returned.
+   */
   public static String selectAll(Request request, Response response) {
     String toReturn = "";
     String query =
@@ -70,6 +82,11 @@ public class PatientVideoUtil {
     return toReturn;
   }
 
+  /**
+   * Register a new patient video into the database, given the required query parameters.
+   * @param request The required query parameters: video_url, patient
+   * @return The status code -- whether they were successful or not
+   */
   public static Integer registerPatientVideo(Request request) {
     try {
       PatientVideo pv = new PatientVideo(null);

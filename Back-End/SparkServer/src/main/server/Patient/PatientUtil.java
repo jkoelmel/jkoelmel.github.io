@@ -10,6 +10,12 @@ import java.util.ArrayList;
 
 public class PatientUtil {
 
+  /**
+   * Select a specific patient given it's required query parameters
+   * @param request The required query parameter: patient_id
+   * @param response The status code from the given request
+   * @return The JSON object of the patient to be returned
+   */
   public static String selectSpecific(Request request, Response response) {
     String toReturn = "";
     try {
@@ -30,6 +36,11 @@ public class PatientUtil {
     return toReturn;
   }
 
+  /**
+   * Select all patients in the database
+   * @param response The status code given the request
+   * @return The JSON object of the list of all patients
+   */
   public static String selectAll(Response response) {
     String toReturn = "";
     // Select all users from "user" whose user_id matches the user_id from a patient
@@ -72,6 +83,11 @@ public class PatientUtil {
     return toReturn;
   }
 
+  /**
+   * Register a new patient into the database, given the required query parameters.
+   * @param request The required query parameters: email, password, f_name, l_name, company.
+   * @return The response status code -- whether the query was successful or not.
+   */
   public static Integer registerPatient(Request request) {
     try {
       Patient patient =
@@ -92,6 +108,11 @@ public class PatientUtil {
     }
   }
 
+  /**
+   * Assign a PT to the patient into the databse, given the query parameters.
+   * @param request The required query parameters: patient_id, pt, prospective_pt
+   * @return The response status code -- whether the query was successful or not.
+   */
   public static Integer attachTherapist(Request request) {
     try {
       Patient patient = new Patient(Integer.parseInt(request.queryMap().get("patient_id").value()));
