@@ -4,6 +4,8 @@
 
     },
     "extends": [
+        "react:recommended",
+        "eslint:recommended",
         "airbnb-base", "prettier"
     ],
     "parser": "@typescript-eslint/parser",
