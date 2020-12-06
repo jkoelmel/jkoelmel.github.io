@@ -4,7 +4,6 @@
 
     },
     "extends": [
-        "react:recommended",
         "eslint:recommended",
         "airbnb-base", "prettier"
     ],
