@@ -32,5 +32,4 @@ jobs:
       - name: Lint files
         working-directory: frontend/
         run: |
-        # npm run lint:js - will run eslint + prettier to find error in coding format and style BUT DOES NOT FIX THEM
           npm run lint:js:fix
