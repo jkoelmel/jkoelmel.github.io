@@ -3,16 +3,16 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import {makeStyles} from '@material-ui/core/styles';
 import {Typography} from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 import PatientList from '../../Components/PatientList/PatientList';
 import Messaging from '../../Components/Messaging/Messaging';
 import ActivitySummary from '../../Components/PTActivitySummary/PTActivitySummary';
 import PatientDashboardInfo from '../../Components/PatientDashboardInfo/PatientDashboardInfo';
 import AssignWorkout from '../../Components/AssignWorkout/AssignWorkout';
 import SavedWorkout from '../../Components/SavedWorkout/SavedWorkout';
-import Divider from '@material-ui/core/Divider';
 
-//TODO Will most likely have to fix paperMessage margins when we implement
-//the actual message board.
+// TODO Will most likely have to fix paperMessage margins when we implement
+// the actual message board.
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -88,7 +88,7 @@ const Dashboard = () => {
         <Grid item>
           <Paper className={classes.paperProfile} elevation={5}>
             {/* <PatientsList/>  TODO need to handle Axios or hooks
-                        in order to use*/}
+                        in order to use */}
             <Typography variant="h5">
               <u>Patient Profile</u>
             </Typography>

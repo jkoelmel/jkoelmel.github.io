@@ -5,7 +5,7 @@ const app = express();
 
 // var whitelist = []; TODO test specific routes later to avoid /* CORS
 
-var corsOptions = {
+const corsOptions = {
   origin: true,
   credentials: true,
 };
@@ -14,7 +14,7 @@ app.use(cors(corsOptions));
 
 app.use(express.static('C:/Users/jaret/CSC648-Team-2/frontend/build'));
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   res.sendFile('C:/Users/jaret/CSC648-Team-2/frontend/build/index.html');
 });
 

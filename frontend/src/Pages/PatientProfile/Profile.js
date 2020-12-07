@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = () => {
   const classes = useStyles();
-  //TODO change to reflect desired patient
+  // TODO change to reflect desired patient
   const [selectedPatient, setSelectedPatient] = React.useState(1);
   const [selectedWorkout, setSelectedWorkout] = React.useState('');
 
@@ -78,10 +78,10 @@ const Profile = () => {
           <Paper className={classes.paperVideos} elevation={5}>
             <Typography>Patient Videos</Typography>
             <PatientVideo />
-            {/*<PatientVideo*/}
-            {/*  selectedPatient={selectedPatient}*/}
-            {/*  setSelectedPatient={setSelectedPatient}*/}
-            {/*/>*/}
+            {/* <PatientVideo */}
+            {/*  selectedPatient={selectedPatient} */}
+            {/*  setSelectedPatient={setSelectedPatient} */}
+            {/* /> */}
           </Paper>
         </Grid>
         <Grid item md={3}>

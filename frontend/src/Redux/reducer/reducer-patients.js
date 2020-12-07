@@ -22,7 +22,7 @@ const PatientsReducer = handleActions(
   {
     // TODO: check that this actually works
     [constants.CREATE_PATIENT]: (state, action) => {
-      const patient = action.payload.patient;
+      const {patient} = action.payload;
       const newPatients = state.patients.slice();
       newPatients.push(patient);
 
@@ -43,11 +43,9 @@ const PatientsReducer = handleActions(
       };
     },
 
-    [constants.GET_PATIENTS]: (state, action) => {
-      return {
+    [constants.GET_PATIENTS]: (state, action) => ({
         patients: action.payload.patients,
-      };
-    },
+      }),
   },
   initialPatientState,
 );

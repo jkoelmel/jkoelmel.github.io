@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import axios from 'axios';
-import {useEffect} from 'react';
+
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import List from '@material-ui/core/List';
@@ -19,13 +19,13 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import {connect} from 'react-redux';
+import {PlayArrow, TextFieldsRounded} from '@material-ui/icons';
 import {
   fetchExerciseVideos,
   selectedExercises,
   filterExercises,
 } from '../../Redux/actions/actions-pt';
-import {connect} from 'react-redux';
-import {PlayArrow, TextFieldsRounded} from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '200px',
   },
   title: {
-    //need to set up for dynamic scaling
+    // need to set up for dynamic scaling
     marginLeft: 125,
   },
 }));
@@ -81,7 +81,7 @@ const Library = (props) => {
     setOpen(false);
   };
 
-  //Handles checked videos and adds video ids into Checked
+  // Handles checked videos and adds video ids into Checked
   const handleCheckToggle = (value) => () => {
     const currentIndex = props.selectedVideos.indexOf(value);
     const newChecked = [...props.selectedVideos];
@@ -97,7 +97,7 @@ const Library = (props) => {
   };
 
   return (
-    //TODO add search field and update query to return tags
+    // TODO add search field and update query to return tags
 
     <div className={classes.root}>
       <List component="nav" aria-label="video-list">

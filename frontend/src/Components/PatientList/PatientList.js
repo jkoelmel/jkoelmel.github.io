@@ -7,6 +7,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import {makeStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
+import {ListItem, ListItemText} from '@material-ui/core';
 import {
   createNewPT,
   fetchPTsPatients,
@@ -15,7 +16,6 @@ import {
 } from '../../Redux/actions/actions-pt';
 import {fetchPatientExerciseVideos} from '../../Redux/actions/actions-patients';
 import './PatientList.css';
-import {ListItem, ListItemText} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -40,7 +40,7 @@ const PatientList = (props) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    //will load patients when the page loads
+    // will load patients when the page loads
     props.updatePT(props.pt);
   }, []);
 
@@ -52,7 +52,7 @@ const PatientList = (props) => {
       }
     });
     setOpen(true);
-    //TODO return patients info by its ID.
+    // TODO return patients info by its ID.
   };
 
   const handleClose = () => {

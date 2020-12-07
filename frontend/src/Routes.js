@@ -6,8 +6,8 @@ import LoginPage from './Pages/LoginPage/LoginPage';
 import Profile from './Pages/PatientProfile/Profile';
 import Exercise from './Pages/ExerciseLibrary/Exercise';
 import Login from './Pages/Login';
-//Will handle all page routing
-//TODO ask if we still need to keep about me pages
+// Will handle all page routing
+// TODO ask if we still need to keep about me pages
 export const Routes = () => (
   <Switch>
     <Route exact={true} path="/">

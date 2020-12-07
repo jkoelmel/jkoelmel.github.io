@@ -10,11 +10,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import axios from 'axios';
+import {makeStyles} from '@material-ui/core/styles';
 import Image from '../../Assets/katee-lue-SxR5wZYaOtg-unsplash.jpg';
 import HouseIcon from '../../Assets/houseIcon.svg';
 import DoctorIcon from '../../Assets/doctorIcon.svg';
 import PhoneIcon from '../../Assets/phoneIcon.svg';
-import {makeStyles} from '@material-ui/core/styles';
 import LoginForm from '../../Components/LoginForm/LoginForm';
 import RegisterPT from '../../Components/RegisterPT/RegisterPT';
 

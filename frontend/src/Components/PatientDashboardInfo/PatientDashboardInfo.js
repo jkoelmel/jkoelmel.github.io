@@ -1,12 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {
-  createNewPT,
-  fetchPTsPatients,
-  setSelectedPatient,
-  updatePT,
-} from '../../Redux/actions/actions-pt';
-import {fetchPatientExerciseVideos} from '../../Redux/actions/actions-patients';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -20,6 +13,13 @@ import Paper from '@material-ui/core/Paper';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import {fetchPatientExerciseVideos} from '../../Redux/actions/actions-patients';
+import {
+  createNewPT,
+  fetchPTsPatients,
+  setSelectedPatient,
+  updatePT,
+} from '../../Redux/actions/actions-pt';
 import SearchReport from '../SearchReport/SearchReport';
 import PatientInfo from '../PatientInfo/PatientInfo';
 import PatientVideos from '../PatientVideos/PatientVideo';
@@ -78,14 +78,14 @@ const PatientDashboardInfo = (props) => {
   const [videos, setVideos] = React.useState([]);
 
   const fetchPatientImg = () => {
-    //TODO hard-coded need to add support to various patients in DB
+    // TODO hard-coded need to add support to various patients in DB
     axios.get('https://randomuser.me/api/?gender=male').then((response) => {
       setUserImage(response.data.results[0].picture.large);
     });
   };
 
   React.useEffect(() => {
-    //will load patients activities when the page loads
+    // will load patients activities when the page loads
     fetchPatientImg();
   }, []);
 

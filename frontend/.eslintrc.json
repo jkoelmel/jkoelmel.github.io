@@ -5,8 +5,17 @@
     },
     "extends": [
         "eslint:recommended",
+        "plugin:react/recommended",
         "airbnb-base", "prettier"
     ],
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "fragment": "Fragment",
+            "version": "detect",
+            "flowVersion": "detect"
+        }
+    },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
@@ -20,31 +29,35 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "import/order": "warn",
-        "no-unused-vars": "warn",
-        "no-use-before-define": "warn",
-        "no-param-reassign": "warn",
-        "no-var": "warn",
-        "spaced-comment": "warn",
-        "import/prefer-default-export": "warn",
-        "object-shorthand": "warn",
-        "arrow-body-style": "warn",
-        "import/newline-after-import": "warn",
-        "eqeqeq": "warn",
-        "no-plusplus": "warn",
-        "camelcase": "warn",
-        "prefer-template": "warn",
-        "no-shadow": "warn",
-        "import/no-duplicates": "warn",
-        "no-undef": "warn",
-        "import/named": "warn",
+        "array-callback-return": "warn",
+        "arrow-body-style": "off",
+        "camelcase": "off",
         "consistent-return": "warn",
-        "no-unneeded-ternary": "warn",
-        "array-callback-return": "warn",
-        "array-callback-return": "warn",
-        "import/no-unresolved": "warn",
+        "eqeqeq": "off",
         "import/extensions": "warn",
+        "import/named": "warn",
+        "import/newline-after-import": "warn",
+        "import/no-duplicates": "off",
+        "import/no-unresolved": "warn",
+        "import/order": "warn",
+        "import/prefer-default-export": "off",
+        "no-param-reassign": "warn",
+        "no-plusplus": "off",
+        "no-shadow": "off",
+        "no-undef": "warn",
+        "no-unneeded-ternary": "off",
+        "no-unused-vars": "off",
+        "no-use-before-define": "warn",
+        "no-var": "warn",
+        "object-shorthand": "warn",
+        "prefer-arrow-callback": "warn",
         "prefer-destructuring": "warn",
-        "prefer-arrow-callback": "warn"
+        "prefer-template": "warn",
+        "spaced-comment": "off",
+        "react/prop-types": "off",
+        "react/jsx-key": "off",
+        "react/jsx-no-target-blank": "off",
+        "no-console": "off"
+
     }
 }

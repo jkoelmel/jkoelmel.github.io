@@ -1,13 +1,13 @@
 import React from 'react';
 // eslint-disable-next-line import/extensions
-import {loginPT} from '../Redux/actions/actions-pt.js';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {loginPT} from '../Redux/actions/actions-pt.js';
 import Landing from './LandingPage/index';
-//TODO maybe this should be in the component folder since we can just login straight in the
-//landing page
+// TODO maybe this should be in the component folder since we can just login straight in the
+// landing page
 const Login = (props) => {
-  //essentially handles submit on loginForm
+  // essentially handles submit on loginForm
   const [error, setError] = React.useState('');
 
   const handleLogin = (data) => {

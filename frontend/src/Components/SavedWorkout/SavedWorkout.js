@@ -187,9 +187,9 @@ const SavedWorkout = (props) => {
                   <a href={e.exercise_url} target="_blank">
                     <img
                       src={
-                        'https://img.youtube.com/vi/' +
-                        e.exercise_url.split('=')[1] +
-                        '/0.jpg'
+                        `https://img.youtube.com/vi/${ 
+                        e.exercise_url.split('=')[1] 
+                        }/0.jpg`
                       }
                     />
                   </a>

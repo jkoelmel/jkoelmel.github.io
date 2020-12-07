@@ -1,4 +1,4 @@
-import {createMuiTheme} from '@material-ui/core/styles'; //different from @@material-ui/styles
+import {createMuiTheme} from '@material-ui/core/styles'; // different from @@material-ui/styles
 import React from 'react';
 
 const darkBlue = '#00559A';

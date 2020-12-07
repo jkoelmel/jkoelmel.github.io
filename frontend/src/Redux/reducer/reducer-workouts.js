@@ -1,5 +1,6 @@
 import {handleActions} from 'redux-actions';
 import * as constants from '../constants/constants-workouts';
+
 const initialWorkoutState = {
   description: '',
   exercise_id: null,
@@ -15,30 +16,22 @@ const initialWorkoutState = {
 
 const WorkoutReducer = handleActions(
   {
-    [constants.GET_EXERCISE_VIDEOS]: (state, action) => {
-      return {
+    [constants.GET_EXERCISE_VIDEOS]: (state, action) => ({
         ...state,
         exercises: action.payload,
-      };
-    },
-    [constants.GET_SELECTED_VIDEOS]: (state, action) => {
-      return {
+      }),
+    [constants.GET_SELECTED_VIDEOS]: (state, action) => ({
         ...state,
         selectedVideos: action.payload,
-      };
-    },
-    [constants.GET_SELECTED_WORKOUTS]: (state, action) => {
-      return {
+      }),
+    [constants.GET_SELECTED_WORKOUTS]: (state, action) => ({
         ...state,
         selectedWorkouts: action.payload,
-      };
-    },
-    [constants.GET_PATIENT_EXERCISE_VIDEOS]: (state, action) => {
-      return {
+      }),
+    [constants.GET_PATIENT_EXERCISE_VIDEOS]: (state, action) => ({
         ...state,
         patientExerciseVideos: action.payload,
-      };
-    },
+      }),
     // [constants.CREATE_NEW_WORKOUT] : (state,action) => {
     //     return {
     //         ...state,

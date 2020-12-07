@@ -1,7 +1,7 @@
 import {handleActions} from 'redux-actions';
-import * as constants from '../constants/constants-pt';
 import storage from 'redux-persist/lib/storage';
 import {persistReducer} from 'redux-persist';
+import * as constants from '../constants/constants-pt';
 
 const initialPTState = {
   pt_id: '',
@@ -23,12 +23,10 @@ const initialPTState = {
 
 const PTReducer = handleActions(
   {
-    [constants.GET_PT_PATIENTS]: (state, action) => {
-      return {
+    [constants.GET_PT_PATIENTS]: (state, action) => ({
         ...state,
         patients: action.payload,
-      };
-    },
+      }),
 
     [constants.CREATE_PT]: (state, action) => {
       const pt = action.payload;
@@ -65,20 +63,18 @@ const PTReducer = handleActions(
       console.log(errorCode);
       return {
         ...state,
-        errorCode: errorCode,
+        errorCode,
       };
     },
-    [constants.SET_SELECTED_PATIENT]: (state, action) => {
-      return {
+    [constants.SET_SELECTED_PATIENT]: (state, action) => ({
         ...state,
         selectedPatient: action.payload,
-      };
-    },
+      }),
     [constants.LOGOUT_PT]: (state, action) => {
       const pt = action.payload;
       console.log(initialPTState, action.payload);
       return {
-        pt: pt,
+        pt,
       };
     },
   },
@@ -87,7 +83,7 @@ const PTReducer = handleActions(
 
 const persistConfig = {
   key: 'pt',
-  storage: storage,
+  storage,
   whitelist: ['pt_id'],
   blacklist: ['selectedPatient', 'patients', 'errorCode'],
 };

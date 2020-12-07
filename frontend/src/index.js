@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 
 import {Provider} from 'react-redux';
+import * as serviceWorker from './serviceWorker';
+import App from './App';
 import {store, persistor} from './Redux/store/store';
 
 axios.defaults.baseURL = 'https://api.pthealth.club/';
@@ -15,7 +15,7 @@ axios.defaults.headers = {
   'Access-Control-Allow-Methods': 'OPTIONS, GET, POST, PUT, PATCH, DELETE',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
-//Provider makes the store available to every component under App
+// Provider makes the store available to every component under App
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>

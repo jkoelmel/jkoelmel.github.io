@@ -1,9 +1,9 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
-import {ListItem, ListItemText, ListSubheader} from '@material-ui/core';
+import {ListItem, ListItemText, ListSubheader,Divider} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import {Divider} from '@material-ui/core';
+
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//TODO CLEAN UP FILE AND FIX DATE PICKER
+// TODO CLEAN UP FILE AND FIX DATE PICKER
 const SearchPlan = ({
   patients,
   setPatients,
@@ -80,16 +80,14 @@ const SearchPlan = ({
       .get('api/assign/all', {
         params: {
           patient: selectedPatient,
-          start: start,
-          end: end,
+          start,
+          end,
         },
       })
       .then((response) => {
         console.log(response.data);
         setExercisePlan(
-          response.data.map((e) => {
-            return e;
-          }),
+          response.data.map((e) => e),
         );
       })
       .catch(console.log);
@@ -106,9 +104,7 @@ const SearchPlan = ({
   console.log(end);
 
   console.log(
-    exercisePlan.map((exercisePlan) => {
-      return exercisePlan;
-    }),
+    exercisePlan.map((exercisePlan) => exercisePlan),
   );
 
   const ExercisePlan = [

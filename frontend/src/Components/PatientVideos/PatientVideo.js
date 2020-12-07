@@ -78,12 +78,12 @@ const PatientVideos = (props) => {
   };
 
   const handleSubmit = () => {
-    alert('Feedback was submitted: ' + feedback);
+    alert(`Feedback was submitted: ${  feedback}`);
     handleClose();
   };
 
   React.useEffect(() => {
-    //will load patients video when the page loads
+    // will load patients video when the page loads
     if (props.selectedPatient != '') fetchPatientVideos();
   }, [props.selectedPatient]);
 
@@ -105,9 +105,9 @@ const PatientVideos = (props) => {
             >
               <img
                 src={
-                  'https://img.youtube.com/vi/' +
-                  v.video_url.split('=')[1] +
-                  '/0.jpg'
+                  `https://img.youtube.com/vi/${ 
+                  v.video_url.split('=')[1] 
+                  }/0.jpg`
                 }
               />
             </ListItem>

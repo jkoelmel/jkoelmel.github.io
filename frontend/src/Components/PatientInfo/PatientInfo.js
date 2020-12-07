@@ -14,8 +14,8 @@ import Modal from '@material-ui/core/Modal';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import {connect} from 'react-redux';
-import {fetchPTsPatients} from '../../Redux/actions/actions-pt';
 import Avatar from '@material-ui/core/Avatar';
+import {fetchPTsPatients} from '../../Redux/actions/actions-pt';
 import Image from '../../Assets/Images/Paul.jpg';
 
 const useStyles = makeStyles((theme) => ({
@@ -71,7 +71,7 @@ const PatientInfo = (props) => {
   };
 
   React.useEffect(() => {
-    //will load patients activities when the page loads
+    // will load patients activities when the page loads
 
     if (props.selectedPatient != '') fetchPatientInfo();
     fetchPatientImg();
@@ -91,7 +91,7 @@ const PatientInfo = (props) => {
           <ListItem>
             <ListItemText
               primary={`Patient`}
-              secondary={info.f_name + ' ' + info.l_name}
+              secondary={`${info.f_name  } ${  info.l_name}`}
             />
           </ListItem>
           <ListItem>

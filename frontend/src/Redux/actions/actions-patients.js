@@ -16,30 +16,24 @@ export const createNewPatient = (patient) => {
   };
 };
 
-export const createPatient = (patient) => {
-  return {
+export const createPatient = (patient) => ({
     type: constants.CREATE_PATIENT,
     payload: patient,
-  };
-};
+  });
 
-export const fetchPatients = () => {
-  return (dispatch) => {
+export const fetchPatients = () => (dispatch) => {
     getAuth('/api/patient/all')
       .then((response) => dispatch(loadPatients(response.data.patients)))
       .catch((err) => console.log('Error fetching all patients:', err));
   };
-};
 
-export const loadPatients = (patients) => {
-  return {
+export const loadPatients = (patients) => ({
     type: constants.GET_PATIENTS,
     payload: patients,
-  };
-};
+  });
 
 export const updatePatientPT = (patient, pt, prospective_pt) => {
-  const data = {patient_id: patient, pt: pt, prospective_pt: prospective_pt};
+  const data = {patient_id: patient, pt, prospective_pt};
   return (dispatch) => {
     putAuth('api/patient/update-pt', data)
       .then(dispatch(submitUpdatePatientPT(patient, pt, prospective_pt)))
@@ -52,16 +46,14 @@ export const updatePatientPT = (patient, pt, prospective_pt) => {
   };
 };
 
-export const submitUpdatePatientPT = (patient, pt, prospective_pt) => {
-  return {
+export const submitUpdatePatientPT = (patient, pt, prospective_pt) => ({
     type: constants.UPDATE_PATIENT_PTS,
     payload: {
-      patient: patient,
-      pt: pt,
-      prospective_pt: prospective_pt,
+      patient,
+      pt,
+      prospective_pt,
     },
-  };
-};
+  });
 
 export const fetchPatientExerciseVideos = (selectedPatient) => {
   const params = new URLSearchParams();
@@ -74,9 +66,7 @@ export const fetchPatientExerciseVideos = (selectedPatient) => {
   };
 };
 
-export const loadPatientExerciseVideos = (patientExerciseVideos) => {
-  return {
+export const loadPatientExerciseVideos = (patientExerciseVideos) => ({
     type: constantsWorkout.GET_PATIENT_EXERCISE_VIDEOS,
     payload: patientExerciseVideos,
-  };
-};
+  });

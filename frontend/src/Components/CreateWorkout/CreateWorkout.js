@@ -4,17 +4,18 @@ import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import {Divider, ListItem, ListItemText, Button} from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import {
-  createWorkout,
-  fetchExerciseVideos,
-  selectedExercises,
-} from '../../Redux/actions/actions-pt';
 
 import {connect} from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
 import {Create} from '@material-ui/icons';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import {
+  createWorkout,
+  fetchExerciseVideos,
+  selectedExercises,
+} from '../../Redux/actions/actions-pt';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -41,7 +42,7 @@ const CreateWorkout = (props) => {
     instructions[index] = description;
     setVideoDescriptions([...instructions]);
   };
-  //check updates
+  // check updates
   console.log(props.selectedVideos);
   console.log(workoutTitle);
   console.log(videoDescriptions);

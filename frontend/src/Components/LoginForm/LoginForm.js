@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Formik, Form} from 'formik';
 import {connect} from 'react-redux';
-import {loginPT} from '../../Redux/actions/actions-pt';
 import {Redirect} from 'react-router-dom';
 
 import {
@@ -15,6 +14,7 @@ import {
 } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import {Visibility, VisibilityOff} from '@material-ui/icons';
+import {loginPT} from '../../Redux/actions/actions-pt';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '1.5rem',
   },
 }));
-//TODO handle error text and redux.... might have to swtich it to a regular func instead of formik.
+// TODO handle error text and redux.... might have to swtich it to a regular func instead of formik.
 
 const LoginForm = (props, {submit, isLoading, error}) => {
   const classes = useStyles();
@@ -70,7 +70,7 @@ const LoginForm = (props, {submit, isLoading, error}) => {
                 placeholder="email"
                 name="email"
                 label="email"
-                error={props.errorCode ? true : false}
+                error={!!props.errorCode}
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -84,7 +84,7 @@ const LoginForm = (props, {submit, isLoading, error}) => {
                 className={classes.box}
                 label="password"
                 name="password"
-                error={props.errorCode ? true : false}
+                error={!!props.errorCode}
                 helperText={props.errorCode}
                 type={showPassword ? 'text' : 'password'}
                 value={values.password}

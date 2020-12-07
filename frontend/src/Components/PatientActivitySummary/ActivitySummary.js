@@ -49,12 +49,12 @@ const ActivitySummary = ({selectedPatient}) => {
   };
 
   React.useEffect(() => {
-    //will load patients-PT activity summary when the page loads
+    // will load patients-PT activity summary when the page loads
     fetchSummaryInfo();
   }, []);
 
   React.useEffect(() => {
-    //will load patients-PT activity summary when the page loads
+    // will load patients-PT activity summary when the page loads
     if (selectedPatient != '') fetchSummaryInfo();
   }, [selectedPatient]);
 
@@ -71,7 +71,7 @@ const ActivitySummary = ({selectedPatient}) => {
       </ListItem>
       {activity.map((a) => (
         <div>
-          <ListItem>{a.type_activity + ' : ' + a.duration}</ListItem>
+          <ListItem>{`${a.type_activity  } : ${  a.duration}`}</ListItem>
         </div>
       ))}
     </List>

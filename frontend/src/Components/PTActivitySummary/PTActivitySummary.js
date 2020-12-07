@@ -1,5 +1,5 @@
-//Test component to see if a summation of all activity
-//is worthwhile to the application
+// Test component to see if a summation of all activity
+// is worthwhile to the application
 
 import React from 'react';
 import axios from 'axios';
@@ -12,11 +12,11 @@ import {
 } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
+import Button from '@material-ui/core/Button';
 import {
   fetchPTsPatients,
   setSelectedPatient,
 } from '../../Redux/actions/actions-pt';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -67,9 +67,7 @@ const ActivitySummary = (props) => {
       })
       .then((response) => {
         setActivity(
-          response.data.map((a) => {
-            return a;
-          }),
+          response.data.map((a) => a),
         );
       });
   };
@@ -96,10 +94,10 @@ const ActivitySummary = (props) => {
     } else {
       fetchPatPTSummary(props.pt.selectedPatient.patient_id);
       setSubheader(
-        'For ' +
-          props.pt.selectedPatient.f_name +
-          ' ' +
-          props.pt.selectedPatient.l_name,
+        `For ${ 
+          props.pt.selectedPatient.f_name 
+          } ${ 
+          props.pt.selectedPatient.l_name}`,
       );
     }
   }, [props.pt.selectedPatient]);
@@ -113,15 +111,15 @@ const ActivitySummary = (props) => {
       <ListItem color="inherit" className={classes.modal}>
         <b>{subheader}</b>
       </ListItem>
-      {/*<ListItem className={classes.modal}>*/}
-      {/*  <u>*/}
-      {/*    <b>Activity : Minutes</b>*/}
-      {/*  </u>*/}
-      {/*</ListItem>*/}
+      {/* <ListItem className={classes.modal}> */}
+      {/*  <u> */}
+      {/*    <b>Activity : Minutes</b> */}
+      {/*  </u> */}
+      {/* </ListItem> */}
       {activity.map((a) => (
         <div>
           <ListItem>
-            {a.type_activity + ' : ' + a.duration + ' minutes'}
+            {`${a.type_activity  } : ${  a.duration  } minutes`}
           </ListItem>
         </div>
       ))}

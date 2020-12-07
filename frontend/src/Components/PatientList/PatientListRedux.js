@@ -1,9 +1,6 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {getPatients} from '../../Redux/actions/patientActions';
-import {fetchPatients} from '../../Redux/actions/actions-patients';
-import {loadPatients} from '../../Redux/actions/actions-patients';
 
 import axios from 'axios';
 
@@ -12,6 +9,9 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import {makeStyles} from '@material-ui/core/styles';
+import {loadPatients,fetchPatients} from '../../Redux/actions/actions-patients';
+
+import {getPatients} from '../../Redux/actions/patientActions';
 
 const useStyles = makeStyles((theme) => ({
   sticky: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const PatientListRedux = (props) => {
   const classes = useStyles();
   const {patients} = props.patients;
-  console.log(props.patients); //Test
+  console.log(props.patients); // Test
 
   React.useEffect(() => {
     // props.getPatients()

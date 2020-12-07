@@ -31,16 +31,14 @@ const SearchReport = (props) => {
         console.log(response.data.patient);
 
         setPatientReport(
-          response.data.map((pr) => {
-            return pr;
-          }),
+          response.data.map((pr) => pr),
         );
       })
       .catch(console.log);
   };
 
   React.useEffect(() => {
-    //will load patients Report when the page loads
+    // will load patients Report when the page loads
     if (props.selectedPatient.patient_id != '') fetchPatientsReport();
   }, [props.selectedPatient.patient_id]);
 
@@ -52,7 +50,7 @@ const SearchReport = (props) => {
         style={{maxHeight: 580, overflowY: 'scroll'}}
       >
         {patientReport.map((pr) => (
-          <ListItem>{pr.created_on + ' ' + pr.entry}</ListItem>
+          <ListItem>{`${pr.created_on  } ${  pr.entry}`}</ListItem>
         ))}
       </List>
     </div>

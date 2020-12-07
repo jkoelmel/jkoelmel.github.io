@@ -19,13 +19,11 @@ export const createNewPT = (pt) => {
       .catch((err) => console.log('Error creating pt:', err));
   };
 };
-//TODO SEND MESSAGE IF ERROR
-export const loginPTError = (err) => {
-  return {
+// TODO SEND MESSAGE IF ERROR
+export const loginPTError = (err) => ({
     type: constants.CHECK_LOGIN_ERROR,
     payload: err,
-  };
-};
+  });
 
 export const loginPT = (pt) => {
   const params = new URLSearchParams();
@@ -108,16 +106,13 @@ export const createWorkout = (pt, title, exercises, descriptions) => {
   };
 };
 
-export const createPT = (pt) => {
-  return {
+export const createPT = (pt) => ({
     type: constants.CREATE_PT,
     payload: pt,
-  };
-};
+  });
 
-export const getPTByEmail = (email) => {
-  return (dispatch) => {
-    getAuth('api/pt/email', {email: email})
+export const getPTByEmail = (email) => (dispatch) => {
+    getAuth('api/pt/email', {email})
       .then((response) => {
         dispatch(updatePT(response.data));
         dispatch(fetchPTsPatients(response.data.pt_id));
@@ -126,44 +121,33 @@ export const getPTByEmail = (email) => {
         console.log(`Error fetching PT with email ${email}:`, err),
       );
   };
-};
 
-export const updatePT = (pt) => {
-  return {
+export const updatePT = (pt) => ({
     type: constants.UPDATE_PT,
     payload: pt,
-  };
-};
+  });
 
-export const fetchPTs = () => {
-  return (dispatch) => {
+export const fetchPTs = () => (dispatch) => {
     getAuth('/api/pt/all')
       .then((response) => dispatch(loadPTs(response.data)))
       .catch((err) => console.log('Error fetching all patients:', err));
   };
-};
 
-export const loadPTs = (pts) => {
-  return {
+export const loadPTs = (pts) => ({
     type: constants.GET_ALL_PTS,
     payload: pts,
-  };
-};
+  });
 
-export const fetchPTsPatients = (pt) => {
-  return (dispatch) => {
+export const fetchPTsPatients = (pt) => (dispatch) => {
     getAuth('/api/pt/patients', {pt_id: pt})
       .then((response) => dispatch(loadPTsPatients(response.data)))
       .catch((err) => console.log(`Error fetching patients for PT ${pt}`, err));
   };
-};
 
-export const loadPTsPatients = (patients) => {
-  return {
+export const loadPTsPatients = (patients) => ({
     type: constants.GET_PT_PATIENTS,
     payload: patients,
-  };
-};
+  });
 
 export const fetchExerciseVideos = () => {
   console.log('im here');
@@ -174,29 +158,21 @@ export const fetchExerciseVideos = () => {
   };
 };
 
-export const loadExerciseVideos = (exercises) => {
-  return {
+export const loadExerciseVideos = (exercises) => ({
     type: constantsWorkout.GET_EXERCISE_VIDEOS,
     payload: exercises,
-  };
-};
-export const selectedExercises = (selectedVideos) => {
-  return {
+  });
+export const selectedExercises = (selectedVideos) => ({
     type: constantsWorkout.GET_SELECTED_VIDEOS,
     payload: selectedVideos,
-  };
-};
+  });
 
-export const setSelectedWorkouts = (selectedWorkouts) => {
-  return {
+export const setSelectedWorkouts = (selectedWorkouts) => ({
     type: constantsWorkout.GET_SELECTED_WORKOUTS,
     payload: selectedWorkouts,
-  };
-};
+  });
 
-export const setSelectedPatient = (patient) => {
-  return {
+export const setSelectedPatient = (patient) => ({
     type: constants.SET_SELECTED_PATIENT,
     payload: patient,
-  };
-};
+  });

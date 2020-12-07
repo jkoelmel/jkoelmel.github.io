@@ -10,12 +10,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import logo from '../../Assets/Images/logo_with_text.svg';
 import Dropdown from 'react-bootstrap/Dropdown';
 import {connect} from 'react-redux';
+import logo from '../../Assets/Images/logo_with_text.svg';
 import {loginPT, logoutPT} from '../../Redux/actions/actions-pt';
 
-//TODO when you click the logo, redirect to dashboard
+// TODO when you click the logo, redirect to dashboard
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: 3,
@@ -165,7 +165,7 @@ export default connect(
     pt: state.pt,
   }),
   (dispatch) => ({
-    //May be used if we add a login to the dropdown
+    // May be used if we add a login to the dropdown
     loginPT: (data) => dispatch(loginPT(data)),
     logoutPT: (pt) => dispatch(logoutPT(pt)),
   }),
