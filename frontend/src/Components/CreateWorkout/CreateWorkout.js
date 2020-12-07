@@ -1,47 +1,48 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import List from "@material-ui/core/List";
-import { Divider, ListItem, ListItemText, Button } from "@material-ui/core";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import React from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import {Divider, ListItem, ListItemText, Button} from '@material-ui/core';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+
+import {connect} from 'react-redux';
+
+import TextField from '@material-ui/core/TextField';
+import {Create} from '@material-ui/icons';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import {
   createWorkout,
   fetchExerciseVideos,
   selectedExercises,
-} from "../../Redux/actions/actions-pt";
+} from '../../Redux/actions/actions-pt';
 
-import { connect } from "react-redux";
-
-import TextField from "@material-ui/core/TextField";
-import { Create } from "@material-ui/icons";
-import ListSubheader from "@material-ui/core/ListSubheader";
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       //   margin: theme.spacing(1),
-      width: "25ch",
+      width: '25ch',
     },
   },
   sticky: {
-    color: "secondary",
-    fontWeight: "bold",
+    color: 'secondary',
+    fontWeight: 'bold',
   },
 }));
 
 const CreateWorkout = (props) => {
   const classes = useStyles();
-  const [description, setDescription] = React.useState("");
+  const [description, setDescription] = React.useState('');
   const [videoDescriptions, setVideoDescriptions] = React.useState([]);
-  const [workoutTitle, setWorkoutTitle] = React.useState("");
+  const [workoutTitle, setWorkoutTitle] = React.useState('');
 
   const submitDescription = (desc, index) => {
     setDescription(desc);
 
-    let instructions = [...videoDescriptions];
+    const instructions = [...videoDescriptions];
     instructions[index] = description;
     setVideoDescriptions([...instructions]);
   };
-  //check updates
+  // check updates
   console.log(props.selectedVideos);
   console.log(workoutTitle);
   console.log(videoDescriptions);
@@ -51,7 +52,7 @@ const CreateWorkout = (props) => {
       props.pt,
       workoutTitle,
       props.selectedVideos,
-      videoDescriptions
+      videoDescriptions,
     );
   };
 
@@ -136,5 +137,5 @@ export default connect(
       dispatch(selectedExercises(selectedVideos)),
     createWorkout: (pt, title, exercises, descriptions) =>
       dispatch(createWorkout(pt, title, exercises, descriptions)),
-  })
+  }),
 )(CreateWorkout);

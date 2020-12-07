@@ -1,52 +1,52 @@
-import React from "react";
-import axios from "axios";
-import { useEffect } from "react";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import List from "@material-ui/core/List";
+import React, {useEffect} from 'react';
+import axios from 'axios';
+
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import List from '@material-ui/core/List';
 import {
   Divider,
   ListItem,
   ListItemText,
   ListSubheader,
-} from "@material-ui/core";
-import Modal from "@material-ui/core/Modal";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import ReactPlayer from "react-player";
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import Checkbox from "@material-ui/core/Checkbox";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+} from '@material-ui/core';
+import Modal from '@material-ui/core/Modal';
+import {makeStyles} from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import ReactPlayer from 'react-player';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import {connect} from 'react-redux';
+import {PlayArrow, TextFieldsRounded} from '@material-ui/icons';
 import {
   fetchExerciseVideos,
   selectedExercises,
   filterExercises,
-} from "../../Redux/actions/actions-pt";
-import { connect } from "react-redux";
-import { PlayArrow, TextFieldsRounded } from "@material-ui/icons";
+} from '../../Redux/actions/actions-pt';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    outline: "none",
+    outline: 'none',
   },
   sticky: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   thumbnail: {
-    maxHeight: "200px",
+    maxHeight: '200px',
   },
   title: {
-    //need to set up for dynamic scaling
+    // need to set up for dynamic scaling
     marginLeft: 125,
   },
 }));
@@ -55,7 +55,7 @@ const Library = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [selectedVideo, setSelectedVideo] = React.useState([]);
-  const [URL, setURL] = React.useState("");
+  const [URL, setURL] = React.useState('');
 
   useEffect(() => {
     // fetchExerciseVideos();
@@ -81,7 +81,7 @@ const Library = (props) => {
     setOpen(false);
   };
 
-  //Handles checked videos and adds video ids into Checked
+  // Handles checked videos and adds video ids into Checked
   const handleCheckToggle = (value) => () => {
     const currentIndex = props.selectedVideos.indexOf(value);
     const newChecked = [...props.selectedVideos];
@@ -97,7 +97,7 @@ const Library = (props) => {
   };
 
   return (
-    //TODO add search field and update query to return tags
+    // TODO add search field and update query to return tags
 
     <div className={classes.root}>
       <List component="nav" aria-label="video-list">
@@ -117,7 +117,7 @@ const Library = (props) => {
                   tabIndex={-1}
                   onClick={(event) => handleVideoClick(event, ev.exercise_id)}
                   inputprops={{
-                    "aria-labelledby": `checkbox-list-label-${ev.exercise_id}`,
+                    'aria-labelledby': `checkbox-list-label-${ev.exercise_id}`,
                   }}
                 />
               </ListItemIcon>
@@ -130,11 +130,10 @@ const Library = (props) => {
                   onChange={handleCheckToggle(ev.exercise_id)}
                   checked={props.selectedVideos.indexOf(ev.exercise_id) !== -1}
                   inputProps={{
-                    "aria-labelledby": `checkbox-list-label-${ev.exercise_id}`,
+                    'aria-labelledby': `checkbox-list-label-${ev.exercise_id}`,
                   }}
                 />
               </ListItemSecondaryAction>
-
             </ListItem>
           </React.Fragment>
         ))}
@@ -174,5 +173,5 @@ export default connect(
     selectedExercises: (selectedVideos) =>
       dispatch(selectedExercises(selectedVideos)),
     filterExercises: (exercises, searchTerm) => dispatch(exercises, searchTerm),
-  })
+  }),
 )(Library);

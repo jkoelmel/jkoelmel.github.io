@@ -1,16 +1,16 @@
-import { Typography } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import {Typography} from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import React from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "white",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: 'white',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 400,
     width: 500,
     padding: 10,
