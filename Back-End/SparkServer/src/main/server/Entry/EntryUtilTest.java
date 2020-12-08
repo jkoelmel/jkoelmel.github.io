@@ -12,76 +12,68 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 /**
- * Test class for API endpoints using mocked HTTP requests and responses
- * generated via jUnit and Mockito
+ * Test class for API endpoints using mocked HTTP requests and responses generated via jUnit and
+ * Mockito
  */
 class EntryUtilTest {
 
-    @Mock
-    HttpServletRequest request;
+  @Mock HttpServletRequest request;
 
-    @Mock
-    HttpServletResponse response;
+  @Mock HttpServletResponse response;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        MockitoAnnotations.openMocks(this);
-    }
+  @BeforeEach
+  public void setUp() throws Exception {
+    MockitoAnnotations.openMocks(this);
+  }
 
-    /**
-     * Requires the entry_id from the HTTP request params
-     * Testing requires this is successfully passed to the constructor
-     * and sets the value correctly.
-     */
-    @Test
-    void testSelectSpecific() {
+  /**
+   * Requires the entry_id from the HTTP request params Testing requires this is successfully passed
+   * to the constructor and sets the value correctly.
+   */
+  @Test
+  void testSelectSpecific() {
 
-        when(request.getParameter("entry_id")).thenReturn("1");
-        when(response.getStatus()).thenReturn(200);
+    when(request.getParameter("entry_id")).thenReturn("1");
+    when(response.getStatus()).thenReturn(200);
 
-        Entry entry = new Entry(Integer.parseInt(request.getParameter("entry_id")));
+    Entry entry = new Entry(Integer.parseInt(request.getParameter("entry_id")));
 
-        assertEquals(1, entry.getEntry_id());
-        assertEquals(200, response.getStatus());
+    assertEquals(1, entry.getEntry_id());
+    assertEquals(200, response.getStatus());
+  }
 
-    }
+  /** Requires the patient_id from the HTTP request params to find all patient entries. */
+  @Test
+  void testSelectAll() {
 
-    /**
-     * Requires the patient_id from the HTTP request params to
-     * find all patient entries.
-     */
-    @Test
-    void testSelectAll() {
+    when(request.getParameter("patient_id")).thenReturn("1");
+    when(response.getStatus()).thenReturn(200);
 
-        when(request.getParameter("patient_id")).thenReturn("1");
-        when(response.getStatus()).thenReturn(200);
+    Entry entry = new Entry(null);
+    entry.setPatient(Integer.parseInt(request.getParameter("patient_id")));
 
-        Entry entry = new Entry(null);
-        entry.setPatient(Integer.parseInt(request.getParameter("patient_id")));
+    assertEquals(1, entry.getPatient());
+    assertEquals(200, response.getStatus());
+  }
 
-        assertEquals(1, entry.getPatient());
-        assertEquals(200, response.getStatus());
+  /**
+   * Requires the entry contents as a String and patient_id value from the HTTP request params to
+   * create a new entry
+   */
+  @Test
+  void testRegisterEntry() {
 
-    }
+    when(request.getParameter("entry")).thenReturn("test entry");
+    when(request.getParameter("patient_id")).thenReturn("1");
+    when(response.getStatus()).thenReturn(200);
 
-    /**
-     * Requires the entry contents as a String and patient_id value
-     * from the HTTP request params to create a new entry
-     */
-    @Test
-    void testRegisterEntry() {
+    Entry entry = new Entry(null);
+    entry.setEntry(request.getParameter("entry"));
+    entry.setPatient(Integer.parseInt(request.getParameter("patient_id")));
 
-        when(request.getParameter("entry")).thenReturn("test entry");
-        when(request.getParameter("patient_id")).thenReturn("1");
-        when(response.getStatus()).thenReturn(200);
+    assertEquals("test entry", entry.getEntry());
+    assertEquals(1, entry.getPatient());
 
-        Entry entry = new Entry(null);
-        entry.setEntry(request.getParameter("entry"));
-        entry.setPatient(Integer.parseInt(request.getParameter("patient_id")));
-
-        assertEquals("test entry", entry.getEntry());
-        assertEquals(1, entry.getPatient());
-
-        assertEquals(200, response.getStatus());
-    }
+    assertEquals(200, response.getStatus());
+  }
 }

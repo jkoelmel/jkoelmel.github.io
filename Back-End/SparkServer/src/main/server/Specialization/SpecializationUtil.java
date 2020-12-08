@@ -12,6 +12,7 @@ public class SpecializationUtil {
 
   /**
    * Select a specific specialization given query parameters.
+   *
    * @param request The required query parameters: spec_id
    * @param response The status code from the given request
    * @return The JSON object of the Specialization to be returned
@@ -41,6 +42,7 @@ public class SpecializationUtil {
 
   /**
    * Select all Specializations from the database.
+   *
    * @param response The status code from the given request
    * @return The JSON object of the list of Specializations
    */
@@ -79,6 +81,7 @@ public class SpecializationUtil {
 
   /**
    * Register a new Specialization into the database, given required query parameters.
+   *
    * @param request The required query parameters: spec_area
    * @return The response status code -- whether the query was successful or not
    */

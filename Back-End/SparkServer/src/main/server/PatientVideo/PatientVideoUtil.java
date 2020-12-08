@@ -12,6 +12,7 @@ public class PatientVideoUtil {
 
   /**
    * Select a specific patient video, given its required parameters.
+   *
    * @param request The required query parameters: patient_video_id
    * @param response The status code from the given request
    * @return The JSON object of the poatient video to be returned
@@ -39,6 +40,7 @@ public class PatientVideoUtil {
 
   /**
    * Select all patient video from the database, given it's required paramters.
+   *
    * @param request The required parameters: patient
    * @param response The status code from the given request
    * @return The JSON object of the patient video to be returned.
@@ -84,6 +86,7 @@ public class PatientVideoUtil {
 
   /**
    * Register a new patient video into the database, given the required query parameters.
+   *
    * @param request The required query parameters: video_url, patient
    * @return The status code -- whether they were successful or not
    */

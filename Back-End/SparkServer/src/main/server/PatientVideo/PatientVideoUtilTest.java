@@ -16,65 +16,69 @@ import java.sql.Timestamp;
 import static org.mockito.Mockito.when;
 
 public class PatientVideoUtilTest {
-    @Mock
-    HttpServletRequest request;
+  @Mock HttpServletRequest request;
 
-    @Mock
-    HttpServletResponse response;
+  @Mock HttpServletResponse response;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        MockitoAnnotations.openMocks(this);
-    }
+  @BeforeEach
+  public void setUp() throws Exception {
+    MockitoAnnotations.openMocks(this);
+  }
 
-    @Test
-    void selectSpecificTest() {
-        when(request.getParameter("patient_video_id")).thenReturn("1");
-        when(response.getStatus()).thenReturn(200);
+  @Test
+  void selectSpecificTest() {
+    when(request.getParameter("patient_video_id")).thenReturn("1");
+    when(response.getStatus()).thenReturn(200);
 
-        PatientVideo patientVideo = new PatientVideo(Integer.parseInt(request.getParameter("patient_video_id")));
+    PatientVideo patientVideo =
+        new PatientVideo(Integer.parseInt(request.getParameter("patient_video_id")));
 
-        Assertions.assertEquals(1, patientVideo.getpatientVideo_id());
-        Assertions.assertEquals(200, response.getStatus());
-    }
+    Assertions.assertEquals(1, patientVideo.getpatientVideo_id());
+    Assertions.assertEquals(200, response.getStatus());
+  }
 
-    @Test
-    void selectAllTest(){
+  @Test
+  void selectAllTest() {
 
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        when(response.getStatus()).thenReturn(200);
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    when(response.getStatus()).thenReturn(200);
 
-        PatientVideo patientVideo = new PatientVideo(1);
-        String toReturn = "";
+    PatientVideo patientVideo = new PatientVideo(1);
+    String toReturn = "";
 
-        patientVideo.setpatientVideo_id(1);
-        patientVideo.setVideo_url("www.test.com");
-        patientVideo.setFeedback("test");
-        patientVideo.setUploaded(timestamp);
-        patientVideo.setPatient(1);
+    patientVideo.setpatientVideo_id(1);
+    patientVideo.setVideo_url("www.test.com");
+    patientVideo.setFeedback("test");
+    patientVideo.setUploaded(timestamp);
+    patientVideo.setPatient(1);
 
-        Gson gson = new Gson();
-        String timeFormatted = gson.toJson(timestamp);
+    Gson gson = new Gson();
+    String timeFormatted = gson.toJson(timestamp);
 
-        toReturn = gson.toJson(patientVideo);
+    toReturn = gson.toJson(patientVideo);
 
-        Assertions.assertEquals("{\"patientVideo_id\":1,\"video_url\":\"www.test.com\",\"feedback\":\"test\",\"uploaded\":" + timeFormatted + ",\"patient\":1}", toReturn);
-        Assertions.assertEquals(200, response.getStatus());
-    }
+    Assertions.assertEquals(
+        "{\"patientVideo_id\":1,\"video_url\":\"www.test.com\",\"feedback\":\"test\",\"uploaded\":"
+            + timeFormatted
+            + ",\"patient\":1}",
+        toReturn);
+    Assertions.assertEquals(200, response.getStatus());
+  }
 
-    @Test
-    void registerPatientVideoTest(){
-        when(request.getParameter("video_url")).thenReturn("1");
-        when(request.getParameter("patient")).thenReturn("1");
-        when(response.getStatus()).thenReturn(200);
+  @Test
+  void registerPatientVideoTest() {
+    when(request.getParameter("video_url")).thenReturn("1");
+    when(request.getParameter("patient")).thenReturn("1");
+    when(response.getStatus()).thenReturn(200);
 
-        PatientVideo patientVideo = new PatientVideo(Integer.parseInt(request.getParameter("video_url")));
-        patientVideo.setPatient(1);
+    PatientVideo patientVideo =
+        new PatientVideo(Integer.parseInt(request.getParameter("video_url")));
+    patientVideo.setPatient(1);
 
-        Gson gson = new Gson();
-        String toReturn = gson.toJson(patientVideo);
+    Gson gson = new Gson();
+    String toReturn = gson.toJson(patientVideo);
 
-        Assertions.assertEquals("{\"patientVideo_id\":1,\"patient\":1}", toReturn);
-        Assertions.assertEquals(200, response.getStatus());
-    }
+    Assertions.assertEquals("{\"patientVideo_id\":1,\"patient\":1}", toReturn);
+    Assertions.assertEquals(200, response.getStatus());
+  }
 }

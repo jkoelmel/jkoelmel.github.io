@@ -12,6 +12,7 @@ public class Workout {
 
   /**
    * Constructor for a workout given its ID. This can be used when instantiating existing workouts.
+   *
    * @param workout_id The integer ID of the workout
    */
   public Workout(Integer workout_id) {
@@ -19,7 +20,9 @@ public class Workout {
   }
 
   /**
-   * Constructor for a workout given its title and PT. This can be used when instantiating a new workout.
+   * Constructor for a workout given its title and PT. This can be used when instantiating a new
+   * workout.
+   *
    * @param title The string title for the workout
    * @param pt The integer ID of the PT
    */
@@ -30,6 +33,7 @@ public class Workout {
 
   /**
    * Create a new workout in the database given an instantiated workout object with title and PT.
+   *
    * @throws Exception Throw a SQL exception so that frontend has context for the error.
    */
   public void createWorkout() throws Exception {
@@ -51,7 +55,9 @@ public class Workout {
   }
 
   /**
-   * Get a workout from the database for the workout object. The object should be instantiated with its ID first.
+   * Get a workout from the database for the workout object. The object should be instantiated with
+   * its ID first.
+   *
    * @return The current workout object
    * @throws Exception Throw a SQL exception so that frontend has context for the error.
    */
@@ -77,6 +83,7 @@ public class Workout {
 
   /**
    * Update an existing workout in the database with a new title.
+   *
    * @param title The string title for the workout
    * @throws Exception Throw a SQL exception so that frontend has context for the error.
    */

@@ -17,6 +17,7 @@ public class PTMessage {
 
   /**
    * Constructor for instantiating the PT's message given its ID.
+   *
    * @param message_id The integer ID for the message
    */
   public PTMessage(Integer message_id) {
@@ -25,6 +26,7 @@ public class PTMessage {
 
   /**
    * Constructor for instantiating the PT's message given their email and the date it was created.
+   *
    * @param sender The email string of the sender of the message
    * @param created_On The timestamp of the date created
    */
@@ -35,6 +37,7 @@ public class PTMessage {
 
   /**
    * Create the message in the database given the PT and their patient, as well as the message text.
+   *
    * @param message The string message's text
    * @param patient The integer of the patient's ID
    * @param pt The integer of the PT's ID
@@ -65,6 +68,7 @@ public class PTMessage {
 
   /**
    * Given the message's ID, get its contents between the PT and the patient.
+   *
    * @return The current message object
    * @throws Exception Throw a SQL exception so that frontend has context for the error.
    */

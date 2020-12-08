@@ -10,6 +10,7 @@ public class Specialization {
 
   /**
    * Constructor given the existing Specialization ID.
+   *
    * @param spec_id The integer ID for the given specialization
    */
   public Specialization(Integer spec_id) {
@@ -17,8 +18,9 @@ public class Specialization {
   }
 
   /**
-   * Constructor given the area for a specialization. This is used primarily when registering a new one, in which
-   * the ID is not already present.
+   * Constructor given the area for a specialization. This is used primarily when registering a new
+   * one, in which the ID is not already present.
+   *
    * @param spec_area The specialization area string for the given specialization
    */
   public Specialization(String spec_area) {
@@ -26,7 +28,9 @@ public class Specialization {
   }
 
   /**
-   * Insert a specialization into the database after initializing the object with its specialization area.
+   * Insert a specialization into the database after initializing the object with its specialization
+   * area.
+   *
    * @throws Exception Throw a SQL exception so that frontend has context for the error.
    */
   public void createSpecialization() throws Exception {
@@ -49,6 +53,7 @@ public class Specialization {
 
   /**
    * Get a specialization from the database, and fill out the object with its info.
+   *
    * @return The current Specialization object
    * @throws Exception Throw a SQL exception so that frontend has context for the error.
    */
@@ -75,13 +80,15 @@ public class Specialization {
   }
 
   /**
-   * Update an existing specialization with a new specialization area, given a Specialization object which has
-   * already been instantiated with an ID.
+   * Update an existing specialization with a new specialization area, given a Specialization object
+   * which has already been instantiated with an ID.
+   *
    * @param spec_area The new specialization area string
    * @throws Exception Throw a SQL exception so that frontend has context for the error.
    */
   public void updateSpecialization(String spec_area) throws Exception {
-    String query = "UPDATE specialization SET spec_area = " + spec_area + " WHERE spec_id = " + spec_id;
+    String query =
+        "UPDATE specialization SET spec_area = " + spec_area + " WHERE spec_id = " + spec_id;
 
     try (Connection con =
             DriverManager.getConnection(

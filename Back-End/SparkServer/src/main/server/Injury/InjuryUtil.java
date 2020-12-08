@@ -12,11 +12,11 @@ public class InjuryUtil {
 
   /**
    * Select specific injury by injury id
+   *
    * @param request The required query parameters: injury_id
    * @param response The status code from the given request
    * @return The JSON object of the injury to be returned.
    */
-
   public static String selectSpecific(Request request, Response response) {
     String toReturn = "";
     try {
@@ -39,6 +39,7 @@ public class InjuryUtil {
 
   /**
    * Select all injurys from database
+   *
    * @param response The status code of selecting all injury
    * @return The JSON object of the list of workouts
    */
@@ -75,9 +76,9 @@ public class InjuryUtil {
     return toReturn;
   }
 
-
   /**
    * Register a new injury
+   *
    * @param request The required query parameters: injury_id
    * @return The response status code -- whether the query was successful or not
    */

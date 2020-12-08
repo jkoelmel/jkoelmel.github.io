@@ -9,19 +9,18 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * ExerciseUtil class: Provides functions for usage in endpoints so that the
- * actual functionality of the CRUD operations in Exercise class are encapsulated
- * properly
+ * ExerciseUtil class: Provides functions for usage in endpoints so that the actual functionality of
+ * the CRUD operations in Exercise class are encapsulated properly
  */
 public class ExerciseUtil {
 
   /**
-   * selectSpecific: Uses the exercise_id provided by the queryMap from
-   * the browser request to search the database for exact entry
+   * selectSpecific: Uses the exercise_id provided by the queryMap from the browser request to
+   * search the database for exact entry
+   *
    * @param request
    * @param response
-   * @return matching entry from the database, will return empty JSON object
-   * if nothing is found
+   * @return matching entry from the database, will return empty JSON object if nothing is found
    */
   public static String selectSpecific(Request request, Response response) {
     String toReturn = "";
@@ -45,8 +44,8 @@ public class ExerciseUtil {
   }
 
   /**
-   * selectAll: Simple table query that returns all current exercises
-   * in the table
+   * selectAll: Simple table query that returns all current exercises in the table
+   *
    * @param request
    * @param response
    * @return JSON array of Exercise objects
@@ -89,9 +88,9 @@ public class ExerciseUtil {
   }
 
   /**
-   * getWorkoutExercises: Uses the workout value provided by the queryMap by
-   * the browser request to locate all associated exercises in the database
-   * for that workout
+   * getWorkoutExercises: Uses the workout value provided by the queryMap by the browser request to
+   * locate all associated exercises in the database for that workout
+   *
    * @param request
    * @param response
    * @return JSON array of Exercise object related to that workout
@@ -139,8 +138,9 @@ public class ExerciseUtil {
   }
 
   /**
-   * registerExercise: Takes all needed info from the queryMap in the browser
-   * request to generate a new Exercise object and insert it into the database
+   * registerExercise: Takes all needed info from the queryMap in the browser request to generate a
+   * new Exercise object and insert it into the database
+   *
    * @param request
    * @return
    */

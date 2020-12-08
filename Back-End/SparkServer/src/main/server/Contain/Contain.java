@@ -4,9 +4,9 @@ import main.server.Server;
 import java.sql.*;
 
 /**
- * Contain Class: Provides basic functionality for CRUD operations of
- * entries in the portalDB 'contain' table. This table is a relationship
- * turned table for the M:M required between workouts and exercises
+ * Contain Class: Provides basic functionality for CRUD operations of entries in the portalDB
+ * 'contain' table. This table is a relationship turned table for the M:M required between workouts
+ * and exercises
  */
 public class Contain {
 
@@ -15,8 +15,9 @@ public class Contain {
   private Integer exercise;
 
   /**
-   * Contain constructor: Can be NULL becuase value is auto-incremented
-   * for new entries in the database
+   * Contain constructor: Can be NULL becuase value is auto-incremented for new entries in the
+   * database
+   *
    * @param contain_id
    */
   public Contain(Integer contain_id) {
@@ -24,10 +25,10 @@ public class Contain {
   }
 
   /**
-   * createContain: Takes the param Integer for workout and associates the
-   * entry to the most recently added exercise because the workouts are created
-   * at the same time as the custom exercises in order desired by the pt creating
-   * it
+   * createContain: Takes the param Integer for workout and associates the entry to the most
+   * recently added exercise because the workouts are created at the same time as the custom
+   * exercises in order desired by the pt creating it
+   *
    * @param workout
    * @throws Exception
    */
@@ -60,9 +61,9 @@ public class Contain {
   }
 
   /**
-   * getExerciseList: Calling object uses its workout_id to query the database
-   * and provide all exercises associated with it as logged by the 'contain'
-   * table
+   * getExerciseList: Calling object uses its workout_id to query the database and provide all
+   * exercises associated with it as logged by the 'contain' table
+   *
    * @return
    * @throws Exception
    */
@@ -93,8 +94,9 @@ public class Contain {
   }
 
   /**
-   * updateContain: Basic operation to update a contain entry in the database.
-   * The params are used to fulfill escaped values in the SQL statement
+   * updateContain: Basic operation to update a contain entry in the database. The params are used
+   * to fulfill escaped values in the SQL statement
+   *
    * @param workout
    * @param exercise
    * @throws Exception
@@ -121,13 +123,8 @@ public class Contain {
   }
 
   /**
-   * The following are all standard setters and getters for this class:
-   * getcontain_id
-   * setcontain_id
-   * getWorkout
-   * setWorkout
-   * getExercise
-   * setExercise
+   * The following are all standard setters and getters for this class: getcontain_id setcontain_id
+   * getWorkout setWorkout getExercise setExercise
    */
   public Integer getcontain_id() {
     return contain_id;

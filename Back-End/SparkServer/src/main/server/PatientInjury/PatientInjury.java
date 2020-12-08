@@ -12,6 +12,7 @@ public class PatientInjury {
 
   /**
    * Constructor for PatientInjury
+   *
    * @param patientInjury_id The integer value of patientInjury_id
    */
   public PatientInjury(Integer patientInjury_id) {
@@ -20,6 +21,7 @@ public class PatientInjury {
 
   /**
    * Create a new patient injury into the database
+   *
    * @param patient The integer value of patient
    * @param injury The integer value of injury
    * @throws Exception throws a SQL exception
@@ -46,6 +48,7 @@ public class PatientInjury {
 
   /**
    * get the patient injury from the database.
+   *
    * @return The current patient injury object.
    * @throws Exception Throws a SQL exception
    */
@@ -72,9 +75,7 @@ public class PatientInjury {
     return this;
   }
 
-  /**
-   * Getters and Setters
-   */
+  /** Getters and Setters */
   public Integer getpatientInjury_id() {
     return patientInjury_id;
   }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class PTSpecUtil {
   /**
    * Select a specific PT spec given it's required query parameter.
+   *
    * @param request The required query parameters: pt_spec_id
    * @param response The status code from the given request
    * @return The JSON object of the PT spec to be returned
@@ -37,6 +38,7 @@ public class PTSpecUtil {
 
   /**
    * Select all PT specs.
+   *
    * @param response The status code from the given request
    * @return The JSON object of the PT spec to be returned
    */
@@ -76,12 +78,14 @@ public class PTSpecUtil {
 
   /**
    * Register a new PT Spec with the database.
+   *
    * @param request The required query parameters: pt, spec
    * @return The response status code -- whether the query was successful or not
    */
   public static Integer registerPTSpec(Request request) {
     try {
-      PTSpec ptSpec = new PTSpec(
+      PTSpec ptSpec =
+          new PTSpec(
               Integer.parseInt(request.queryMap().get("pt").value()),
               Integer.parseInt(request.queryMap().get("spec").value()));
 
