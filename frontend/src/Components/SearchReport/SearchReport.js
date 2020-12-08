@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchReport = (props) => {
+export const SearchReport = (props) => {
   const classes = useStyles();
   const [patientReport, setPatientReport] = React.useState([]);
 

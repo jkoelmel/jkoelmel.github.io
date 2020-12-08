@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Library = (props) => {
+export const Library = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [selectedVideo, setSelectedVideo] = React.useState([]);
@@ -73,9 +73,10 @@ const Library = (props) => {
     }
 
     setURL(props.exercises[newIndex - 1].exercise_url);
-    console.log(URL);
+    // console.log(URL);
     setOpen(true);
   };
+  // console.log(URL);
 
   const handleClose = () => {
     setOpen(false);
@@ -96,16 +97,73 @@ const Library = (props) => {
     props.selectedExercises(newChecked);
   };
 
+ 
+  let exercises = null;
+  //search filters by username and title of post
+  exercises = (
+      <div>
+          {props.exercises.map((ev, k) => (
+            <React.Fragment key={k}>
+              <Divider />
+              <ListItem className={classes.title}>{ev.title}</ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <PlayArrow
+                    edge="start"
+                    checked={props.selectedVideos.indexOf(ev.exercise_id) !== -1}
+                    tabIndex={-1}
+                    onClick={(event) => handleVideoClick(event, ev.exercise_id)}
+                    inputprops={{
+                      "aria-labelledby": `checkbox-list-label-${ev.exercise_id}`,
+                    }}
+                  />
+                </ListItemIcon>
+                <img className={classes.thumbnail} src={ev.thumbnail} />
+                <ListItemSecondaryAction>
+                  <Checkbox
+                    edge="end"
+                    tabIndex={-1}
+                    disableRipple
+                    onChange={handleCheckToggle(ev.exercise_id)}
+                    checked={props.selectedVideos.indexOf(ev.exercise_id) !== -1}
+                    inputProps={{
+                      "aria-labelledby": `checkbox-list-label-${ev.exercise_id}`,
+                    }}
+                  />
+                </ListItemSecondaryAction>
+  
+              </ListItem>
+            </React.Fragment>
+          ))}
+
+      </div>
+  )
   return (
     // TODO add search field and update query to return tags
 
     <div className={classes.root}>
       <List component="nav" aria-label="video-list">
         <ListSubheader color="inherit" className={classes.sticky}>
-          Exercise Library
+          <Typography>Exercise Library</Typography>
+          <TextField
+            color="secondary"
+            id="searchInput"
+            label="search Exercise"
+            defaultValue='knee exercise'
+            value={searchKey}
+            onChange={(e) => {
+              setSearchKey(e.target.value);
+            }}
+            variant="outlined"
+          />
         </ListSubheader>
+        {exercises}
 
-        {props.exercises.map((ev, k) => (
+        {/* {props.exercises.filter(
+          (e)=> {
+          return e.title.toLowerCase().indexOf(searchInput.toLowerCase()) !== -1 || 
+          e.title.toLowerCase().indexOf(searchInput.toLowerCase()) !==-1
+        }).map((ev, k) => (
           <React.Fragment key={k}>
             <Divider />
             <ListItem className={classes.title}>{ev.title}</ListItem>
@@ -136,7 +194,7 @@ const Library = (props) => {
               </ListItemSecondaryAction>
             </ListItem>
           </React.Fragment>
-        ))}
+        ))} */}
       </List>
 
       <Modal
