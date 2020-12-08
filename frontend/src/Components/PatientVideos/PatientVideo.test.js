@@ -1,7 +1,7 @@
 import React from 'react';
 import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {PatientVideos} from '../PatientVideos/PatientVideo';
+import {PatientVideos} from './PatientVideo';
 import List from "@material-ui/core/List";
 import { ListItem } from '@material-ui/core';
 import Modal from "@material-ui/core/Modal";

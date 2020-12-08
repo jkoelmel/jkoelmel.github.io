@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ActivitySummary = ({selectedPatient}) => {
+export const ActivitySummary = ({selectedPatient}) => {
   const classes = useStyles();
   const [activity, setActivity] = React.useState([]);
 

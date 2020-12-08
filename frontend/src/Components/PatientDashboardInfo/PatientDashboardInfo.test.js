@@ -1,7 +1,7 @@
 import React from 'react';
 import { configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {PatientDashboardInfo} from '../PatientDashboardInfo/PatientDashboardInfo'
+import {PatientDashboardInfo} from './PatientDashboardInfo'
 import { ListItem, Typography } from '@material-ui/core';
 import Grid from "@material-ui/core/Grid";
 import { PatientInfo } from '../PatientInfo/PatientInfo';

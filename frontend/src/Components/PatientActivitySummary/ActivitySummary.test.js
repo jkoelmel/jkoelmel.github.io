@@ -1,7 +1,7 @@
 import React from 'react';
 import { configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {ActivitySummary} from '../PatientActivitySummary/ActivitySummary';
+import {ActivitySummary} from './ActivitySummary';
 import { List,ListItem } from '@material-ui/core';
 
 

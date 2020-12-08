@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PatientInfo = (props) => {
+export const PatientInfo = (props) => {
   const classes = useStyles();
   const [info, setInfo] = React.useState([]);
   const [userImage, setUserImage] = React.useState('');
@@ -60,7 +60,6 @@ const PatientInfo = (props) => {
       })
       .catch(console.log);
   };
-  console.log(info);
 
   const fetchPatientImg = () => {
     // //TODO hard-coded need to add support to various patients in DB

@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ActivitySummary = (props) => {
+export const ActivitySummary = (props) => {
   const classes = useStyles();
   const [activity, setActivity] = React.useState([]);
   const [subheader, setSubheader] = React.useState('');

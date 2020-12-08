@@ -145,25 +145,10 @@ export const Library = (props) => {
       <List component="nav" aria-label="video-list">
         <ListSubheader color="inherit" className={classes.sticky}>
           <Typography>Exercise Library</Typography>
-          <TextField
-            color="secondary"
-            id="searchInput"
-            label="search Exercise"
-            defaultValue='knee exercise'
-            value={searchKey}
-            onChange={(e) => {
-              setSearchKey(e.target.value);
-            }}
-            variant="outlined"
-          />
         </ListSubheader>
         {exercises}
 
-        {/* {props.exercises.filter(
-          (e)=> {
-          return e.title.toLowerCase().indexOf(searchInput.toLowerCase()) !== -1 || 
-          e.title.toLowerCase().indexOf(searchInput.toLowerCase()) !==-1
-        }).map((ev, k) => (
+        {props.exercises.map((ev, k) => (
           <React.Fragment key={k}>
             <Divider />
             <ListItem className={classes.title}>{ev.title}</ListItem>
@@ -194,7 +179,7 @@ export const Library = (props) => {
               </ListItemSecondaryAction>
             </ListItem>
           </React.Fragment>
-        ))} */}
+        ))}
       </List>
 
       <Modal

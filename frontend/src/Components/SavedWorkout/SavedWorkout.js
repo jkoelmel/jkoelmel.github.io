@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SavedWorkout = (props) => {
+export const SavedWorkout = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [workouts, setWorkouts] = React.useState([]);

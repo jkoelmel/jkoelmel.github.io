@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PatientDashboardInfo = (props) => {
+export const PatientDashboardInfo = (props) => {
   const classes = useStyles();
   const [userImage, setUserImage] = React.useState('');
   const [videos, setVideos] = React.useState([]);

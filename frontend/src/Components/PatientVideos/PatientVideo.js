@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PatientVideos = (props) => {
+export const PatientVideos = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [videos, setVideos] = React.useState([]);

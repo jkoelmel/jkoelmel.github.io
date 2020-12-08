@@ -9,7 +9,6 @@ import SearchReport from '../../Components/SearchReport/SearchReport';
 import PatientInfo from '../../Components/PatientInfo/PatientInfo';
 import ActivitySummary from '../../Components/PatientActivitySummary/ActivitySummary';
 import CurrentWorkout from '../../Components/PatientWorkout/CurrentWorkout';
-import DrawingBoard from '../../Components/Canvas/DrawingBoard';
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {PatientInfo} from '../PatientInfo/PatientInfo';
+import {PatientInfo} from './PatientInfo';
 import {
     Divider,
     ListItem,
@@ -9,7 +9,6 @@ import {
     ListSubheader,
   } from "@material-ui/core";
   import List from "@material-ui/core/List";
-// import ReactDom from 'react-dom';
 
 configure({adapter: new Adapter()});
 

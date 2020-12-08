@@ -6,7 +6,6 @@ import List from "@material-ui/core/List";
 import {ListItem} from "@material-ui/core";
 import { PlayArrow } from "@material-ui/icons";
 import Checkbox from "@material-ui/core/Checkbox";
-import Modal from "@material-ui/core/Modal";
 
 configure({adapter: new Adaptor()})
 
@@ -15,7 +14,7 @@ describe('<Library/>' , ()=> {
    
     beforeEach(() => {
         wrapper = shallow(<Library pt={()=>{}} exercises={[]} selectedVideos={[]}/>)
-      });
+    });
 
     it('should render One list for exercises', ()=> {
         
@@ -23,22 +22,22 @@ describe('<Library/>' , ()=> {
         expect(wrapper.find(List)).toHaveLength(1)
     })
 
-    it('should render two listItems when there is only one exercise in the library (title and video)', ()=> {
+    it('should render four listItems when there is only one exercise in the library (title and video)', ()=> {
         
         wrapper.setProps({exercises: [1], selectedVideos: []})
-        expect(wrapper.find(ListItem)).toHaveLength(2)
+        expect(wrapper.find(ListItem)).toHaveLength(4)
     })
 
-    it('should only have one PlayIcon when theres only one exercise in the library', ()=> {
+    it('should have two PlayIcon when theres only one exercise in the library', ()=> {
         
         wrapper.setProps({exercises: [1], selectedVideos: [1]})
-        expect(wrapper.find(PlayArrow)).toHaveLength(1)
+        expect(wrapper.find(PlayArrow)).toHaveLength(2)
     })
 
-    it('should only have one checkbox when theres only one exercise in the library', ()=> {
+    it('should have two checkbox when theres only one exercise in the library', ()=> {
         
         wrapper.setProps({exercises: [1], selectedVideos: [1]})
-        expect(wrapper.find(Checkbox)).toHaveLength(1)
+        expect(wrapper.find(Checkbox)).toHaveLength(2)
     })
 
     // it('should render modal when the PlayIcon is clicked', ()=> {
