@@ -1,7 +1,7 @@
 package main.server.Patient;
 
 import main.server.Server;
-import main.server.user.*;
+import main.server.User.*;
 
 import java.sql.*;
 
@@ -13,14 +13,35 @@ public class Patient extends User {
   private Integer prospective_pt;
   private String injury;
 
+  /**
+   * Default constructor with patient's email, password, first name, last name and company
+   *
+   * @param email The string value of email
+   * @param password The string value of password
+   * @param f_name The string value of f_name
+   * @param l_name The string value of l_name
+   * @param company The string value of company
+   */
   public Patient(String email, String password, String f_name, String l_name, String company) {
     super(email, password, f_name, l_name, company);
   }
 
+  /**
+   * Constructor given patient_id
+   *
+   * @param patient_id The integer value of patient id
+   */
   public Patient(Integer patient_id) {
     this.patient_id = patient_id;
   }
 
+  /**
+   * Create a new patient into the database along with its relevent user. This require that the
+   * patient object has been instantiated via the default constructor with email, password, f_name,
+   * l_name, company.
+   *
+   * @throws Exception Throws a SQL exception.
+   */
   public void createPatient() throws Exception {
     String userQuery =
         "INSERT INTO user(user_id, email, password, f_name, l_name, company) VALUES(NULL, ?, ?, ?,"
@@ -47,7 +68,12 @@ public class Patient extends User {
       throw new Exception("Error inserting user/patient: " + ex.toString());
     }
   }
-
+  /**
+   * Get the current patient from the database for the current patient_id
+   *
+   * @return The current patient object
+   * @throws Exception Throws a SQL exception
+   */
   public Patient getPatient() throws Exception {
     String patientQuery =
         "SELECT * FROM patient_injury JOIN patient ON patient_injury.patient = "
@@ -85,6 +111,13 @@ public class Patient extends User {
     return this;
   }
 
+  /**
+   * Updating existing patient given its patient ID and new patient ID
+   *
+   * @param pt The integer ID of the PT
+   * @param prospective_pt The integer ID of the prospective PT
+   * @throws Exception throws SQL exception
+   */
   public void updatePatient(Integer pt, Integer prospective_pt) throws Exception {
     String query =
         "UPDATE patient SET pt = "
@@ -107,6 +140,7 @@ public class Patient extends User {
     }
   }
 
+  /** Getters and Setters */
   public Integer getPatient_id() {
     return patient_id;
   }

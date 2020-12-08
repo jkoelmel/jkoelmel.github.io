@@ -9,6 +9,13 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class WorkoutUtil {
+  /**
+   * Select a specific existing workout from the database, given its ID.
+   *
+   * @param request The required query parameters: workout_id
+   * @param response The status code from the given request
+   * @return The JSON object of the Workout to be returned
+   */
   public static String selectSpecific(Request request, Response response) {
     String toReturn = "";
     try {
@@ -29,6 +36,12 @@ public class WorkoutUtil {
     return toReturn;
   }
 
+  /**
+   * Select all Workouts from the database.
+   *
+   * @param response The status code from the given request
+   * @return The JSON object of the list of workouts
+   */
   public static String selectAll(Response response) {
     String toReturn = "";
 
@@ -44,8 +57,9 @@ public class WorkoutUtil {
       while (rs.next()) {
         Workout workout = new Workout(rs.getInt("workout_id"));
 
-        workout.setWorkoutId(rs.getInt("workout_id"));
+        workout.setPT(rs.getInt("pt"));
         workout.setTitle(rs.getString("title"));
+        list.add(workout);
       }
       Gson gson = new Gson();
       toReturn = gson.toJson(list);
@@ -63,12 +77,19 @@ public class WorkoutUtil {
     return toReturn;
   }
 
+  /**
+   * Register a new Workout into the database, given required query parameters.
+   *
+   * @param request The required query parameters: title, pt
+   * @return The response status code -- whether the query was successful or not
+   */
   public static Integer registerWorkout(Request request) {
     try {
-      Workout workout = new Workout(null);
-      workout.createWorkout(
-          request.queryMap().get("title").value(),
-          Integer.parseInt(request.queryMap().get("pt").value()));
+      Workout workout =
+          new Workout(
+              request.queryMap().get("title").value(),
+              Integer.parseInt(request.queryMap().get("pt").value()));
+      workout.createWorkout();
       return 200;
     } catch (SQLException sqlEx) {
       System.err.println(sqlEx.toString());

@@ -12,8 +12,20 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * AssignmentUtil class: Provides functions for usage in endpoints so that the actual functionality
+ * of the CRUD operations in Assignment class are encapsulated properly
+ */
 public class AssignmentUtil {
 
+  /**
+   * selectSpecific: Uses the patient provided by the queryMap from the browser request to search
+   * the database
+   *
+   * @param request
+   * @param response
+   * @return current assignment for a specific patient
+   */
   public static String selectSpecific(Request request, Response response) {
     String toReturn = "";
 
@@ -39,6 +51,15 @@ public class AssignmentUtil {
     return toReturn;
   }
 
+  /**
+   * selectAllData: Uses the patient, start, and end values from the query map from the browser
+   * request to find the info related to the assignment for a specific patient in a time range
+   *
+   * @param request
+   * @param response
+   * @return All workout and exercise info for a patient within the provided ISO 8601 formatted
+   *     date-time range
+   */
   public static String selectAllData(Request request, Response response) {
     String toReturn = "";
     String query =
@@ -94,6 +115,14 @@ public class AssignmentUtil {
     return toReturn;
   }
 
+  /**
+   * selectPTWorkouts: Uses the pt value from the query map of the broswer request to find all
+   * workouts created by a specific pt
+   *
+   * @param request
+   * @param response
+   * @return all workout titles created by desired pt
+   */
   public static String selectPTWorkouts(Request request, Response response) {
     String toReturn = "";
     String query =
@@ -131,6 +160,14 @@ public class AssignmentUtil {
     return toReturn;
   }
 
+  /**
+   * getPatientAssignment: Uses the patient value in the queryMap provided by the browser request to
+   * find the most recent workout assigned to that patient
+   *
+   * @param request
+   * @param response
+   * @return most recent assigned workout for desired patient
+   */
   public static String getPatientAssignment(Request request, Response response) {
     String toReturn = "";
     String query =
@@ -172,7 +209,14 @@ public class AssignmentUtil {
     return toReturn;
   }
 
-  // WIP
+  /**
+   * assignToPatients: Takes the values in the arrays from the querymap provided by the broswer
+   * request to iterate over all workouts and patients and assign them individually
+   *
+   * @param request
+   * @return response code to provide to the front-end, useful for debugging and event handling in
+   *     promise chains.
+   */
   public static Integer assignToPatients(Request request) {
 
     try {
@@ -185,31 +229,6 @@ public class AssignmentUtil {
               Integer.parseInt(request.queryParamsValues("patient")[j]));
         }
       }
-      return 200;
-    } catch (SQLException sqlEx) {
-      System.err.println(sqlEx.toString());
-      return 500;
-    } catch (Exception ex) {
-      System.err.println(ex.toString());
-      return 400;
-    }
-  }
-
-  public static Integer registerAssignment(Request request) {
-    try {
-      // check if assignment_id exists, passed from front-end checks
-      if (Integer.parseInt(request.queryMap().get("assignment_id").value()) >= 1) {
-        Assignment oldAssignment =
-            new Assignment(Integer.parseInt(request.queryMap().get("assignment_id").value()));
-        // sets end_date to now()
-        oldAssignment.updateAssignment();
-      }
-      // create new assignment from input
-      Assignment assignment = new Assignment(null);
-      assignment.createAssignment(
-          Integer.parseInt(request.queryMap().get("pt").value()),
-          Integer.parseInt(request.queryMap().get("workout").value()),
-          Integer.parseInt(request.queryMap().get("patient").value()));
       return 200;
     } catch (SQLException sqlEx) {
       System.err.println(sqlEx.toString());

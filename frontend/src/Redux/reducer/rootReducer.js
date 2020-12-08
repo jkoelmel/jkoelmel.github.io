@@ -1,7 +1,7 @@
-import { combineReducers } from "redux";
-import PatientsReducer from "./reducer-patients";
-import PTReducer from "./reducer-pt";
-import WorkoutReducer from "./reducer-workouts";
+import {combineReducers} from 'redux';
+import PatientsReducer from './reducer-patients';
+import PTReducer from './reducer-pt';
+import WorkoutReducer from './reducer-workouts';
 
 const rootReducer = combineReducers({
   patients: PatientsReducer,

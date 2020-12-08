@@ -4,7 +4,12 @@ import main.server.Server;
 
 import java.sql.*;
 
+/**
+ * Activity class: Provides basic functionality for CRUD operations of entries into the portalDB
+ * 'activity' table.
+ */
 public class Activity {
+
   private Integer activity_id;
   private String type_activity;
   private Integer duration;
@@ -13,11 +18,25 @@ public class Activity {
   private Integer pt;
   private Integer patient;
 
+  /**
+   * Activity constructor: Can be NULL because value is auto-incremented for new entries
+   *
+   * @param activity_id
+   */
   public Activity(Integer activity_id) {
     this.activity_id = activity_id;
   }
 
-  // WIP: syntax error between Workbench between and POST requests
+  /**
+   * createActivity: Takes the provided params and uses them to instantiate a new entry into the
+   * 'activity' table
+   *
+   * @param type_activity
+   * @param time
+   * @param pt_ID
+   * @param patient_ID
+   * @throws Exception
+   */
   public void createActivity(String type_activity, Integer time, Integer pt_ID, Integer patient_ID)
       throws Exception {
     String activityQuery =
@@ -43,6 +62,15 @@ public class Activity {
     }
   }
 
+  /**
+   * getActivity: Called by an existing Activity object to retrieve all data pertinent to that entry
+   * in the database, the pt and patient params allow for specific retrieval data sets
+   *
+   * @param pt
+   * @param patient
+   * @return Activity
+   * @throws Exception
+   */
   public Activity getActivity(Integer pt, Integer patient) throws Exception {
     String activityQuery = "SELECT * FROM activity WHERE pt = " + pt + " AND patient = " + patient;
 
@@ -75,6 +103,11 @@ public class Activity {
     return this;
   }
 
+  /**
+   * The following are all standard setters and getters for this class: getActivity_id
+   * setActivity_id getType_activity setType_activity getDuration setDuration getStart_time
+   * setStart_time getEnd_time setEnd_time getPt setPt getPatient setPatient
+   */
   public Integer getActivity_id() {
     return activity_id;
   }

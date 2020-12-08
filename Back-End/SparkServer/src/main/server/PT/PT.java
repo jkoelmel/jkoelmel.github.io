@@ -1,25 +1,51 @@
 package main.server.PT;
 
 import main.server.Server;
-import main.server.user.User;
+import main.server.User.User;
 import java.sql.*;
 
 public class PT extends User {
   private Integer pt_id;
   private Integer user;
 
+  /**
+   * Default constructor, used for instantiating the PT object to return via JSON.
+   *
+   * @param email The email string for the PT
+   * @param password The password string for the PT
+   * @param f_name The first name string for the PT
+   * @param l_name The last name string for the PT
+   * @param company The company name string for the PT
+   */
   public PT(String email, String password, String f_name, String l_name, String company) {
     super(email, password, f_name, l_name, company);
   }
 
+  /**
+   * Constructor for instantiating the PT given its ID.
+   *
+   * @param pt_id The PT's integer id
+   */
   public PT(Integer pt_id) {
     this.pt_id = pt_id;
   }
 
+  /**
+   * Constructor used for instantiating the PT when logging in.
+   *
+   * @param email The email string for the PT
+   */
   public PT(String email) {
     this.setEmail(email);
   }
 
+  /**
+   * Create a PT in the database, as well as it's relevant User. This requires that the PT object
+   * has been instantiated via the default constructor, supplying email, password, first and last
+   * names, and company.
+   *
+   * @throws Exception Throw a SQL exception so that frontend has context for the error.
+   */
   public void createPT() throws Exception {
     String userQuery =
         "INSERT INTO user(user_id, email, password, f_name, l_name, company) VALUES(NULL, ?, ?, ?,"
@@ -47,6 +73,13 @@ public class PT extends User {
     }
   }
 
+  /**
+   * Get a PT from the database given its email. This requires that a PT object has been
+   * instantiated, and likely uses the "email" constructor.
+   *
+   * @return The current PT object
+   * @throws Exception Throw a SQL exception so that frontend has context for the error.
+   */
   public PT getPT() throws Exception {
     String ptQuery = "SELECT * FROM user u JOIN pt p " + "ON u.user_id = p.user WHERE u.email = ?";
 
@@ -78,6 +111,7 @@ public class PT extends User {
     return this;
   }
 
+  // Getters and Setters
   public Integer getPt_id() {
     return pt_id;
   }

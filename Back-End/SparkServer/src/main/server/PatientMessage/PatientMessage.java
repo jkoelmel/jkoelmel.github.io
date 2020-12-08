@@ -14,10 +14,23 @@ public class PatientMessage {
   private Integer pt;
   private final String secret = "messageEncryption";
 
+  /**
+   * Default constructor
+   *
+   * @param message_id The integer value of message_id
+   */
   public PatientMessage(Integer message_id) {
     this.message_id = message_id;
   }
 
+  /**
+   * create a new message into the database.
+   *
+   * @param message The string value of message
+   * @param patient The integer value of patient
+   * @param pt The integer value of pt
+   * @throws Exception Throws a SQL exception
+   */
   public void createMessage(String message, Integer patient, Integer pt) throws Exception {
     String messageQuery =
         "INSERT INTO pt_message(message_id, message, created_on, patient, pt) "
@@ -41,6 +54,12 @@ public class PatientMessage {
     }
   }
 
+  /**
+   * Search through the pt_message database for a specific message using the message id
+   *
+   * @return The current message object
+   * @throws Exception Throws SQL exception
+   */
   public PatientMessage getMessageContents() throws Exception {
     String messageQuery = "SELECT * FROM pt_message WHERE message_id = " + this.message_id;
 
@@ -66,6 +85,7 @@ public class PatientMessage {
 
   // No message update method created because messages created are final and uneditable.
 
+  /** Getters and Setters */
   public Integer getmessage_id() {
     return message_id;
   }

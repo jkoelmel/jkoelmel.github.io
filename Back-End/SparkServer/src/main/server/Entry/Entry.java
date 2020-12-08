@@ -4,6 +4,10 @@ import main.server.Server;
 
 import java.sql.*;
 
+/**
+ * Entry class: Provides basic functionality for CRUD operations of entries into the portalDB
+ * 'entry' table.
+ */
 public class Entry {
 
   private Integer entry_id;
@@ -11,15 +15,33 @@ public class Entry {
   private Timestamp created_on;
   private Integer patient;
 
+  /**
+   * Entry constructor: Cannot be NULL because this constructor implies creating a matching object
+   * to something in the database already
+   *
+   * @param entry
+   * @param patient
+   */
   public Entry(String entry, Integer patient) {
     this.entry = entry;
     this.patient = patient;
   }
 
+  /**
+   * Entry constructor: Can be NULL because value is auto-incremented for new entries
+   *
+   * @param entry_id
+   */
   public Entry(Integer entry_id) {
     this.entry_id = entry_id;
   }
 
+  /**
+   * createEntry: Takes the values from the created Object that used the primary constructor to
+   * insert a new entry into the database for a particular patient
+   *
+   * @throws Exception
+   */
   public void createEntry() throws Exception {
     String entryQuery =
         "INSERT INTO entry(entry_id, entry, created_on, patient) VALUES(NULL, ?, NOW(), ?);";
@@ -39,6 +61,13 @@ public class Entry {
     }
   }
 
+  /**
+   * getDBEntry: Uses the calling Object's entry_id to retrieve all column data for that specific
+   * row of the database
+   *
+   * @return Entry object will fields identical to desired entry in database
+   * @throws Exception
+   */
   public Entry getDBEntry() throws Exception {
     String entryQuery = "SELECT * FROM entry WHERE entry_id = " + this.entry_id;
 
@@ -61,6 +90,10 @@ public class Entry {
     return this;
   }
 
+  /**
+   * The following are all standard setters and getters for this class: getEntry_id setEntry_id
+   * getEntry setEntry getCreated_on setCreated_on getPatient setPatient
+   */
   public Integer getEntry_id() {
     return entry_id;
   }

@@ -1,4 +1,4 @@
-package main.server.PtSpec;
+package main.server.PTSpec;
 
 import com.google.gson.Gson;
 import main.server.Server;
@@ -8,15 +8,22 @@ import spark.Response;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class PtSpecUtil {
+public class PTSpecUtil {
+  /**
+   * Select a specific PT spec given it's required query parameter.
+   *
+   * @param request The required query parameters: pt_spec_id
+   * @param response The status code from the given request
+   * @return The JSON object of the PT spec to be returned
+   */
   public static String selectSpecific(Request request, Response response) {
     String toReturn = "";
     try {
-      PtSpec ptSpec = new PtSpec(Integer.parseInt(request.queryMap().get("pt_spec_id").value()));
+      PTSpec ptSpec = new PTSpec(Integer.parseInt(request.queryMap().get("pt_spec_id").value()));
       Gson gson = new Gson();
       toReturn = gson.toJson(ptSpec.getPTSpec());
 
-      System.out.println("Exercise has been selected");
+      System.out.println("PT spec has been selected");
       response.type("application/json");
       response.status(200);
     } catch (SQLException sqlEx) {
@@ -29,9 +36,15 @@ public class PtSpecUtil {
     return toReturn;
   }
 
+  /**
+   * Select all PT specs.
+   *
+   * @param response The status code from the given request
+   * @return The JSON object of the PT spec to be returned
+   */
   public static String selectAll(Response response) {
     String toReturn = "";
-    String query = "SELECT * FROM exercise";
+    String query = "SELECT * FROM pt_spec";
 
     try (Connection con =
             DriverManager.getConnection(
@@ -39,10 +52,10 @@ public class PtSpecUtil {
         PreparedStatement pst = con.prepareStatement(query)) {
       ResultSet rs = pst.executeQuery();
 
-      ArrayList<PtSpec> list = new ArrayList<>();
+      ArrayList<PTSpec> list = new ArrayList<>();
       while (rs.next()) {
-        PtSpec ptSpec = new PtSpec(rs.getInt("pt_spec_id"));
-        ptSpec.setPt(rs.getInt("pt"));
+        PTSpec ptSpec = new PTSpec(rs.getInt("pt_spec_id"));
+        ptSpec.setPT(rs.getInt("pt"));
         ptSpec.setSpec(rs.getInt("spec"));
 
         list.add(ptSpec);
@@ -50,7 +63,7 @@ public class PtSpecUtil {
       Gson gson = new Gson();
       toReturn = gson.toJson(list);
 
-      System.out.println("All PTSpec have been selected");
+      System.out.println("All PT Specs have been selected");
       response.type("application/json");
       response.status(200);
     } catch (SQLException sqlEx) {
@@ -63,13 +76,20 @@ public class PtSpecUtil {
     return toReturn;
   }
 
-  public static Integer registerExercise(Request request) {
+  /**
+   * Register a new PT Spec with the database.
+   *
+   * @param request The required query parameters: pt, spec
+   * @return The response status code -- whether the query was successful or not
+   */
+  public static Integer registerPTSpec(Request request) {
     try {
-      PtSpec ptSpec = new PtSpec(Integer.parseInt(request.queryMap().get("pt_spec_id").value()));
+      PTSpec ptSpec =
+          new PTSpec(
+              Integer.parseInt(request.queryMap().get("pt").value()),
+              Integer.parseInt(request.queryMap().get("spec").value()));
 
-      ptSpec.createPTSpec(
-          Integer.parseInt(request.queryMap().get("pt").value()),
-          Integer.parseInt(request.queryMap().get("spec").value()));
+      ptSpec.createPTSpec();
 
       return 200;
     } catch (SQLException sqlEx) {

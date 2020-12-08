@@ -1,7 +1,11 @@
-package main.server.user;
+package main.server.User;
 
 import main.server.AES.AES;
 
+/**
+ * The User class is abstract, so cannot be instantiated on its own. This class can be tested via PT
+ * and Patient tests, which both extend it.
+ */
 public abstract class User {
   private Integer user_id;
   private String email;
@@ -9,12 +13,21 @@ public abstract class User {
   private String f_name;
   private String l_name;
   private String company;
-  private Integer address;
-  private Boolean admin;
   private String secret = "passwordEncryption";
 
+  /** Default constructor. */
   public User() {}
 
+  /**
+   * The required constructor for any given User. PT and Patient constructors which need to
+   * implement this will call super(params).
+   *
+   * @param email The email string for the User
+   * @param password The password string for the User
+   * @param f_name The first name string for the User
+   * @param l_name The last name string for the User
+   * @param company The company name string for the User
+   */
   public User(String email, String password, String f_name, String l_name, String company) {
     this.email = email;
     this.password = AES.encrypt(password, secret);
@@ -23,6 +36,7 @@ public abstract class User {
     this.company = company;
   }
 
+  // Getters and setters
   public Integer getUser_id() {
     return user_id;
   }
@@ -69,21 +83,5 @@ public abstract class User {
 
   public void setCompany(String company) {
     this.company = company;
-  }
-
-  public Integer getAddress() {
-    return address;
-  }
-
-  public void setAddress(Integer address) {
-    this.address = address;
-  }
-
-  public Boolean getAdmin() {
-    return admin;
-  }
-
-  public void setAdmin(Boolean admin) {
-    this.admin = admin;
   }
 }
