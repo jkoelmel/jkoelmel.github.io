@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CreateWorkout = (props) => {
+export const CreateWorkout = (props) => {
   const classes = useStyles();
   const [description, setDescription] = React.useState("");
   const [videoDescriptions, setVideoDescriptions] = React.useState([]);
@@ -42,9 +42,10 @@ const CreateWorkout = (props) => {
     setVideoDescriptions([...instructions]);
   };
   //check updates
-  console.log(props.selectedVideos);
-  console.log(workoutTitle);
-  console.log(videoDescriptions);
+  //TODO TEST
+  // console.log(props.selectedVideos);
+  // console.log(workoutTitle);
+  // console.log(videoDescriptions);
 
   const submitWorkout = () => {
     props.createWorkout(
