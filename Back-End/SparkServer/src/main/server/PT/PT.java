@@ -10,6 +10,7 @@ public class PT extends User {
 
   /**
    * Default constructor, used for instantiating the PT object to return via JSON.
+   *
    * @param email The email string for the PT
    * @param password The password string for the PT
    * @param f_name The first name string for the PT
@@ -22,6 +23,7 @@ public class PT extends User {
 
   /**
    * Constructor for instantiating the PT given its ID.
+   *
    * @param pt_id The PT's integer id
    */
   public PT(Integer pt_id) {
@@ -30,6 +32,7 @@ public class PT extends User {
 
   /**
    * Constructor used for instantiating the PT when logging in.
+   *
    * @param email The email string for the PT
    */
   public PT(String email) {
@@ -37,8 +40,10 @@ public class PT extends User {
   }
 
   /**
-   * Create a PT in the database, as well as it's relevant User. This requires that the PT object has been
-   * instantiated via the default constructor, supplying email, password, first and last names, and company.
+   * Create a PT in the database, as well as it's relevant User. This requires that the PT object
+   * has been instantiated via the default constructor, supplying email, password, first and last
+   * names, and company.
+   *
    * @throws Exception Throw a SQL exception so that frontend has context for the error.
    */
   public void createPT() throws Exception {
@@ -69,8 +74,9 @@ public class PT extends User {
   }
 
   /**
-   * Get a PT from the database given its email. This requires that a PT object has been instantiated, and likely
-   * uses the "email" constructor.
+   * Get a PT from the database given its email. This requires that a PT object has been
+   * instantiated, and likely uses the "email" constructor.
+   *
    * @return The current PT object
    * @throws Exception Throw a SQL exception so that frontend has context for the error.
    */

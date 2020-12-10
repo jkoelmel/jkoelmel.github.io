@@ -9,18 +9,18 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * ActivityUtil class: Provides functions for usage in endpoints so that the
- * actual functionality of the CRUD operations in Activity class are encapsulated
- * properly
+ * ActivityUtil class: Provides functions for usage in endpoints so that the actual functionality of
+ * the CRUD operations in Activity class are encapsulated properly
  */
 public class ActivityUtil {
   /**
-   * selectSpecific: Uses the pt and patient values provided by the queryMap from
-   * the browser request to search the database
+   * selectSpecific: Uses the pt and patient values provided by the queryMap from the browser
+   * request to search the database
+   *
    * @param request
    * @param response
-   * @return most recent activities between specific patient and pt, ordered in desc
-   * value by timeStamp saved in the database. Limited to the top 10
+   * @return most recent activities between specific patient and pt, ordered in desc value by
+   *     timeStamp saved in the database. Limited to the top 10
    */
   public static String selectSpecific(Request request, Response response) {
     Integer pt_id = Integer.parseInt(request.queryMap().get("pt").value());
@@ -71,11 +71,11 @@ public class ActivityUtil {
   }
 
   /**
-   * selectAll: Used to retrieve all info from the 'activity' table without
-   * specificity
+   * selectAll: Used to retrieve all info from the 'activity' table without specificity
+   *
    * @param response
-   * @return All entries in 'activity' table ordered by activity_id assigned
-   * by auto increment in database
+   * @return All entries in 'activity' table ordered by activity_id assigned by auto increment in
+   *     database
    */
   public static String selectAll(Response response) {
     String toReturn = "";
@@ -118,12 +118,13 @@ public class ActivityUtil {
   }
 
   /**
-   * getAllPTActivity: Uses the pt value from the query map input from the
-   * browser request to find all specific rows in the database
+   * getAllPTActivity: Uses the pt value from the query map input from the browser request to find
+   * all specific rows in the database
+   *
    * @param request
    * @param response
-   * @return Provides a summation of activity times for the desired PT where
-   * results are grouped by the type of activity.
+   * @return Provides a summation of activity times for the desired PT where results are grouped by
+   *     the type of activity.
    */
   public static String getAllPTActivity(Request request, Response response) {
     String toReturn = "";
@@ -164,12 +165,12 @@ public class ActivityUtil {
   }
 
   /**
-   * getPatPTSummary: Uses the pt and patient values in the query map provided
-   * by the browser request to find all pertinent rows in the database
+   * getPatPTSummary: Uses the pt and patient values in the query map provided by the browser
+   * request to find all pertinent rows in the database
+   *
    * @param request
    * @param response
-   * @return all activity entries in the database related to both the desired
-   * pt and patient
+   * @return all activity entries in the database related to both the desired pt and patient
    */
   public static String getPatPTSummary(Request request, Response response) {
     String query =
@@ -211,12 +212,12 @@ public class ActivityUtil {
   }
 
   /**
-   * registerActivity: Uses the type_activity, duration, pt, and
-   * patient provided by the query map from the browser request
-   * to create a new entry in the 'activity' table of the database
+   * registerActivity: Uses the type_activity, duration, pt, and patient provided by the query map
+   * from the browser request to create a new entry in the 'activity' table of the database
+   *
    * @param request
-   * @return response code to provide back to the browser, useful for
-   * debugging and handling promise chain event handling on the front-end
+   * @return response code to provide back to the browser, useful for debugging and handling promise
+   *     chain event handling on the front-end
    */
   public static Integer registerActivity(Request request) {
     try {

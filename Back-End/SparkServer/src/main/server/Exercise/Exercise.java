@@ -5,8 +5,8 @@ import main.server.Server;
 import java.sql.*;
 
 /**
- * Exercise class: Provides basic functionality for CRUD operations of
- * entries into the portalDB 'exercise' table
+ * Exercise class: Provides basic functionality for CRUD operations of entries into the portalDB
+ * 'exercise' table
  */
 public class Exercise {
 
@@ -18,8 +18,8 @@ public class Exercise {
   private String tags;
 
   /**
-   * Exercise constructor: Can be NULL because value is auto-incremented for
-   * new entries
+   * Exercise constructor: Can be NULL because value is auto-incremented for new entries
+   *
    * @param exercise_id
    */
   public Exercise(Integer exercise_id) {
@@ -27,8 +27,9 @@ public class Exercise {
   }
 
   /**
-   * createExercise: Takes thje provided params to generate an SQL INSERT
-   * statement for creating a new entry into the 'exercise' table
+   * createExercise: Takes thje provided params to generate an SQL INSERT statement for creating a
+   * new entry into the 'exercise' table
+   *
    * @param exercise_url
    * @param title
    * @param description
@@ -61,8 +62,9 @@ public class Exercise {
   }
 
   /**
-   * getExercise: Called by an existing Exercise object to retrieve all data
-   * pertinent to that entry in the database
+   * getExercise: Called by an existing Exercise object to retrieve all data pertinent to that entry
+   * in the database
+   *
    * @return updated Exercise object fields will desired data
    * @throws Exception
    */
@@ -91,8 +93,9 @@ public class Exercise {
   }
 
   /**
-   * updateExercise: Takes all params to update database entry associated with the
-   * calling object's ID
+   * updateExercise: Takes all params to update database entry associated with the calling object's
+   * ID
+   *
    * @param exercise_url
    * @param title
    * @param description
@@ -113,7 +116,9 @@ public class Exercise {
             + ", description = "
             + description
             + ", tags = "
-            + tags + " WHERE exercise_id = " + this.exercise_id;
+            + tags
+            + " WHERE exercise_id = "
+            + this.exercise_id;
 
     try (Connection con =
             DriverManager.getConnection(
@@ -129,19 +134,9 @@ public class Exercise {
   }
 
   /**
-   * The following are all the standard setters and getters for this class:
-   * getExerciseId
-   * setExerciseId
-   * getTitle
-   * setTitle
-   * getexercise_url
-   * setexercise_url
-   * getThumbnail
-   * setThumbnail
-   * getDescription
-   * setDescription
-   * getTags
-   * setTags
+   * The following are all the standard setters and getters for this class: getExerciseId
+   * setExerciseId getTitle setTitle getexercise_url setexercise_url getThumbnail setThumbnail
+   * getDescription setDescription getTags setTags
    */
   public Integer getExerciseId() {
     return exercise_id;

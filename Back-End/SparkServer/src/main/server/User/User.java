@@ -3,8 +3,8 @@ package main.server.User;
 import main.server.AES.AES;
 
 /**
- * The User class is abstract, so cannot be instantiated on its own. This class can be tested via
- * PT and Patient tests, which both extend it.
+ * The User class is abstract, so cannot be instantiated on its own. This class can be tested via PT
+ * and Patient tests, which both extend it.
  */
 public abstract class User {
   private Integer user_id;
@@ -15,14 +15,13 @@ public abstract class User {
   private String company;
   private String secret = "passwordEncryption";
 
-  /**
-   * Default constructor.
-   */
+  /** Default constructor. */
   public User() {}
 
   /**
-   * The required constructor for any given User. PT and Patient constructors which need to implement
-   * this will call super(params).
+   * The required constructor for any given User. PT and Patient constructors which need to
+   * implement this will call super(params).
+   *
    * @param email The email string for the User
    * @param password The password string for the User
    * @param f_name The first name string for the User

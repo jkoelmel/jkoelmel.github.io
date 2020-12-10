@@ -12,6 +12,7 @@ public class PTSpec {
 
   /**
    * Default constructor given the PT and their spec.
+   *
    * @param pt The integer ID of the PT
    * @param spec The specialization number
    */
@@ -22,6 +23,7 @@ public class PTSpec {
 
   /**
    * Constructor given an existing PT spec.
+   *
    * @param pt_spec_id The integer ID of the PT spec
    */
   public PTSpec(Integer pt_spec_id) {
@@ -29,8 +31,9 @@ public class PTSpec {
   }
 
   /**
-   * Create a PT spec in the database, given its PT and their specialization. This should be called after the
-   * default constructor has initialized the PT spec object with PT and Spec.
+   * Create a PT spec in the database, given its PT and their specialization. This should be called
+   * after the default constructor has initialized the PT spec object with PT and Spec.
+   *
    * @throws Exception Throw a SQL exception so that frontend has context for the error.
    */
   public void createPTSpec() throws Exception {
@@ -56,6 +59,7 @@ public class PTSpec {
 
   /**
    * Get the current PT spec from the database, for the current pt_spec_id.
+   *
    * @return The current PT spec object
    * @throws Exception Throw a SQL exception so that frontend has context for the error.
    */
@@ -84,6 +88,7 @@ public class PTSpec {
 
   /**
    * Update the existing PT spec given it's ID, and its new PT ID and spec number.
+   *
    * @param pt The integer ID of the PT
    * @param spec The integer corresponding to their specialization
    * @throws Exception Throw a SQL exception so that frontend has context for the error.

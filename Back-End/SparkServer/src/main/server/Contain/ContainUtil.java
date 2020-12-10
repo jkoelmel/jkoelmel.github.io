@@ -11,15 +11,15 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * ContainUtil class: Provides functions for usage in endpoints so that
- * the actual functionality of the CRUD operations in Contain class are
- * encapsulated properly
+ * ContainUtil class: Provides functions for usage in endpoints so that the actual functionality of
+ * the CRUD operations in Contain class are encapsulated properly
  */
 public class ContainUtil {
 
   /**
-   * selectExercises: Uses the workout_id value provided by the queryMap from
-   * the browser request to search the database
+   * selectExercises: Uses the workout_id value provided by the queryMap from the browser request to
+   * search the database
+   *
    * @param request
    * @param response
    * @return array of JSON objects with info on all exercises in a desired workout
@@ -63,18 +63,18 @@ public class ContainUtil {
   }
 
   /**
-   * createWorkout: Uses the title and array of exercises provided by
-   * the queryMap from the browser request to create a new workout and all
-   * associated entries in workout, contain, and exercises so that the
-   * relationship is established in one function call
+   * createWorkout: Uses the title and array of exercises provided by the queryMap from the browser
+   * request to create a new workout and all associated entries in workout, contain, and exercises
+   * so that the relationship is established in one function call
+   *
    * @param request
-   * @return response code to use for debugging and for handling events on the
-   * front-end.
+   * @return response code to use for debugging and for handling events on the front-end.
    */
   public static Integer createWorkout(Request request) {
     try {
 
-      Workout workout = new Workout(
+      Workout workout =
+          new Workout(
               request.queryMap().get("title").value(),
               Integer.parseInt(request.queryMap().get("pt").value()));
       workout.createWorkout();
@@ -93,14 +93,14 @@ public class ContainUtil {
       }
       for (int i = 0; i < (request.queryParamsValues("exercise_id").length); i++) {
         Exercise exercise =
-                new Exercise(Integer.parseInt(request.queryParamsValues("exercise_id")[i]));
+            new Exercise(Integer.parseInt(request.queryParamsValues("exercise_id")[i]));
         exercise.getExercise();
         Exercise newExercise = new Exercise(null);
         newExercise.createExercise(
-                exercise.getexercise_url(),
-                exercise.getTitle(),
-                request.queryParamsValues("description")[i],
-                exercise.getTags());
+            exercise.getexercise_url(),
+            exercise.getTitle(),
+            request.queryParamsValues("description")[i],
+            exercise.getTags());
 
         Contain contain = new Contain(null);
         contain.createContain(workout_id);

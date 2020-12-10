@@ -16,6 +16,7 @@ public class PatientMessage {
 
   /**
    * Default constructor
+   *
    * @param message_id The integer value of message_id
    */
   public PatientMessage(Integer message_id) {
@@ -24,6 +25,7 @@ public class PatientMessage {
 
   /**
    * create a new message into the database.
+   *
    * @param message The string value of message
    * @param patient The integer value of patient
    * @param pt The integer value of pt
@@ -54,6 +56,7 @@ public class PatientMessage {
 
   /**
    * Search through the pt_message database for a specific message using the message id
+   *
    * @return The current message object
    * @throws Exception Throws SQL exception
    */
@@ -82,9 +85,7 @@ public class PatientMessage {
 
   // No message update method created because messages created are final and uneditable.
 
-  /**
-   * Getters and Setters
-   */
+  /** Getters and Setters */
   public Integer getmessage_id() {
     return message_id;
   }
