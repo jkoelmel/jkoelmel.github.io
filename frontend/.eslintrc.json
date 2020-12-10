@@ -37,7 +37,7 @@
         "import/named": "warn",
         "import/newline-after-import": "warn",
         "import/no-duplicates": "off",
-        "import/no-named-default": "off",
+        "import/no-named-as-default": "off",
         "import/no-unresolved": "warn",
         "import/order": "warn",
         "import/prefer-default-export": "off",
