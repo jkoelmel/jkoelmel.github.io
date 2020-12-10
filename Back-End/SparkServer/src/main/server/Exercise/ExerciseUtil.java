@@ -162,13 +162,12 @@ public class ExerciseUtil {
       if (ex instanceof java.lang.NumberFormatException) {
         Exercise exercise = new Exercise(null);
         exercise.createExercise(
-                request.queryMap().get("exercise_url").value(),
-                request.queryMap().get("title").value(),
-                request.queryMap().get("description").value(),
-                request.queryMap().get("tags").value());
+            request.queryMap().get("exercise_url").value(),
+            request.queryMap().get("title").value(),
+            request.queryMap().get("description").value(),
+            request.queryMap().get("tags").value());
         return 200;
-      }
-      else {
+      } else {
         System.err.println(ex.toString());
         return 400;
       }
