@@ -160,17 +160,15 @@ public class ExerciseUtil {
       System.err.println(sqlEx.toString());
       return 500;
     } catch (Exception ex) {
-      //TODO quick implementation, will fix later
-      if(ex instanceof java.lang.NumberFormatException) {
-        Exercise exercise =
-                new Exercise(null);
+      // TODO quick implementation, will fix later
+      if (ex instanceof java.lang.NumberFormatException) {
+        Exercise exercise = new Exercise(null);
         exercise.createExercise(
-                request.queryMap().get("exercise_url").value(),
-                request.queryMap().get("title").value(),
-                request.queryMap().get("description").value(),
-                request.queryMap().get("tags").value());
-      }
-      else {
+            request.queryMap().get("exercise_url").value(),
+            request.queryMap().get("title").value(),
+            request.queryMap().get("description").value(),
+            request.queryMap().get("tags").value());
+      } else {
         System.err.println(ex.toString());
       }
       return 400;

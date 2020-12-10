@@ -239,10 +239,12 @@ public class Server {
               () -> {
                 // No requirements, used for exercise library page
                 get("/all", ExerciseUtil::selectAll);
-                post("/register", (request, response) -> {
-                    response.status(ExerciseUtil.registerExercise(request));
-                    return response.status();
-                });
+                post(
+                    "/register",
+                    (request, response) -> {
+                      response.status(ExerciseUtil.registerExercise(request));
+                      return response.status();
+                    });
               });
           // Test path for local server testing
           path("/database", () -> get("/version", (request, response) -> databaseVersion()));
