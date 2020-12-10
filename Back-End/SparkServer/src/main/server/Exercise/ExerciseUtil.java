@@ -53,7 +53,7 @@ public class ExerciseUtil {
    */
   public static String selectAll(Request request, Response response) {
     String toReturn = "";
-    String query = "SELECT * FROM exercise";
+    String query = "SELECT * FROM exercise GROUP BY exercise_url";
 
     try (Connection con =
             DriverManager.getConnection(
@@ -144,8 +144,10 @@ public class ExerciseUtil {
    * @param request
    * @return
    */
-  public static Integer registerExercise(Request request) {
+  public static Integer registerExercise(Request request) throws Exception {
     try {
+      int exercise_id = Integer.parseInt(request.queryMap().get("exercise_url").value());
+
       Exercise exercise =
           new Exercise(Integer.parseInt(request.queryMap().get("exercise_id").value()));
       exercise.createExercise(
@@ -158,7 +160,19 @@ public class ExerciseUtil {
       System.err.println(sqlEx.toString());
       return 500;
     } catch (Exception ex) {
-      System.err.println(ex.toString());
+      //TODO quick implementation, will fix later
+      if(ex instanceof java.lang.NumberFormatException) {
+        Exercise exercise =
+                new Exercise(null);
+        exercise.createExercise(
+                request.queryMap().get("exercise_url").value(),
+                request.queryMap().get("title").value(),
+                request.queryMap().get("description").value(),
+                request.queryMap().get("tags").value());
+      }
+      else {
+        System.err.println(ex.toString());
+      }
       return 400;
     }
   }
