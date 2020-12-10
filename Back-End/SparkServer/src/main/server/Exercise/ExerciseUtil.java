@@ -146,8 +146,6 @@ public class ExerciseUtil {
    */
   public static Integer registerExercise(Request request) throws Exception {
     try {
-      int exercise_id = Integer.parseInt(request.queryMap().get("exercise_url").value());
-
       Exercise exercise =
           new Exercise(Integer.parseInt(request.queryMap().get("exercise_id").value()));
       exercise.createExercise(
@@ -164,14 +162,16 @@ public class ExerciseUtil {
       if (ex instanceof java.lang.NumberFormatException) {
         Exercise exercise = new Exercise(null);
         exercise.createExercise(
-            request.queryMap().get("exercise_url").value(),
-            request.queryMap().get("title").value(),
-            request.queryMap().get("description").value(),
-            request.queryMap().get("tags").value());
-      } else {
-        System.err.println(ex.toString());
+                request.queryMap().get("exercise_url").value(),
+                request.queryMap().get("title").value(),
+                request.queryMap().get("description").value(),
+                request.queryMap().get("tags").value());
+        return 200;
       }
-      return 400;
+      else {
+        System.err.println(ex.toString());
+        return 400;
+      }
     }
   }
 }
