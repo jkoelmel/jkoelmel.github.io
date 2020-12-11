@@ -76,4 +76,19 @@ class EntryUtilTest {
 
     assertEquals(200, response.getStatus());
   }
+
+  @Test
+  void testAddComment() {
+    when(request.getParameter("entry_id")).thenReturn("1");
+    when(request.getParameter("comment")).thenReturn("Test comment.");
+    when(response.getStatus()).thenReturn(200);
+
+    Entry entry = new Entry(Integer.parseInt(request.getParameter("entry_id")));
+    entry.setComment(request.getParameter("comment"));
+
+    assertEquals(1, entry.getEntry_id());
+    assertEquals("Test comment.", entry.getComment());
+
+    assertEquals(200, response.getStatus());
+  }
 }
