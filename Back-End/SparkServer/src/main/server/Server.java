@@ -159,11 +159,11 @@ public class Server {
                           });
                       // Requires entry_id and comment
                       put(
-						  "/comment",
-						  (request, response) -> {
-							  response.status(EntryUtil.updateComment(request));
-							  return response.status();
-						  });
+                          "/comment",
+                          (request, response) -> {
+                            response.status(EntryUtil.updateComment(request));
+                            return response.status();
+                          });
                     });
 
                 path(

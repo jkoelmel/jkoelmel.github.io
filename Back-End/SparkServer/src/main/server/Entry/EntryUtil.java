@@ -113,15 +113,14 @@ public class EntryUtil {
 
   /**
    * Add a comment to an existing entry, given it's ID.
+   *
    * @param request Required parameters: entry_id, comment
    * @return The status code value
    */
   public static Integer updateComment(Request request) {
     try {
       Entry entry = new Entry(Integer.parseInt(request.queryMap().get("entry_id").value()));
-      entry
-        .getDBEntry()
-        .updateEntry(request.queryMap().get("comment").value());
+      entry.getDBEntry().updateEntry(request.queryMap().get("comment").value());
 
       return 200;
     } catch (SQLException sqlEx) {

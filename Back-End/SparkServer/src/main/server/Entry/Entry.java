@@ -93,7 +93,9 @@ public class Entry {
   }
 
   /**
-   * Update the existing entry with a new comment, given the existing entry object has been initialized with ID.
+   * Update the existing entry with a new comment, given the existing entry object has been
+   * initialized with ID.
+   *
    * @param comment The string comment
    * @throws Exception Throw a SQL exception so that frontend has context for the error.
    */
@@ -101,14 +103,13 @@ public class Entry {
     String query = "UPDATE entry SET comment = '" + comment + "' WHERE entry_id = " + this.entry_id;
 
     try (Connection con =
-                 DriverManager.getConnection(
-                         Server.databasePath, Server.databaseUsername, Server.databasePassword);
-         PreparedStatement pst = con.prepareStatement(query)) {
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(query)) {
       pst.executeUpdate(query);
       System.out.println("Entry updated");
     } catch (SQLException ex) {
-      throw new Exception(
-              "Error updating Entry with id " + this.entry_id + ": " + ex.toString());
+      throw new Exception("Error updating Entry with id " + this.entry_id + ": " + ex.toString());
     }
   }
 
