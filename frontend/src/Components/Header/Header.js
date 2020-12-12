@@ -108,8 +108,8 @@ export const Header = (props) => {
               <MenuItem onClick={handleClose} component={Link} to="/library">
                 Exercise Library
               </MenuItem>
-              <MenuItem onClick={handleClose} component={Link} to="/settings">
-                Settings
+              <MenuItem onClick={handleClose} component={Link} to="/PTProfile">
+                PT Settings
               </MenuItem>
             </Menu>
           </div>

@@ -5,6 +5,7 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import Profile from './Pages/PatientProfile/Profile';
 import Exercise from './Pages/ExerciseLibrary/Exercise';
+import PTProfile from './Pages/PTProfile/PTProfile';
 import Login from './Pages/Login';
 // Will handle all page routing
 // TODO ask if we still need to keep about me pages
@@ -24,6 +25,9 @@ export const Routes = () => (
     </Route>
     <Route exact={true} path="/library">
       <Exercise />
+    </Route>
+    <Route exact={true} path="/PTProfile">
+      <PTProfile />
     </Route>
   </Switch>
 );
