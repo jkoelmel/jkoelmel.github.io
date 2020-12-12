@@ -5,8 +5,8 @@ import main.server.Server;
 import java.sql.*;
 
 /**
- * Entry class: Provides basic functionality for CRUD operations of
- * entries into the portalDB 'entry' table.
+ * Entry class: Provides basic functionality for CRUD operations of entries into the portalDB
+ * 'entry' table.
  */
 public class Entry {
 
@@ -16,8 +16,9 @@ public class Entry {
   private Integer patient;
 
   /**
-   * Entry constructor: Cannot be NULL because this constructor implies
-   * creating a matching object to something in the database already
+   * Entry constructor: Cannot be NULL because this constructor implies creating a matching object
+   * to something in the database already
+   *
    * @param entry
    * @param patient
    */
@@ -27,8 +28,8 @@ public class Entry {
   }
 
   /**
-   * Entry constructor: Can be NULL because value is auto-incremented for
-   * new entries
+   * Entry constructor: Can be NULL because value is auto-incremented for new entries
+   *
    * @param entry_id
    */
   public Entry(Integer entry_id) {
@@ -36,8 +37,9 @@ public class Entry {
   }
 
   /**
-   * createEntry: Takes the values from the created Object that used the primary
-   * constructor to insert a new entry into the database for a particular patient
+   * createEntry: Takes the values from the created Object that used the primary constructor to
+   * insert a new entry into the database for a particular patient
+   *
    * @throws Exception
    */
   public void createEntry() throws Exception {
@@ -60,8 +62,9 @@ public class Entry {
   }
 
   /**
-   * getDBEntry: Uses the calling Object's entry_id to retrieve all column data
-   * for that specific row of the database
+   * getDBEntry: Uses the calling Object's entry_id to retrieve all column data for that specific
+   * row of the database
+   *
    * @return Entry object will fields identical to desired entry in database
    * @throws Exception
    */
@@ -88,15 +91,8 @@ public class Entry {
   }
 
   /**
-   * The following are all standard setters and getters for this class:
-   * getEntry_id
-   * setEntry_id
-   * getEntry
-   * setEntry
-   * getCreated_on
-   * setCreated_on
-   * getPatient
-   * setPatient
+   * The following are all standard setters and getters for this class: getEntry_id setEntry_id
+   * getEntry setEntry getCreated_on setCreated_on getPatient setPatient
    */
   public Integer getEntry_id() {
     return entry_id;

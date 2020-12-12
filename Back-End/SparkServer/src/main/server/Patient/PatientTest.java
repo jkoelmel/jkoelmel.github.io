@@ -7,51 +7,50 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PatientTest {
 
-    private Patient patient;
+  private Patient patient;
 
-    @BeforeEach
-    void resetPatient() {
-        patient = new Patient(null);
-    }
+  @BeforeEach
+  void resetPatient() {
+    patient = new Patient(null);
+  }
 
-    @Test
-    void failCreatePatient() {
-        Exception ex = assertThrows(Exception.class, () -> patient.createPatient());
-    }
+  @Test
+  void failCreatePatient() {
+    Exception ex = assertThrows(Exception.class, () -> patient.createPatient());
+  }
 
-    @Test
-    void getPatientTest() throws Exception{
-        assertNotEquals(null, patient.getPatient());
-    }
+  @Test
+  void getPatientTest() throws Exception {
+    assertNotEquals(null, patient.getPatient());
+  }
 
-    @Test
-    void setPatientIdTest(){
-        patient.setPatient_id(123);
-        assertEquals(123, patient.getPatient_id());
-    }
+  @Test
+  void setPatientIdTest() {
+    patient.setPatient_id(123);
+    assertEquals(123, patient.getPatient_id());
+  }
 
-    @Test
-    void setUserTest(){
-        patient.setUser(111);
-        assertEquals(111, patient.getUser());
-    }
+  @Test
+  void setUserTest() {
+    patient.setUser(111);
+    assertEquals(111, patient.getUser());
+  }
 
-    @Test
-    void setPtTest(){
-        patient.setPt(1);
-        assertEquals(1, patient.getPt());
-    }
+  @Test
+  void setPtTest() {
+    patient.setPt(1);
+    assertEquals(1, patient.getPt());
+  }
 
-    @Test
-    void setProspectivePtTest(){
-        patient.setProspective_pt(1);
-        assertEquals(1,patient.getProspective_pt());
-    }
+  @Test
+  void setProspectivePtTest() {
+    patient.setProspective_pt(1);
+    assertEquals(1, patient.getProspective_pt());
+  }
 
-    @Test
-    void setInjuryTest(){
-        patient.setInjury("Knee");
-        assertEquals("Knee", patient.getInjury());
-    }
-
+  @Test
+  void setInjuryTest() {
+    patient.setInjury("Knee");
+    assertEquals("Knee", patient.getInjury());
+  }
 }

@@ -5,8 +5,8 @@ import main.server.Server;
 import java.sql.*;
 
 /**
- * Assignment Class: Provides basic functionality for CRUD operations
- * of entries into the portalDB 'assignment' table.
+ * Assignment Class: Provides basic functionality for CRUD operations of entries into the portalDB
+ * 'assignment' table.
  */
 public class Assignment {
 
@@ -19,8 +19,9 @@ public class Assignment {
   private Integer patient;
 
   /**
-   * Assignment constructor: Can be NULL because value is auto-incremented for
-   * new entries by the database
+   * Assignment constructor: Can be NULL because value is auto-incremented for new entries by the
+   * database
+   *
    * @param assignment_id
    */
   public Assignment(Integer assignment_id) {
@@ -28,8 +29,9 @@ public class Assignment {
   }
 
   /**
-   * createAssignment: Takes the provided params to create an SQL INSERT statement
-   * that will place a new entry into the 'assignment' table in the database
+   * createAssignment: Takes the provided params to create an SQL INSERT statement that will place a
+   * new entry into the 'assignment' table in the database
+   *
    * @param pt
    * @param workout
    * @param patient
@@ -58,8 +60,9 @@ public class Assignment {
   }
 
   /**
-   * getAssignment: Called by an existing Assignment object to retrieve all data
-   * pertinent to that entry in the database
+   * getAssignment: Called by an existing Assignment object to retrieve all data pertinent to that
+   * entry in the database
+   *
    * @param patient
    * @return
    * @throws Exception
@@ -91,9 +94,9 @@ public class Assignment {
   }
 
   /**
-   * updateAssignment: Updates the end_time of the assignment in the database
-   * Useful trigger to update 'assignment' table when a patient is assigned
-   * something new.
+   * updateAssignment: Updates the end_time of the assignment in the database Useful trigger to
+   * update 'assignment' table when a patient is assigned something new.
+   *
    * @throws Exception
    */
   public void updateAssignment() throws Exception {
@@ -112,22 +115,9 @@ public class Assignment {
   }
 
   /**
-   * The following are all standard setters and getters for this class:
-   * getassignment_id
-   * setassignment_id
-   * getStart_time
-   * setStart_time
-   * getEnd_time
-   * setEnd_time
-   * getPt
-   * setPt
-   * setWorkout
-   * getWorkoutID
-   * setWorkout
-   * getTitle
-   * setTitle
-   * getPatient
-   * setPatient
+   * The following are all standard setters and getters for this class: getassignment_id
+   * setassignment_id getStart_time setStart_time getEnd_time setEnd_time getPt setPt setWorkout
+   * getWorkoutID setWorkout getTitle setTitle getPatient setPatient
    */
   public Integer getassignment_id() {
     return assignment_id;

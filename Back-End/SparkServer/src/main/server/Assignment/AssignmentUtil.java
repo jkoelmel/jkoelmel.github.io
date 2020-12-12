@@ -13,15 +13,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * AssignmentUtil class: Provides functions for usage in endpoints so that the
- * actual functionality of the CRUD operations in Assignment class are encapsulated
- * properly
+ * AssignmentUtil class: Provides functions for usage in endpoints so that the actual functionality
+ * of the CRUD operations in Assignment class are encapsulated properly
  */
 public class AssignmentUtil {
 
   /**
-   * selectSpecific: Uses the patient provided by the queryMap from the
-   * browser request to search the database
+   * selectSpecific: Uses the patient provided by the queryMap from the browser request to search
+   * the database
+   *
    * @param request
    * @param response
    * @return current assignment for a specific patient
@@ -52,13 +52,13 @@ public class AssignmentUtil {
   }
 
   /**
-   * selectAllData: Uses the patient, start, and end values from the query map
-   * from the browser request to find the info related to the assignment for a
-   * specific patient in a time range
+   * selectAllData: Uses the patient, start, and end values from the query map from the browser
+   * request to find the info related to the assignment for a specific patient in a time range
+   *
    * @param request
    * @param response
-   * @return All workout and exercise info for a patient within the provided ISO 8601
-   * formatted date-time range
+   * @return All workout and exercise info for a patient within the provided ISO 8601 formatted
+   *     date-time range
    */
   public static String selectAllData(Request request, Response response) {
     String toReturn = "";
@@ -116,8 +116,9 @@ public class AssignmentUtil {
   }
 
   /**
-   * selectPTWorkouts: Uses the pt value from the query map of the broswer
-   * request to find all workouts created by a specific pt
+   * selectPTWorkouts: Uses the pt value from the query map of the broswer request to find all
+   * workouts created by a specific pt
+   *
    * @param request
    * @param response
    * @return all workout titles created by desired pt
@@ -160,8 +161,9 @@ public class AssignmentUtil {
   }
 
   /**
-   * getPatientAssignment: Uses the patient value in the queryMap provided by
-   * the browser request to find the most recent workout assigned to that patient
+   * getPatientAssignment: Uses the patient value in the queryMap provided by the browser request to
+   * find the most recent workout assigned to that patient
+   *
    * @param request
    * @param response
    * @return most recent assigned workout for desired patient
@@ -208,12 +210,12 @@ public class AssignmentUtil {
   }
 
   /**
-   * assignToPatients: Takes the values in the arrays from the querymap
-   * provided by the broswer request to iterate over all workouts and patients
-   * and assign them individually
+   * assignToPatients: Takes the values in the arrays from the querymap provided by the broswer
+   * request to iterate over all workouts and patients and assign them individually
+   *
    * @param request
-   * @return response code to provide to the front-end, useful for debugging and
-   * event handling in promise chains.
+   * @return response code to provide to the front-end, useful for debugging and event handling in
+   *     promise chains.
    */
   public static Integer assignToPatients(Request request) {
 
