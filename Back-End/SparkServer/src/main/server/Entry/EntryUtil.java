@@ -68,6 +68,7 @@ public class EntryUtil {
         Entry entry = new Entry(rs.getString("entry"), rs.getInt("patient"));
         entry.setEntry_id(rs.getInt("entry_id"));
         entry.setCreated_on(rs.getTimestamp("created_on"));
+        entry.setComment(rs.getString("comment"));
         list.add(entry);
       }
       Gson gson = new Gson();
@@ -100,6 +101,28 @@ public class EntryUtil {
               request.queryMap().get("entry").value(),
               Integer.parseInt(request.queryMap().get("patient_id").value()));
       entry.createEntry();
+      return 200;
+    } catch (SQLException sqlEx) {
+      System.err.println(sqlEx.toString());
+      return 500;
+    } catch (Exception ex) {
+      System.err.println(ex.toString());
+      return 400;
+    }
+  }
+
+  /**
+   * Add a comment to an existing entry, given it's ID.
+   * @param request Required parameters: entry_id, comment
+   * @return The status code value
+   */
+  public static Integer updateComment(Request request) {
+    try {
+      Entry entry = new Entry(Integer.parseInt(request.queryMap().get("entry_id").value()));
+      entry
+        .getDBEntry()
+        .updateEntry(request.queryMap().get("comment").value());
+
       return 200;
     } catch (SQLException sqlEx) {
       System.err.println(sqlEx.toString());

@@ -157,6 +157,13 @@ public class Server {
                             response.status(EntryUtil.registerEntry(request));
                             return response.status();
                           });
+                      // Requires entry_id and comment
+                      put(
+						  "/comment",
+						  (request, response) -> {
+							  response.status(EntryUtil.updateComment(request));
+							  return response.status();
+						  });
                     });
 
                 path(
