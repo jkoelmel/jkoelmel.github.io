@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 export const PatientInfo = (props) => {
   const classes = useStyles();
   const [info, setInfo] = React.useState([]);
-  const [userImage, setUserImage] = React.useState('');
+ 
 
   const fetchPatientInfo = () => {
     axios
@@ -61,19 +61,10 @@ export const PatientInfo = (props) => {
       .catch(console.log);
   };
 
-  const fetchPatientImg = () => {
-    // //TODO hard-coded need to add support to various patients in DB
-    // axios.get("https://randomuser.me/api/?gender=male").then((response) => {
-    //   console.log(response.data);
-    //   setUserImage(response.data.results[0].picture.large);
-    // });
-  };
-
   React.useEffect(() => {
-    // will load patients activities when the page loads
 
+    // will load patients activities when the page loads
     if (props.selectedPatient != '') fetchPatientInfo();
-    fetchPatientImg();
   }, [props.selectedPatient]);
 
   return (

@@ -30,6 +30,22 @@ const useStyles = makeStyles((theme) => ({
     width: '200px',
     marginBottom: '1.5rem',
   },
+  cssLabel: {
+    color: '#00559A'
+  },
+
+  cssOutlinedInput: {
+    '&$cssFocused $notchedOutline': {
+      borderColor: `#00559A !important`,
+    }
+  },
+
+  cssFocused: {},
+
+  notchedOutline: {
+    borderWidth: '1px',
+    borderColor: '#00559A !important'
+  },
 }));
 // TODO handle error text and redux.... might have to swtich it to a regular func instead of formik.
 
@@ -77,6 +93,20 @@ const LoginForm = (props, {submit, isLoading, error}) => {
                 // helperText={
                 //   // props.errorCode
                 // }
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                  inputMode: "numeric"
+                }}
               />
               <TextField
                 color="secondary"
@@ -96,6 +126,7 @@ const LoginForm = (props, {submit, isLoading, error}) => {
                       <IconButton
                         style={{fontSize: '200px'}}
                         aria-label="toggle password visibility"
+                        color='secondary'
                         onClick={() => {
                           handleShowPassword(!showPassword);
                         }}
@@ -104,6 +135,18 @@ const LoginForm = (props, {submit, isLoading, error}) => {
                       </IconButton>
                     </InputAdornment>
                   ),
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                  inputMode: "numeric"
+                }}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
                 }}
               />
               {/* {error && <p style={{ color: 'red' }}>{error}</p>} */}
