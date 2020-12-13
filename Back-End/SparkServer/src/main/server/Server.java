@@ -157,6 +157,13 @@ public class Server {
                             response.status(EntryUtil.registerEntry(request));
                             return response.status();
                           });
+                      // Requires entry_id and comment
+                      put(
+                          "/comment",
+                          (request, response) -> {
+                            response.status(EntryUtil.updateComment(request));
+                            return response.status();
+                          });
                     });
 
                 path(
@@ -239,6 +246,12 @@ public class Server {
               () -> {
                 // No requirements, used for exercise library page
                 get("/all", ExerciseUtil::selectAll);
+                post(
+                    "/register",
+                    (request, response) -> {
+                      response.status(ExerciseUtil.registerExercise(request));
+                      return response.status();
+                    });
               });
           // Test path for local server testing
           path("/database", () -> get("/version", (request, response) -> databaseVersion()));

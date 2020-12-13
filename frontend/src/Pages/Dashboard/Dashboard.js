@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   paperProfile: {
     padding: theme.spacing(2),
     textAlign: 'center',
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#f5f5f5',
     height: 700,
     width: 1000,
     marginTop: 50,
