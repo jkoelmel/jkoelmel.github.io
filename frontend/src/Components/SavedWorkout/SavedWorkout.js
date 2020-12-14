@@ -1,43 +1,43 @@
-import React from "react";
-import axios from "axios";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import List from "@material-ui/core/List";
+import React from 'react';
+import axios from 'axios';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import List from '@material-ui/core/List';
 import {
   Divider,
   ListItem,
   ListItemText,
   ListSubheader,
-} from "@material-ui/core";
-import Modal from "@material-ui/core/Modal";
-import { makeStyles } from "@material-ui/core/styles";
-import Checkbox from "@material-ui/core/Checkbox";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import { connect } from "react-redux";
+} from '@material-ui/core';
+import Modal from '@material-ui/core/Modal';
+import {makeStyles} from '@material-ui/core/styles';
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import {connect} from 'react-redux';
 import {
   fetchPTsPatients,
   setSelectedWorkouts,
-} from "../../Redux/actions/actions-pt";
+} from '../../Redux/actions/actions-pt';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     //   border: '2px solid #000',a
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    outline: "none",
+    outline: 'none',
   },
   sticky: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
 }));
 
-const SavedWorkout = (props) => {
+export const SavedWorkout = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [workouts, setWorkouts] = React.useState([]);
@@ -45,7 +45,7 @@ const SavedWorkout = (props) => {
 
   const fetchPTWorkouts = () => {
     axios
-      .get("api/pt/workouts", {
+      .get('api/pt/workouts', {
         params: {
           pt: props.pt.pt_id,
         },
@@ -55,7 +55,7 @@ const SavedWorkout = (props) => {
           response.data.map((w) => {
             console.log(response.data);
             return w;
-          })
+          }),
         );
       })
       .catch(console.log);
@@ -63,7 +63,7 @@ const SavedWorkout = (props) => {
 
   const fetchWorkoutExercises = (selectedWorkout) => {
     axios
-      .get("api/pt/exercises", {
+      .get('api/pt/exercises', {
         params: {
           workout: selectedWorkout,
         },
@@ -74,7 +74,7 @@ const SavedWorkout = (props) => {
             console.log(response.data);
             setOpen(true);
             return e;
-          })
+          }),
         );
       })
       .catch(console.log);
@@ -107,12 +107,18 @@ const SavedWorkout = (props) => {
 
   return (
     <div className={classes.root}>
-      <List aria-label="workout-list"
-            subheader={
-                <ListSubheader component="div" color="inherit" className={classes.sticky}>
-                   Saved Workouts
-                </ListSubheader>
-            }>
+      <List
+        aria-label="workout-list"
+        subheader={
+          <ListSubheader
+            component="div"
+            color="inherit"
+            className={classes.sticky}
+          >
+            Saved Workouts
+          </ListSubheader>
+        }
+      >
         {workouts.map((w, k) => (
           <div key={k}>
             <ListItem
@@ -129,7 +135,7 @@ const SavedWorkout = (props) => {
                   onChange={handleWorkoutToggle(w.workout_id)}
                   checked={props.selectedWorkouts.indexOf(w.workout_id) !== -1}
                   inputProps={{
-                    "aria-labelledby": `checkbox-list-label-${w.workout_id}`,
+                    'aria-labelledby': `checkbox-list-label-${w.workout_id}`,
                   }}
                 />
               </ListItemSecondaryAction>
@@ -154,8 +160,8 @@ const SavedWorkout = (props) => {
           <List
             style={{
               maxHeight: 400,
-              overflowY: "scroll",
-              backgroundColor: "white",
+              overflowY: 'scroll',
+              backgroundColor: 'white',
             }}
             subheader={
               <ListSubheader component="div" color="inherit">
@@ -181,9 +187,9 @@ const SavedWorkout = (props) => {
                   <a href={e.exercise_url} target="_blank">
                     <img
                       src={
-                        "https://img.youtube.com/vi/" +
-                        e.exercise_url.split("=")[1] +
-                        "/0.jpg"
+                        `https://img.youtube.com/vi/${ 
+                        e.exercise_url.split('=')[1] 
+                        }/0.jpg`
                       }
                     />
                   </a>
@@ -211,5 +217,5 @@ export default connect(
     fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
     setSelectedWorkouts: (selectedWorkouts) =>
       dispatch(setSelectedWorkouts(selectedWorkouts)),
-  })
+  }),
 )(SavedWorkout);

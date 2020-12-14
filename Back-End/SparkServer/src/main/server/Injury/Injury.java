@@ -11,6 +11,7 @@ public class Injury {
 
   /**
    * Default constructor, used for instantiating injury with injury_ID
+   *
    * @param injury_id: The identification number for the injury
    */
   public Injury(Integer injury_id) {
@@ -19,6 +20,7 @@ public class Injury {
 
   /**
    * createInjury creates an Injury in the database with an injury id and type of injury.
+   *
    * @param injury
    * @throws Exception throws a SQL exception
    */
@@ -67,9 +69,7 @@ public class Injury {
     return this;
   }
 
-  /**
-   * Getters and Setters
-   */
+  /** Getters and Setters */
   public Integer getinjury_id() {
     return injury_id;
   }

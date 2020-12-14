@@ -15,6 +15,7 @@ public class PatientMessageUtil {
 
   /**
    * Select a specific patient message, given the query parameters.
+   *
    * @param request The query parameters: message_id
    * @param response The status code from the given request
    * @return The current patient message object
@@ -42,6 +43,7 @@ public class PatientMessageUtil {
 
   /**
    * Select all patient message, given the query parameters.
+   *
    * @param request The query parameters: pt and patient
    * @param response The status code from the given request.
    * @return The response code -- whether they were successful or not
@@ -88,6 +90,7 @@ public class PatientMessageUtil {
 
   /**
    * Register a new message into the database.
+   *
    * @param request The required query parameters: message, patient, pt
    * @return The response code -- whether the query was successful or not.
    */

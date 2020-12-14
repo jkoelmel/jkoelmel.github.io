@@ -1,22 +1,36 @@
-import { Typography } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import {Typography} from '@material-ui/core';
+import {Button} from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import React from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "white",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: 400,
+    backgroundColor: 'white',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 500,
     width: 500,
     padding: 10,
   },
-  textfield: {
-    // borderColor: theme.palette.secondary.main
+  cssLabel: {
+    color: '#00559A'
+  },
+
+  cssOutlinedInput: {
+    '&$cssFocused $notchedOutline': {
+      borderColor: `#00559A !important`,
+    }
+  },
+
+  cssFocused: {},
+
+  notchedOutline: {
+    borderWidth: '1px',
+    borderColor: '#00559A !important'
   },
 }));
 
@@ -39,6 +53,20 @@ const RegisterPT = () => {
               defaultValue=""
               variant="outlined"
               color="secondary"
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline,
+                },
+                inputMode: "numeric"
+              }}
             />
           </Grid>
           <Grid item>
@@ -50,6 +78,20 @@ const RegisterPT = () => {
               variant="outlined"
               color="secondary"
               type="password"
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline,
+                },
+                inputMode: "numeric"
+              }}
             />
           </Grid>
           <Grid item>
@@ -60,6 +102,20 @@ const RegisterPT = () => {
               defaultValue=""
               variant="outlined"
               color="secondary"
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline,
+                },
+                inputMode: "numeric"
+              }}
             />
           </Grid>
           <Grid item>
@@ -70,6 +126,20 @@ const RegisterPT = () => {
               defaultValue=""
               variant="outlined"
               color="secondary"
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline,
+                },
+                inputMode: "numeric"
+              }}
             />
           </Grid>
           <Grid item>
@@ -80,9 +150,34 @@ const RegisterPT = () => {
               defaultValue=""
               variant="outlined"
               color="secondary"
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline,
+                },
+                inputMode: "numeric"
+              }}
             />
           </Grid>
+          <Grid item>
+        <Button
+                  // variant='contained'
+                  color="secondary"
+                  type="submit"
+                  style={{marginTop: '1.5rem'}}
+                >
+                  Login
+                </Button>
         </Grid>
+        </Grid>
+        
       </Paper>
     </div>
   );

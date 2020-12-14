@@ -1,7 +1,7 @@
 import React from 'react';
 import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {SavedWorkout} from '../SavedWorkout/SavedWorkout';
+import {SavedWorkout} from './SavedWorkout';
 import List from "@material-ui/core/List";
 import { ListItem, ListSubheader, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 

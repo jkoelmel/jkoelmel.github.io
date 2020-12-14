@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class WorkoutUtil {
   /**
    * Select a specific existing workout from the database, given its ID.
+   *
    * @param request The required query parameters: workout_id
    * @param response The status code from the given request
    * @return The JSON object of the Workout to be returned
@@ -37,6 +38,7 @@ public class WorkoutUtil {
 
   /**
    * Select all Workouts from the database.
+   *
    * @param response The status code from the given request
    * @return The JSON object of the list of workouts
    */
@@ -77,12 +79,14 @@ public class WorkoutUtil {
 
   /**
    * Register a new Workout into the database, given required query parameters.
+   *
    * @param request The required query parameters: title, pt
    * @return The response status code -- whether the query was successful or not
    */
   public static Integer registerWorkout(Request request) {
     try {
-      Workout workout = new Workout(
+      Workout workout =
+          new Workout(
               request.queryMap().get("title").value(),
               Integer.parseInt(request.queryMap().get("pt").value()));
       workout.createWorkout();

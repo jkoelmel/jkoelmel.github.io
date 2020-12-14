@@ -14,7 +14,8 @@ public class PatientVideo {
 
   /**
    * Default constructor for PatientVideo
-   * @param patientVideo_id The integer value of  patientVideo_id
+   *
+   * @param patientVideo_id The integer value of patientVideo_id
    */
   public PatientVideo(Integer patientVideo_id) {
     this.patientVideo_id = patientVideo_id;
@@ -22,6 +23,7 @@ public class PatientVideo {
 
   /**
    * Create a new patient video into the database, given its video_url and the patient.
+   *
    * @param video_url The string value of video_url
    * @param patient The integer value of patient
    * @throws Exception Throws SQL exception
@@ -48,6 +50,7 @@ public class PatientVideo {
 
   /**
    * Get a specific patient video from the database using the patient_video_id
+   *
    * @return The current patient video object
    * @throws Exception Throws SQL exception
    */
@@ -78,6 +81,7 @@ public class PatientVideo {
 
   /**
    * Update an exisiting patient video from the database using the patient_video_id
+   *
    * @param feedback The string value of feedback
    * @throws Exception Throws an exception
    */
@@ -102,9 +106,7 @@ public class PatientVideo {
     }
   }
 
-  /**
-   * Getters and Setters
-   */
+  /** Getters and Setters */
   public Integer getpatientVideo_id() {
     return patientVideo_id;
   }

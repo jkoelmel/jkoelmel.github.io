@@ -5,8 +5,8 @@ import main.server.Server;
 import java.sql.*;
 
 /**
- * Activity class: Provides basic functionality for CRUD operations of
- * entries into the portalDB 'activity' table.
+ * Activity class: Provides basic functionality for CRUD operations of entries into the portalDB
+ * 'activity' table.
  */
 public class Activity {
 
@@ -19,8 +19,8 @@ public class Activity {
   private Integer patient;
 
   /**
-   * Activity constructor: Can be NULL because value is auto-incremented for
-   * new entries
+   * Activity constructor: Can be NULL because value is auto-incremented for new entries
+   *
    * @param activity_id
    */
   public Activity(Integer activity_id) {
@@ -28,8 +28,9 @@ public class Activity {
   }
 
   /**
-   * createActivity: Takes the provided params and uses them to instantiate
-   * a new entry into the 'activity' table
+   * createActivity: Takes the provided params and uses them to instantiate a new entry into the
+   * 'activity' table
+   *
    * @param type_activity
    * @param time
    * @param pt_ID
@@ -62,9 +63,9 @@ public class Activity {
   }
 
   /**
-   * getActivity: Called by an existing Activity object to retrieve all data
-   * pertinent to that entry in the database, the pt and patient params allow
-   * for specific retrieval data sets
+   * getActivity: Called by an existing Activity object to retrieve all data pertinent to that entry
+   * in the database, the pt and patient params allow for specific retrieval data sets
+   *
    * @param pt
    * @param patient
    * @return Activity
@@ -105,21 +106,9 @@ public class Activity {
   }
 
   /**
-   * The following are all standard setters and getters for this class:
-   * getActivity_id
-   * setActivity_id
-   * getType_activity
-   * setType_activity
-   * getDuration
-   * setDuration
-   * getStart_time
-   * setStart_time
-   * getEnd_time
-   * setEnd_time
-   * getPt
-   * setPt
-   * getPatient
-   * setPatient
+   * The following are all standard setters and getters for this class: getActivity_id
+   * setActivity_id getType_activity setType_activity getDuration setDuration getStart_time
+   * setStart_time getEnd_time setEnd_time getPt setPt getPatient setPatient
    */
   public Integer getActivity_id() {
     return activity_id;
