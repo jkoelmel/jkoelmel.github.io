@@ -75,7 +75,7 @@ public class Server {
                 get("/workouts", AssignmentUtil::selectPTWorkouts);
                 // Requires workout
                 get("/exercises", ExerciseUtil::getWorkoutExercises);
-                  //Requires title, pt, exercise_id array, and description array
+                // Requires title, pt, exercise_id array, and description array
                 post(
                     "/create",
                     (request, response) -> {
@@ -218,7 +218,7 @@ public class Server {
               });
 
           path(
-                  //Used for message creation and retrieval
+              // Used for message creation and retrieval
               "/message",
               () -> {
                 // Requires pt and patient

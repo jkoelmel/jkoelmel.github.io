@@ -98,7 +98,7 @@ public class Activity {
               + this.patient
               + ": "
               + sqlEx.toString());
-    } catch(Exception ex) {
+    } catch (Exception ex) {
       throw new Exception("Error in arguments: " + ex.toString());
     }
 
