@@ -19,7 +19,7 @@ import static spark.Spark.*;
 /**
  * Server driver program to provide routing for all major endpoints accessed
  * by the frontend. Calls respective functions in Util classes throughout the
- * pacakge.
+ * package.
  */
 public class Server {
   public static final String databasePath =
@@ -78,7 +78,7 @@ public class Server {
                 get("/workouts", AssignmentUtil::selectPTWorkouts);
                   //Requires workout
                 get("/exercises", ExerciseUtil::getWorkoutExercises);
-                  //Requires title, pt, exercise_id array. amd description array
+                  //Requires title, pt, exercise_id array, and description array
                 post(
                     "/create",
                     (request, response) -> {
@@ -214,7 +214,7 @@ public class Server {
               });
 
           path(
-                  //Used for message creation and retieval
+                  //Used for message creation and retrieval
               "/message",
               () -> {
                 // Requires pt and patient

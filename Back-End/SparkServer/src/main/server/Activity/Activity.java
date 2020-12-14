@@ -89,14 +89,16 @@ public class Activity {
         setPt(rs.getInt("pt"));
         setPatient(rs.getInt("patient"));
       }
-    } catch (SQLException ex) {
+    } catch (SQLException sqlEx) {
       throw new Exception(
           "Error getting activity with pt_id "
               + this.pt
               + "and patient "
               + this.patient
               + ": "
-              + ex.toString());
+              + sqlEx.toString());
+    } catch(Exception ex) {
+      throw new Exception("Error in arguments: " + ex.toString());
     }
 
     return this;

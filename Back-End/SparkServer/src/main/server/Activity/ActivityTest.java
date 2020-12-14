@@ -2,6 +2,7 @@ package main.server.Activity;
 
 import org.junit.jupiter.api.*;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,8 +25,14 @@ class ActivityTest {
 
     @org.junit.jupiter.api.Test
     void getActivity() throws Exception {
-        Exception ex = assertThrows(java.lang.Exception.class,
-                () -> activity.getActivity(200, 100));
+        Activity activity = new Activity(null);
+        try {
+            activity.getActivity(100, 1);
+        } catch (SQLException ex) {
+            throw new Exception(ex.toString());
+        }
+
+        assertEquals(activity, activity.getActivity(100, 1));
     }
 
     @org.junit.jupiter.api.Test
