@@ -14,6 +14,7 @@ public class Entry {
   private String entry;
   private Timestamp created_on;
   private Integer patient;
+  private String comment;
 
   /**
    * Entry constructor: Cannot be NULL because this constructor implies creating a matching object
@@ -82,12 +83,34 @@ public class Entry {
         setEntry(rs.getString("entry"));
         setCreated_on(rs.getTimestamp("created_on"));
         setPatient(rs.getInt("patient"));
+        setComment(rs.getString("comment"));
       }
     } catch (SQLException ex) {
       throw new Exception("Error getting entry with id " + this.entry_id + ": " + ex.toString());
     }
 
     return this;
+  }
+
+  /**
+   * Update the existing entry with a new comment, given the existing entry object has been
+   * initialized with ID.
+   *
+   * @param comment The string comment
+   * @throws Exception Throw a SQL exception so that frontend has context for the error.
+   */
+  public void updateEntry(String comment) throws Exception {
+    String query = "UPDATE entry SET comment = '" + comment + "' WHERE entry_id = " + this.entry_id;
+
+    try (Connection con =
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(query)) {
+      pst.executeUpdate(query);
+      System.out.println("Entry updated");
+    } catch (SQLException ex) {
+      throw new Exception("Error updating Entry with id " + this.entry_id + ": " + ex.toString());
+    }
   }
 
   /**
@@ -124,5 +147,13 @@ public class Entry {
 
   public void setPatient(Integer patient) {
     this.patient = patient;
+  }
+
+  public String getComment() {
+    return comment;
+  }
+
+  public void setComment(String comment) {
+    this.comment = comment;
   }
 }

@@ -179,8 +179,9 @@ public class PTUtil {
     String query =
         "SELECT * FROM user INNER JOIN pt ON user.user_id = pt.user "
             + " WHERE user.email = \""
-            + request.queryMap().get("email").value() + "\"";
-
+            + request.queryMap().get("email").value()
+            + "\"";
+    
     try (Connection con =
             DriverManager.getConnection(
                 Server.databasePath, Server.databaseUsername, Server.databasePassword);

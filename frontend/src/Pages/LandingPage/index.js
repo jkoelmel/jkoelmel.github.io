@@ -8,6 +8,8 @@ import Modal from '@material-ui/core/Modal';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Fade from '@material-ui/core/Fade';
+
 
 import axios from 'axios';
 import {makeStyles} from '@material-ui/core/styles';
@@ -121,7 +123,12 @@ const Landing = ({handleLogin, error}) => {
             aria-describedby="simple-modal-description"
             className={classes.LoginModal}
           >
-            <RegisterPT />
+            <Fade in={RegisterOpen}>
+          <div className={classes.paper}>
+          <RegisterPT />
+          </div>
+        </Fade>
+
           </Modal>
           <Grid item>
             <Button className={classes.buttons} onClick={handleLoginOpen}>

@@ -11,7 +11,6 @@ import {connect} from 'react-redux';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
 import {assignWorkout, fetchPTsPatients} from '../../Redux/actions/actions-pt';
 
 const useStyles = makeStyles((theme) => ({
