@@ -168,10 +168,11 @@ public class ExerciseUtil {
             request.queryMap().get("title").value(),
             request.queryMap().get("description").value(),
             request.queryMap().get("tags").value());
+	    return 200;
       } else {
         System.err.println(ex.toString());
+	return 400;
       }
-      return 400;
     }
   }
 }
