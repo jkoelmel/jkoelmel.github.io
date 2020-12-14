@@ -181,7 +181,7 @@ public class PTUtil {
             + " WHERE user.email = \""
             + request.queryMap().get("email").value()
             + "\"";
-
+    
     try (Connection con =
             DriverManager.getConnection(
                 Server.databasePath, Server.databaseUsername, Server.databasePassword);
