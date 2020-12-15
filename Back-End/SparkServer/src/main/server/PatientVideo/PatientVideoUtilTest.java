@@ -48,7 +48,7 @@ public class PatientVideoUtilTest {
 
     patientVideo.setpatientVideo_id(1);
     patientVideo.setVideo_url("www.test.com");
-    patientVideo.setFeedback("test");
+    patientVideo.setComment("test");
     patientVideo.setUploaded(timestamp);
     patientVideo.setPatient(1);
 

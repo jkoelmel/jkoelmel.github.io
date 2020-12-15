@@ -44,8 +44,8 @@ public class PatientVideoTest {
 
   @Test
   void setFeedbackTest() {
-    patientVideo.setFeedback("Test");
-    assertEquals("Test", patientVideo.getFeedback());
+    patientVideo.setComment("Test");
+    assertEquals("Test", patientVideo.getComment());
   }
 
   @Test
