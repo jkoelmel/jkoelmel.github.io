@@ -3,6 +3,8 @@ import axios from 'axios';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import List from '@material-ui/core/List';
+import Button from '@material-ui/core/Button';
+
 import {
   Divider,
   ListItem,
@@ -17,10 +19,21 @@ import {connect} from 'react-redux';
 import {
   fetchPTsPatients,
   setSelectedWorkouts,
+  deleteWorkout
 } from '../../Redux/actions/actions-pt';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  popoverDelete: {
+    padding: theme.spacing(2),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -35,6 +48,11 @@ const useStyles = makeStyles((theme) => ({
   sticky: {
     backgroundColor: 'white',
   },
+  typography: {
+    padding: theme.spacing(2),
+    color: 'red'
+    
+  }
 }));
 
 export const SavedWorkout = (props) => {
@@ -42,6 +60,9 @@ export const SavedWorkout = (props) => {
   const [open, setOpen] = React.useState(false);
   const [workouts, setWorkouts] = React.useState([]);
   const [exercises, setExercises] = React.useState([]);
+  const [openPopOver, setOpenPopOver] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [selectedID,setSelectedID] = React.useState('')
 
   const fetchPTWorkouts = () => {
     axios
@@ -83,11 +104,31 @@ export const SavedWorkout = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleDeleteClose = () => {
+    setOpenPopOver(!openPopOver)
+    setAnchorEl(null);
+
+  }
 
   const handleWorkoutClick = (e, selectedWorkout) => {
     fetchWorkoutExercises(selectedWorkout);
   };
 
+
+  const handleDeleteClick = (e,workout_id) => {
+    e.stopPropagation()
+
+    setAnchorEl(e.currentTarget)
+    setOpenPopOver(!openPopOver)
+
+    setSelectedID(workout_id)
+    // props.deleteWorkout(workout_id)
+  };
+
+  const handleDelete = (e,id) => {
+    e.stopPropagation()
+    props.deleteWorkout(id)
+  }
   const handleWorkoutToggle = (value) => () => {
     const currentIndex = props.selectedWorkouts.indexOf(value);
     const newcheckedWorkout = [...props.selectedWorkouts];
@@ -126,6 +167,12 @@ export const SavedWorkout = (props) => {
               selected={props.selectedWorkouts == w.workout_id}
               onClick={(event) => handleWorkoutClick(event, w.workout_id)}
             >
+              <ListItemIcon>
+              <DeleteIcon
+                color="secondary"
+                onClick={(event) => handleDeleteClick(event,w.workout_id)} 
+              />
+            </ListItemIcon>
               {w.title}
               <ListItemSecondaryAction>
                 <Checkbox
@@ -143,6 +190,36 @@ export const SavedWorkout = (props) => {
           </div>
         ))}
       </List>
+      <Popover
+        className={classes.popoverDelete}
+        id='delete-popover'
+        open={openPopOver}
+        anchorEl={anchorEl}
+        onClose={handleDeleteClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      >
+        <Typography className={classes.typography}>
+          Are you sure you want to delete this?
+          </Typography>
+          <Button  
+          color="secondary" 
+          onClick={(e)=> {handleDelete(e,selectedID)}}>
+            YES
+          </Button>
+
+          <Button  
+          color="secondary" 
+          onClick={handleDeleteClose}>
+            NO
+            </Button>
+      </Popover>
 
       <Modal
         aria-labelledby="transition-modal-title"
@@ -217,5 +294,6 @@ export default connect(
     fetchPTsPatients: (pt_id) => dispatch(fetchPTsPatients(pt_id)),
     setSelectedWorkouts: (selectedWorkouts) =>
       dispatch(setSelectedWorkouts(selectedWorkouts)),
+    deleteWorkout: (workout_id) => dispatch(deleteWorkout(workout_id))
   }),
 )(SavedWorkout);

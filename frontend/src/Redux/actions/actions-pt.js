@@ -1,6 +1,6 @@
 import * as constants from '../constants/constants-pt';
 import * as constantsWorkout from '../constants/constants-workouts';
-import {getAuth, postAuth} from './actions-auth';
+import {getAuth, postAuth,putAuth} from './actions-auth';
 
 export const createNewPT = (pt) => {
   const params = new URLSearchParams();
@@ -59,7 +59,25 @@ export const logoutPT = (pt) => {
     payload: {},
   };
 };
-
+export const deleteWorkout = (workout_id) => {
+  const params = new URLSearchParams();
+  params.append('workout_id', workout_id);
+ 
+  
+  return () => {
+    putAuth('/api/patient/workout/remove', params)
+      .then((res) => {
+        if (res.data == 200) {
+          console.log(res.data);
+          window.alert('deleted workout successfully');
+          window.location.href = '/';
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 export const assignWorkout = (pt, checked, selectedWorkout) => {
   const params = new URLSearchParams();
   params.append('pt', pt.pt_id);

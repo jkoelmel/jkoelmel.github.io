@@ -200,12 +200,12 @@ public class Server {
                     () -> {
                       // Requires patient
                       get("/id", AssignmentUtil::getPatientAssignment);
-                    put(
-                      "/remove",
-                      (request, response) -> {
-                          response.status(WorkoutUtil.deleteWorkout(request));
-                          return response.status();
-                      });
+                      put(
+                          "/remove",
+                          (request, response) -> {
+                            response.status(WorkoutUtil.deleteWorkout(request));
+                            return response.status();
+                          });
                     });
               });
 
