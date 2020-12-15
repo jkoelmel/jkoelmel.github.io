@@ -62,7 +62,7 @@ public class PatientVideoUtil {
       while (rs.next()) {
         PatientVideo pv = new PatientVideo(rs.getInt("patient_video_id"));
         pv.setVideo_url(rs.getString("video_url"));
-        pv.setFeedback(rs.getString("feedback"));
+        pv.setFeedback(rs.getString("comment"));
         pv.setUploaded(rs.getTimestamp("uploaded"));
         pv.setPatient(rs.getInt("patient"));
 
