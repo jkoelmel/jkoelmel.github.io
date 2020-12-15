@@ -55,6 +55,54 @@ export const submitUpdatePatientPT = (patient, pt, prospective_pt) => ({
     },
   });
 
+  export const putEntryComment = (entry_id, comment) => {
+    const params = new URLSearchParams();
+    params.append('entry_id', entry_id);
+    params.append('comment', comment);
+    
+    return () => {
+      putAuth('/api/patient/entry/comment', params)
+        .then((res) => {
+          if (res.data == 200) {
+            console.log(res.data);
+            window.alert('comment post: success');
+            window.location.href = '/';
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+  };
+
+  export const putVideoComment = ( patient_video_id, comment) => {
+    const params = new URLSearchParams();
+    params.append('patient_video_id',  patient_video_id);
+    params.append('comment', comment);
+    
+    return () => {
+      putAuth('/api/patient/video/comment', params)
+        .then((res) => {
+          if (res.data == 200) {
+            console.log(res.data);
+            window.alert('patient video comment post: success');
+            window.location.href = '/';
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+  };
+  // export const submitComment = (entry_id,comment) => ({
+  //   type: constants.UPDATE_COMMENT,
+  //   payload: {
+  //     patient,
+  //     pt,
+  //     prospective_pt,
+  //   },
+  // });
+
 export const fetchPatientExerciseVideos = (selectedPatient) => {
   const params = new URLSearchParams();
   params.append('patient', selectedPatient);

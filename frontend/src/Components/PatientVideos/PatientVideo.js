@@ -19,9 +19,23 @@ import {
   fetchPTsPatients,
   setSelectedPatient,
 } from '../../Redux/actions/actions-pt';
+import AddCommentIcon from '@material-ui/icons/AddComment';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import { putVideoComment } from '../../Redux/actions/actions-patients';
+
+
+//TODO http://api.pthealth.club/api/patient/workout/remove?workout_id=51
 
 const useStyles = makeStyles((theme) => ({
   modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalComment: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -33,11 +47,45 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     outline: 'none',
   },
+  paperUpload: {
+    height: 500,
+    width: 500,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  gridUpload: {
+    alignContent: "center",
+    alignItems: 'center',
+    width: 500,
+  },
+  UploadTextfield: {
+    // borderColor: '#00559A'
+  },
+  cssLabel: {
+    color: '#00559A'
+  },
+
+  cssOutlinedInput: {
+    '&$cssFocused $notchedOutline': {
+      borderColor: `#00559A !important`,
+      width: 200
+    }
+  },
+
+  cssFocused: {},
+
+  notchedOutline: {
+    borderWidth: '1px',
+    borderColor: '#00559A !important'
+  },
+
   sticky: {
     backgroundColor: 'white',
   },
   thumbnail: {
-    maxHeight: "200px",
+    maxHeight: "150px",
+
   },
 }));
 
@@ -48,6 +96,9 @@ export const PatientVideos = (props) => {
   const [selectedVideo, setSelectedVideo] = React.useState([]);
   const [URL, setURL] = React.useState('');
   const [feedback, setFeedback] = React.useState('');
+  const [comment, setComment] = React.useState('')
+  const [videoID,setVideoID] = React.useState('')
+  const [openComment, setOpenComment] = React.useState(false);
 
   const handleVideoClick = (e, video_url) => {
     setURL(video_url);
@@ -64,7 +115,7 @@ export const PatientVideos = (props) => {
       .then((response) => {
         setVideos(
           response.data.map((pv) => {
-            console.log(response.data);
+            console.log(response.data.patient_video);
             return pv;
           }),
         );
@@ -72,18 +123,42 @@ export const PatientVideos = (props) => {
       .catch(console.log);
   };
 
+
+  console.log( videos.map((pv) => {
+    return pv;
+  }))
+
+
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleChange = () => {
-    setFeedback(feedback);
-  };
+  // const handleChange = () => {
+  //   setFeedback(feedback);
+  // };
 
-  const handleSubmit = () => {
-    alert(`Feedback was submitted: ${  feedback}`);
-    handleClose();
-  };
+  // const handleSubmit = () => {
+  //   alert(`Feedback was submitted: ${  feedback}`);
+  //   handleClose();
+  // };
+  const handleCommentClick = (e,patient_video_id) => {
+    setVideoID(patient_video_id)
+    e.stopPropagation()
+    // setVideoID(video_id)
+    setOpenComment(true)
+
+  }
+  console.log(videoID)
+
+  const handleCommentClose = () => {
+
+    setOpenComment(!openComment)
+
+  }
+  const HandleCommentSend = () => {
+    props.putVideoComment(videoID,comment)
+
+  }
 
   React.useEffect(() => {
     // will load patients video when the page loads
@@ -106,17 +181,73 @@ export const PatientVideos = (props) => {
               selected={selectedVideo == v.patient_video_id}
               onClick={(event) => handleVideoClick(event, v.video_url)}
             >
-              <img className={classes.thumbnail}
+
+              <img
+              className={classes.thumbnail}
                 src={
                   `https://img.youtube.com/vi/${ 
                   v.video_url.split('=')[1] 
                   }/0.jpg`
                 }
               />
+              
+              <ListItemIcon>
+              <AddCommentIcon
+                color="secondary"
+                onClick={(event) => handleCommentClick(event,v.patient_video_id)} 
+              />
+            </ListItemIcon>
             </ListItem>
+            <Divider/>
           </div>
         ))}
       </List>
+      <Modal
+        aria-labelledby="transition-modal-comment-open"
+        aria-describedby="transition-modal-comment"
+        className={classes.modalComment}
+        open={openComment}
+        onClose={handleCommentClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={openComment}>
+          <Paper className={classes.paperUpload}>
+            <Grid container className={classes.gridUpload} direction="column" spacing={2}>
+              <Grid item>
+                <Typography variant='h5'> Write {props.selectedPatient.f_name} a Video comment!</Typography>
+              </Grid>
+              <Grid item>
+                <TextField
+                  placeholder={`Great work ${props.selectedPatient.f_name}!`}
+                  label='insert Video comment here'
+                  variant="outlined"
+                  color="secondary"
+                  value={comment}
+                  onChange={(e) => { setComment(e.target.value) }}
+                  multiline
+                  rows={5}
+                  InputProps={{
+                    classes: {
+                      root: classes.cssOutlinedInput,
+                      focused: classes.cssFocused,
+                      notchedOutline: classes.notchedOutline,
+                    },
+                    inputMode: "numeric"
+                  }}
+                />
+              </Grid>
+              <Grid item>
+                <Button variant="outlined" color="secondary" onClick={HandleCommentSend}> SEND </Button>
+              </Grid>
+            </Grid>
+          </Paper>
+
+        </Fade>
+      </Modal>
 
       <Modal
         aria-labelledby="transition-modal-title"
@@ -148,5 +279,6 @@ export default connect(
   (dispatch) => ({
     // The action from actions-pt which will effect reducer-pt
     setSelectedPatient: (patient) => dispatch(setSelectedPatient(patient)),
+    putVideoComment: (videoID, comment) => dispatch(putVideoComment(videoID, comment))
   }),
 )(PatientVideos);

@@ -14,6 +14,10 @@ const initialPatientState = {
       l_name: 'doe',
       company: 'the NY co',
       injury: '',
+      entry_id: '',
+      comment: '',
+      patient_video_id: '',
+
     },
   ],
 };
