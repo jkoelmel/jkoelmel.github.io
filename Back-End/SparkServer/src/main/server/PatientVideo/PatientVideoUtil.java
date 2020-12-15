@@ -108,7 +108,8 @@ public class PatientVideoUtil {
 
   public static Integer updatePatientVideo(Request request) {
     try {
-      PatientVideo pv = new PatientVideo(Integer.parseInt(request.queryMap().get("patient_video_id").value()));
+      PatientVideo pv =
+          new PatientVideo(Integer.parseInt(request.queryMap().get("patient_video_id").value()));
       pv.updatePatientVideo(request.queryMap().get("comment").value());
       return 200;
     } catch (SQLException sqlEx) {

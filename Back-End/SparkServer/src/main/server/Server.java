@@ -117,10 +117,12 @@ public class Server {
                             return response.status();
                           });
                     });
-                put("/update", (request, response) -> {
-                    response.status(PTUtil.updatePT(request));
-                    return response.status();
-                });
+                put(
+                    "/update",
+                    (request, response) -> {
+                      response.status(PTUtil.updatePT(request));
+                      return response.status();
+                    });
               });
 
           path(
@@ -183,12 +185,12 @@ public class Server {
                             response.status(EntryUtil.registerEntry(request));
                             return response.status();
                           });
-                        put(
-                            "/comment",
-                            (request, response) -> {
-                                response.status(PatientVideoUtil.updatePatientVideo(request));
-                                return response.status();
-                            });
+                      put(
+                          "/comment",
+                          (request, response) -> {
+                            response.status(PatientVideoUtil.updatePatientVideo(request));
+                            return response.status();
+                          });
                     });
 
                 path(

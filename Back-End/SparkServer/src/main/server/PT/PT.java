@@ -116,9 +116,9 @@ public class PT extends User {
     String query = "SELECT * FROM pt WHERE pt_id = " + this.pt_id;
 
     try (Connection con =
-                 DriverManager.getConnection(
-                         Server.databasePath, Server.databaseUsername, Server.databasePassword);
-         PreparedStatement pst = con.prepareStatement(query)) {
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(query)) {
 
       ResultSet rs = pst.executeQuery();
       if (rs.next()) {
@@ -130,32 +130,41 @@ public class PT extends User {
         throw new SQLException("Failed to get info from PT with that pt_id");
       }
     } catch (SQLException ex) {
-      throw new SQLException(
-              "Failed to get info from PT" + ex.toString());
+      throw new SQLException("Failed to get info from PT" + ex.toString());
     }
 
     return this;
   }
 
-  public PT updatePT(String description, String f_name, String l_name, String email, String company) throws Exception {
+  public PT updatePT(String description, String f_name, String l_name, String email, String company)
+      throws Exception {
     String query = "UPDATE pt SET description = '" + description + "' WHERE pt_id = " + this.pt_id;
 
     try (Connection con =
-                 DriverManager.getConnection(
-                         Server.databasePath, Server.databaseUsername, Server.databasePassword);
-         PreparedStatement pst = con.prepareStatement(query)) {
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(query)) {
       pst.executeUpdate(query);
       System.out.println("PT description updated");
     } catch (SQLException ex) {
       throw new Exception("Error updating pt with id " + this.pt_id + ": " + ex.toString());
     }
 
-    String userQuery = "UPDATE user SET f_name = '" + f_name + "', l_name = '" + l_name + "', email = '" +
-            email + "', company = '" + company + "' WHERE user_id = " + this.user;
+    String userQuery =
+        "UPDATE user SET f_name = '"
+            + f_name
+            + "', l_name = '"
+            + l_name
+            + "', email = '"
+            + email
+            + "', company = '"
+            + company
+            + "' WHERE user_id = "
+            + this.user;
     try (Connection con =
-                 DriverManager.getConnection(
-                         Server.databasePath, Server.databaseUsername, Server.databasePassword);
-         PreparedStatement pst = con.prepareStatement(userQuery)) {
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(userQuery)) {
       pst.executeUpdate(userQuery);
       System.out.println("PT profile updated");
     } catch (SQLException ex) {
@@ -190,6 +199,4 @@ public class PT extends User {
     this.user = user;
     setUser_id(user);
   }
-
-
 }
