@@ -222,6 +222,7 @@ public class PTUtil {
               request.queryMap().get("f_name").value(),
               request.queryMap().get("l_name").value(),
               request.queryMap().get("email").value(),
+              request.queryMap().get("password").value(),
               request.queryMap().get("company").value());
 
       return 200;

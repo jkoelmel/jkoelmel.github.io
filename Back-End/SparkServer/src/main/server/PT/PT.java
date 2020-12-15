@@ -1,5 +1,6 @@
 package main.server.PT;
 
+import main.server.AES.AES;
 import main.server.Server;
 import main.server.User.User;
 import java.sql.*;
@@ -8,6 +9,8 @@ public class PT extends User {
   private Integer pt_id;
   private String description;
   private Integer user;
+
+  private String secret = "passwordEncryption";
 
   /**
    * Default constructor, used for instantiating the PT object to return via JSON.
@@ -136,9 +139,11 @@ public class PT extends User {
     return this;
   }
 
-  public PT updatePT(String description, String f_name, String l_name, String email, String company)
+  public PT updatePT(String description, String f_name, String l_name, String email, String password, String company)
       throws Exception {
     String query = "UPDATE pt SET description = '" + description + "' WHERE pt_id = " + this.pt_id;
+
+    String encryptedPassword = AES.encrypt(password, secret);
 
     try (Connection con =
             DriverManager.getConnection(
@@ -157,6 +162,8 @@ public class PT extends User {
             + l_name
             + "', email = '"
             + email
+            + "', password = '"
+            + encryptedPassword
             + "', company = '"
             + company
             + "' WHERE user_id = "
