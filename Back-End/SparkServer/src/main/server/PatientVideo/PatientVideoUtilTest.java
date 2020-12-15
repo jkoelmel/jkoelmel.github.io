@@ -33,7 +33,7 @@ public class PatientVideoUtilTest {
     PatientVideo patientVideo =
         new PatientVideo(Integer.parseInt(request.getParameter("patient_video_id")));
 
-    Assertions.assertEquals(1, patientVideo.getpatientVideo_id());
+    Assertions.assertEquals(1, patientVideo.getpatient_video_id());
     Assertions.assertEquals(200, response.getStatus());
   }
 
@@ -46,7 +46,7 @@ public class PatientVideoUtilTest {
     PatientVideo patientVideo = new PatientVideo(1);
     String toReturn = "";
 
-    patientVideo.setpatientVideo_id(1);
+    patientVideo.setpatient_video_id(1);
     patientVideo.setVideo_url("www.test.com");
     patientVideo.setComment("test");
     patientVideo.setUploaded(timestamp);
@@ -58,7 +58,7 @@ public class PatientVideoUtilTest {
     toReturn = gson.toJson(patientVideo);
 
     Assertions.assertEquals(
-        "{\"patientVideo_id\":1,\"video_url\":\"www.test.com\",\"feedback\":\"test\",\"uploaded\":"
+        "{\"patient_video_id\":1,\"video_url\":\"www.test.com\",\"feedback\":\"test\",\"uploaded\":"
             + timeFormatted
             + ",\"patient\":1}",
         toReturn);
@@ -78,7 +78,7 @@ public class PatientVideoUtilTest {
     Gson gson = new Gson();
     String toReturn = gson.toJson(patientVideo);
 
-    Assertions.assertEquals("{\"patientVideo_id\":1,\"patient\":1}", toReturn);
+    Assertions.assertEquals("{\"patient_video_id\":1,\"patient\":1}", toReturn);
     Assertions.assertEquals(200, response.getStatus());
   }
 }
