@@ -62,7 +62,7 @@ public class PatientVideoUtil {
       while (rs.next()) {
         PatientVideo pv = new PatientVideo(rs.getInt("patient_video_id"));
         pv.setVideo_url(rs.getString("video_url"));
-        pv.setFeedback(rs.getString("feedback"));
+        pv.setComment(rs.getString("comment"));
         pv.setUploaded(rs.getTimestamp("uploaded"));
         pv.setPatient(rs.getInt("patient"));
 
@@ -96,6 +96,21 @@ public class PatientVideoUtil {
       pv.createPatientVideo(
           request.queryMap().get("video_url").value(),
           Integer.parseInt(request.queryMap().get("patient").value()));
+      return 200;
+    } catch (SQLException sqlEx) {
+      System.err.println(sqlEx.toString());
+      return 500;
+    } catch (Exception ex) {
+      System.err.println(ex.toString());
+      return 400;
+    }
+  }
+
+  public static Integer updatePatientVideo(Request request) {
+    try {
+      PatientVideo pv =
+          new PatientVideo(Integer.parseInt(request.queryMap().get("patient_video_id").value()));
+      pv.updatePatientVideo(request.queryMap().get("comment").value());
       return 200;
     } catch (SQLException sqlEx) {
       System.err.println(sqlEx.toString());

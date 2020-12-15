@@ -85,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
   thumbnail: {
     maxHeight: "150px",
+
   },
 }));
 
@@ -180,6 +181,7 @@ export const PatientVideos = (props) => {
               selected={selectedVideo == v.patient_video_id}
               onClick={(event) => handleVideoClick(event, v.video_url)}
             >
+
               <img
               className={classes.thumbnail}
                 src={
