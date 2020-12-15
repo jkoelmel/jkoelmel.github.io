@@ -137,7 +137,13 @@ public class PT extends User {
     return this;
   }
 
-  public PT updatePT(String description, String f_name, String l_name, String email, String password, String company)
+  public PT updatePT(
+      String description,
+      String f_name,
+      String l_name,
+      String email,
+      String password,
+      String company)
       throws Exception {
     String query = "UPDATE pt SET description = '" + description + "' WHERE pt_id = " + this.pt_id;
 
