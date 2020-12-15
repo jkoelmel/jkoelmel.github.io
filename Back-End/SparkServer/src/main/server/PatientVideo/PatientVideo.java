@@ -88,8 +88,8 @@ public class PatientVideo {
   public void updatePatientVideo(String comment) throws Exception {
 
     String query =
-        "UPDATE patient_video SET comment = "
-            + comment
+        "UPDATE patient_video SET comment = '"
+            + comment + "'"
             + " WHERE patient_video_id "
             + this.patientVideo_id;
 
