@@ -11,6 +11,7 @@ import main.server.Assignment.*;
 import main.server.Contain.*;
 import main.server.PatientMessage.PatientMessageUtil;
 import main.server.PatientVideo.PatientVideoUtil;
+import main.server.Workout.WorkoutUtil;
 
 import java.sql.*;
 
@@ -199,6 +200,12 @@ public class Server {
                     () -> {
                       // Requires patient
                       get("/id", AssignmentUtil::getPatientAssignment);
+                    put(
+                      "/remove",
+                      (request, response) -> {
+                          response.status(WorkoutUtil.deleteWorkout(request));
+                          return response.status();
+                      });
                     });
               });
 
