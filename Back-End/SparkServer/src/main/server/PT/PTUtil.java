@@ -28,7 +28,7 @@ public class PTUtil {
       Gson gson = new Gson();
       toReturn = gson.toJson(pt.getPT());
 
-      System.out.println("PT has been selected");
+      System.out.println("PT by email has been selected");
       response.type("application/json");
       response.status(200);
     } catch (SQLException sqlEx) {
@@ -120,6 +120,7 @@ public class PTUtil {
                 rs.getString("f_name"),
                 rs.getString("l_name"),
                 rs.getString("company"));
+        pt.setDescription(rs.getString("description"));
         pt.setUser(rs.getInt("user_id"));
         pt.setPt_id(rs.getInt("pt_id"));
         list.add(pt);

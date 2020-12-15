@@ -101,6 +101,7 @@ public class PT extends User {
         setF_name(rs.getString("f_name"));
         setL_name(rs.getString("l_name"));
         setCompany(rs.getString("company"));
+        setDescription(rs.getString("description"));
       } else {
         throw new SQLException("A user with that email doesn't exist.");
       }
