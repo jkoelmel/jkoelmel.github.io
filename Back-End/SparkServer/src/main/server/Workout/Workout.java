@@ -108,17 +108,16 @@ public class Workout {
     String query = "DELETE FROM workout WHERE workout_id = " + this.workout_id;
 
     try (Connection con =
-                 DriverManager.getConnection(
-                         Server.databasePath, Server.databaseUsername, Server.databasePassword);
-         PreparedStatement pst = con.prepareStatement(query)) {
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(query)) {
       pst.executeUpdate(query);
 
       System.out.println("Workout removed");
     } catch (SQLException ex) {
       throw new Exception(
-              "Error deleting workout with id " + this.workout_id + ": " + ex.toString());
+          "Error deleting workout with id " + this.workout_id + ": " + ex.toString());
     }
-
   }
 
   // Getters and setters

@@ -114,5 +114,4 @@ public class WorkoutUtil {
       return 400;
     }
   }
-
 }
