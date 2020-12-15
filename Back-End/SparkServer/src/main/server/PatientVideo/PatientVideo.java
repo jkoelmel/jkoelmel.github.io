@@ -90,7 +90,7 @@ public class PatientVideo {
     String query =
         "UPDATE patient_video SET comment = '"
             + comment + "'"
-            + " WHERE patient_video_id "
+            + " WHERE patient_video_id = "
             + this.patientVideo_id;
 
     try (Connection con =
