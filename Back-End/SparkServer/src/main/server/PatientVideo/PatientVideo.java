@@ -89,8 +89,14 @@ public class PatientVideo {
 
     String query =
         "UPDATE patient_video SET comment = '"
+<<<<<<< HEAD
             + comment + "'"
             + " WHERE patient_video_id = "
+=======
+            + comment
+            + "'"
+            + " WHERE patient_video_id "
+>>>>>>> 90111a4b0738674577e759886844993841eb4159
             + this.patientVideo_id;
 
     try (Connection con =
