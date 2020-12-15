@@ -10,8 +10,6 @@ public class PT extends User {
   private String description;
   private Integer user;
 
-  private String secret = "passwordEncryption";
-
   /**
    * Default constructor, used for instantiating the PT object to return via JSON.
    *
@@ -143,8 +141,6 @@ public class PT extends User {
       throws Exception {
     String query = "UPDATE pt SET description = '" + description + "' WHERE pt_id = " + this.pt_id;
 
-    String encryptedPassword = AES.encrypt(password, secret);
-
     try (Connection con =
             DriverManager.getConnection(
                 Server.databasePath, Server.databaseUsername, Server.databasePassword);
@@ -163,7 +159,7 @@ public class PT extends User {
             + "', email = '"
             + email
             + "', password = '"
-            + encryptedPassword
+            + password
             + "', company = '"
             + company
             + "' WHERE user_id = "

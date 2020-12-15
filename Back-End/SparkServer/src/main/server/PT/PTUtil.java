@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class PTUtil {
 
-  private static String secret = "passwordEncryption";
+  private static final String secret = "passwordEncryption";
 
   /**
    * Select a specific PT given their email.
@@ -216,13 +216,16 @@ public class PTUtil {
   public static Integer updatePT(Request request) {
     try {
       PT pt = new PT(Integer.parseInt(request.queryMap().get("pt_id").value()));
+
+      String password = AES.encrypt(request.queryMap().get("password").value(), secret);
+
       pt.getInfo()
           .updatePT(
               request.queryMap().get("description").value(),
               request.queryMap().get("f_name").value(),
               request.queryMap().get("l_name").value(),
               request.queryMap().get("email").value(),
-              request.queryMap().get("password").value(),
+              password,
               request.queryMap().get("company").value());
 
       return 200;
