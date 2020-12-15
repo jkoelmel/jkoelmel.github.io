@@ -2,6 +2,7 @@ package main.server.PT;
 
 import com.google.gson.Gson;
 import main.server.AES.AES;
+import main.server.Entry.Entry;
 import main.server.Patient.Patient;
 import main.server.Server;
 import spark.Request;
@@ -178,9 +179,9 @@ public class PTUtil {
 
     String query =
         "SELECT * FROM user INNER JOIN pt ON user.user_id = pt.user "
-            + " WHERE user.email = \""
+            + " WHERE user.email = '"
             + request.queryMap().get("email").value()
-            + "\"";
+            + "'";
 
     try (Connection con =
             DriverManager.getConnection(
@@ -211,5 +212,24 @@ public class PTUtil {
     }
     // default response
     return 400;
+  }
+
+  public static Integer updatePT(Request request) {
+    try {
+      PT pt = new PT(Integer.parseInt(request.queryMap().get("pt_id").value()));
+      pt.getInfo().updatePT(request.queryMap().get("description").value(),
+                          request.queryMap().get("f_name").value(),
+                          request.queryMap().get("l_name").value(),
+                          request.queryMap().get("email").value(),
+                          request.queryMap().get("company").value());
+
+      return 200;
+    } catch (SQLException sqlEx) {
+      System.err.println(sqlEx.toString());
+      return 500;
+    } catch (Exception ex) {
+      System.err.println(ex.toString());
+      return 400;
+    }
   }
 }

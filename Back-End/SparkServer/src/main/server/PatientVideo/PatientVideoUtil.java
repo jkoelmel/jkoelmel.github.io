@@ -105,4 +105,18 @@ public class PatientVideoUtil {
       return 400;
     }
   }
+
+  public static Integer updatePatientVideo(Request request) {
+    try {
+      PatientVideo pv = new PatientVideo(Integer.parseInt(request.queryMap().get("patient_video_id").value()));
+      pv.updatePatientVideo(request.queryMap().get("comment").value());
+      return 200;
+    } catch (SQLException sqlEx) {
+      System.err.println(sqlEx.toString());
+      return 500;
+    } catch (Exception ex) {
+      System.err.println(ex.toString());
+      return 400;
+    }
+  }
 }

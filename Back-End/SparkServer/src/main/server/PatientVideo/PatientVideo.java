@@ -68,7 +68,7 @@ public class PatientVideo {
       if (rs.next()) {
         setpatientVideo_id(rs.getInt("patient_video_id"));
         setVideo_url(rs.getString("video_url"));
-        setFeedback(rs.getString("feedback"));
+        setFeedback(rs.getString("comment"));
         setUploaded(rs.getTimestamp("uploaded"));
         setPatient(rs.getInt("patient"));
       }
@@ -88,7 +88,7 @@ public class PatientVideo {
   public void updatePatientVideo(String feedback) throws Exception {
 
     String query =
-        "UPDATE patient_video SET feedback = "
+        "UPDATE patient_video SET comment = "
             + feedback
             + " WHERE patient_video_id "
             + this.patientVideo_id;
