@@ -60,6 +60,26 @@ export const logoutPT = (pt) => {
   };
 };
 
+export const deleteWorkout = (workout_id) => {
+  const params = new URLSearchParams();
+  params.append('workout_id', workout_id);
+ 
+  
+  return () => {
+    putAuth('/api/patient/workout/remove', params)
+      .then((res) => {
+        if (res.data == 200) {
+          console.log(res.data);
+          window.alert('deleted workout successfully');
+          window.location.href = '/';
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 export const assignWorkout = (pt, checked, selectedWorkout) => {
   const params = new URLSearchParams();
   params.append('pt', pt.pt_id);
