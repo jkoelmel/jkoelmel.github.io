@@ -8,7 +8,7 @@ public class PatientVideo {
 
   private Integer patientVideo_id;
   private String video_url;
-  private String feedback;
+  private String comment;
   private Timestamp uploaded;
   private Integer patient;
 
@@ -68,7 +68,7 @@ public class PatientVideo {
       if (rs.next()) {
         setpatientVideo_id(rs.getInt("patient_video_id"));
         setVideo_url(rs.getString("video_url"));
-        setFeedback(rs.getString("comment"));
+        setComment(rs.getString("comment"));
         setUploaded(rs.getTimestamp("uploaded"));
         setPatient(rs.getInt("patient"));
       }
@@ -82,14 +82,14 @@ public class PatientVideo {
   /**
    * Update an exisiting patient video from the database using the patient_video_id
    *
-   * @param feedback The string value of feedback
+   * @param comment The string value of comment
    * @throws Exception Throws an exception
    */
-  public void updatePatientVideo(String feedback) throws Exception {
+  public void updatePatientVideo(String comment) throws Exception {
 
     String query =
         "UPDATE patient_video SET comment = "
-            + feedback
+            + comment
             + " WHERE patient_video_id "
             + this.patientVideo_id;
 
@@ -123,12 +123,12 @@ public class PatientVideo {
     this.video_url = video_url;
   }
 
-  public String getFeedback() {
-    return feedback;
+  public String getComment() {
+    return comment;
   }
 
-  public void setFeedback(String feedback) {
-    this.feedback = feedback;
+  public void setComment(String comment) {
+    this.comment = comment;
   }
 
   public Timestamp getUploaded() {
