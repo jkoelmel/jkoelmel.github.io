@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
   },
   thumbnail: {
-    maxHeight: '200px',
+    maxHeight: '175px',
   },
   title: {
     // need to set up for dynamic scaling
@@ -178,36 +178,36 @@ export const Library = (props) => {
         </ListSubheader>
 
         {props.exercises.map((ev, k) => (
-          <React.Fragment key={k}>
-            <Divider />
-            <ListItem className={classes.title}>{ev.title}</ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <PlayArrow
-                  edge="start"
-                  checked={props.selectedVideos.indexOf(ev.exercise_id) !== -1}
-                  tabIndex={-1}
-                  onClick={(event) => handleVideoClick(event, ev.exercise_id)}
-                  inputprops={{
-                    'aria-labelledby': `checkbox-list-label-${ev.exercise_id}`,
-                  }}
-                />
-              </ListItemIcon>
-              <img className={classes.thumbnail} src={ev.thumbnail} />
-              <ListItemSecondaryAction>
-                <Checkbox
-                  edge="end"
-                  tabIndex={-1}
-                  disableRipple
-                  onChange={handleCheckToggle(ev.exercise_id)}
-                  checked={props.selectedVideos.indexOf(ev.exercise_id) !== -1}
-                  inputProps={{
-                    'aria-labelledby': `checkbox-list-label-${ev.exercise_id}`,
-                  }}
-                />
-              </ListItemSecondaryAction>
-            </ListItem>
-          </React.Fragment>
+            <React.Fragment key={k}>
+              <Divider />
+              <ListItem className={classes.title}>{ev.title}</ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <PlayArrow
+                      edge="start"
+                      checked={props.selectedVideos.indexOf(ev.exercise_id) !== -1}
+                      tabIndex={-1}
+                      onClick={(event) => handleVideoClick(event, ev.exercise_id)}
+                      inputprops={{
+                        "aria-labelledby": `checkbox-list-label-${ev.exercise_id}`,
+                      }}
+                  />
+                </ListItemIcon>
+                <img className={classes.thumbnail} src={ev.thumbnail} />
+                <ListItemSecondaryAction>
+                  <Checkbox
+                      edge="end"
+                      tabIndex={-1}
+                      disableRipple
+                      onChange={handleCheckToggle(ev.exercise_id)}
+                      checked={props.selectedVideos.indexOf(ev.exercise_id) !== -1}
+                      inputProps={{
+                        "aria-labelledby": `checkbox-list-label-${ev.exercise_id}`,
+                      }}
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+            </React.Fragment>
         ))}
       </List>
 
