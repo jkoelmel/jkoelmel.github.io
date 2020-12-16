@@ -26,14 +26,14 @@ public class PatientVideoTest {
 
   @Test
   void getPatientVideoTest() {
-    patientVideo.setpatientVideo_id(1);
-    assertNotEquals(null, patientVideo.getpatientVideo_id());
+    patientVideo.setpatient_video_id(1);
+    assertNotEquals(null, patientVideo.getpatient_video_id());
   }
 
   @Test
   void setPatientVideoIdTest() {
-    patientVideo.setpatientVideo_id(1);
-    assertEquals(1, patientVideo.getpatientVideo_id());
+    patientVideo.setpatient_video_id(1);
+    assertEquals(1, patientVideo.getpatient_video_id());
   }
 
   @Test
@@ -44,8 +44,8 @@ public class PatientVideoTest {
 
   @Test
   void setFeedbackTest() {
-    patientVideo.setFeedback("Test");
-    assertEquals("Test", patientVideo.getFeedback());
+    patientVideo.setComment("Test");
+    assertEquals("Test", patientVideo.getComment());
   }
 
   @Test

@@ -13,7 +13,7 @@ public abstract class User {
   private String f_name;
   private String l_name;
   private String company;
-  private String secret = "passwordEncryption";
+  private String secretUser = "passwordEncryption";
 
   /** Default constructor. */
   public User() {}
@@ -30,7 +30,7 @@ public abstract class User {
    */
   public User(String email, String password, String f_name, String l_name, String company) {
     this.email = email;
-    this.password = AES.encrypt(password, secret);
+    this.password = AES.encrypt(password, secretUser);
     this.f_name = f_name;
     this.l_name = l_name;
     this.company = company;
