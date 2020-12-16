@@ -271,5 +271,4 @@ export default connect(
       createNewPT: (data) => dispatch( createNewPT(data)),
     }),
     
-)
-(RegisterPT);
+)(RegisterPT);

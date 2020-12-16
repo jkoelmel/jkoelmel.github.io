@@ -16,7 +16,7 @@ import HouseIcon from '../../Assets/houseIcon.svg';
 import DoctorIcon from '../../Assets/doctorIcon.svg';
 import PhoneIcon from '../../Assets/phoneIcon.svg';
 import LoginForm from '../../Components/LoginForm/LoginForm';
-import RegisterPT from '../../Components/RegisterPT/RegisterPT';
+import RegisterPT from "../../Components/RegisterPT/RegisterPT";
 
 const useStyles = makeStyles((theme) => ({
   landingroot: {
