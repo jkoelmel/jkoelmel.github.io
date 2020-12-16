@@ -1,6 +1,6 @@
 import * as constants from '../constants/constants-pt';
 import * as constantsWorkout from '../constants/constants-workouts';
-import {getAuth, postAuth} from './actions-auth';
+import {getAuth, postAuth,putAuth} from './actions-auth';
 
 export const createNewPT = (pt) => {
   const params = new URLSearchParams();
@@ -9,12 +9,14 @@ export const createNewPT = (pt) => {
   params.append('l_name', pt.l_name);
   params.append('password', pt.password);
   params.append('company', pt.company);
-
+  params.append('description', pt.description);
   return (dispatch) => {
     postAuth('api/pt/register', params)
       .then(() => {
         dispatch(createPT(pt));
         dispatch(getPTByEmail(pt.email));
+        window.alert('Create New PT: success');
+        window.location.href = '/';
       })
       .catch((err) => console.log('Error creating pt:', err));
   };
@@ -125,7 +127,33 @@ export const getPTByEmail = (email) => (dispatch) => {
 export const updatePT = (pt) => ({
     type: constants.UPDATE_PT,
     payload: pt,
+
   });
+
+  export const EditPT = (pt) => {return (dispatch) => {
+
+    const params = new URLSearchParams();
+    params.append('email', pt.email);
+    params.append('pt_id', pt.pt_id);
+    params.append('password', pt.password);
+    params.append('f_name', pt.f_name);
+    params.append('l_name', pt.l_name);
+    params.append('description', pt.description);
+    params.append('company', pt.company);
+
+    putAuth('api/pt/update', params)
+      .then(dispatch(updatePT(pt))).then(()=> {
+        window.alert('UpdatePT creation: success');
+        window.location.href = '/';
+      }
+      )
+      .catch((err) =>
+        console.log(
+          `Error Editing PT information:`,
+          err,
+        ),
+      );
+  };}
 
 export const fetchPTs = () => (dispatch) => {
     getAuth('/api/pt/all')
