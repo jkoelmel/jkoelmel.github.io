@@ -1,35 +1,35 @@
-import React from "react";
-import "./styles.css";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { Container, Typography } from "@material-ui/core";
-import Modal from "@material-ui/core/Modal";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-
-import axios from "axios";
-import Image from "../../Assets/katee-lue-SxR5wZYaOtg-unsplash.jpg";
-import HouseIcon from "../../Assets/houseIcon.svg";
-import DoctorIcon from "../../Assets/doctorIcon.svg";
-import PhoneIcon from "../../Assets/phoneIcon.svg";
-import { makeStyles } from "@material-ui/core/styles";
-import LoginForm from "../../Components/LoginForm/LoginForm";
-import RegisterPT from "../../Components/RegisterPT/RegisterPT";
+import React from 'react';
+import './styles.css';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import {Container, Typography} from '@material-ui/core';
+import Modal from '@material-ui/core/Modal';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Fade from '@material-ui/core/Fade';
+import axios from 'axios';
+import {makeStyles} from '@material-ui/core/styles';
+import Image from '../../Assets/katee-lue-SxR5wZYaOtg-unsplash.jpg';
+import HouseIcon from '../../Assets/houseIcon.svg';
+import DoctorIcon from '../../Assets/doctorIcon.svg';
+import PhoneIcon from '../../Assets/phoneIcon.svg';
+import LoginForm from '../../Components/LoginForm/LoginForm';
+import RegisterPT from '../../Components/RegisterPT/RegisterPT';
 
 const useStyles = makeStyles((theme) => ({
   landingroot: {
-    minHeight: "90vh",
+    minHeight: '90vh',
     backgroundImage: `url(${Image})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPositionY: "-35vh",
-    display: "flex",
-    justifyContent: "center",
-    paddingTop: "7vh",
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPositionY: '-35vh',
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: '7vh',
     paddingLeft: 100,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   buttons: {
     color: theme.palette.secondary.main,
@@ -37,20 +37,20 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 45,
   },
   LoginModal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));
 
-const Landing = ({handleLogin,error}) => {
-    const classes = useStyles();
-    const [LoginOpen, setLoginOpen] = React.useState(false);
-    const [RegisterOpen, setRegisterOpen] = React.useState(false);
+const Landing = ({handleLogin, error}) => {
+  const classes = useStyles();
+  const [LoginOpen, setLoginOpen] = React.useState(false);
+  const [RegisterOpen, setRegisterOpen] = React.useState(false);
 
-    const handleLoginOpen = () => {
-        setLoginOpen(true);
-    };
+  const handleLoginOpen = () => {
+    setLoginOpen(true);
+  };
 
   const handleLoginClose = () => {
     setLoginOpen(false);
@@ -74,7 +74,6 @@ const Landing = ({handleLogin,error}) => {
                 Living Better One Day At a Time...
               </Typography>
             </Grid>
-            <Grid container></Grid>
           </Grid>
         </Grid>
 
@@ -121,7 +120,12 @@ const Landing = ({handleLogin,error}) => {
             aria-describedby="simple-modal-description"
             className={classes.LoginModal}
           >
-            <RegisterPT />
+            <Fade in={RegisterOpen}>
+          <div className={classes.paper}>
+          <RegisterPT/>
+          </div>
+        </Fade>
+
           </Modal>
           <Grid item>
             <Button className={classes.buttons} onClick={handleLoginOpen}>
@@ -146,30 +150,3 @@ const Landing = ({handleLogin,error}) => {
 };
 
 export default Landing;
-// <div className = 'root'>
-//     <Grid container className ='grid-root' spacing={5}>
-//         <Grid item xs={3} >
-//             <Paper >
-//                 <PatientList patients = {patients} setPatients = {setPatients}
-//                 selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
-//             </Paper>
-//         </Grid>
-//         <Grid item xs={3} >
-//             <Paper >
-//                 <SearchPlan patients = {patients} setPatients = {setPatients}
-//                  selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
-//             </Paper>
-//         </Grid>
-//     <Grid item xs={3} >
-//         <Paper >
-//             <SearchReport selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
-//         </Paper>
-//     </Grid>
-//     <Grid item xs={3} >
-//         <Paper >
-//             <SearchActivities selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
-//         </Paper>
-//     </Grid>
-
-//     </Grid>
-// </div>
