@@ -151,7 +151,7 @@ export const Library = (props) => {
                   value={props.searchKey}
                   margin="dense"
                   id="name"
-                  label="search Exercises"
+                  label="Search Exercises"
                   placeholder="i.e knee, elbow"
                   type="input"
                   variant="outlined"

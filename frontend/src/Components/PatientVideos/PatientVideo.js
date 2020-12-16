@@ -87,6 +87,9 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "150px",
 
   },
+  comments: {
+    color: '#00559A',
+  }
 }));
 
 export const PatientVideos = (props) => {
@@ -198,6 +201,7 @@ export const PatientVideos = (props) => {
               />
             </ListItemIcon>
             </ListItem>
+            <ListItemText className={classes.comments} primary={v.comment === undefined ? '' : `Comment: ${v.comment}` }/>
             <Divider/>
           </div>
         ))}
@@ -218,7 +222,7 @@ export const PatientVideos = (props) => {
           <Paper className={classes.paperUpload}>
             <Grid container className={classes.gridUpload} direction="column" spacing={2}>
               <Grid item>
-                <Typography variant='h5'> Write {props.selectedPatient.f_name} a Video comment!</Typography>
+                <Typography variant='h5'> Write {props.selectedPatient.f_name} a comment on their video: </Typography>
               </Grid>
               <Grid item>
                 <TextField

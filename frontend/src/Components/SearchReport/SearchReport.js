@@ -69,7 +69,9 @@ const useStyles = makeStyles((theme) => ({
     borderWidth: '1px',
     borderColor: '#00559A !important'
   },
-
+  comments: {
+    color: '#00559A',
+  }
 }));
 
 export const SearchReport = (props) => {
@@ -136,6 +138,7 @@ export const SearchReport = (props) => {
               />
             </ListItemIcon>
           </ListItem>
+            <ListItemText className={classes.comments} primary={pr.comment === undefined ? '' : `Comment: ${pr.comment}` }/>
           <Divider/>
           </div>
           
@@ -158,7 +161,7 @@ export const SearchReport = (props) => {
           <Paper className={classes.paperUpload}>
             <Grid container className={classes.gridUpload} direction="column" spacing={2}>
               <Grid item>
-                <Typography variant='h5'> Write {props.selectedPatient.f_name} a comment!</Typography>
+                <Typography variant='h5'> Write {props.selectedPatient.f_name} a comment on their progress:</Typography>
               </Grid>
               <Grid item>
                 <TextField
