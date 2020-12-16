@@ -1,5 +1,4 @@
 import {Typography} from '@material-ui/core';
-import {Button} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
@@ -252,9 +251,7 @@ const RegisterPT = (props) => {
                 >
                   Login
                 </Button>
-        </Grid>
-        </Grid>
-        
+            </Grid>
       </Paper>
       </Form>
           )}
