@@ -9,8 +9,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fade from '@material-ui/core/Fade';
-
-
 import axios from 'axios';
 import {makeStyles} from '@material-ui/core/styles';
 import Image from '../../Assets/katee-lue-SxR5wZYaOtg-unsplash.jpg';
@@ -76,7 +74,6 @@ const Landing = ({handleLogin, error}) => {
                 Living Better One Day At a Time...
               </Typography>
             </Grid>
-            <Grid container></Grid>
           </Grid>
         </Grid>
 
@@ -125,7 +122,7 @@ const Landing = ({handleLogin, error}) => {
           >
             <Fade in={RegisterOpen}>
           <div className={classes.paper}>
-          <RegisterPT />
+          <RegisterPT/>
           </div>
         </Fade>
 
@@ -153,30 +150,3 @@ const Landing = ({handleLogin, error}) => {
 };
 
 export default Landing;
-// <div className = 'root'>
-//     <Grid container className ='grid-root' spacing={5}>
-//         <Grid item xs={3} >
-//             <Paper >
-//                 <PatientList patients = {patients} setPatients = {setPatients}
-//                 selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
-//             </Paper>
-//         </Grid>
-//         <Grid item xs={3} >
-//             <Paper >
-//                 <SearchPlan patients = {patients} setPatients = {setPatients}
-//                  selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
-//             </Paper>
-//         </Grid>
-//     <Grid item xs={3} >
-//         <Paper >
-//             <SearchReport selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
-//         </Paper>
-//     </Grid>
-//     <Grid item xs={3} >
-//         <Paper >
-//             <SearchActivities selectedPatient = {selectedPatient} setSelectedPatient= {setSelectedPatient}/>
-//         </Paper>
-//     </Grid>
-
-//     </Grid>
-// </div>
