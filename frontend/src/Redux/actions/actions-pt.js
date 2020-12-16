@@ -61,7 +61,25 @@ export const logoutPT = (pt) => {
     payload: {},
   };
 };
-
+export const deleteWorkout = (workout_id) => {
+  const params = new URLSearchParams();
+  params.append('workout_id', workout_id);
+ 
+  
+  return () => {
+    putAuth('/api/patient/workout/remove', params)
+      .then((res) => {
+        if (res.data == 200) {
+          console.log(res.data);
+          window.alert('deleted workout successfully');
+          window.location.href = '/';
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 export const assignWorkout = (pt, checked, selectedWorkout) => {
   const params = new URLSearchParams();
   params.append('pt', pt.pt_id);
@@ -107,6 +125,27 @@ export const createWorkout = (pt, title, exercises, descriptions) => {
       });
   };
 };
+export const createExercise = (title, exercise_url, tags) => {
+  const params = new URLSearchParams();
+  params.append('title', title);
+  params.append('exercise_url', exercise_url);
+  params.append('tags', tags);
+  
+  return () => {
+    postAuth('/api/exercise/register', params)
+      .then((res) => {
+        if (res.data == 200) {
+          console.log(res.data);
+          window.alert('exercise video upload: success');
+          window.location.href = '/';
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 
 export const createPT = (pt) => ({
     type: constants.CREATE_PT,
@@ -182,13 +221,13 @@ export const fetchExerciseVideos = () => {
   return (dispatch) => {
     getAuth('/api/exercise/all')
       .then((response) => dispatch(loadExerciseVideos(response.data)))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("FAILED"));
   };
 };
 
 export const loadExerciseVideos = (exercises) => ({
     type: constantsWorkout.GET_EXERCISE_VIDEOS,
-    payload: exercises,
+    payload: exercises, 
   });
 export const selectedExercises = (selectedVideos) => ({
     type: constantsWorkout.GET_SELECTED_VIDEOS,
@@ -203,4 +242,11 @@ export const setSelectedWorkouts = (selectedWorkouts) => ({
 export const setSelectedPatient = (patient) => ({
     type: constants.SET_SELECTED_PATIENT,
     payload: patient,
+  });
+
+  export const filterExercises = (exercises, searchKey) => ({
+    type: constantsWorkout.SEARCH_EXERCISES,
+    payload: { searchKey,
+      exercises:exercises.filter((e)=> e.tags.toLowerCase().indexOf(searchKey.toLowerCase()) !== -1)
+  }
   });

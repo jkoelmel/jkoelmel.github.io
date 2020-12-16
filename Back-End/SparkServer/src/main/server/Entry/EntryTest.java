@@ -50,4 +50,10 @@ class EntryTest {
     entry.setPatient(1000);
     assertEquals(1000, entry.getPatient());
   }
+
+  @Test
+  void setComment() {
+    entry.setComment("test");
+    assertEquals("test", entry.getComment());
+  }
 }

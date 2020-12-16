@@ -11,7 +11,6 @@ import {connect} from 'react-redux';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
 import {assignWorkout, fetchPTsPatients} from '../../Redux/actions/actions-pt';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    //   border: '2px solid #000',a
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     outline: 'none',

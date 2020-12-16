@@ -1,4 +1,5 @@
 import {Typography} from '@material-ui/core';
+import {Button} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
@@ -18,8 +19,21 @@ const useStyles = makeStyles((theme) => ({
     width: 500,
     padding: 10,
   },
-  textfield: {
-    // borderColor: theme.palette.secondary.main
+  cssLabel: {
+    color: '#00559A'
+  },
+
+  cssOutlinedInput: {
+    '&$cssFocused $notchedOutline': {
+      borderColor: `#00559A !important`,
+    }
+  },
+
+  cssFocused: {},
+
+  notchedOutline: {
+    borderWidth: '1px',
+    borderColor: '#00559A !important'
   },
 }));
 
@@ -69,6 +83,20 @@ const RegisterPT = (props) => {
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline,
+                },
+                inputMode: "numeric"
+              }}
             />
           </Grid>
           <Grid item>
@@ -86,6 +114,21 @@ const RegisterPT = (props) => {
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
+
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline,
+                },
+                inputMode: "numeric"
+              }}
             />
           </Grid>
           <Grid item>
@@ -100,6 +143,20 @@ const RegisterPT = (props) => {
               value={values.f_name}
               onChange={handleChange}
               onBlur={handleBlur}
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline,
+                },
+                inputMode: "numeric"
+              }}
             />
           </Grid>
           <Grid item>
@@ -114,6 +171,20 @@ const RegisterPT = (props) => {
               value={values.l_name}
               onChange={handleChange}
               onBlur={handleBlur}
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline,
+                },
+                inputMode: "numeric"
+              }}
             />
           </Grid>
           <Grid item>
@@ -156,6 +227,32 @@ const RegisterPT = (props) => {
           </Button>
           </FormControl>
           
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline,
+                },
+                inputMode: "numeric"
+              }}
+            />
+          </Grid>
+          <Grid item>
+        <Button
+                  // variant='contained'
+                  color="secondary"
+                  type="submit"
+                  style={{marginTop: '1.5rem'}}
+                >
+                  Login
+                </Button>
+        </Grid>
         </Grid>
         
       </Paper>

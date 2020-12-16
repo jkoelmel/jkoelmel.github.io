@@ -6,19 +6,19 @@ import java.sql.*;
 
 public class PatientVideo {
 
-  private Integer patientVideo_id;
+  private Integer patient_video_id;
   private String video_url;
-  private String feedback;
+  private String comment;
   private Timestamp uploaded;
   private Integer patient;
 
   /**
    * Default constructor for PatientVideo
    *
-   * @param patientVideo_id The integer value of patientVideo_id
+   * @param patient_video_id The integer value of patient_video_id
    */
-  public PatientVideo(Integer patientVideo_id) {
-    this.patientVideo_id = patientVideo_id;
+  public PatientVideo(Integer patient_video_id) {
+    this.patient_video_id = patient_video_id;
   }
 
   /**
@@ -56,7 +56,7 @@ public class PatientVideo {
    */
   public PatientVideo getPatientVideo() throws Exception {
     String videoQuery =
-        "SELECT * FROM patient_video WHERE patient_video_id = " + this.patientVideo_id;
+        "SELECT * FROM patient_video WHERE patient_video_id = " + this.patient_video_id;
 
     try (Connection con =
             DriverManager.getConnection(
@@ -66,9 +66,9 @@ public class PatientVideo {
 
       ResultSet rs = pst.executeQuery();
       if (rs.next()) {
-        setpatientVideo_id(rs.getInt("patient_video_id"));
+        setpatient_video_id(rs.getInt("patient_video_id"));
         setVideo_url(rs.getString("video_url"));
-        setFeedback(rs.getString("feedback"));
+        setComment(rs.getString("comment"));
         setUploaded(rs.getTimestamp("uploaded"));
         setPatient(rs.getInt("patient"));
       }
@@ -82,16 +82,17 @@ public class PatientVideo {
   /**
    * Update an exisiting patient video from the database using the patient_video_id
    *
-   * @param feedback The string value of feedback
+   * @param comment The string value of comment
    * @throws Exception Throws an exception
    */
-  public void updatePatientVideo(String feedback) throws Exception {
+  public void updatePatientVideo(String comment) throws Exception {
 
     String query =
-        "UPDATE patient_video SET feedback = "
-            + feedback
-            + " WHERE patient_video_id "
-            + this.patientVideo_id;
+        "UPDATE patient_video SET comment = '"
+            + comment
+            + "'"
+            + " WHERE patient_video_id = "
+            + this.patient_video_id;
 
     try (Connection con =
             DriverManager.getConnection(
@@ -102,17 +103,17 @@ public class PatientVideo {
       System.out.println("Patient Video updated");
     } catch (Exception ex) {
       throw new Exception(
-          "Error updating video with id " + this.patientVideo_id + ": " + ex.toString());
+          "Error updating video with id " + this.patient_video_id + ": " + ex.toString());
     }
   }
 
   /** Getters and Setters */
-  public Integer getpatientVideo_id() {
-    return patientVideo_id;
+  public Integer getpatient_video_id() {
+    return patient_video_id;
   }
 
-  public void setpatientVideo_id(Integer patientVideo_id) {
-    this.patientVideo_id = patientVideo_id;
+  public void setpatient_video_id(Integer patient_video_id) {
+    this.patient_video_id = patient_video_id;
   }
 
   public String getVideo_url() {
@@ -123,12 +124,12 @@ public class PatientVideo {
     this.video_url = video_url;
   }
 
-  public String getFeedback() {
-    return feedback;
+  public String getComment() {
+    return comment;
   }
 
-  public void setFeedback(String feedback) {
-    this.feedback = feedback;
+  public void setComment(String comment) {
+    this.comment = comment;
   }
 
   public Timestamp getUploaded() {

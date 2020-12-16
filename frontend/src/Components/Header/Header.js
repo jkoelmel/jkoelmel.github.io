@@ -77,6 +77,7 @@ export const Header = (props) => {
         <Toolbar disableGutters>
           <div className={classes.menuButton}>
             <IconButton
+              disabled={props.pt.email === '' ? true :false}
               edge="start"
               aria-label="drop-down"
               aria-controls="simple-menu"
@@ -114,12 +115,17 @@ export const Header = (props) => {
             </Menu>
           </div>
 
-          <Button disableTouchRipple={true} href="/">
+          <Button 
+          disableTouchRipple={true}
+           href="/"
+           disabled={props.pt.email === '' ? true :false}
+           >
             <img alt="company logo" src={logo} className={classes.logo} />
           </Button>
           {auth && (
             <div className={classes.accountCircle}>
               <IconButton
+                disabled={props.pt.email === '' ? true :false}
                 edge="start"
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -129,6 +135,7 @@ export const Header = (props) => {
               >
                 <AccountCircle />
               </IconButton>
+              
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElRight}
