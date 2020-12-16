@@ -44,7 +44,7 @@ const RegisterPT = (props) => {
                           values,
                           isSubmitting,
                           handleChange,
-                          handleBlur,
+                          handleBlur
                       }) => (
                         <Form className={classes.form}>
                             <Paper className={classes.root}>
@@ -148,7 +148,6 @@ const RegisterPT = (props) => {
                                     </FormControl>
 
                                 </Grid>
-
                             </Paper>
                         </Form>
                     )}
