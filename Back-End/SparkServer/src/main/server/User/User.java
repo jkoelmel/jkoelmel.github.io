@@ -13,7 +13,7 @@ public abstract class User {
   private String f_name;
   private String l_name;
   private String company;
-  private String secretUser = "passwordEncryption";
+  public static final String secretUser = "passwordEncryption";
 
   /** Default constructor. */
   public User() {}

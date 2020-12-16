@@ -1,5 +1,6 @@
 package main.server.PT;
 
+import main.server.AES.AES;
 import main.server.Server;
 import main.server.User.User;
 import java.sql.*;
@@ -98,6 +99,7 @@ public class PT extends User {
 
         // User data
         setEmail(rs.getString("email"));
+        setPassword(AES.decrypt(rs.getString("password"), User.secretUser));
         setF_name(rs.getString("f_name"));
         setL_name(rs.getString("l_name"));
         setCompany(rs.getString("company"));

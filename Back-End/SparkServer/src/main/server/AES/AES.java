@@ -94,7 +94,7 @@ public class AES {
   public static void main(String[] args) {
     final String secretKey = "passwordEncryption";
 
-    String originalString = "test";
+    String originalString = "testing";
     String encryptedString = AES.encrypt(originalString, secretKey);
     String decryptedString = AES.decrypt(encryptedString, secretKey);
 
