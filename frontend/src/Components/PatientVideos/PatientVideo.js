@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  videos: {
+    padding: theme.spacing(2, 4, 3),
+  },
   modalComment: {
     display: 'flex',
     alignItems: 'center',
@@ -173,8 +176,9 @@ export const PatientVideos = (props) => {
       >
         {videos.map((v) => (
           <div>
-            <ListItem class="date">{v.uploaded}</ListItem>
+            <ListItem >{v.uploaded}</ListItem>
             <ListItem
+            
               key={v.patient_video_id}
               button
               selected={selectedVideo == v.patient_video_id}
@@ -189,7 +193,7 @@ export const PatientVideos = (props) => {
                 }
               />
               
-              <ListItemIcon>
+              <ListItemIcon className={classes.videos}>
               <AddCommentIcon
                 color="secondary"
                 onClick={(event) => handleCommentClick(event,v.patient_video_id)} 
@@ -221,7 +225,7 @@ export const PatientVideos = (props) => {
               <Grid item>
                 <TextField
                   placeholder={`Great work ${props.selectedPatient.f_name}!`}
-                  label='insert Video comment here'
+                  label='insert comment here'
                   variant="outlined"
                   color="secondary"
                   value={comment}
