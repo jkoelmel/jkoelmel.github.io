@@ -72,7 +72,6 @@ const RegisterPT = (props) => {
                                             id="outlined-error"
                                             label="Password"
                                             name="password"
-                                            error={!!props.errorCode}
                                             helperText={props.errorCode}
                                             variant="outlined"
                                             color="secondary"
