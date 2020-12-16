@@ -99,4 +99,19 @@ public class WorkoutUtil {
       return 400;
     }
   }
+
+  public static Integer deleteWorkout(Request request) {
+    try {
+      Workout workout = new Workout(Integer.parseInt(request.queryMap().get("workout_id").value()));
+
+      workout.removeWorkout();
+      return 200;
+    } catch (SQLException sqlEx) {
+      System.err.println(sqlEx.toString());
+      return 500;
+    } catch (Exception ex) {
+      System.err.println(ex.toString());
+      return 400;
+    }
+  }
 }

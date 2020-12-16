@@ -1,11 +1,13 @@
 package main.server.PT;
 
+import main.server.AES.AES;
 import main.server.Server;
 import main.server.User.User;
 import java.sql.*;
 
 public class PT extends User {
   private Integer pt_id;
+  private String description;
   private Integer user;
 
   /**
@@ -97,15 +99,87 @@ public class PT extends User {
 
         // User data
         setEmail(rs.getString("email"));
+        setPassword(AES.decrypt(rs.getString("password"), User.secretUser));
         setF_name(rs.getString("f_name"));
         setL_name(rs.getString("l_name"));
         setCompany(rs.getString("company"));
+        setDescription(rs.getString("description"));
       } else {
         throw new SQLException("A user with that email doesn't exist.");
       }
     } catch (SQLException ex) {
       throw new SQLException(
           "Error getting pt with email " + this.getEmail() + ": " + ex.toString());
+    }
+
+    return this;
+  }
+
+  public PT getInfo() throws Exception {
+    String query = "SELECT * FROM pt WHERE pt_id = " + this.pt_id;
+
+    try (Connection con =
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(query)) {
+
+      ResultSet rs = pst.executeQuery();
+      if (rs.next()) {
+        // PT data
+        setPt_id(rs.getInt("pt_id"));
+        setDescription(rs.getString("description"));
+        setUser(rs.getInt("user"));
+      } else {
+        throw new SQLException("Failed to get info from PT with that pt_id");
+      }
+    } catch (SQLException ex) {
+      throw new SQLException("Failed to get info from PT" + ex.toString());
+    }
+
+    return this;
+  }
+
+  public PT updatePT(
+      String description,
+      String f_name,
+      String l_name,
+      String email,
+      String password,
+      String company)
+      throws Exception {
+    String query = "UPDATE pt SET description = '" + description + "' WHERE pt_id = " + this.pt_id;
+
+    try (Connection con =
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(query)) {
+      pst.executeUpdate(query);
+      System.out.println("PT description updated");
+    } catch (SQLException ex) {
+      throw new Exception("Error updating pt with id " + this.pt_id + ": " + ex.toString());
+    }
+
+    String userQuery =
+        "UPDATE user SET f_name = '"
+            + f_name
+            + "', l_name = '"
+            + l_name
+            + "', email = '"
+            + email
+            + "', password = '"
+            + password
+            + "', company = '"
+            + company
+            + "' WHERE user_id = "
+            + this.user;
+    try (Connection con =
+            DriverManager.getConnection(
+                Server.databasePath, Server.databaseUsername, Server.databasePassword);
+        PreparedStatement pst = con.prepareStatement(userQuery)) {
+      pst.executeUpdate(userQuery);
+      System.out.println("PT profile updated");
+    } catch (SQLException ex) {
+      throw new Exception("Error updating pt with id " + this.pt_id + ": " + ex.toString());
     }
 
     return this;
@@ -118,6 +192,14 @@ public class PT extends User {
 
   public void setPt_id(Integer pt_id) {
     this.pt_id = pt_id;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public Integer getUser() {

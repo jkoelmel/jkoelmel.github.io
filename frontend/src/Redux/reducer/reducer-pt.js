@@ -11,12 +11,15 @@ const initialPTState = {
   f_name: '',
   l_name: '',
   company: '',
+  password: '',
+  description: '',
   patients: [{}],
   selectedPatient: {
     patient_id: null,
     email: '',
     f_name: '',
     l_name: '',
+    description: '',
   },
   errorCode: '',
 };
@@ -32,9 +35,11 @@ const PTReducer = handleActions(
       const pt = action.payload;
       return {
         email: pt.email,
+        password: pt.password,
         f_name: pt.f_name,
         l_name: pt.l_name,
         company: pt.company,
+        description: pt.description,
         patients: [],
       };
     },
@@ -48,8 +53,10 @@ const PTReducer = handleActions(
         user_id: p.user_id,
         email: p.email,
         f_name: p.f_name,
+        password: p.password,
         l_name: p.l_name,
         company: p.company,
+        description: p.description,
       };
     },
     [constants.LOGIN_PT]: (state, action) => {

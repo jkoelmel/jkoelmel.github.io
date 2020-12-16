@@ -12,13 +12,33 @@ const initialWorkoutState = {
   selectedVideos: [],
   selectedWorkouts: [],
   patientExerciseVideos: [],
+  searchKey: '',
+  filteredExercises: [{}]
 };
 
 const WorkoutReducer = handleActions(
   {
+    // [constants.SET_NEW_EXERCISE_VIDEO]: (state, action) => {
+    //   const exercise = action.payload;
+
+    //   return {
+    //     title: exercise.title,
+    //     exercise_url: exercise.exercise_url,
+    //     tags: exercise.tags,
+       
+    //   };
+    // },
+
+    [constants.SEARCH_EXERCISES]: (state,action) => ({
+      ...state,
+      searchKey: action.payload.searchKey,
+      filteredExercises: action.payload.exercises
+
+    }),
     [constants.GET_EXERCISE_VIDEOS]: (state, action) => ({
         ...state,
         exercises: action.payload,
+        filteredExercises: action.payload
       }),
     [constants.GET_SELECTED_VIDEOS]: (state, action) => ({
         ...state,

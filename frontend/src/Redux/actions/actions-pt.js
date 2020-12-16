@@ -1,6 +1,6 @@
 import * as constants from '../constants/constants-pt';
 import * as constantsWorkout from '../constants/constants-workouts';
-import {getAuth, postAuth} from './actions-auth';
+import {getAuth, postAuth,putAuth} from './actions-auth';
 
 export const createNewPT = (pt) => {
   const params = new URLSearchParams();
@@ -9,12 +9,14 @@ export const createNewPT = (pt) => {
   params.append('l_name', pt.l_name);
   params.append('password', pt.password);
   params.append('company', pt.company);
-
+  params.append('description', pt.description);
   return (dispatch) => {
     postAuth('api/pt/register', params)
       .then(() => {
         dispatch(createPT(pt));
         dispatch(getPTByEmail(pt.email));
+        window.alert('Create New PT: success');
+        window.location.href = '/';
       })
       .catch((err) => console.log('Error creating pt:', err));
   };
@@ -59,7 +61,25 @@ export const logoutPT = (pt) => {
     payload: {},
   };
 };
-
+export const deleteWorkout = (workout_id) => {
+  const params = new URLSearchParams();
+  params.append('workout_id', workout_id);
+ 
+  
+  return () => {
+    putAuth('/api/patient/workout/remove', params)
+      .then((res) => {
+        if (res.data == 200) {
+          console.log(res.data);
+          window.alert('deleted workout successfully');
+          window.location.href = '/';
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 export const assignWorkout = (pt, checked, selectedWorkout) => {
   const params = new URLSearchParams();
   params.append('pt', pt.pt_id);
@@ -105,6 +125,27 @@ export const createWorkout = (pt, title, exercises, descriptions) => {
       });
   };
 };
+export const createExercise = (title, exercise_url, tags) => {
+  const params = new URLSearchParams();
+  params.append('title', title);
+  params.append('exercise_url', exercise_url);
+  params.append('tags', tags);
+  
+  return () => {
+    postAuth('/api/exercise/register', params)
+      .then((res) => {
+        if (res.data == 200) {
+          console.log(res.data);
+          window.alert('exercise video upload: success');
+          window.location.href = '/';
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 
 export const createPT = (pt) => ({
     type: constants.CREATE_PT,
@@ -125,7 +166,33 @@ export const getPTByEmail = (email) => (dispatch) => {
 export const updatePT = (pt) => ({
     type: constants.UPDATE_PT,
     payload: pt,
+
   });
+
+  export const EditPT = (pt) => {return (dispatch) => {
+
+    const params = new URLSearchParams();
+    params.append('email', pt.email);
+    params.append('pt_id', pt.pt_id);
+    params.append('password', pt.password);
+    params.append('f_name', pt.f_name);
+    params.append('l_name', pt.l_name);
+    params.append('description', pt.description);
+    params.append('company', pt.company);
+
+    putAuth('api/pt/update', params)
+      .then(dispatch(updatePT(pt))).then(()=> {
+        window.alert('UpdatePT creation: success');
+        window.location.href = '/';
+      }
+      )
+      .catch((err) =>
+        console.log(
+          `Error Editing PT information:`,
+          err,
+        ),
+      );
+  };}
 
 export const fetchPTs = () => (dispatch) => {
     getAuth('/api/pt/all')
@@ -154,13 +221,13 @@ export const fetchExerciseVideos = () => {
   return (dispatch) => {
     getAuth('/api/exercise/all')
       .then((response) => dispatch(loadExerciseVideos(response.data)))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("FAILED"));
   };
 };
 
 export const loadExerciseVideos = (exercises) => ({
     type: constantsWorkout.GET_EXERCISE_VIDEOS,
-    payload: exercises,
+    payload: exercises, 
   });
 export const selectedExercises = (selectedVideos) => ({
     type: constantsWorkout.GET_SELECTED_VIDEOS,
@@ -175,4 +242,11 @@ export const setSelectedWorkouts = (selectedWorkouts) => ({
 export const setSelectedPatient = (patient) => ({
     type: constants.SET_SELECTED_PATIENT,
     payload: patient,
+  });
+
+  export const filterExercises = (exercises, searchKey) => ({
+    type: constantsWorkout.SEARCH_EXERCISES,
+    payload: { searchKey,
+      exercises:exercises.filter((e)=> e.tags.toLowerCase().indexOf(searchKey.toLowerCase()) !== -1)
+  }
   });

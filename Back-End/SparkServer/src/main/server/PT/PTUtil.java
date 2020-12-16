@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class PTUtil {
 
-  private static String secret = "passwordEncryption";
+  private static final String secret = "passwordEncryption";
 
   /**
    * Select a specific PT given their email.
@@ -28,7 +28,7 @@ public class PTUtil {
       Gson gson = new Gson();
       toReturn = gson.toJson(pt.getPT());
 
-      System.out.println("PT has been selected");
+      System.out.println("PT by email has been selected");
       response.type("application/json");
       response.status(200);
     } catch (SQLException sqlEx) {
@@ -120,6 +120,7 @@ public class PTUtil {
                 rs.getString("f_name"),
                 rs.getString("l_name"),
                 rs.getString("company"));
+        pt.setDescription(rs.getString("description"));
         pt.setUser(rs.getInt("user_id"));
         pt.setPt_id(rs.getInt("pt_id"));
         list.add(pt);
@@ -178,8 +179,9 @@ public class PTUtil {
 
     String query =
         "SELECT * FROM user INNER JOIN pt ON user.user_id = pt.user "
-            + " WHERE user.email = "
-            + request.queryMap().get("email").value();
+            + " WHERE user.email = '"
+            + request.queryMap().get("email").value()
+            + "'";
 
     try (Connection con =
             DriverManager.getConnection(
@@ -210,5 +212,30 @@ public class PTUtil {
     }
     // default response
     return 400;
+  }
+
+  public static Integer updatePT(Request request) {
+    try {
+      PT pt = new PT(Integer.parseInt(request.queryMap().get("pt_id").value()));
+
+      String password = AES.encrypt(request.queryMap().get("password").value(), secret);
+
+      pt.getInfo()
+          .updatePT(
+              request.queryMap().get("description").value(),
+              request.queryMap().get("f_name").value(),
+              request.queryMap().get("l_name").value(),
+              request.queryMap().get("email").value(),
+              password,
+              request.queryMap().get("company").value());
+
+      return 200;
+    } catch (SQLException sqlEx) {
+      System.err.println(sqlEx.toString());
+      return 500;
+    } catch (Exception ex) {
+      System.err.println(ex.toString());
+      return 400;
+    }
   }
 }

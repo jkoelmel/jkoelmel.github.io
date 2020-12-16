@@ -11,6 +11,7 @@ import main.server.Assignment.*;
 import main.server.Contain.*;
 import main.server.PatientMessage.PatientMessageUtil;
 import main.server.PatientVideo.PatientVideoUtil;
+import main.server.Workout.WorkoutUtil;
 
 import java.sql.*;
 
@@ -75,7 +76,7 @@ public class Server {
                 get("/workouts", AssignmentUtil::selectPTWorkouts);
                 // Requires workout
                 get("/exercises", ExerciseUtil::getWorkoutExercises);
-                // Requires title, pt, exercise_id array. amd description array
+                // Requires title, pt, exercise_id array, and description array
                 post(
                     "/create",
                     (request, response) -> {
@@ -117,6 +118,12 @@ public class Server {
                             return response.status();
                           });
                     });
+                put(
+                    "/update",
+                    (request, response) -> {
+                      response.status(PTUtil.updatePT(request));
+                      return response.status();
+                    });
               });
 
           path(
@@ -157,6 +164,13 @@ public class Server {
                             response.status(EntryUtil.registerEntry(request));
                             return response.status();
                           });
+                      // Requires entry_id and comment
+                      put(
+                          "/comment",
+                          (request, response) -> {
+                            response.status(EntryUtil.updateComment(request));
+                            return response.status();
+                          });
                     });
 
                 path(
@@ -172,6 +186,12 @@ public class Server {
                             response.status(EntryUtil.registerEntry(request));
                             return response.status();
                           });
+                      put(
+                          "/comment",
+                          (request, response) -> {
+                            response.status(PatientVideoUtil.updatePatientVideo(request));
+                            return response.status();
+                          });
                     });
 
                 path(
@@ -180,6 +200,12 @@ public class Server {
                     () -> {
                       // Requires patient
                       get("/id", AssignmentUtil::getPatientAssignment);
+                      put(
+                          "/remove",
+                          (request, response) -> {
+                            response.status(WorkoutUtil.deleteWorkout(request));
+                            return response.status();
+                          });
                     });
               });
 
@@ -211,7 +237,7 @@ public class Server {
               });
 
           path(
-              // Used for message creation and retieval
+              // Used for message creation and retrieval
               "/message",
               () -> {
                 // Requires pt and patient
@@ -239,6 +265,12 @@ public class Server {
               () -> {
                 // No requirements, used for exercise library page
                 get("/all", ExerciseUtil::selectAll);
+                post(
+                    "/register",
+                    (request, response) -> {
+                      response.status(ExerciseUtil.registerExercise(request));
+                      return response.status();
+                    });
               });
           // Test path for local server testing
           path("/database", () -> get("/version", (request, response) -> databaseVersion()));
